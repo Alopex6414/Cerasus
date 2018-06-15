@@ -70,12 +70,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)DirectX\Inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)DirectX\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)DirectX\Inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)DirectX\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
@@ -149,6 +149,80 @@
     <ClInclude Include="DirectSurface.h" />
     <ClInclude Include="DirectTexture.h" />
     <ClInclude Include="DirectThreadSafe.h" />
+    <ClInclude Include="DirectX\Inc\audiodefs.h" />
+    <ClInclude Include="DirectX\Inc\comdecl.h" />
+    <ClInclude Include="DirectX\Inc\D2D1.h" />
+    <ClInclude Include="DirectX\Inc\D2D1Helper.h" />
+    <ClInclude Include="DirectX\Inc\D2DBaseTypes.h" />
+    <ClInclude Include="DirectX\Inc\D2Derr.h" />
+    <ClInclude Include="DirectX\Inc\D3D10.h" />
+    <ClInclude Include="DirectX\Inc\D3D10effect.h" />
+    <ClInclude Include="DirectX\Inc\d3d10misc.h" />
+    <ClInclude Include="DirectX\Inc\d3d10sdklayers.h" />
+    <ClInclude Include="DirectX\Inc\D3D10shader.h" />
+    <ClInclude Include="DirectX\Inc\D3D10_1.h" />
+    <ClInclude Include="DirectX\Inc\D3D10_1shader.h" />
+    <ClInclude Include="DirectX\Inc\D3D11.h" />
+    <ClInclude Include="DirectX\Inc\D3D11SDKLayers.h" />
+    <ClInclude Include="DirectX\Inc\D3D11Shader.h" />
+    <ClInclude Include="DirectX\Inc\d3d9.h" />
+    <ClInclude Include="DirectX\Inc\d3d9caps.h" />
+    <ClInclude Include="DirectX\Inc\d3d9types.h" />
+    <ClInclude Include="DirectX\Inc\D3Dcommon.h" />
+    <ClInclude Include="DirectX\Inc\D3Dcompiler.h" />
+    <ClInclude Include="DirectX\Inc\D3DCSX.h" />
+    <ClInclude Include="DirectX\Inc\D3DX10.h" />
+    <ClInclude Include="DirectX\Inc\d3dx10async.h" />
+    <ClInclude Include="DirectX\Inc\D3DX10core.h" />
+    <ClInclude Include="DirectX\Inc\D3DX10math.h" />
+    <ClInclude Include="DirectX\Inc\D3DX10mesh.h" />
+    <ClInclude Include="DirectX\Inc\D3DX10tex.h" />
+    <ClInclude Include="DirectX\Inc\D3DX11.h" />
+    <ClInclude Include="DirectX\Inc\D3DX11async.h" />
+    <ClInclude Include="DirectX\Inc\D3DX11core.h" />
+    <ClInclude Include="DirectX\Inc\D3DX11tex.h" />
+    <ClInclude Include="DirectX\Inc\d3dx9.h" />
+    <ClInclude Include="DirectX\Inc\d3dx9anim.h" />
+    <ClInclude Include="DirectX\Inc\d3dx9core.h" />
+    <ClInclude Include="DirectX\Inc\d3dx9effect.h" />
+    <ClInclude Include="DirectX\Inc\d3dx9math.h" />
+    <ClInclude Include="DirectX\Inc\d3dx9mesh.h" />
+    <ClInclude Include="DirectX\Inc\d3dx9shader.h" />
+    <ClInclude Include="DirectX\Inc\d3dx9shape.h" />
+    <ClInclude Include="DirectX\Inc\d3dx9tex.h" />
+    <ClInclude Include="DirectX\Inc\d3dx9xof.h" />
+    <ClInclude Include="DirectX\Inc\Dcommon.h" />
+    <ClInclude Include="DirectX\Inc\dinput.h" />
+    <ClInclude Include="DirectX\Inc\dinputd.h" />
+    <ClInclude Include="DirectX\Inc\dsconf.h" />
+    <ClInclude Include="DirectX\Inc\dsetup.h" />
+    <ClInclude Include="DirectX\Inc\dsound.h" />
+    <ClInclude Include="DirectX\Inc\DWrite.h" />
+    <ClInclude Include="DirectX\Inc\dxdiag.h" />
+    <ClInclude Include="DirectX\Inc\DxErr.h" />
+    <ClInclude Include="DirectX\Inc\dxfile.h" />
+    <ClInclude Include="DirectX\Inc\DXGI.h" />
+    <ClInclude Include="DirectX\Inc\DXGIFormat.h" />
+    <ClInclude Include="DirectX\Inc\DXGIType.h" />
+    <ClInclude Include="DirectX\Inc\dxsdkver.h" />
+    <ClInclude Include="DirectX\Inc\gameux.h" />
+    <ClInclude Include="DirectX\Inc\PIXPlugin.h" />
+    <ClInclude Include="DirectX\Inc\rmxfguid.h" />
+    <ClInclude Include="DirectX\Inc\rmxftmpl.h" />
+    <ClInclude Include="DirectX\Inc\rpcsal.h" />
+    <ClInclude Include="DirectX\Inc\X3DAudio.h" />
+    <ClInclude Include="DirectX\Inc\xact3.h" />
+    <ClInclude Include="DirectX\Inc\xact3d3.h" />
+    <ClInclude Include="DirectX\Inc\xact3wb.h" />
+    <ClInclude Include="DirectX\Inc\XAPO.h" />
+    <ClInclude Include="DirectX\Inc\XAPOBase.h" />
+    <ClInclude Include="DirectX\Inc\XAPOFX.h" />
+    <ClInclude Include="DirectX\Inc\XAudio2.h" />
+    <ClInclude Include="DirectX\Inc\XAudio2fx.h" />
+    <ClInclude Include="DirectX\Inc\XDSP.h" />
+    <ClInclude Include="DirectX\Inc\XInput.h" />
+    <ClInclude Include="DirectX\Inc\xma2defs.h" />
+    <ClInclude Include="DirectX\Inc\xnamath.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +242,15 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cerasus.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DirectX\Inc\D3DX10math.inl" />
+    <None Include="DirectX\Inc\d3dx9math.inl" />
+    <None Include="DirectX\Inc\D3DX_DXGIFormatConvert.inl" />
+    <None Include="DirectX\Inc\xnamathconvert.inl" />
+    <None Include="DirectX\Inc\xnamathmatrix.inl" />
+    <None Include="DirectX\Inc\xnamathmisc.inl" />
+    <None Include="DirectX\Inc\xnamathvector.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

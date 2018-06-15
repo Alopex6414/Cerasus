@@ -6,14 +6,15 @@
 * @file		DirectGraphics.h
 * @brief	This Program is DirectGraphics DLL Project.
 * @author	Alopex/Helium
-* @version	v1.21a
+* @version	v1.24a
 * @date		2017-11-2	v1.00a	alopex	Create Project.
 * @date		2017-12-2	v1.01a	alopex	Add D3DXFont.
 * @date		2017-12-8	v1.11a	alopex	Code Do Not Rely On MSVCR Library.
-* @date		2018-1-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
-* @date		2018-1-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
-* @date		2018-2-11	v1.22a	alopex	Add D3D9 Lost Device Function.
-* @date		2018-4-12	v1.23a	alopex	Add Macro Call Mode.
+* @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-01-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-02-11	v1.22a	alopex	Add D3D9 Lost Device Function.
+* @date		2018-04-12	v1.23a	alopex	Add Macro Call Mode.
+* @date		2018-06-16	v1.24a	alopex	Add StretchRect Function.
 */
 #pragma once
 
@@ -70,10 +71,16 @@ public:
 
 	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsTestCooperativeLevel(void) const;	//DirectGraphics Get TestCooperativeLevel获取D3D9当前状态
 	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsResetDevice(void);				//DirectGraphics Reset Direct3D 9 Device重置D3D9设备
-	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsGetBackBuffer(IDirect3DSurface9**& ppD3D9BackBuffer);	//DirectGraphics Get BackBuffer获取D3D9表面
+	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsGetBackBuffer(IDirect3DSurface9** ppD3D9BackBuffer);	//DirectGraphics Get BackBuffer获取D3D9表面
 	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsReset(void);						//DirectGraphics Reset & Init重置DirectGraphics并重新初始化
 
-	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsCreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, D3DFORMAT D3DFormat, D3DPOOL D3DPool, IDirect3DSurface9**& ppD3D9Surface);//DirectGraphics Create Off-Screen Plain Surface创建离屏表面
+	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsCreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, D3DFORMAT D3DFormat, D3DPOOL D3DPool, IDirect3DSurface9** ppD3D9Surface);//DirectGraphics Create Off-Screen Plain Surface创建离屏表面
+	
+	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect, IDirect3DSurface9* pDestSurface, const RECT* pDestRect, D3DTEXTUREFILTERTYPE Filter);	//DirectGraphics StretchRect绘制表面
+	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect, IDirect3DSurface9* pDestSurface, const RECT* pDestRect);								//DirectGraphics StretchRect绘制表面(重载+1)(默认不进行纹理滤波)
+	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface, IDirect3DSurface9* pDestSurface);																				//DirectGraphics StretchRect绘制表面(重载+2)(默认绘制整个表面)(默认不进行纹理滤波)
+	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect);																						//DirectGraphics StretchRect绘制表面(重载+3)(默认绘制表面为后台缓冲)(默认不进行纹理滤波)
+	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface);																												//DirectGraphics StretchRect绘制表面(重载+4)(默认绘制整个表面)(默认绘制表面为后台缓冲)(默认不进行纹理滤波)
 
 	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsInit(HWND hWnd);					//DirectGraphics Initialization(W:640 H:480 Windowed)(~DirectGraphics初始化:窗口宽度:640,窗口高度:480)
 	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsInit(HWND hWnd, bool bIsWindowed);//DirectGraphics Initialization(~DirectGraphics初始化 <窗口模式>bIsWindowed = true, <全屏模式>bIsWindowed = false)

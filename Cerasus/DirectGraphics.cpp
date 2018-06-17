@@ -6,7 +6,7 @@
 * @file		DirectGraphics.cpp
 * @brief	This Program is DirectGraphics DLL Project.
 * @author	Alopex/Helium
-* @version	v1.24a
+* @version	v1.25a
 * @date		2017-11-2	v1.00a	alopex	Create Project.
 * @date		2017-12-2	v1.01a	alopex	Add D3DXFont.
 * @date		2017-12-8	v1.11a	alopex	Code Do Not Rely On MSVCR Library.
@@ -15,6 +15,7 @@
 * @date		2018-02-11	v1.22a	alopex	Add D3D9 Lost Device Function.
 * @date		2018-04-12	v1.23a	alopex	Add Macro Call Mode.
 * @date		2018-06-16	v1.24a	alopex	Add StretchRect Function.
+* @date		2018-06-17	v1.25a	alopex	Modify Reset Function.
 */
 #include "DirectCommon.h"
 #include "DirectGraphics.h"
@@ -176,8 +177,21 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetBackBuffer(IDir
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphicsReset(void)
+// @Function:	 DirectGraphicsResetFont(void)
 // @Purpose: DirectGraphics 重置
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(重置状态:成功:S_OK,失败:E_FAIL)
+//------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsResetFont(void)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return (m_pD3DXFont ? m_pD3DXFont->OnLostDevice() : S_OK);
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphicsReset(void)
+// @Purpose: DirectGraphics 重置D3D9 DirectGraphics类
 // @Since: v1.00a
 // @Para: None
 // @Return: HRESULT(重置状态:成功:S_OK,失败:E_FAIL)
@@ -185,12 +199,17 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetBackBuffer(IDir
 HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsReset(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return (m_pD3DXFont ? m_pD3DXFont->OnLostDevice() : S_OK);
+	IDirect3DSurface9* pD3D9BackBuffer = NULL;
+	if (m_pD3DXFont) VERIFY(m_pD3DXFont->OnLostDevice());
+	VERIFY(m_pD3D9Device->GetBackBuffer(NULL, NULL, D3DBACKBUFFER_TYPE_MONO, &pD3D9BackBuffer));
+	SAFE_RELEASE(pD3D9BackBuffer);
+	VERIFY(m_pD3D9Device->Reset(&m_D3D9pp));
+	return S_OK;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 // @Function:	 DirectGraphicsCreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, D3DFORMAT D3DFormat, D3DPOOL D3DPool, IDirect3DSurface9**& ppD3D9Surface)
-// @Purpose: DirectGraphics 重置
+// @Purpose: DirectGraphics 创建离屏表面
 // @Since: v1.00a
 // @Para: None
 // @Return: HRESULT(状态:成功:S_OK,失败:E_FAIL)
@@ -199,6 +218,32 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsCreateOffscreenPla
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Device->CreateOffscreenPlainSurface(nWidth, nHeight, D3DFormat, D3DPool, ppD3D9Surface, NULL);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphicsCreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, IDirect3DSurface9**& ppD3D9Surface)
+// @Purpose: DirectGraphics 创建离屏表面
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(状态:成功:S_OK,失败:E_FAIL)
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsCreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, IDirect3DSurface9 ** ppD3D9Surface)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pD3D9Device->CreateOffscreenPlainSurface(nWidth, nHeight, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, ppD3D9Surface, NULL);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphicsCreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, IDirect3DSurface9**& ppD3D9Surface)
+// @Purpose: DirectGraphics 创建离屏表面
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(状态:成功:S_OK,失败:E_FAIL)
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsCreateOffscreenPlainSurface(IDirect3DSurface9 ** ppD3D9Surface)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pD3D9Device->CreateOffscreenPlainSurface(USER_SCREENWIDTH, USER_SCREENHEIGHT, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, ppD3D9Surface, NULL);
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -617,13 +662,13 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsClear(DWORD dwColo
 }
 
 //---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsFontInit()
+// @Function:	 DirectGraphicsFontInit(void)
 // @Purpose: DirectGraphics 字体初始化
 // @Since: v1.01a
 // @Para: None
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontInit()
+HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontInit(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	VERIFY(D3DXCreateFont(m_pD3D9Device, 20, 0, 0, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, 0, _T("Consolas"), &m_pD3DXFont));

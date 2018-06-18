@@ -1,12 +1,12 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
 *     All rights reserved.
 *
 * @file		DirectGraphics.h
 * @brief	This Program is DirectGraphics DLL Project.
 * @author	Alopex/Helium
-* @version	v1.25a
+* @version	v1.26a
 * @date		2017-11-2	v1.00a	alopex	Create Project.
 * @date		2017-12-2	v1.01a	alopex	Add D3DXFont.
 * @date		2017-12-8	v1.11a	alopex	Code Do Not Rely On MSVCR Library.
@@ -16,6 +16,7 @@
 * @date		2018-04-12	v1.23a	alopex	Add Macro Call Mode.
 * @date		2018-06-16	v1.24a	alopex	Add StretchRect Function.
 * @date		2018-06-17	v1.25a	alopex	Modify Reset Function.
+* @date		2018-06-18	v1.26a	alopex	Modify D3D9 Clear Function(Background Color).
 */
 #pragma once
 
@@ -95,10 +96,11 @@ public:
 	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsBeginScene(void);					//DirectGraphics Begin Render(~DirectGraphics开始渲染:不进行清除屏幕)
 	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsEndScene(void);					//DirectGraphics End Render(~DirectGraphics结束渲染:不进行翻转显示)
 	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsBegin(void);						//DirectGraphics Begin Render(~DirectGraphics开始渲染:清除屏幕->开始渲染)
+	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsBegin(D3DCOLOR Color);			//DirectGraphics Begin Render(~DirectGraphics开始渲染:清除屏幕->开始渲染)(重载+1)
 	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsEnd(void);						//DirectGraphics End Render(~DirectGraphics结束渲染:结束渲染->翻转屏幕)
 	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsPresent(void);					//DirectGraphics Present Render(~DirectGraphics翻转屏幕)
 	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsClear(void);						//DirectGraphics Clear Screen(~DirectGraphics清除屏幕:黑色填充)
-	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsClear(DWORD dwColor);				//DirectGraphics Clear Screen(~DirectGraphics清除屏幕:选定颜色填充)
+	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsClear(D3DCOLOR Color);			//DirectGraphics Clear Screen(~DirectGraphics清除屏幕:选定颜色填充)
 	
 	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsFontInit(void);					//DirectGraphicsFont Initialization(~DirectGraphics显卡型号字体初始化)
 	virtual HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphicsFontInit(int nFontSize);			//DirectGraphicsFont Initialization(~DirectGraphics显卡型号字体初始化:nFontSize:字体大小)

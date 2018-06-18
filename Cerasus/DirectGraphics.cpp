@@ -1,12 +1,12 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
 *     All rights reserved.
 *
 * @file		DirectGraphics.cpp
 * @brief	This Program is DirectGraphics DLL Project.
 * @author	Alopex/Helium
-* @version	v1.25a
+* @version	v1.26a
 * @date		2017-11-2	v1.00a	alopex	Create Project.
 * @date		2017-12-2	v1.01a	alopex	Add D3DXFont.
 * @date		2017-12-8	v1.11a	alopex	Code Do Not Rely On MSVCR Library.
@@ -16,6 +16,7 @@
 * @date		2018-04-12	v1.23a	alopex	Add Macro Call Mode.
 * @date		2018-06-16	v1.24a	alopex	Add StretchRect Function.
 * @date		2018-06-17	v1.25a	alopex	Modify Reset Function.
+* @date		2018-06-18	v1.26a	alopex	Modify D3D9 Clear Function(Background Color).
 */
 #include "DirectCommon.h"
 #include "DirectGraphics.h"
@@ -605,6 +606,21 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsBegin(void)
 }
 
 //---------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphicsBegin(void)
+// @Purpose: DirectGraphics 开始渲染
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsBegin(D3DCOLOR Color)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	VERIFY(m_pD3D9Device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, Color, 1.0f, 0));		//清空图像
+	VERIFY(m_pD3D9Device->BeginScene());	//开始渲染
+	return S_OK;//OK
+}
+
+//---------------------------------------------------------------------------------------------------
 // @Function:	 DirectGraphicsEnd(void)
 // @Purpose: DirectGraphics 结束渲染
 // @Since: v1.00a
@@ -651,13 +667,13 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsClear(void)
 // @Function:	 DirectGraphicsClear(DWORD dwColor)
 // @Purpose: DirectGraphics 清空图像
 // @Since: v1.00a
-// @Para: DWORD dwColor(背景颜色)
+// @Para: D3DCOLOR Color(背景颜色)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsClear(DWORD dwColor)
+HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsClear(D3DCOLOR Color)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	VERIFY(m_pD3D9Device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, dwColor, 1.0f, 0));		//清空图像
+	VERIFY(m_pD3D9Device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, Color, 1.0f, 0));		//清空图像
 	return S_OK;//OK
 }
 

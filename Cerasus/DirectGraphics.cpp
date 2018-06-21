@@ -6,7 +6,7 @@
 * @file		DirectGraphics.cpp
 * @brief	This Program is DirectGraphics DLL Project.
 * @author	Alopex/Helium
-* @version	v1.26a
+* @version	v1.27a
 * @date		2017-11-2	v1.00a	alopex	Create Project.
 * @date		2017-12-2	v1.01a	alopex	Add D3DXFont.
 * @date		2017-12-8	v1.11a	alopex	Code Do Not Rely On MSVCR Library.
@@ -17,6 +17,7 @@
 * @date		2018-06-16	v1.24a	alopex	Add StretchRect Function.
 * @date		2018-06-17	v1.25a	alopex	Modify Reset Function.
 * @date		2018-06-18	v1.26a	alopex	Modify D3D9 Clear Function(Background Color).
+* @date		2018-06-21	v1.27a	alopex	Update Function D3DXFont Abort.
 */
 #include "DirectCommon.h"
 #include "DirectGraphics.h"
@@ -34,12 +35,17 @@ DirectGraphics::DirectGraphics()
 	m_bThreadSafe = true;									//线程安全
 	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
 
+	m_nWidth = 0;			//IDirect3D9窗口宽度
+	m_nHeight = 0;			//IDirect3D9窗口高度
+
 	m_pD3D9 = NULL;			//IDirect3D9接口指针初始化(NULL)
 	m_pD3D9Device = NULL;	//IDirect3DDevice9接口指针初始化(NULL)
 	m_pD3DXFont = NULL;		//ID3DXFont接口指针初始化(NULL)
 	ZeroMemory(&m_D3D9Caps, sizeof(m_D3D9Caps));	//清空m_D3D9Caps内存区域
 	ZeroMemory(&m_D3D9pp, sizeof(m_D3D9pp));		//清空m_D3D9pp内存区域
 	ZeroMemory(m_wcD3D9AdapterType, sizeof(wchar_t)*ADAPTERTYPESIZE);	//清空m_wcD3D9AdapterType内存区域
+	ZeroMemory(m_wcD3D9BackFormat, sizeof(wchar_t)*D3D9FORMATSIZE);		//清空m_wcD3D9BackFormat内存区域
+	ZeroMemory(m_wcD3D9AutoDepthStencilFormat, sizeof(wchar_t)*D3D9FORMATSIZE);	//清空m_wcD3D9AutoDepthStencilFormat内存区域
 }
 
 //------------------------------------------------------------------
@@ -111,16 +117,42 @@ const D3DPRESENT_PARAMETERS* DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraph
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphicsAdapterType(void) const
+// @Function:	 DirectGraphicsGetAdapterType(void) const
 // @Purpose: DirectGraphics读取D3D9 GPU型号
 // @Since: v1.00a
 // @Para: None
 // @Return: wchar_t*(宽字符数组地址)
 //------------------------------------------------------------------
-const wchar_t* DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsAdapterType(void) const
+const wchar_t* DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetAdapterType(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_wcD3D9AdapterType;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphicsGetBackBufferFormat(void) const
+// @Purpose: DirectGraphics读取D3D9 后台缓冲格式
+// @Since: v1.00a
+// @Para: None
+// @Return: wchar_t*(宽字符数组地址)
+//------------------------------------------------------------------
+const wchar_t* DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetBackBufferFormat(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_wcD3D9BackFormat;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphicsGetAutoDepthStencilFormat(void) const
+// @Purpose: DirectGraphics读取D3D9 深度模板缓冲格式
+// @Since: v1.00a
+// @Para: None
+// @Return: wchar_t*(宽字符数组地址)
+//------------------------------------------------------------------
+const wchar_t* DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetAutoDepthStencilFormat(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_wcD3D9AutoDepthStencilFormat;
 }
 
 //------------------------------------------------------------------
@@ -134,6 +166,32 @@ const ID3DXFont* DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetFont(v
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXFont;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphicsGetSufaceWidth(void) const
+// @Purpose: DirectGraphics读取D3D9 设备表面宽度
+// @Since: v1.00a
+// @Para: None
+// @Return: UINT
+//------------------------------------------------------------------
+const UINT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetSufaceWidth(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_nWidth;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphicsGetSufaceHeight(void) const
+// @Purpose: DirectGraphics读取D3D9 设备表面高度
+// @Since: v1.00a
+// @Para: None
+// @Return: UINT
+//------------------------------------------------------------------
+const UINT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetSufaceHeight(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_nHeight;
 }
 
 //------------------------------------------------------------------
@@ -383,10 +441,20 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsInit(HWND hWnd)
 	//创建IDirect3DDevice9接口对象指针
 	VERIFY(m_pD3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, Vp, &m_D3D9pp, &m_pD3D9Device));//创建IDirect3DDevice9接口对象指针
 
+	//读取窗口尺寸
+	m_nWidth = m_D3D9pp.BackBufferWidth;
+	m_nHeight = m_D3D9pp.BackBufferHeight;
+
 	//读取GPU型号
 	m_pD3D9->GetAdapterIdentifier(0, 0, &D3D9Adapter);	//读取GPU信息
 	nSize = MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, NULL, 0);
 	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
+
+	//读取后台缓冲像素格式
+	DirectGraphicsGetD3D9Format(m_wcD3D9BackFormat);
+
+	//读取深度缓存和模板缓冲像素格式
+	DirectGraphicsGetD3D9Format(m_wcD3D9AutoDepthStencilFormat);
 
 	return S_OK;//OK
 }
@@ -440,10 +508,20 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsInit(HWND hWnd, bo
 	//创建IDirect3DDevice9接口对象指针
 	VERIFY(m_pD3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, Vp, &m_D3D9pp, &m_pD3D9Device));//创建IDirect3DDevice9接口对象指针
 
+	//读取窗口尺寸
+	m_nWidth = m_D3D9pp.BackBufferWidth;
+	m_nHeight = m_D3D9pp.BackBufferHeight;
+
 	//读取GPU型号
 	m_pD3D9->GetAdapterIdentifier(0, 0, &D3D9Adapter);	//读取GPU信息
 	nSize = MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, NULL, 0);
 	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
+
+	//读取后台缓冲像素格式
+	DirectGraphicsGetD3D9Format(m_wcD3D9BackFormat);
+
+	//读取深度缓存和模板缓冲像素格式
+	DirectGraphicsGetD3D9Format(m_wcD3D9AutoDepthStencilFormat);
 
 	return S_OK;//OK
 }
@@ -499,10 +577,20 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsInit(HWND hWnd, bo
 	//创建IDirect3DDevice9接口对象指针
 	VERIFY(m_pD3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, Vp, &m_D3D9pp, &m_pD3D9Device));//创建IDirect3DDevice9接口对象指针
 
+	//读取窗口尺寸
+	m_nWidth = m_D3D9pp.BackBufferWidth;
+	m_nHeight = m_D3D9pp.BackBufferHeight;
+
 	//读取GPU型号
 	m_pD3D9->GetAdapterIdentifier(0, 0, &D3D9Adapter);	//读取GPU信息
 	nSize = MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, NULL, 0);
 	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
+
+	//读取后台缓冲像素格式
+	DirectGraphicsGetD3D9Format(m_wcD3D9BackFormat);
+
+	//读取深度缓存和模板缓冲像素格式
+	DirectGraphicsGetD3D9Format(m_wcD3D9AutoDepthStencilFormat);
 
 	return S_OK;//OK
 }
@@ -555,10 +643,20 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsInit(D3DPRESENT_PA
 	//创建IDirect3DDevice9接口对象指针
 	VERIFY(m_pD3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, D3D9pp.hDeviceWindow, Vp, &m_D3D9pp, &m_pD3D9Device));//创建IDirect3DDevice9接口对象指针
 
+	//读取窗口尺寸
+	m_nWidth = m_D3D9pp.BackBufferWidth;
+	m_nHeight = m_D3D9pp.BackBufferHeight;
+
 	//读取GPU型号
 	m_pD3D9->GetAdapterIdentifier(0, 0, &D3D9Adapter);	//读取GPU信息
 	nSize = MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, NULL, 0);
 	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
+
+	//读取后台缓冲像素格式
+	DirectGraphicsGetD3D9Format(m_wcD3D9BackFormat);
+
+	//读取深度缓存和模板缓冲像素格式
+	DirectGraphicsGetD3D9Format(m_wcD3D9AutoDepthStencilFormat);
 
 	return S_OK;//OK
 }
@@ -698,10 +796,10 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontInit(void)
 // @Para: int nFontSize		//字体大小
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontInit(int nFontSize)
+HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontInit(int Height)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	VERIFY(D3DXCreateFont(m_pD3D9Device, nFontSize, 0, 0, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, 0, _T("Consolas"), &m_pD3DXFont));
+	VERIFY(D3DXCreateFont(m_pD3D9Device, Height, 0, 0, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, 0, _T("Consolas"), &m_pD3DXFont));
 	return S_OK;//OK
 }
 
@@ -713,10 +811,33 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontInit(int nFont
 // @Para: LPWSTR lpszFontType	//字体类型
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontInit(int nFontSize, LPWSTR lpszFontType)
+HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontInit(int Height, LPWSTR lpszFontType)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	VERIFY(D3DXCreateFont(m_pD3D9Device, nFontSize, 0, 0, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, 0, lpszFontType, &m_pD3DXFont));
+	VERIFY(D3DXCreateFont(m_pD3D9Device, Height, 0, 0, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, 0, lpszFontType, &m_pD3DXFont));
+	return S_OK;//OK
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphicsFontInit(INT Height, UINT Width, UINT Weight, UINT MipLevels, BOOL Italic, DWORD CharSet, DWORD OutputPrecision, DWORD Quality, DWORD PitchAndFamily, LPCWSTR pFaceName)
+// @Purpose: DirectGraphics 字体初始化
+// @Since: v1.01a
+// @Para: INT Height
+// @Para: UINT Width
+// @Para: UINT Weight
+// @Para: UINT MipLevels
+// @Para: BOOL Italic
+// @Para: DWORD CharSet
+// @Para: DWORD OutputPrecision
+// @Para: DWORD Quality
+// @Para: DWORD PitchAndFamily
+// @Para: LPCWSTR pFaceName
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontInit(INT Height, UINT Width, UINT Weight, UINT MipLevels, BOOL Italic, DWORD CharSet, DWORD OutputPrecision, DWORD Quality, DWORD PitchAndFamily, LPCWSTR pFaceName)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	VERIFY(D3DXCreateFont(m_pD3D9Device, Height, Width, Weight, MipLevels, Italic, CharSet, OutputPrecision, Quality, PitchAndFamily, pFaceName, &m_pD3DXFont));
 	return S_OK;//OK
 }
 
@@ -751,4 +872,268 @@ void DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontDrawText(HWND hWn
 
 	GetClientRect(hWnd, &Rect);
 	m_pD3DXFont->DrawText(NULL, m_wcD3D9AdapterType, -1, &Rect, DT_TOP | DT_LEFT, dwColor);
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphicsFontDrawTextW(LPCWSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
+// @Purpose: DirectGraphics 绘制HAL信息
+// @Since: v1.01a
+// @Para: LPCWSTR pString		//字符数组(Unicode)
+// @Para: INT Count				//数组长度(-1)
+// @Para: LPRECT pRect			//绘制区域
+// @Para: DWORD Format			//绘制格式
+// @Para: D3DCOLOR Color		//绘制颜色
+// @Return: None
+//-----------------------------------------------------------------------------------------------------------------------------
+void DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontDrawTextW(LPCWSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pD3DXFont->DrawTextW(NULL, pString, Count, pRect, Format, Color);
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphicsFontDrawTextA(LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
+// @Purpose: DirectGraphics 绘制HAL信息
+// @Since: v1.01a
+// @Para: LPCSTR pString		//字符数组(ASCII)
+// @Para: INT Count				//数组长度(-1)
+// @Para: LPRECT pRect			//绘制区域
+// @Para: DWORD Format			//绘制格式
+// @Para: D3DCOLOR Color		//绘制颜色
+// @Return: None
+//-----------------------------------------------------------------------------------------------------------------------------
+void DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontDrawTextA(LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pD3DXFont->DrawTextA(NULL, pString, Count, pRect, Format, Color);
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphicsGetD3D9Format(LPCWSTR pString, UINT nSize)
+// @Purpose: DirectGraphics 获取后台缓冲型号
+// @Since: v1.01a
+// @Para: LPCWSTR pString		//数组地址
+// @Para: UINT nSize			//数组长度
+// @Return: None
+//-----------------------------------------------------------------------------------------------------------------------------
+void DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetD3D9Format(LPWSTR pString)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	CHAR chString[MAX_PATH] = { 0 };
+	INT nSize = 0;
+
+	switch (m_D3D9pp.BackBufferFormat)
+	{
+	case D3DFMT_UNKNOWN:
+		strcpy_s(chString, "D3DFMT_UNKNOWN");
+		break;
+	case D3DFMT_R8G8B8:
+		strcpy_s(chString, "D3DFMT_R8G8B8");
+		break;
+	case D3DFMT_A8R8G8B8:
+		strcpy_s(chString, "D3DFMT_A8R8G8B8");
+		break;
+	case D3DFMT_X8R8G8B8:
+		strcpy_s(chString, "D3DFMT_A8R8G8B8");
+		break;
+	case D3DFMT_R5G6B5:
+		strcpy_s(chString, "D3DFMT_R5G6B5");
+		break;
+	case D3DFMT_X1R5G5B5:
+		strcpy_s(chString, "D3DFMT_X1R5G5B5");
+		break;
+	case D3DFMT_A1R5G5B5:
+		strcpy_s(chString, "D3DFMT_A1R5G5B5");
+		break;
+	case D3DFMT_A4R4G4B4:
+		strcpy_s(chString, "D3DFMT_A4R4G4B4");
+		break;
+	case D3DFMT_R3G3B2:
+		strcpy_s(chString, "D3DFMT_R3G3B2");
+		break;
+	case D3DFMT_A8:
+		strcpy_s(chString, "D3DFMT_A8");
+		break;
+	case D3DFMT_A8R3G3B2:
+		strcpy_s(chString, "D3DFMT_A8R3G3B2");
+		break;
+	case D3DFMT_X4R4G4B4:
+		strcpy_s(chString, "D3DFMT_X4R4G4B4");
+		break;
+	case D3DFMT_A2B10G10R10:
+		strcpy_s(chString, "D3DFMT_A2B10G10R10");
+		break;
+	case D3DFMT_A8B8G8R8:
+		strcpy_s(chString, "D3DFMT_A8B8G8R8");
+		break;
+	case D3DFMT_X8B8G8R8:
+		strcpy_s(chString, "D3DFMT_X8B8G8R8");
+		break;
+	case D3DFMT_G16R16:
+		strcpy_s(chString, "D3DFMT_G16R16");
+		break;
+	case D3DFMT_A2R10G10B10:
+		strcpy_s(chString, "D3DFMT_A2R10G10B10");
+		break;
+	case D3DFMT_A16B16G16R16:
+		strcpy_s(chString, "D3DFMT_A16B16G16R16");
+		break;
+	case D3DFMT_A8P8:
+		strcpy_s(chString, "D3DFMT_A8P8");
+		break;
+	case D3DFMT_P8:
+		strcpy_s(chString, "D3DFMT_P8");
+		break;
+	case D3DFMT_L8:
+		strcpy_s(chString, "D3DFMT_L8");
+		break;
+	case D3DFMT_A8L8:
+		strcpy_s(chString, "D3DFMT_A8L8");
+		break;
+	case D3DFMT_A4L4:
+		strcpy_s(chString, "D3DFMT_A4L4");
+		break;
+	case D3DFMT_V8U8:
+		strcpy_s(chString, "D3DFMT_V8U8");
+		break;
+	case D3DFMT_L6V5U5:
+		strcpy_s(chString, "D3DFMT_L6V5U5");
+		break;
+	case D3DFMT_X8L8V8U8:
+		strcpy_s(chString, "D3DFMT_X8L8V8U8");
+		break;
+	case D3DFMT_Q8W8V8U8:
+		strcpy_s(chString, "D3DFMT_Q8W8V8U8");
+		break;
+	case D3DFMT_V16U16:
+		strcpy_s(chString, "D3DFMT_V16U16");
+		break;
+	case D3DFMT_A2W10V10U10:
+		strcpy_s(chString, "D3DFMT_A2W10V10U10");
+		break;
+	case D3DFMT_UYVY:
+		strcpy_s(chString, "D3DFMT_UYVY");
+		break;
+	case D3DFMT_R8G8_B8G8:
+		strcpy_s(chString, "D3DFMT_R8G8_B8G8");
+		break;
+	case D3DFMT_YUY2:
+		strcpy_s(chString, "D3DFMT_YUY2");
+		break;
+	case D3DFMT_G8R8_G8B8:
+		strcpy_s(chString, "D3DFMT_G8R8_G8B8");
+		break;
+	case D3DFMT_DXT1:
+		strcpy_s(chString, "D3DFMT_DXT1");
+		break;
+	case D3DFMT_DXT2:
+		strcpy_s(chString, "D3DFMT_DXT2");
+		break;
+	case D3DFMT_DXT3:
+		strcpy_s(chString, "D3DFMT_DXT3");
+		break;
+	case D3DFMT_DXT4:
+		strcpy_s(chString, "D3DFMT_DXT4");
+		break;
+	case D3DFMT_DXT5:
+		strcpy_s(chString, "D3DFMT_DXT5");
+		break;
+	case D3DFMT_D16_LOCKABLE:
+		strcpy_s(chString, "D3DFMT_D16_LOCKABLE");
+		break;
+	case D3DFMT_D32:
+		strcpy_s(chString, "D3DFMT_D32");
+		break;
+	case D3DFMT_D15S1:
+		strcpy_s(chString, "D3DFMT_D15S1");
+		break;
+	case D3DFMT_D24S8:
+		strcpy_s(chString, "D3DFMT_D24S8");
+		break;
+	case D3DFMT_D24X8:
+		strcpy_s(chString, "D3DFMT_D24X8");
+		break;
+	case D3DFMT_D24X4S4:
+		strcpy_s(chString, "D3DFMT_D24X4S4");
+		break;
+	case D3DFMT_D16:
+		strcpy_s(chString, "D3DFMT_D16");
+		break;
+	case D3DFMT_D32F_LOCKABLE:
+		strcpy_s(chString, "D3DFMT_D32F_LOCKABLE");
+		break;
+	case D3DFMT_D24FS8:
+		strcpy_s(chString, "D3DFMT_D24FS8");
+		break;
+/* D3D9Ex only -- */
+#if !defined(D3D_DISABLE_9EX)
+	case D3DFMT_D32_LOCKABLE:
+		strcpy_s(chString, "D3DFMT_D32_LOCKABLE");
+		break;
+	case D3DFMT_S8_LOCKABLE:
+		strcpy_s(chString, "D3DFMT_S8_LOCKABLE");
+		break;
+#endif // !D3D_DISABLE_9EX
+	case D3DFMT_L16:
+		strcpy_s(chString, "D3DFMT_L16");
+		break;
+	case D3DFMT_VERTEXDATA:
+		strcpy_s(chString, "D3DFMT_VERTEXDATA");
+		break;
+	case D3DFMT_INDEX16:
+		strcpy_s(chString, "D3DFMT_INDEX16");
+		break;
+	case D3DFMT_INDEX32:
+		strcpy_s(chString, "D3DFMT_INDEX32");
+		break;
+	case D3DFMT_Q16W16V16U16:
+		strcpy_s(chString, "D3DFMT_Q16W16V16U16");
+		break;
+	case D3DFMT_MULTI2_ARGB8:
+		strcpy_s(chString, "D3DFMT_MULTI2_ARGB8");
+		break;
+	case D3DFMT_R16F:
+		strcpy_s(chString, "D3DFMT_R16F");
+		break;
+	case D3DFMT_G16R16F:
+		strcpy_s(chString, "D3DFMT_G16R16F");
+		break;
+	case D3DFMT_A16B16G16R16F:
+		strcpy_s(chString, "D3DFMT_A16B16G16R16F");
+		break;
+	case D3DFMT_R32F:
+		strcpy_s(chString, "D3DFMT_R32F");
+		break;
+	case D3DFMT_G32R32F:
+		strcpy_s(chString, "D3DFMT_G32R32F");
+		break;
+	case D3DFMT_A32B32G32R32F:
+		strcpy_s(chString, "D3DFMT_A32B32G32R32F");
+		break;
+	case D3DFMT_CxV8U8:
+		strcpy_s(chString, "D3DFMT_CxV8U8");
+		break;
+		/* D3D9Ex only -- */
+#if !defined(D3D_DISABLE_9EX)
+	case D3DFMT_A1:
+		strcpy_s(chString, "D3DFMT_A1");
+		break;
+	case D3DFMT_A2B10G10R10_XR_BIAS:
+		strcpy_s(chString, "D3DFMT_A2B10G10R10_XR_BIAS");
+		break;
+	case D3DFMT_BINARYBUFFER:
+		strcpy_s(chString, "D3DFMT_BINARYBUFFER");
+		break;
+#endif // !D3D_DISABLE_9EX
+
+	case D3DFMT_FORCE_DWORD:
+		strcpy_s(chString, "D3DFMT_FORCE_DWORD");
+		break;
+	default:
+		strcpy_s(chString, "D3DFMT_UNKNOWN");
+		break;
+	}
+
+	nSize = MultiByteToWideChar(CP_ACP, 0, chString, -1, NULL, 0);
+	MultiByteToWideChar(CP_ACP, 0, chString, -1, pString, nSize);
 }

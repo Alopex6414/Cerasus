@@ -6,7 +6,7 @@
 * @file		DirectGraphics3D.cpp
 * @brief	This File is DirectGraphics3D DLL Project.
 * @author	Alopex/Helium
-* @version	v1.26a
+* @version	v1.28a
 * @date		2017-11-29	v1.00a	alopex	Create Project.
 * @date		2017-12-3	v1.01a	alopex	Modify Bug.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
@@ -14,6 +14,8 @@
 * @date		2018-1-10	v1.24a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
 * @date		2018-2-12	v1.25a	alopex	Add Get & Set & Reset Function.
 * @date		2018-4-12	v1.26a	alopex	Add Macro Call Mode.
+* @date		2018-06-21	v1.27a	alopex	Add Version Infomation.
+* @date		2018-06-21	v1.28a	alopex	Add Transform Function.
 */
 #include "DirectCommon.h"
 #include "DirectGraphics3D.h"
@@ -202,7 +204,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInit(int nPl
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
 	//VertexBuffer创建顶点缓存
-	VERIFY(m_pD3D9Device->CreateVertexBuffer(4 * nPlane * sizeof(Vertex3DTexture), 0, D3DFVF_VERTEX3D_BASE, D3DPOOL_DEFAULT, &m_pD3D9VertexBuffer, NULL));
+	VERIFY(m_pD3D9Device->CreateVertexBuffer(4 * nPlane * sizeof(Vertex3DBase), 0, D3DFVF_VERTEX3D_BASE, D3DPOOL_DEFAULT, &m_pD3D9VertexBuffer, NULL));
 
 	//IndexBuffer创建索引缓存
 	VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nPlane * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
@@ -455,6 +457,109 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInit(D3DPOOL
 		return E_FAIL;
 		break;
 	}
+
+	return S_OK;
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphics3DInitVertex3DBase
+// @Purpose: DirectGraphics3D初始化
+// @Since: v1.00a
+// @Para: UINT nCount					//绘制平面数(立方体6个平面)
+// @Return: None
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DBase(UINT nCount)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	//VertexBuffer创建顶点缓存
+	VERIFY(m_pD3D9Device->CreateVertexBuffer(4 * nCount * sizeof(Vertex3DBase), 0, D3DFVF_VERTEX3D_BASE, D3DPOOL_DEFAULT, &m_pD3D9VertexBuffer, NULL));
+
+	//IndexBuffer创建索引缓存
+	VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nCount * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
+
+	return S_OK;
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphics3DInitVertex3DTexture
+// @Purpose: DirectGraphics3D初始化
+// @Since: v1.00a
+// @Para: UINT nCount					//绘制平面数(立方体6个平面)
+// @Para: LPCWSTR pStr					//平面纹理路径(eg:L"Res\\title.png")
+// @Return: None
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DTexture(UINT nCount, LPCWSTR pStr)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	//VertexBuffer创建顶点缓存
+	VERIFY(m_pD3D9Device->CreateVertexBuffer(4 * nCount * sizeof(Vertex3DTexture), 0, D3DFVF_VERTEX3D_TEXTURE, D3DPOOL_DEFAULT, &m_pD3D9VertexBuffer, NULL));
+
+	//IndexBuffer创建索引缓存
+	VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nCount * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
+
+	return S_OK;
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphics3DInitVertex3DNormal
+// @Purpose: DirectGraphics3D初始化
+// @Since: v1.00a
+// @Para: UINT nCount					//绘制平面数(立方体6个平面)
+// @Return: None
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DNormal(UINT nCount)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	//VertexBuffer创建顶点缓存
+	VERIFY(m_pD3D9Device->CreateVertexBuffer(4 * nCount * sizeof(Vertex3DNormal), 0, D3DFVF_VERTEX3D_NORMAL, D3DPOOL_DEFAULT, &m_pD3D9VertexBuffer, NULL));
+
+	//IndexBuffer创建索引缓存
+	VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nCount * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
+
+	return S_OK;
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphics3DInitVertex3DNormalTexture
+// @Purpose: DirectGraphics3D初始化
+// @Since: v1.00a
+// @Para: UINT nCount					//绘制平面数(立方体6个平面)
+// @Para: LPCWSTR pStr					//平面纹理路径(eg:L"Res\\title.png")
+// @Return: None
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DNormalTexture(UINT nCount, LPCWSTR pStr)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	//VertexBuffer创建顶点缓存
+	VERIFY(m_pD3D9Device->CreateVertexBuffer(4 * nCount * sizeof(Vertex3DNormalTexture), 0, D3DFVF_VERTEX3D_NORMAL_TEXTURE, D3DPOOL_DEFAULT, &m_pD3D9VertexBuffer, NULL));
+
+	//IndexBuffer创建索引缓存
+	VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nCount * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
+
+	return S_OK;
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphics3DInitVertex3DNormalSpecularTexture
+// @Purpose: DirectGraphics3D初始化
+// @Since: v1.00a
+// @Para: UINT nCount					//绘制平面数(立方体6个平面)
+// @Para: LPCWSTR pStr					//平面纹理路径(eg:L"Res\\title.png")
+// @Return: None
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DNormalSpecularTexture(UINT nCount, LPCWSTR pStr)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	//VertexBuffer创建顶点缓存
+	VERIFY(m_pD3D9Device->CreateVertexBuffer(4 * nCount * sizeof(Vertex3DNormalSpecularTexture), 0, D3DFVF_VERTEX3D_NORMAL_SPECULAR_TEXTURE, D3DPOOL_DEFAULT, &m_pD3D9VertexBuffer, NULL));
+
+	//IndexBuffer创建索引缓存
+	VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nCount * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
 
 	return S_OK;
 }
@@ -810,6 +915,48 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DMatrixTransform
 	ViewPort.Y = 0;
 	ViewPort.Width = sViewPortTransformPara.nUserWidth;
 	ViewPort.Height = sViewPortTransformPara.nUserHeight;
+	ViewPort.MinZ = 0.0f;
+	ViewPort.MaxZ = 1.0f;
+	m_pD3D9Device->SetViewport(&ViewPort);
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphics3DMatrixTransform(DG3D_CoordsTransformPara sCoordsTransformPara)
+// @Purpose: DirectGraphics3D矩阵变换
+// @Since: v1.00a
+// @Para: DG3D_CoordsTransformPara sCoordsTransformPara		//矩阵变换系数
+// @Return: None
+//---------------------------------------------------------------------------------------------------------------------------------------------
+void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DMatrixTransform(DG3D_CoordsTransformPara sCoordsTransformPara)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	D3DXMATRIX MatrixWorld;									//世界变换矩阵
+	D3DXMATRIX MatrixScale;									//缩放变换矩阵
+	D3DXMATRIX MatrixRotateX, MatrixRotateY, MatrixRotateZ;	//旋转变换矩阵
+	D3DXMATRIX MatrixTranslate;								//平移变换矩阵
+
+	D3DXMatrixIdentity(&MatrixWorld);	//单位化矩阵
+	D3DXMatrixScaling(&MatrixScale, sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleX, sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleY, sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleZ);	//设置缩放矩阵
+	D3DXMatrixRotationX(&MatrixRotateX, sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateX);	//设置旋转矩阵X
+	D3DXMatrixRotationY(&MatrixRotateY, sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateY);	//设置旋转矩阵Y
+	D3DXMatrixRotationZ(&MatrixRotateZ, sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateZ);	//设置旋转矩阵Z
+	D3DXMatrixTranslation(&MatrixTranslate, sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateX, sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateY, sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateZ);	//设置平移矩阵
+	MatrixWorld = MatrixWorld * MatrixScale * MatrixRotateX * MatrixRotateY * MatrixRotateZ * MatrixTranslate;
+	m_pD3D9Device->SetTransform(D3DTS_WORLD, &MatrixWorld);		//设置世界变换
+
+	D3DXMATRIX MatrixView;
+	D3DXMatrixLookAtLH(&MatrixView, &(sCoordsTransformPara.sViewTransformPara.vEye), &(sCoordsTransformPara.sViewTransformPara.vAt), &(sCoordsTransformPara.sViewTransformPara.vUp));
+	m_pD3D9Device->SetTransform(D3DTS_VIEW, &MatrixView);
+
+	D3DXMATRIX MatrixProject;
+	D3DXMatrixPerspectiveFovLH(&MatrixProject, sCoordsTransformPara.sPrespectiveTransformPara.fovy, sCoordsTransformPara.sPrespectiveTransformPara.fAspect, sCoordsTransformPara.sPrespectiveTransformPara.fZn, sCoordsTransformPara.sPrespectiveTransformPara.fZf);
+	m_pD3D9Device->SetTransform(D3DTS_PROJECTION, &MatrixProject);
+
+	D3DVIEWPORT9 ViewPort;
+	ViewPort.X = 0;
+	ViewPort.Y = 0;
+	ViewPort.Width = sCoordsTransformPara.sViewPortTransformPara.nUserWidth;
+	ViewPort.Height = sCoordsTransformPara.sViewPortTransformPara.nUserHeight;
 	ViewPort.MinZ = 0.0f;
 	ViewPort.MaxZ = 1.0f;
 	m_pD3D9Device->SetViewport(&ViewPort);

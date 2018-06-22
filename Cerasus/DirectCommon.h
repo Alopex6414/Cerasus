@@ -9,8 +9,8 @@
 * @version	v1.21a
 * @date		2017-10-27	v1.00a	alopex	Create This File.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
-* @date		2018-1-2	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
-* @date		2018-1-18	v1.21a	alopex	Code Add assert Header File.
+* @date		2018-01-2	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-01-18	v1.21a	alopex	Code Add assert Header File.
 */
 #pragma once
 

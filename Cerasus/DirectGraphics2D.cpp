@@ -1,18 +1,19 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
 *     All rights reserved.
 *
 * @file		DirectGraphics2D.cpp
 * @brief	This Program is DirectGraphics2D DLL Project.
 * @author	Alopex/Helium
-* @version	v1.21a
+* @version	v1.24a
 * @date		2017-11-2	v1.00a	alopex	Create Project.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
-* @date		2018-1-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
-* @date		2018-1-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
-* @date		2018-2-12	v1.22a	alopex	Add Reset Lost Device.
-* @date		2018-4-12	v1.23a	alopex	Add Macro Call Mode.
+* @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-01-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-02-12	v1.22a	alopex	Add Reset Lost Device.
+* @date		2018-04-12	v1.23a	alopex	Add Macro Call Mode.
+* @date		2018-06-22	v1.24a	alopex	Add Init Function.
 */
 #include "DirectCommon.h"
 #include "DirectGraphics2D.h"
@@ -319,6 +320,74 @@ HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DInit(Vertex2
 }
 
 //---------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphics2DInitVertex2DBase(UINT nCount)
+// @Purpose: DirectGraphics2D初始化
+// @Since: v1.00a
+// @Para: UINT nCount					//平面个数
+// @Return: None
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DInitVertex2DBase(UINT nCount)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	//VertexBuffer创建顶点缓存
+	VERIFY(m_pD3D9Device->CreateVertexBuffer(4 * nCount * sizeof(Vertex2DBase), 0, D3DFVF_VERTEX2D_BASE, D3DPOOL_DEFAULT, &m_pD3D9VertexBuffer, NULL));
+
+	//IndexBuffer创建索引缓存
+	VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nCount * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
+
+	return S_OK;
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphics2DInitVertex2DTexture(UINT nCount, LPCWSTR pString)
+// @Purpose: DirectGraphics2D初始化
+// @Since: v1.00a
+// @Para: UINT nCount					//平面个数
+// @Para: LPCWSTR pString				//纹理路径
+// @Return: None
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DInitVertex2DTexture(UINT nCount, LPCWSTR pString)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	//VertexBuffer创建顶点缓存
+	VERIFY(m_pD3D9Device->CreateVertexBuffer(4 * nCount * sizeof(Vertex2DTexture), 0, D3DFVF_VERTEX2D_TEXTURE, D3DPOOL_DEFAULT, &m_pD3D9VertexBuffer, NULL));
+
+	//IndexBuffer创建索引缓存
+	VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nCount * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
+
+	//Texture创建平面纹理
+	VERIFY(D3DXCreateTextureFromFile(m_pD3D9Device, pString, &m_pD3D9Texture));
+
+	return S_OK;
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphics2DInitVertex2DSpecularTexture(UINT nCount, LPCWSTR pString)
+// @Purpose: DirectGraphics2D初始化
+// @Since: v1.00a
+// @Para: UINT nCount					//平面个数
+// @Para: LPCWSTR pString				//纹理路径
+// @Return: None
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DInitVertex2DSpecularTexture(UINT nCount, LPCWSTR pString)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	//VertexBuffer创建顶点缓存
+	VERIFY(m_pD3D9Device->CreateVertexBuffer(4 * nCount * sizeof(Vertex2DSpecularTexture), 0, D3DFVF_VERTEX2D_SPECULAR_TEXTURE, D3DPOOL_DEFAULT, &m_pD3D9VertexBuffer, NULL));
+
+	//IndexBuffer创建索引缓存
+	VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nCount * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
+
+	//Texture创建平面纹理
+	VERIFY(D3DXCreateTextureFromFile(m_pD3D9Device, pString, &m_pD3D9Texture));
+
+	return S_OK;
+}
+
+//---------------------------------------------------------------------------------------------------
 // @Function:	 DirectGraphics2DPaddingVertex(Vertex2DBase* VertexArray, int nSize)
 // @Purpose: DirectGraphics2D填充顶点(Base类型)
 // @Since: v1.00a
@@ -385,6 +454,59 @@ void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DPaddingVertex(V
 	}
 
 	m_pD3D9VertexBuffer->Unlock();
+}
+
+//--------------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphics2DPaddingVertex(Vertex2DType eVertex2DType, LPVOID VertexArray, int nPlane)
+// @Purpose: DirectGraphics2D填充顶点(枚举类型)
+// @Since: v1.00a
+// @Para: Vertex2DType eVertex2DType						//顶点类型
+// @Para: LPVOID VertexArray								//填充顶点数组地址
+// @Para: int nPlane										//填充平面个数
+// @Return: None
+//--------------------------------------------------------------------------------------------------------
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DPaddingVertex(Vertex2DType eVertex2DType, LPVOID VertexArray, int nPlane)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	Vertex2DBase* pVertices2DBase = NULL;
+	Vertex2DTexture* pVertices2DTexture = NULL;
+	Vertex2DSpecularTexture* pVertices2DSpecularTexture = NULL;
+
+	//填充顶点缓存
+	switch (eVertex2DType)
+	{
+	case Vertex2D_Type_Base:
+		m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices2DBase, 0);
+
+		for (int i = 0; i < 4 * nPlane; ++i)
+		{
+			*(pVertices2DBase + i) = *((Vertex2DBase*)VertexArray + i);
+		}
+		m_pD3D9VertexBuffer->Unlock();
+		break;
+	case Vertex2D_Type_Texture:
+		m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices2DTexture, 0);
+
+		for (int i = 0; i < 4 * nPlane; ++i)
+		{
+			*(pVertices2DTexture + i) = *((Vertex2DTexture*)VertexArray + i);
+		}
+		m_pD3D9VertexBuffer->Unlock();
+		break;
+	case Vertex2D_Type_Specular_Texture:
+		m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices2DSpecularTexture, 0);
+
+		for (int i = 0; i < 4 * nPlane; ++i)
+		{
+			*(pVertices2DSpecularTexture + i) = *((Vertex2DSpecularTexture*)VertexArray + i);
+		}
+		m_pD3D9VertexBuffer->Unlock();
+		break;
+	default:
+		return;
+		break;
+	}
+
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -593,7 +715,6 @@ void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DPaddingVertexAn
 		break;
 	}
 
-	//填充索引缓存
 	//填充索引缓存
 	WORD* pIndices = NULL;
 	m_pD3D9IndexBuffer->Lock(0, 0, (void**)&pIndices, 0);

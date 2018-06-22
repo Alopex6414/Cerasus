@@ -1,18 +1,19 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
 *     All rights reserved.
 *
 * @file		DirectGraphics2D.h
 * @brief	This Program is DirectGraphics2D DLL Project.
 * @author	Alopex/Helium
-* @version	v1.21a
+* @version	v1.24a
 * @date		2017-11-2	v1.00a	alopex	Create Project.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
-* @date		2018-1-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
-* @date		2018-1-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
-* @date		2018-2-12	v1.22a	alopex	Add Reset Lost Device.
-* @date		2018-4-12	v1.23a	alopex	Add Macro Call Mode.
+* @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-01-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-02-12	v1.22a	alopex	Add Reset Lost Device.
+* @date		2018-04-12	v1.23a	alopex	Add Macro Call Mode.
+* @date		2018-06-22	v1.24a	alopex	Add Init Function.
 */
 #pragma once
 
@@ -92,7 +93,7 @@ public:
 	~DirectGraphics2D();									//DirectGraphics2D Destructor  Function(析构函数)
 
 	//构造
-	DirectGraphics2D(LPDIRECT3DDEVICE9 pD3D9Device);		//DirectGraphics2D Constructor Function(构造函数)(传入D3D9 Device)(Important)
+	DirectGraphics2D(LPDIRECT3DDEVICE9 pD3D9Device);		//DirectGraphics2D Constructor Function(构造函数)(传入D3D9 Device)(重载+1)
 
 	//访问
 	virtual LPDIRECT3DDEVICE9 DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DGetD3D9Device(void) const;				//DirectGraphics2D D3D9 Get Device Pointer
@@ -111,18 +112,23 @@ public:
 
 	//初始化
 	virtual HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DInit(int nPlane);														//DirectGraphics2D Initialization(初始化)(平面数)
-	virtual HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DInit(int nPlane, LPCWSTR lpszStrTexture);								//DirectGraphics2D Initialization(初始化)(平面数/纹理)
-	virtual HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DInit(Vertex2DType eVertex2DType, int nPlane);							//DirectGraphics2D Initialization(初始化)(顶点类型/平面数)
-	virtual HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DInit(Vertex2DType eVertex2DType, int nPlane, LPCWSTR lpszStrTexture);	//DirectGraphics2D Initialization(初始化)(顶点类型/平面数/纹理)
+	virtual HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DInit(int nPlane, LPCWSTR lpszStrTexture);								//DirectGraphics2D Initialization(初始化)(平面数/纹理)(重载+1)
+	virtual HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DInit(Vertex2DType eVertex2DType, int nPlane);							//DirectGraphics2D Initialization(初始化)(顶点类型/平面数)(重载+2)
+	virtual HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DInit(Vertex2DType eVertex2DType, int nPlane, LPCWSTR lpszStrTexture);	//DirectGraphics2D Initialization(初始化)(顶点类型/平面数/纹理)(重载+3)
+
+	virtual HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DInitVertex2DBase(UINT nCount);										//DirectGraphics2D Initialization(初始化)(2D基本顶点格式)
+	virtual HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DInitVertex2DTexture(UINT nCount, LPCWSTR pString);					//DirectGraphics2D Initialization(初始化)(2D纹理顶点格式)
+	virtual HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DInitVertex2DSpecularTexture(UINT nCount, LPCWSTR pString);			//DirectGraphics2D Initialization(初始化)(2D镜面纹理顶点格式模式)
 
 	//填充
 	//顶点
-	virtual void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DPaddingVertex(Vertex2DBase* VertexArray, int nSize);						//DirectGraphics2D Padding Vertex(填充顶点数据)(2D基本顶点格式)
-	virtual void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DPaddingVertex(Vertex2DTexture* VertexArray, int nSize);					//DirectGraphics2D Padding Vertex(填充顶点数据)(2D顶点纹理格式)
-	virtual void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DPaddingVertex(Vertex2DSpecularTexture* VertexArray, int nSize);			//DirectGraphics2D Padding Vertex(填充顶点数据)(2D顶点镜面纹理格式)
+	virtual void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DPaddingVertex(Vertex2DBase* VertexArray, int nSize);									//DirectGraphics2D Padding Vertex(填充顶点数据)(2D基本顶点格式)
+	virtual void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DPaddingVertex(Vertex2DTexture* VertexArray, int nSize);								//DirectGraphics2D Padding Vertex(填充顶点数据)(2D顶点纹理格式)(重载+1)
+	virtual void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DPaddingVertex(Vertex2DSpecularTexture* VertexArray, int nSize);						//DirectGraphics2D Padding Vertex(填充顶点数据)(2D顶点镜面纹理格式)(重载+2)
+	virtual void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DPaddingVertex(Vertex2DType eVertex2DType, LPVOID VertexArray, int nPlane);			//DirectGraphics2D Padding Vertex(填充顶点数据)(2D顶点格式枚举)(重载+3)
 
 	//索引
-	virtual void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DPaddingIndex(int nPlane);												//DirectGraphics2D Padding Index(填充索引数据)
+	virtual void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DPaddingIndex(int nPlane);															//DirectGraphics2D Padding Index(填充索引数据)
 
 	//All
 	virtual void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2DPaddingVertexAndIndex(Vertex2DBase* VertexArray, int nPlane);						//DirectGraphics2D Padding Vertex and Index(填充顶点和索引数据)

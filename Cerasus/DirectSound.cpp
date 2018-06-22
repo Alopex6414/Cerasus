@@ -1,18 +1,19 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
 *     All rights reserved.
 *
 * @file		DirectSound.cpp
 * @brief	This Program is DirectSound DLL Project.
 * @author	Alopex/Helium
-* @version	v1.22a
+* @version	v1.23a
 * @date		2017-10-31	v1.00a	alopex	Create Project
 * @date		2017-12-03	v1.01a	alopex	Add Enum
 * @date		2017-12-8	v1.11a	alopex	Code Do Not Rely On MSVCR Library
-* @date		2018-1-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
-* @date		2018-1-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
-* @date		2018-4-12	v1.22a	alopex	Add Macro Call Mode.
+* @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-01-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-04-12	v1.22a	alopex	Add Macro Call Mode.
+* @date		2018-06-22	v1.23a	alopex	Add Get Members Function.
 */
 #include "DirectCommon.h"
 #include "DirectSound.h"
@@ -55,6 +56,136 @@ DirectSound::~DirectSound()
 	SAFE_RELEASE(m_pDirectSoundBuffer);//IDirectSoundBuffer释放
 	SAFE_RELEASE(m_pDirectSound);//IDirectSound释放
 	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);//删除临界区
+}
+
+//------------------------------------------------------------------------
+// @Function:	DirectSoundGetSound()
+// @Purpose: DirectSound 获取IDirectSound8接口指针
+// @Since: v1.00a
+// @Para: None
+// @Return: LPDIRECTSOUND8
+//------------------------------------------------------------------------
+LPDIRECTSOUND8 DIRECTSOUND_CALLMODE DirectSound::DirectSoundGetSound(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectSound;
+};
+
+//------------------------------------------------------------------------
+// @Function:	DirectSoundGetSoundBuffer()
+// @Purpose: DirectSound 获取IDirectSoundBuffer接口指针
+// @Since: v1.00a
+// @Para: None
+// @Return: LPDIRECTSOUNDBUFFER
+//------------------------------------------------------------------------
+LPDIRECTSOUNDBUFFER DIRECTSOUND_CALLMODE DirectSound::DirectSoundGetSoundBuffer(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectSoundBuffer;
+}
+
+//------------------------------------------------------------------------
+// @Function:	DirectSoundGetSoundBuffer()
+// @Purpose: DirectSound 获取IDirectSoundBuffer接口指针
+// @Since: v1.00a
+// @Para: None
+// @Return: LPDIRECTSOUNDBUFFER
+//------------------------------------------------------------------------
+LPDIRECTSOUNDBUFFER DIRECTSOUND_CALLMODE DirectSound::DirectSoundGetSoundPrimary(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectSoundPrimary;
+}
+
+//------------------------------------------------------------------------
+// @Function:	DirectSoundGetSound3DBuffer()
+// @Purpose: DirectSound 获取IDirectSound3DBuffer接口指针
+// @Since: v1.00a
+// @Para: None
+// @Return: LPDIRECTSOUND3DBUFFER
+//------------------------------------------------------------------------
+LPDIRECTSOUND3DBUFFER DIRECTSOUND_CALLMODE DirectSound::DirectSoundGetSound3DBuffer(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectSound3DBuffer;
+}
+
+//------------------------------------------------------------------------
+// @Function:	DirectSoundGetSound3DListener()
+// @Purpose: DirectSound 获取IDirectSound3DBuffer接口指针
+// @Since: v1.00a
+// @Para: None
+// @Return: LPDIRECTSOUND3DLISTENER
+//------------------------------------------------------------------------
+LPDIRECTSOUND3DLISTENER DIRECTSOUND_CALLMODE DirectSound::DirectSoundGetSound3DListener(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectSound3DListener;
+}
+
+//------------------------------------------------------------------------
+// @Function:	DirectSoundSetSound()
+// @Purpose: DirectSound 设置IDirectSound3DBuffer接口指针
+// @Since: v1.00a
+// @Para: None
+// @Return: LPDIRECTSOUND8
+//------------------------------------------------------------------------
+void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetSound(LPDIRECTSOUND8 pDirectSound)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectSound = pDirectSound;
+}
+
+//------------------------------------------------------------------------
+// @Function:	DirectSoundSetSoundBuffer()
+// @Purpose: DirectSound 设置IDirectSoundBuffer接口指针
+// @Since: v1.00a
+// @Para: None
+// @Return: LPDIRECTSOUNDBUFFER
+//------------------------------------------------------------------------
+void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetSoundBuffer(LPDIRECTSOUNDBUFFER pDirectSoundBuffer)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectSoundBuffer = pDirectSoundBuffer;
+}
+
+//------------------------------------------------------------------------
+// @Function:	DirectSoundSetSoundBuffer()
+// @Purpose: DirectSound 设置IDirectSoundBuffer接口指针
+// @Since: v1.00a
+// @Para: None
+// @Return: LPDIRECTSOUNDBUFFER
+//------------------------------------------------------------------------
+void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetSoundPrimary(LPDIRECTSOUNDBUFFER pDirectSoundPrimary)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectSoundPrimary = pDirectSoundPrimary;
+}
+
+//------------------------------------------------------------------------
+// @Function:	DirectSoundSetSound3DBuffer()
+// @Purpose: DirectSound 设置IDirectSound3DBuffer接口指针
+// @Since: v1.00a
+// @Para: None
+// @Return: LPDIRECTSOUND3DBUFFER
+//------------------------------------------------------------------------
+void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetSound3DBuffer(LPDIRECTSOUND3DBUFFER pDirectSound3DBuffer)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectSound3DBuffer = pDirectSound3DBuffer;
+}
+
+//------------------------------------------------------------------------
+// @Function:	DirectSoundSetSound3DListener()
+// @Purpose: DirectSound 设置IDirectSound3DBuffer接口指针
+// @Since: v1.00a
+// @Para: None
+// @Return: LPDIRECTSOUND3DLISTENER
+//------------------------------------------------------------------------
+void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetSound3DListener(LPDIRECTSOUND3DLISTENER pDirectSound3DListener)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectSound3DListener = pDirectSound3DListener;
 }
 
 //------------------------------------------------------------------------

@@ -1,16 +1,17 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
 *     All rights reserved.
 *
 * @file		DirectTexture.h
 * @brief	This File is DirectTexture DLL Project.
 * @author	Alopex/Helium
-* @version	v1.12a
+* @version	v1.13a
 * @date		2017-12-10	v1.00a	alopex	Create This File.
-* @date		2018-1-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
-* @date		2018-1-10	v1.11a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
-* @date		2018-4-12	v1.12a	alopex	Add Macro Call Mode.
+* @date		2018-01-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-01-10	v1.11a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-04-12	v1.12a	alopex	Add Macro Call Mode.
+* @date		2018-06-22	v1.13a	alopex	Add Version Information.
 */
 #pragma once
 
@@ -47,12 +48,12 @@ public:
 	DirectTexture(IDirect3DDevice9* pD3D9Device);							//DirectTexture Constructor Function(构造函数)(D3D9绘制设备)
 
 	//访问
-	IDirect3DDevice9* DIRECTTEXTURE_CALLMODE DirectTextureGetDevice(void) const;			//DirectTexture Get D3D9 Device(获取D3D9设备)
-	IDirect3DTexture9* DIRECTTEXTURE_CALLMODE DirectTextureGetTexture(void) const;			//DirectTexture Get D3D9 Texture(获取D3D9纹理)
+	virtual IDirect3DDevice9* DIRECTTEXTURE_CALLMODE DirectTextureGetDevice(void) const;			//DirectTexture Get D3D9 Device(获取D3D9设备)
+	virtual IDirect3DTexture9* DIRECTTEXTURE_CALLMODE DirectTextureGetTexture(void) const;			//DirectTexture Get D3D9 Texture(获取D3D9纹理)
 
 	//控制
-	void DIRECTTEXTURE_CALLMODE DirectTextureSetDevice(IDirect3DDevice9* pD3D9Device);		//DirectTexture Set D3D9 Device(设置D3D9设备)
-	void DIRECTTEXTURE_CALLMODE DirectTextureSetTexture(IDirect3DTexture9* pD3D9Texture);	//DirectTexture Set D3D9 Device(设置D3D9纹理)
+	virtual void DIRECTTEXTURE_CALLMODE DirectTextureSetDevice(IDirect3DDevice9* pD3D9Device);		//DirectTexture Set D3D9 Device(设置D3D9设备)
+	virtual void DIRECTTEXTURE_CALLMODE DirectTextureSetTexture(IDirect3DTexture9* pD3D9Texture);	//DirectTexture Set D3D9 Device(设置D3D9纹理)
 
 	//重置
 	virtual void DIRECTTEXTURE_CALLMODE DirectTextureReset(void);							//DirectTexture Reset(重置D3D9纹理)
@@ -65,7 +66,6 @@ public:
 
 	//渲染纹理
 	virtual void DIRECTTEXTURE_CALLMODE DirectTextureSelectTexture(void);					//DirectTexture Select Texture(D3D9设备选中纹理)
-
 };
 
 

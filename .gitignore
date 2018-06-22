@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/Cerasus/v15
+/Cerasus/Debug
+/Cerasus/Release
+/Cerasus/x64/Debug

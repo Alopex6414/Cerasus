@@ -1,18 +1,19 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
 *     All rights reserved.
 *
 * @file		DirectInput.cpp
 * @brief	This Program is DirectInput DLL Project.
 * @author	Alopex/Helium
-* @version	v1.22a
+* @version	v1.23a
 * @date		2017-10-27	v1.00a	alopex	Create Project.
 * @date		2017-12-3	v1.01a	alopex	Add Enum & Modify CallBack Function.
 * @date		2017-12-8	v1.11a	alopex	Code Do Not Rely On MSVCR Library.
-* @date		2018-1-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
-* @date		2018-1-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
-* @date		2018-4-12	v1.22a	alopex	Add Macro Call Mode.
+* @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-01-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-04-12	v1.22a	alopex	Add Macro Call Mode.
+* @date		2018-06-22	v1.23a	alopex	Add Get Members Function.
 */
 #include "DirectCommon.h"
 #include "DirectInput.h"
@@ -85,6 +86,110 @@ BOOL DIRECTINPUT_CALLMODE DirectInputEnumJoySticks(LPCDIDEVICEINSTANCE pDirectDe
 	*(GUID*)pGUID_Ptr = pDirectDeviceInstance->guidInstance;
 	strcpy_s(g_cJoyStickName, (char*)pDirectDeviceInstance->tszProductName);
 	return (DIENUM_STOP);
+}
+
+//-------------------------------------------------------------------------------
+// @Function:	 DirectInputGetInput()
+// @Purpose: DirectInput获取DirectInput8接口指针
+// @Since: v1.00a
+// @Para: None
+// @Return: LPDIRECTINPUT8(DirectInput8接口指针)
+//-------------------------------------------------------------------------------
+LPDIRECTINPUT8 DIRECTINPUT_CALLMODE DirectInput::DirectInputGetInput(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectInput;
+}
+
+//-------------------------------------------------------------------------------
+// @Function:	 DirectInputGetInputDeviceKeyBoard()
+// @Purpose: DirectInput获取DirectInput8接口设备键盘
+// @Since: v1.00a
+// @Para: None
+// @Return: LPDIRECTINPUTDEVICE8(DirectInput8接口设备指针)
+//-------------------------------------------------------------------------------
+LPDIRECTINPUTDEVICE8 DIRECTINPUT_CALLMODE DirectInput::DirectInputGetInputDeviceKeyBoard(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectInputDeviceKeyBoard;
+}
+
+//-------------------------------------------------------------------------------
+// @Function:	 m_pDirectInputDeviceMouse()
+// @Purpose: DirectInput获取DirectInput8接口设备鼠标
+// @Since: v1.00a
+// @Para: None
+// @Return: LPDIRECTINPUTDEVICE8(DirectInput8接口设备指针)
+//-------------------------------------------------------------------------------
+LPDIRECTINPUTDEVICE8 DIRECTINPUT_CALLMODE DirectInput::DirectInputGetInputDeviceMouse(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectInputDeviceMouse;
+}
+
+//-------------------------------------------------------------------------------
+// @Function:	 DirectInputGetInputDeviceJoyStick()
+// @Purpose: DirectInput获取DirectInput8接口设备游戏杆
+// @Since: v1.00a
+// @Para: None
+// @Return: LPDIRECTINPUTDEVICE8(DirectInput8接口设备指针)
+//-------------------------------------------------------------------------------
+LPDIRECTINPUTDEVICE8 DIRECTINPUT_CALLMODE DirectInput::DirectInputGetInputDeviceJoyStick(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectInputDeviceJoyStick;
+}
+
+//-------------------------------------------------------------------------------
+// @Function:	 DirectInputSetInput()
+// @Purpose: DirectInput设置DirectInput8接口
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//-------------------------------------------------------------------------------
+void DIRECTINPUT_CALLMODE DirectInput::DirectInputSetInput(LPDIRECTINPUT8 pDirectInput)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectInput = pDirectInput;
+}
+
+//-------------------------------------------------------------------------------
+// @Function:	 DirectInputSetInputDeviceKeyBoard()
+// @Purpose: DirectInput设置DirectInput8接口设备
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//-------------------------------------------------------------------------------
+void DIRECTINPUT_CALLMODE DirectInput::DirectInputSetInputDeviceKeyBoard(LPDIRECTINPUTDEVICE8 pDirectInputDeviceKeyBoard)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectInputDeviceKeyBoard = pDirectInputDeviceKeyBoard;
+}
+
+//-------------------------------------------------------------------------------
+// @Function:	 DirectInputSetInputDeviceMouse()
+// @Purpose: DirectInput设置DirectInput8接口设备
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//-------------------------------------------------------------------------------
+void DIRECTINPUT_CALLMODE DirectInput::DirectInputSetInputDeviceMouse(LPDIRECTINPUTDEVICE8 pDirectInputDeviceMouse)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectInputDeviceMouse = pDirectInputDeviceMouse;
+}
+
+//-------------------------------------------------------------------------------
+// @Function:	 DirectInputSetInputDeviceJoyStick()
+// @Purpose: DirectInput设置DirectInput8接口设备
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//-------------------------------------------------------------------------------
+void DIRECTINPUT_CALLMODE DirectInput::DirectInputSetInputDeviceJoyStick(LPDIRECTINPUTDEVICE8 pDirectInputDeviceJoyStick)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectInputDeviceJoyStick = pDirectInputDeviceJoyStick;
 }
 
 //------------------------------------------------------------------------

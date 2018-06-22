@@ -1,18 +1,19 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
 *     All rights reserved.
 *
 * @file		DirectInput.h
 * @brief	This Program is DirectInput DLL Project.
 * @author	Alopex/Helium
-* @version	v1.22a
+* @version	v1.23a
 * @date		2017-10-27	v1.00a	alopex	Create Project.
 * @date		2017-12-3	v1.01a	alopex	Add Enum & Modify CallBack Function.
 * @date		2017-12-8	v1.11a	alopex	Code Do Not Rely On MSVCR Library.
-* @date		2018-1-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
-* @date		2018-1-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
-* @date		2018-4-12	v1.22a	alopex	Add Macro Call Mode.
+* @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-01-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-04-12	v1.22a	alopex	Add Macro Call Mode.
+* @date		2018-06-22	v1.23a	alopex	Add Get Members Function.
 */
 #pragma once
 
@@ -77,8 +78,8 @@ private:
 	LPDIRECTINPUTDEVICE8 m_pDirectInputDeviceMouse;		//IDirectInputDevice8 Interface Pointer(Mouse Device)(IDirectInputDevice8接口设备指针:鼠标)
 	LPDIRECTINPUTDEVICE8 m_pDirectInputDeviceJoyStick;	//IDirectInputDevice8 Interface Pointer(JoyStick Device)(IDirectInputDevice8接口设备指针:游戏杆)
 
-	DIMOUSESTATE m_DIMouseState;	//Mouse State Struct(鼠标状态)
-	DIJOYSTATE m_DIJoyStickState;	//JoyStick State Struct(游戏杆状态)
+	DIMOUSESTATE m_DIMouseState;				//Mouse State Struct(鼠标状态)
+	DIJOYSTATE m_DIJoyStickState;				//JoyStick State Struct(游戏杆状态)
 	char m_cKeyBoradBuffer[KEYBOARD_ARRAYSIZE]; //KeyBoard State Array(键盘状态)
 
 	CRITICAL_SECTION m_cs;			//Thread Safe(CriticalSection)
@@ -88,27 +89,39 @@ public:
 	DirectInput();	//DirectInput Constructor Function(构造函数)
 	~DirectInput();	//DirectInput Destructor Function(析构函数)
 
+	//DirectInput访问
+	LPDIRECTINPUT8 DIRECTINPUT_CALLMODE DirectInputGetInput(void) const;								//DirectInput Get DirectInput8(~DirectInput获取DirectInput8接口指针)
+	LPDIRECTINPUTDEVICE8 DIRECTINPUT_CALLMODE DirectInputGetInputDeviceKeyBoard(void) const;			//DirectInput Get DirectInput Device Keyboard(~DirectInput获取设备指针:键盘)
+	LPDIRECTINPUTDEVICE8 DIRECTINPUT_CALLMODE DirectInputGetInputDeviceMouse(void) const;				//DirectInput Get DirectInput Device Mouse(~DirectInput获取设备指针:鼠标)
+	LPDIRECTINPUTDEVICE8 DIRECTINPUT_CALLMODE DirectInputGetInputDeviceJoyStick(void) const;			//DirectInput Get DirectInput Device JoyStick(~DirectInput获取设备指针:游戏杆)
+
+	//DirectInput控制
+	void DIRECTINPUT_CALLMODE DirectInputSetInput(LPDIRECTINPUT8 pDirectInput);												//DirectInput Set DirectInput8(~DirectInput设置DirectInput8接口指针)
+	void DIRECTINPUT_CALLMODE DirectInputSetInputDeviceKeyBoard(LPDIRECTINPUTDEVICE8 pDirectInputDeviceKeyBoard);			//DirectInput Set DirectInput Device Keyboard(~DirectInput设置设备指针:键盘)
+	void DIRECTINPUT_CALLMODE DirectInputSetInputDeviceMouse(LPDIRECTINPUTDEVICE8 pDirectInputDeviceMouse);					//DirectInput Set DirectInput Device Mouse(~DirectInput设置设备指针:鼠标)
+	void DIRECTINPUT_CALLMODE DirectInputSetInputDeviceJoyStick(LPDIRECTINPUTDEVICE8 pDirectInputDeviceJoyStick);			//DirectInput Set DirectInput Device JoyStick(~DirectInput设置设备指针:游戏杆)
+
 	//DirectInput初始化
-	HRESULT DIRECTINPUT_CALLMODE DirectInputInit(HWND hWnd, HINSTANCE hInstance);	//DirectInput Initialize(KeyBoard&Mouse)(dwDeviceCoopFlags:DISCL_BACKGROUND | DISCL_NONEXCLUSIVE)
-	HRESULT DIRECTINPUT_CALLMODE DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputDevice eDirectInputDevice_X, DWORD dwDeviceCoopFlags);									//DirectInput Single Device Initialize
-	HRESULT DIRECTINPUT_CALLMODE DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputMulDevice eDirectInputMulDevice_X, DWORD dwDeviceCoopFlags1, DWORD dwDeviceCoopFlags2);	//DirectInput Multiple Device Initialize
-	HRESULT DIRECTINPUT_CALLMODE DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputDevice eDirectInputDevice_X, DirectInputDeviceCoopFlags eDirectInputDeviceCoopFlags);		//DirectInput Single Device Initialize
-	HRESULT DIRECTINPUT_CALLMODE DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputMulDevice eDirectInputMulDevice_X, DirectInputDeviceCoopFlags eDirectInputDeviceCoopFlags1, DirectInputDeviceCoopFlags eDirectInputDeviceCoopFlags2);	//DirectInput Multiple Device Initialize
-	HRESULT DIRECTINPUT_CALLMODE DirectInputKeyBoardInit(HWND hWnd, HINSTANCE hInstance);	//DirectInput Initialize(KeyBoard)(dwDeviceCoopFlags:DISCL_FOREGROUND | DISCL_EXCLUSIVE)
-	HRESULT DIRECTINPUT_CALLMODE DirectInputKeyBoardInit(HWND hWnd, HINSTANCE hInstance, DWORD dwDeviceCoopFlags);						//DirectInput Initialize(KeyBoard)
-	HRESULT DIRECTINPUT_CALLMODE DirectInputKeyBoardInit(HWND hWnd, HINSTANCE hInstance, DirectInputDeviceCoopFlags eDeviceCoopFlags);	//DirectInput Initialize(KeyBoard)
-	HRESULT DIRECTINPUT_CALLMODE DirectInputMouseInit(HWND hWnd, HINSTANCE hInstance);													//DirectInput Initialize(Mouse)(dwDeviceCoopFlags:DISCL_BACKGROUND | DISCL_NONEXCLUSIVE)
-	HRESULT DIRECTINPUT_CALLMODE DirectInputMouseInit(HWND hWnd, HINSTANCE hInstance, DWORD dwDeviceCoopFlags);							//DirectInput Initialize(Mouse)
-	HRESULT DIRECTINPUT_CALLMODE DirectInputMouseInit(HWND hWnd, HINSTANCE hInstance, DirectInputDeviceCoopFlags eDeviceCoopFlags);		//DirectInput Initialize(Mouse)
+	HRESULT DIRECTINPUT_CALLMODE DirectInputInit(HWND hWnd, HINSTANCE hInstance);	//DirectInput Initialize(KeyBoard&Mouse)(dwDeviceCoopFlags:DISCL_BACKGROUND | DISCL_NONEXCLUSIVE)(后台/非独占)
+	HRESULT DIRECTINPUT_CALLMODE DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputDevice eDirectInputDevice_X, DWORD dwDeviceCoopFlags);									//DirectInput Single Device Initialize(重载+1)
+	HRESULT DIRECTINPUT_CALLMODE DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputMulDevice eDirectInputMulDevice_X, DWORD dwDeviceCoopFlags1, DWORD dwDeviceCoopFlags2);	//DirectInput Multiple Device Initialize(重载+2)
+	HRESULT DIRECTINPUT_CALLMODE DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputDevice eDirectInputDevice_X, DirectInputDeviceCoopFlags eDirectInputDeviceCoopFlags);		//DirectInput Single Device Initialize(重载+3)
+	HRESULT DIRECTINPUT_CALLMODE DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputMulDevice eDirectInputMulDevice_X, DirectInputDeviceCoopFlags eDirectInputDeviceCoopFlags1, DirectInputDeviceCoopFlags eDirectInputDeviceCoopFlags2);	//DirectInput Multiple Device Initialize(重载+4)
+	HRESULT DIRECTINPUT_CALLMODE DirectInputKeyBoardInit(HWND hWnd, HINSTANCE hInstance);	//DirectInput Initialize(KeyBoard)(dwDeviceCoopFlags:DISCL_FOREGROUND | DISCL_EXCLUSIVE)(前台/独占)
+	HRESULT DIRECTINPUT_CALLMODE DirectInputKeyBoardInit(HWND hWnd, HINSTANCE hInstance, DWORD dwDeviceCoopFlags);						//DirectInput Initialize(KeyBoard)(重载+1)
+	HRESULT DIRECTINPUT_CALLMODE DirectInputKeyBoardInit(HWND hWnd, HINSTANCE hInstance, DirectInputDeviceCoopFlags eDeviceCoopFlags);	//DirectInput Initialize(KeyBoard)(重载+2)
+	HRESULT DIRECTINPUT_CALLMODE DirectInputMouseInit(HWND hWnd, HINSTANCE hInstance);													//DirectInput Initialize(Mouse)(dwDeviceCoopFlags:DISCL_BACKGROUND | DISCL_NONEXCLUSIVE)(后台/非独占)
+	HRESULT DIRECTINPUT_CALLMODE DirectInputMouseInit(HWND hWnd, HINSTANCE hInstance, DWORD dwDeviceCoopFlags);							//DirectInput Initialize(Mouse)(重载+1)
+	HRESULT DIRECTINPUT_CALLMODE DirectInputMouseInit(HWND hWnd, HINSTANCE hInstance, DirectInputDeviceCoopFlags eDeviceCoopFlags);		//DirectInput Initialize(Mouse)(重载+2)
 	
 	//DirectInput获取设备状态
-	void DIRECTINPUT_CALLMODE DirectInputGetDeviceState(void) const;	//DirectInput Get Device State(KeyBoard&Mouse)
+	void DIRECTINPUT_CALLMODE DirectInputGetDeviceState(void) const;									//DirectInput Get Device State(KeyBoard&Mouse)
 	void DIRECTINPUT_CALLMODE DirectInputGetDeviceState(DirectInputDevice eDirectInputDevice_X) const;	//DirectInput Get Device State
 	
 	//DirectInput检测(键盘/鼠标)按键状态
 	bool DIRECTINPUT_CALLMODE DIKeyBoardIsDown(int nKeyValue) const;							//DirectInput KeyBoard Is KeyDown(键盘按键按下)
-	bool DIRECTINPUT_CALLMODE DIKeyBoardIsUp(int nKeyValue) const;							//DirectInput KeyBoard Is KeyUp(键盘按键释放)
-	bool DIRECTINPUT_CALLMODE DIMouseIsDown(DirectInputMouseState eDIMouse_XButton) const;	//DirectInput Mouse Is KeyDown(鼠标按键按下)
+	bool DIRECTINPUT_CALLMODE DIKeyBoardIsUp(int nKeyValue) const;								//DirectInput KeyBoard Is KeyUp(键盘按键释放)
+	bool DIRECTINPUT_CALLMODE DIMouseIsDown(DirectInputMouseState eDIMouse_XButton) const;		//DirectInput Mouse Is KeyDown(鼠标按键按下)
 	bool DIRECTINPUT_CALLMODE DIMouseIsUp(DirectInputMouseState eDIMouse_XButton) const;		//DirectInput Mouse Is KeyUp(鼠标按键释放)
 	
 	//DirectInput获取鼠标坐标

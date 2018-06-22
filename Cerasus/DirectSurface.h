@@ -1,16 +1,17 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
 *     All rights reserved.
 *
 * @file		DirectSurface.h
 * @brief	This File is DirectSurface DLL Project.
 * @author	Alopex/Helium
-* @version	v1.12a
+* @version	v1.13a
 * @date		2017-12-9	v1.00a	alopex	Create This File.
-* @date		2018-1-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
-* @date		2018-1-10	v1.11a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
-* @date		2018-4-12	v1.12a	alopex	Add Macro Call Mode.
+* @date		2018-01-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-01-10	v1.11a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-04-12	v1.12a	alopex	Add Macro Call Mode.
+* @date		2018-06-22	v1.13a	alopex	Add Version Information.
 */
 #ifndef __DIRECTSURFACE_H_
 #define __DIRECTSURFACE_H_
@@ -46,12 +47,12 @@ public:
 	DirectSurface(IDirect3DDevice9* pD3D9Device);							//DirectSurface Constructor Function(构造函数)
 
 	//访问
-	IDirect3DDevice9* DIRECTSURFACE_CALLMODE DirectSurfaceGetDevice(void) const;			//DirectSurface Get D3D9Device(获取D3D9设备)
-	IDirect3DSurface9* DIRECTSURFACE_CALLMODE DirectSurfaceGetSurface(void) const;			//DirectSurface Get D3D9Surface(获取D3D9表面)
+	virtual IDirect3DDevice9* DIRECTSURFACE_CALLMODE DirectSurfaceGetDevice(void) const;			//DirectSurface Get D3D9Device(获取D3D9设备)
+	virtual IDirect3DSurface9* DIRECTSURFACE_CALLMODE DirectSurfaceGetSurface(void) const;			//DirectSurface Get D3D9Surface(获取D3D9表面)
 
 	//控制
-	void DIRECTSURFACE_CALLMODE DirectSurfaceSetDevice(IDirect3DDevice9* pD3D9Device);		//DirectSurface Set D3D9Device(设置D3D9设备)
-	void DIRECTSURFACE_CALLMODE DirectSurfaceSetSurface(IDirect3DSurface9* pD3D9Surface);	//DirectSurface Set D3D9Surface(获取D3D9表面)
+	virtual void DIRECTSURFACE_CALLMODE DirectSurfaceSetDevice(IDirect3DDevice9* pD3D9Device);		//DirectSurface Set D3D9Device(设置D3D9设备)
+	virtual void DIRECTSURFACE_CALLMODE DirectSurfaceSetSurface(IDirect3DSurface9* pD3D9Surface);	//DirectSurface Set D3D9Surface(获取D3D9表面)
 
 	//初始化
 	virtual HRESULT DIRECTSURFACE_CALLMODE DirectSurfaceInit(void);							//DirectSurface Initialize(DirectSurface初始化)
@@ -64,8 +65,9 @@ public:
 
 	//渲染表面
 	virtual void DIRECTSURFACE_CALLMODE DirectSurfaceRender(const RECT* pDestRect = NULL, const RECT* pSrcRect = NULL);																	//DirectSurface Render Surface(纹理)
-	virtual void DIRECTSURFACE_CALLMODE DirectSurfaceRender(DWORD dwColor);																												//DirectSurface Render Surface(纯色)				
+	virtual void DIRECTSURFACE_CALLMODE DirectSurfaceRender(DWORD dwColor);																												//DirectSurface Render Surface(纯色)
 
+	virtual void DIRECTSURFACE_CALLMODE DirectSurfaceRenderYUV(UCHAR* pArrayY, UCHAR* pArrayU, UCHAR* pArrayV, UINT nWidth, UINT nHeight);												//DirectSUrface Render Surface YUV
 };
 
 

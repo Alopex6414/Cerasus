@@ -1,16 +1,17 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
 *     All rights reserved.
 *
 * @file		DirectSurface.cpp
 * @brief	This File is DirectSurface DLL Project.
 * @author	Alopex/Helium
-* @version	v1.12a
+* @version	v1.13a
 * @date		2017-12-9	v1.00a	alopex	Create This File.
-* @date		2018-1-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
-* @date		2018-1-10	v1.11a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
-* @date		2018-4-12	v1.12a	alopex	Add Macro Call Mode.
+* @date		2018-01-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-01-10	v1.11a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-04-12	v1.12a	alopex	Add Macro Call Mode.
+* @date		2018-06-22	v1.13a	alopex	Add Version Information.
 */
 #include "DirectCommon.h"
 #include "DirectSurface.h"
@@ -247,6 +248,43 @@ void DIRECTSURFACE_CALLMODE DirectSurface::DirectSurfaceRender(DWORD dwColor)
 			int index = i * Rect.Pitch / 4 + j;
 			Data[index] = dwColor;
 		}
+	}
+
+	m_pD3D9Surface->UnlockRect();
+	m_pD3D9Device->StretchRect(m_pD3D9Surface, NULL, m_pD3D9BackSurface, NULL, D3DTEXF_NONE);
+}
+
+//----------------------------------------------------------------------------------------------------------------
+// @Function:	 DirectSurfaceRenderYUV(UCHAR* pArrayY, UCHAR* pArrayU, UCHAR* pArrayV, UINT nWidth, UINT nHeight)
+// @Purpose: DirectSurface渲染
+// @Since: v1.00a
+// @Para: UCHAR* pArrayY		//Y数组地址
+// @Para: UCHAR* pArrayU		//U数组地址
+// @Para: UCHAR* pArrayV		//V数组地址
+// @Para: UINT nWidth			//窗口宽度
+// @Para: UINT nHeight			//窗口高度
+// @Return: None
+//-----------------------------------------------------------------------------------------------------------------
+void DIRECTSURFACE_CALLMODE DirectSurface::DirectSurfaceRenderYUV(UCHAR* pArrayY, UCHAR* pArrayU, UCHAR* pArrayV, UINT nWidth, UINT nHeight)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	D3DSURFACE_DESC Desc;
+	D3DLOCKED_RECT Rect;
+
+	m_pD3D9Surface->GetDesc(&Desc);
+	m_pD3D9Surface->LockRect(&Rect, 0, 0);
+
+	for (int i = 0; i < nHeight; ++i)
+	{
+		memcpy((BYTE*)(Rect.pBits) + i * Rect.Pitch, (BYTE*)pArrayY + i * nWidth, nWidth);
+	}
+	for (int i = 0; i < nHeight / 2; ++i)
+	{
+		memcpy((BYTE*)(Rect.pBits) + Rect.Pitch * nHeight + (Rect.Pitch / 2) * i, (BYTE*)pArrayV + i * nWidth / 2, nWidth / 2);
+	}
+	for (int i = 0; i < nHeight / 2; ++i)
+	{
+		memcpy((BYTE*)(Rect.pBits) + Rect.Pitch * nHeight + Rect.Pitch * nHeight / 4 + (Rect.Pitch / 2) * i, (BYTE*)pArrayU + i * nWidth / 2, nWidth / 2);
 	}
 
 	m_pD3D9Surface->UnlockRect();

@@ -1,17 +1,18 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
 *     All rights reserved.
 *
 * @file		DirectFont.cpp
 * @brief	This File is DirectFont DLL Project.
 * @author	Alopex/Helium
-* @version	v1.12a
+* @version	v1.13a
 * @date		2017-12-16	v1.00a	alopex	Create This File.
-* @date		2018-1-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
-* @date		2018-1-10	v1.10a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
-* @date		2018-2-12	v1.11a	alopex	Add Reset Device & Definion of DirectFont Colors.
-* @date		2018-4-12	v1.12a	alopex	Add Macro Call Mode.
+* @date		2018-01-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-01-10	v1.10a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-02-12	v1.11a	alopex	Add Reset Device & Definion of DirectFont Colors.
+* @date		2018-04-12	v1.12a	alopex	Add Macro Call Mode.
+* @date		2018-06-22	v1.13a	alopex	Add Version Information.
 */
 #include "DirectCommon.h"
 #include "DirectFont.h"

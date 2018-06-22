@@ -1,17 +1,18 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
 *     All rights reserved.
 *
 * @file		DirectFont.h
 * @brief	This File is DirectFont DLL Project.
 * @author	Alopex/Helium
-* @version	v1.12a
+* @version	v1.13a
 * @date		2017-12-16	v1.00a	alopex	Create This File.
-* @date		2018-1-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
-* @date		2018-1-10	v1.10a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
-* @date		2018-2-12	v1.11a	alopex	Add Reset Device & Definion of DirectFont Colors.
-* @date		2018-4-12	v1.12a	alopex	Add Macro Call Mode.
+* @date		2018-01-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-01-10	v1.10a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-02-12	v1.11a	alopex	Add Reset Device & Definion of DirectFont Colors.
+* @date		2018-04-12	v1.12a	alopex	Add Macro Call Mode.
+* @date		2018-06-22	v1.13a	alopex	Add Version Information.
 */
 #pragma once
 
@@ -60,20 +61,20 @@ public:
 	DirectFont(IDirect3DDevice9* pD3D9Device);	//DirectFont Constructor Function(构造函数)
 
 	//访问
-	IDirect3DDevice9* DIRECTFONT_CALLMODE DirectFontGetDevice(void) const;			//DirectFont Get D3D9 Device(获取D3D9设备)
-	ID3DXFont* DIRECTFONT_CALLMODE DirectFontGetFont(void) const;					//DirectFont Get D3D9 Font(获取D3D9字体)
+	virtual IDirect3DDevice9* DIRECTFONT_CALLMODE DirectFontGetDevice(void) const;			//DirectFont Get D3D9 Device(获取D3D9设备)
+	virtual ID3DXFont* DIRECTFONT_CALLMODE DirectFontGetFont(void) const;					//DirectFont Get D3D9 Font(获取D3D9字体)
 
 	//控制
-	void DIRECTFONT_CALLMODE DirectFontSetDevice(IDirect3DDevice9* pD3D9Device);	//DirectFont Set D3D9 Device(设置D3D9设备)
-	void DIRECTFONT_CALLMODE DirectFontSetFont(ID3DXFont* pD3DXFont);				//DirectFont Set D3DX Font(设置D3D9字体)
+	virtual void DIRECTFONT_CALLMODE DirectFontSetDevice(IDirect3DDevice9* pD3D9Device);	//DirectFont Set D3D9 Device(设置D3D9设备)
+	virtual void DIRECTFONT_CALLMODE DirectFontSetFont(ID3DXFont* pD3DXFont);				//DirectFont Set D3DX Font(设置D3D9字体)
 
 	//重置
 	virtual HRESULT DIRECTFONT_CALLMODE DirectFontReset(void);						//DirectFont Reset D3DX Font(重置D3DX字体)(丢失设备重置)
 
 	//初始化
 	virtual HRESULT DIRECTFONT_CALLMODE DirectFontInit(void);										//DirectFont Create Font(DirectFont初始化)
-	virtual HRESULT DIRECTFONT_CALLMODE DirectFontInit(int nFontSize);								//DirectFont Create Font(DirectFont初始化)
-	virtual HRESULT DIRECTFONT_CALLMODE DirectFontInit(int nFontSize, LPWSTR lpszFontType);			//DirectFont Create Font(DirectFont初始化)
+	virtual HRESULT DIRECTFONT_CALLMODE DirectFontInit(int nFontSize);								//DirectFont Create Font(DirectFont初始化)(重载+1)
+	virtual HRESULT DIRECTFONT_CALLMODE DirectFontInit(int nFontSize, LPWSTR lpszFontType);			//DirectFont Create Font(DirectFont初始化)(重载+2)
 
 	//绘制
 	virtual void DIRECTFONT_CALLMODE DirectFontDrawText(HWND hWnd, LPCWSTR lpcszStr, DWORD Format, D3DCOLOR Color);			//DirectFont Draw Text(DirectFont绘制)

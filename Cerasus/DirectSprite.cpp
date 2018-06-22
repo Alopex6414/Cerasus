@@ -1,17 +1,19 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017, Team Shanghai Dream Equinox 
+*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox 
 *     All rights reserved.
 *
 * @file		DirectSprite.cpp
 * @brief	This File is DirectSprite DLL Project Header.
 * @author	Alopex/Helium
-* @version	v1.22a
+* @version	v1.24a
 * @date		2017-11-28	v1.00a	alopex	Create This Project.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
-* @date		2018-1-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
-* @date		2018-1-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
-* @date		2018-4-12	v1.22a	alopex	Add Macro Call Mode.
+* @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-01-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-04-12	v1.22a	alopex	Add Macro Call Mode.
+* @date		2018-06-22	v1.23a	alopex	Add Version Infomation.
+* @date		2018-06-22	v1.24a	alopex	Add Struct Definition.
 */
 #include "DirectCommon.h"
 #include "DirectSprite.h"
@@ -69,6 +71,84 @@ DirectSprite::DirectSprite(LPDIRECT3DDEVICE9 pD3D9Device)
 }
 
 //------------------------------------------------------------------
+// @Function:	 DirectSpriteGetDevice()
+// @Purpose: DirectSprite获取D3D9设备
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+LPDIRECT3DDEVICE9 DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteGetDevice(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pD3D9Device;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectSpriteGetTexture()
+// @Purpose: DirectSprite获取纹理
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+LPDIRECT3DTEXTURE9 DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteGetTexture(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pSpriteTexture;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectSpriteGetSprite()
+// @Purpose: DirectSprite获取精灵
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+LPD3DXSPRITE DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteGetSprite(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pSprite;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectSpriteSetDevice()
+// @Purpose: DirectSprite设置D3D9设备
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteSetDevice(LPDIRECT3DDEVICE9 pD3D9Device)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pD3D9Device = pD3D9Device;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectSpriteSetTexture()
+// @Purpose: DirectSprite设置纹理
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteSetTexture(LPDIRECT3DTEXTURE9 pSpriteTexture)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pSpriteTexture = pSpriteTexture;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectSpriteSetSprite()
+// @Purpose: DirectSprite设置精灵
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteSetSprite(LPD3DXSPRITE pSprite)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pSprite = pSprite;
+}
+
+//------------------------------------------------------------------
 // @Function:	 DirectSpriteInit(LPCWSTR lpszStr)
 // @Purpose: DirectSprite初始化函数
 // @Since: v1.00a
@@ -102,6 +182,20 @@ HRESULT DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteReload(LPCWSTR lpszStr)
 	VERIFY(D3DXCreateSprite(m_pD3D9Device, &m_pSprite));//D3DXSprite精灵创建
 
 	return S_OK;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectSpriteReset()
+// @Purpose: DirectSprite重置
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteReset(void)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	SAFE_RELEASE(m_pSpriteTexture);	//释放m_pSpriteTexture
+	m_pSprite->OnLostDevice();
 }
 
 //------------------------------------------------------------------

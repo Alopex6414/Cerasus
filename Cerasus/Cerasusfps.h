@@ -6,8 +6,9 @@
 * @file		Cerasusfps.h
 * @brief	This File is Cerasusfps Dynamic Link Library Project.
 * @author	alopex
-* @version	v1.00a
+* @version	v1.01a
 * @date		2018-06-09	v1.00a	alopex	Create This File.
+* @date		2018-06-22	v1.01a	alopex	Add Version Information.
 */
 #pragma once
 

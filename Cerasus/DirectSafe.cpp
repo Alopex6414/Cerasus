@@ -6,10 +6,11 @@
 * @file		DirectSafe.cpp
 * @brief	This Program is DirectSafe DLL Project.
 * @author	Alopex/Helium
-* @version	v1.02a
-* @date		2018-1-3	v1.00a	alopex	Create Project.
-* @date		2018-1-4	v1.01a	alopex	Modify inline Key Words.
-* @date		2018-4-12	v1.02a	alopex	Add Macro Call Mode.
+* @version	v1.03a
+* @date		2018-01-3	v1.00a	alopex	Create Project.
+* @date		2018-01-4	v1.01a	alopex	Modify inline Key Words.
+* @date		2018-04-12	v1.02a	alopex	Add Macro Call Mode.
+* @date		2018-06-22	v1.03a	alopex	Add Version Infomation.
 */
 #include "DirectCommon.h"
 #include "DirectSafe.h"

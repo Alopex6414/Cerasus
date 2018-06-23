@@ -6,7 +6,7 @@
 * @file		DirectGraphics.cpp
 * @brief	This Program is DirectGraphics DLL Project.
 * @author	Alopex/Helium
-* @version	v1.27a
+* @version	v1.29a
 * @date		2017-11-2	v1.00a	alopex	Create Project.
 * @date		2017-12-2	v1.01a	alopex	Add D3DXFont.
 * @date		2017-12-8	v1.11a	alopex	Code Do Not Rely On MSVCR Library.
@@ -18,6 +18,8 @@
 * @date		2018-06-17	v1.25a	alopex	Modify Reset Function.
 * @date		2018-06-18	v1.26a	alopex	Modify D3D9 Clear Function(Background Color).
 * @date		2018-06-21	v1.27a	alopex	Update Function D3DXFont Abort.
+* @date		2018-06-23	v1.28a	alopex	Repair Bugs.
+* @date		2018-06-23	v1.29a	alopex	Add Draw Function.
 */
 #include "DirectCommon.h"
 #include "DirectGraphics.h"
@@ -46,6 +48,7 @@ DirectGraphics::DirectGraphics()
 	ZeroMemory(m_wcD3D9AdapterType, sizeof(wchar_t)*ADAPTERTYPESIZE);	//清空m_wcD3D9AdapterType内存区域
 	ZeroMemory(m_wcD3D9BackFormat, sizeof(wchar_t)*D3D9FORMATSIZE);		//清空m_wcD3D9BackFormat内存区域
 	ZeroMemory(m_wcD3D9AutoDepthStencilFormat, sizeof(wchar_t)*D3D9FORMATSIZE);	//清空m_wcD3D9AutoDepthStencilFormat内存区域
+	ZeroMemory(m_wcD3D9ScreenInfo, sizeof(wchar_t)*D3D9FORMATSIZE);	//清空m_wcD3D9ScreenInfo内存区域
 }
 
 //------------------------------------------------------------------
@@ -192,6 +195,58 @@ const UINT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetSufaceHeight
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_nHeight;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphicsGetD3D9AdapterType(void) const
+// @Purpose: DirectGraphics读取D3D9 显卡型号字体
+// @Since: v1.00a
+// @Para: None
+// @Return: UINT
+//------------------------------------------------------------------
+const wchar_t* DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetD3D9AdapterType(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_wcD3D9AdapterType;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphicsGetD3D9BackFormat(void) const
+// @Purpose: DirectGraphics读取D3D9 后台缓存类型格式
+// @Since: v1.00a
+// @Para: None
+// @Return: UINT
+//------------------------------------------------------------------
+const wchar_t* DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetD3D9BackFormat(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_wcD3D9BackFormat;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphicsGetD3D9AutoDepthStencilFormat(void) const
+// @Purpose: DirectGraphics读取D3D9 深度模板缓存类型格式
+// @Since: v1.00a
+// @Para: None
+// @Return: UINT
+//------------------------------------------------------------------
+const wchar_t* DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetD3D9AutoDepthStencilFormat(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_wcD3D9AutoDepthStencilFormat;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphicsGetD3D9ScreenInfo(void) const
+// @Purpose: DirectGraphics读取D3D9 屏幕分辨率信息
+// @Since: v1.00a
+// @Para: None
+// @Return: UINT
+//------------------------------------------------------------------
+const wchar_t* DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetD3D9ScreenInfo(void) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_wcD3D9ScreenInfo;
 }
 
 //------------------------------------------------------------------
@@ -451,10 +506,13 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsInit(HWND hWnd)
 	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
 
 	//读取后台缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_wcD3D9BackFormat);
+	DirectGraphicsGetD3D9Format(m_D3D9pp.BackBufferFormat, m_wcD3D9BackFormat);
 
 	//读取深度缓存和模板缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_wcD3D9AutoDepthStencilFormat);
+	DirectGraphicsGetD3D9Format(m_D3D9pp.AutoDepthStencilFormat, m_wcD3D9AutoDepthStencilFormat);
+
+	//读取屏幕分辨率信息
+	DirectGraphicsGetD3D9Screen(m_nWidth, m_nHeight, m_wcD3D9ScreenInfo);
 
 	return S_OK;//OK
 }
@@ -518,10 +576,13 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsInit(HWND hWnd, bo
 	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
 
 	//读取后台缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_wcD3D9BackFormat);
+	DirectGraphicsGetD3D9Format(m_D3D9pp.BackBufferFormat, m_wcD3D9BackFormat);
 
 	//读取深度缓存和模板缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_wcD3D9AutoDepthStencilFormat);
+	DirectGraphicsGetD3D9Format(m_D3D9pp.AutoDepthStencilFormat, m_wcD3D9AutoDepthStencilFormat);
+
+	//读取屏幕分辨率信息
+	DirectGraphicsGetD3D9Screen(m_nWidth, m_nHeight, m_wcD3D9ScreenInfo);
 
 	return S_OK;//OK
 }
@@ -587,10 +648,13 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsInit(HWND hWnd, bo
 	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
 
 	//读取后台缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_wcD3D9BackFormat);
+	DirectGraphicsGetD3D9Format(m_D3D9pp.BackBufferFormat, m_wcD3D9BackFormat);
 
 	//读取深度缓存和模板缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_wcD3D9AutoDepthStencilFormat);
+	DirectGraphicsGetD3D9Format(m_D3D9pp.AutoDepthStencilFormat, m_wcD3D9AutoDepthStencilFormat);
+
+	//读取屏幕分辨率信息
+	DirectGraphicsGetD3D9Screen(m_nWidth, m_nHeight, m_wcD3D9ScreenInfo);
 
 	return S_OK;//OK
 }
@@ -653,10 +717,13 @@ HRESULT DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsInit(D3DPRESENT_PA
 	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
 
 	//读取后台缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_wcD3D9BackFormat);
+	DirectGraphicsGetD3D9Format(m_D3D9pp.BackBufferFormat, m_wcD3D9BackFormat);
 
 	//读取深度缓存和模板缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_wcD3D9AutoDepthStencilFormat);
+	DirectGraphicsGetD3D9Format(m_D3D9pp.AutoDepthStencilFormat, m_wcD3D9AutoDepthStencilFormat);
+
+	//读取屏幕分辨率信息
+	DirectGraphicsGetD3D9Screen(m_nWidth, m_nHeight, m_wcD3D9ScreenInfo);
 
 	return S_OK;//OK
 }
@@ -909,20 +976,92 @@ void DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontDrawTextA(LPCSTR 
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetD3D9Format(LPCWSTR pString, UINT nSize)
-// @Purpose: DirectGraphics 获取后台缓冲型号
+// @Function:	 DirectGraphicsFontDrawTextA(LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
+// @Purpose: DirectGraphics 绘制HAL信息
 // @Since: v1.01a
-// @Para: LPCWSTR pString		//数组地址
-// @Para: UINT nSize			//数组长度
+// @Para: LPCSTR pString		//字符数组(ASCII)
+// @Para: INT Count				//数组长度(-1)
+// @Para: LPRECT pRect			//绘制区域
+// @Para: DWORD Format			//绘制格式
+// @Para: D3DCOLOR Color		//绘制颜色
 // @Return: None
 //-----------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetD3D9Format(LPWSTR pString)
+void DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontDrawTextAdapterType(LPRECT pRect, DWORD Format, D3DCOLOR Color)
+{
+	DirectGraphicsFontDrawTextW(m_wcD3D9AdapterType, -1, pRect, Format, Color);
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphicsFontDrawTextA(LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
+// @Purpose: DirectGraphics 绘制HAL信息
+// @Since: v1.01a
+// @Para: LPCSTR pString		//字符数组(ASCII)
+// @Para: INT Count				//数组长度(-1)
+// @Para: LPRECT pRect			//绘制区域
+// @Para: DWORD Format			//绘制格式
+// @Para: D3DCOLOR Color		//绘制颜色
+// @Return: None
+//-----------------------------------------------------------------------------------------------------------------------------
+void DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontDrawTextFormat(LPRECT pRect, DWORD Format, D3DCOLOR Color)
+{
+	wchar_t wcFormatArray[MAX_PATH] = { 0 };
+
+	swprintf_s(wcFormatArray, L"%s (%s)", m_wcD3D9BackFormat, m_wcD3D9AutoDepthStencilFormat);
+	DirectGraphicsFontDrawTextW(wcFormatArray, -1, pRect, Format, Color);
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphicsFontDrawTextA(LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
+// @Purpose: DirectGraphics 绘制HAL信息
+// @Since: v1.01a
+// @Para: LPCSTR pString		//字符数组(ASCII)
+// @Para: INT Count				//数组长度(-1)
+// @Para: LPRECT pRect			//绘制区域
+// @Para: DWORD Format			//绘制格式
+// @Para: D3DCOLOR Color		//绘制颜色
+// @Return: None
+//-----------------------------------------------------------------------------------------------------------------------------
+void DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsFontDrawTextScreen(LPRECT pRect, DWORD Format, D3DCOLOR Color)
+{
+	DirectGraphicsFontDrawTextW(m_wcD3D9ScreenInfo, -1, pRect, Format, Color);
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphicsGetD3D9Screen(UINT nWidth, UINT nHeight, LPWSTR pString)
+// @Purpose: DirectGraphics 获取后台缓冲型号
+// @Since: v1.01a
+// @Para: UINT nWidth			//屏幕宽度
+// @Para: UINT nHeight			//屏幕高度
+// @Para: LPCSTR pString		//字符数组(Uincode)
+// @Return: None
+//-----------------------------------------------------------------------------------------------------------------------------
+void DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetD3D9Screen(UINT nWidth, UINT nHeight, LPWSTR pString)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	CHAR chString[MAX_PATH] = { 0 };
 	INT nSize = 0;
 
-	switch (m_D3D9pp.BackBufferFormat)
+	sprintf_s(chString, "D3D9 Vsync on (%dx%d)", nWidth, nHeight);
+
+	nSize = MultiByteToWideChar(CP_ACP, 0, chString, -1, NULL, 0);
+	MultiByteToWideChar(CP_ACP, 0, chString, -1, pString, nSize);
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphicsGetD3D9Format(LPCWSTR pString, UINT nSize)
+// @Purpose: DirectGraphics 获取后台缓冲型号
+// @Since: v1.01a
+// @Para: D3DFORMAT Format		//D3D9格式
+// @Para: LPCSTR pString		//字符数组(Uincode)
+// @Return: None
+//-----------------------------------------------------------------------------------------------------------------------------
+void DIRECTGRAPHICS_CALLMODE DirectGraphics::DirectGraphicsGetD3D9Format(D3DFORMAT Format, LPWSTR pString)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	CHAR chString[MAX_PATH] = { 0 };
+	INT nSize = 0;
+
+	switch (Format)
 	{
 	case D3DFMT_UNKNOWN:
 		strcpy_s(chString, "D3DFMT_UNKNOWN");

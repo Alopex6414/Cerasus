@@ -6,12 +6,13 @@
 * @file		DirectSurface.h
 * @brief	This File is DirectSurface DLL Project.
 * @author	Alopex/Helium
-* @version	v1.13a
+* @version	v1.14a
 * @date		2017-12-9	v1.00a	alopex	Create This File.
 * @date		2018-01-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-01-10	v1.11a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
 * @date		2018-04-12	v1.12a	alopex	Add Macro Call Mode.
 * @date		2018-06-22	v1.13a	alopex	Add Version Information.
+* @date		2018-06-23	v1.14a	alopex	Repair Bug.
 */
 #ifndef __DIRECTSURFACE_H_
 #define __DIRECTSURFACE_H_

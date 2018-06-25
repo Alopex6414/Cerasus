@@ -6,7 +6,7 @@
 * @file		DirectGraphics3D.h
 * @brief	This File is DirectGraphics3D DLL Project.
 * @author	Alopex/Helium
-* @version	v1.28a
+* @version	v1.29a
 * @date		2017-11-29	v1.00a	alopex	Create Project.
 * @date		2017-12-3	v1.01a	alopex	Modify Bug.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
@@ -16,6 +16,7 @@
 * @date		2018-04-12	v1.26a	alopex	Add Macro Call Mode.
 * @date		2018-06-21	v1.27a	alopex	Add Version Infomation.
 * @date		2018-06-21	v1.28a	alopex	Add Transform Function.
+* @date		2018-06-24	v1.29a	alopex	Repair Bugs.
 */
 #pragma once
 
@@ -219,11 +220,11 @@ public:
 	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInit(D3DPOOL ePool, DWORD Usage, Vertex3DType eVertex3DType, int nPlane);	//DirectGraphics3D Initialization(初始化)(重载+4)
 	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInit(D3DPOOL ePool, DWORD Usage, Vertex3DType eVertex3DType, int nPlane, LPCWSTR lpszStrTexture);	//DirectGraphics3D Initialization(初始化)(重载+5)
 	
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInitVertex3DBase(UINT nCount);								//DirectGraphics3D Initialization(初始化)(3D基本顶点格式)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInitVertex3DTexture(UINT nCount, LPCWSTR pStr);				//DirectGraphics3D Initialization(初始化)(3D纹理顶点格式)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInitVertex3DNormal(UINT nCount);								//DirectGraphics3D Initialization(初始化)(3D法线顶点格式)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInitVertex3DNormalTexture(UINT nCount, LPCWSTR pStr);			//DirectGraphics3D Initialization(初始化)(3D法线纹理顶点格式)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInitVertex3DNormalSpecularTexture(UINT nCount, LPCWSTR pStr);	//DirectGraphics3D Initialization(初始化)(3D法线镜面反射纹理顶点格式)
+	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInitVertex3DBase(UINT nCount);															//DirectGraphics3D Initialization(初始化)(3D基本顶点格式)
+	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInitVertex3DTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight);				//DirectGraphics3D Initialization(初始化)(3D纹理顶点格式)
+	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInitVertex3DNormal(UINT nCount);															//DirectGraphics3D Initialization(初始化)(3D法线顶点格式)
+	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInitVertex3DNormalTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight);			//DirectGraphics3D Initialization(初始化)(3D法线纹理顶点格式)
+	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInitVertex3DNormalSpecularTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight);	//DirectGraphics3D Initialization(初始化)(3D法线镜面反射纹理顶点格式)
 
 	//坐标(T)(矩阵变换)
 	//世界变换

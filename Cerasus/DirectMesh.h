@@ -9,6 +9,7 @@
 * @version	v1.01a
 * @date		2018-06-25	v1.00a	alopex	Create This File.
 * @date		2018-06-26	v1.01a	alopex	Add Get&Set Function.
+* @date		2018-06-26	v1.02a	alopex	Add Reset Function.
 */
 #pragma once
 
@@ -77,6 +78,9 @@ public:
 	virtual void DIRECTMESH_CALLMODE DirectMeshSetTorus(LPD3DXMESH pD3DXMeshTorus);			//DirectMesh Set D3D9 Torus(D3DXMesh设置D3D9圆环)
 	virtual void DIRECTMESH_CALLMODE DirectMeshSetPolygon(LPD3DXMESH pD3DXMeshPolygon);		//DirectMesh Set D3D9 Polygon(D3DXMesh设置D3D9多边形)
 	virtual void DIRECTMESH_CALLMODE DirectMeshSetTeapot(LPD3DXMESH pD3DXMeshTeapot);		//DirectMesh Set D3D9 Teapot(D3DXMesh设置D3D9茶壶)
+
+	//重置
+	virtual void DIRECTMESH_CALLMODE DirectMeshReset();										//DirectMesh Reset(D3DXMesh重置设备) 
 
 	//初始化
 	virtual HRESULT DIRECTMESH_CALLMODE DirectMeshInitCube(FLOAT fWidth, FLOAT fHeight, FLOAT fDepth);												//DirectMesh Initialization Cube(D3DXMesh初始化立方体)

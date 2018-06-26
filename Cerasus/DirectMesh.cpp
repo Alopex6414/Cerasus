@@ -6,9 +6,10 @@
 * @file		DirectMesh.cpp
 * @brief	This File is DirectX Library Common Header.
 * @author	Alopex/Helium
-* @version	v1.01a
+* @version	v1.02a
 * @date		2018-06-25	v1.00a	alopex	Create This File.
 * @date		2018-06-26	v1.01a	alopex	Add Get&Set Function.
+* @date		2018-06-26	v1.02a	alopex	Add Reset Function.
 */
 #include "DirectCommon.h"
 #include "DirectMesh.h"
@@ -255,6 +256,24 @@ void DIRECTMESH_CALLMODE DirectMesh::DirectMeshSetTeapot(LPD3DXMESH pD3DXMeshTea
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3DXMeshTeapot = pD3DXMeshTeapot;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectMeshReset()
+// @Purpose: DirectMesh÷ÿ÷√
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void DIRECTMESH_CALLMODE DirectMesh::DirectMeshReset()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	SAFE_RELEASE(m_pD3DXMeshCube);
+	SAFE_RELEASE(m_pD3DXMeshSphere);
+	SAFE_RELEASE(m_pD3DXMeshCylinder);
+	SAFE_RELEASE(m_pD3DXMeshTorus);
+	SAFE_RELEASE(m_pD3DXMeshPolygon);
+	SAFE_RELEASE(m_pD3DXMeshTeapot);
 }
 
 //------------------------------------------------------------------

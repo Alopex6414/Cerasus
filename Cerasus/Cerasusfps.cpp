@@ -6,9 +6,10 @@
 * @file		Cerasusfps.cpp
 * @brief	This File is Cerasusfps Dynamic Link Library Project.
 * @author	alopex
-* @version	v1.01a
+* @version	v1.02a
 * @date		2018-06-09	v1.00a	alopex	Create This File.
 * @date		2018-06-22	v1.01a	alopex	Add Version Information.
+* @date		2018-06-26	v1.02a	alopex	Modify Call Mode.
 */
 #include "Cerasusfps.h"
 
@@ -67,7 +68,7 @@ CCerasusfps::CCerasusfps(IDirect3DDevice9* pD3D9Device)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-DirectFont* CERASUSFPS_CALL CCerasusfps::CCerasusfpsGetFont() const
+DirectFont* CERASUSFPS_CALLMODE CCerasusfps::CCerasusfpsGetFont() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pFont;
@@ -80,7 +81,7 @@ DirectFont* CERASUSFPS_CALL CCerasusfps::CCerasusfpsGetFont() const
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-float CERASUSFPS_CALL CCerasusfps::CCerasusfpsGetFps() const
+float CERASUSFPS_CALLMODE CCerasusfps::CCerasusfpsGetFps() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_ffps;
@@ -93,7 +94,7 @@ float CERASUSFPS_CALL CCerasusfps::CCerasusfpsGetFps() const
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-VOID CERASUSFPS_CALL CCerasusfps::CCerasusfpsSetFont(DirectFont* pFont)
+VOID CERASUSFPS_CALLMODE CCerasusfps::CCerasusfpsSetFont(DirectFont* pFont)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pFont = pFont;
@@ -106,7 +107,7 @@ VOID CERASUSFPS_CALL CCerasusfps::CCerasusfpsSetFont(DirectFont* pFont)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT CERASUSFPS_CALL CCerasusfps::CCerasusfpsReset()
+HRESULT CERASUSFPS_CALLMODE CCerasusfps::CCerasusfpsReset()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	HRESULT hr;
@@ -122,7 +123,7 @@ HRESULT CERASUSFPS_CALL CCerasusfps::CCerasusfpsReset()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT CERASUSFPS_CALL CCerasusfps::CCerasusfpsInit(int nFontSize)
+HRESULT CERASUSFPS_CALLMODE CCerasusfps::CCerasusfpsInit(int nFontSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	HRESULT hr;
@@ -139,7 +140,7 @@ HRESULT CERASUSFPS_CALL CCerasusfps::CCerasusfpsInit(int nFontSize)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT CERASUSFPS_CALL CCerasusfps::CCerasusfpsInit(int nFontSize, LPWSTR lpszFontType)
+HRESULT CERASUSFPS_CALLMODE CCerasusfps::CCerasusfpsInit(int nFontSize, LPWSTR lpszFontType)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	HRESULT hr;
@@ -156,7 +157,7 @@ HRESULT CERASUSFPS_CALL CCerasusfps::CCerasusfpsInit(int nFontSize, LPWSTR lpszF
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-VOID CERASUSFPS_CALL CCerasusfps::CCerasusfpsGetfps()
+VOID CERASUSFPS_CALLMODE CCerasusfps::CCerasusfpsGetfps()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	static int FrameCount = 0;
@@ -186,7 +187,7 @@ VOID CERASUSFPS_CALL CCerasusfps::CCerasusfpsGetfps()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-VOID CERASUSFPS_CALL CCerasusfps::CCerasusfpsGetfpsEx(float fTimeDelta, float * pfps)
+VOID CERASUSFPS_CALLMODE CCerasusfps::CCerasusfpsGetfpsEx(float fTimeDelta, float * pfps)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	static int FrameCount = 0;
@@ -211,7 +212,7 @@ VOID CERASUSFPS_CALL CCerasusfps::CCerasusfpsGetfpsEx(float fTimeDelta, float * 
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-VOID CERASUSFPS_CALL CCerasusfps::CCerasusfpsGetfpsEx(float * pfps)
+VOID CERASUSFPS_CALLMODE CCerasusfps::CCerasusfpsGetfpsEx(float * pfps)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	static int FrameCount = 0;
@@ -241,7 +242,7 @@ VOID CERASUSFPS_CALL CCerasusfps::CCerasusfpsGetfpsEx(float * pfps)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-float CERASUSFPS_CALL CCerasusfps::CCerasusfpsGetfpsEx(float fTimeDelta)
+float CERASUSFPS_CALLMODE CCerasusfps::CCerasusfpsGetfpsEx(float fTimeDelta)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	static int FrameCount = 0;
@@ -268,7 +269,7 @@ float CERASUSFPS_CALL CCerasusfps::CCerasusfpsGetfpsEx(float fTimeDelta)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-float CERASUSFPS_CALL CCerasusfps::CCerasusfpsGetfpsEx()
+float CERASUSFPS_CALLMODE CCerasusfps::CCerasusfpsGetfpsEx()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	static int FrameCount = 0;
@@ -300,7 +301,7 @@ float CERASUSFPS_CALL CCerasusfps::CCerasusfpsGetfpsEx()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-VOID CERASUSFPS_CALL CCerasusfps::CCerasusfpsDrawfps(HWND hWnd)
+VOID CERASUSFPS_CALLMODE CCerasusfps::CCerasusfpsDrawfps(HWND hWnd)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	wchar_t fpsArr[20];
@@ -317,7 +318,7 @@ VOID CERASUSFPS_CALL CCerasusfps::CCerasusfpsDrawfps(HWND hWnd)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-VOID CERASUSFPS_CALL CCerasusfps::CCerasusfpsDrawfps(HWND hWnd, DWORD Format)
+VOID CERASUSFPS_CALLMODE CCerasusfps::CCerasusfpsDrawfps(HWND hWnd, DWORD Format)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	wchar_t fpsArr[20];
@@ -334,7 +335,7 @@ VOID CERASUSFPS_CALL CCerasusfps::CCerasusfpsDrawfps(HWND hWnd, DWORD Format)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-VOID CERASUSFPS_CALL CCerasusfps::CCerasusfpsDrawfps(HWND hWnd, DWORD Format, D3DCOLOR Color)
+VOID CERASUSFPS_CALLMODE CCerasusfps::CCerasusfpsDrawfps(HWND hWnd, DWORD Format, D3DCOLOR Color)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	wchar_t fpsArr[20];

@@ -142,6 +142,7 @@
     <ClInclude Include="DirectGraphics2D.h" />
     <ClInclude Include="DirectGraphics3D.h" />
     <ClInclude Include="DirectInput.h" />
+    <ClInclude Include="DirectMesh.h" />
     <ClInclude Include="DirectSafe.h" />
     <ClInclude Include="DirectShow.h" />
     <ClInclude Include="DirectSound.h" />
@@ -232,6 +233,7 @@
     <ClCompile Include="DirectGraphics2D.cpp" />
     <ClCompile Include="DirectGraphics3D.cpp" />
     <ClCompile Include="DirectInput.cpp" />
+    <ClCompile Include="DirectMesh.cpp" />
     <ClCompile Include="DirectSafe.cpp" />
     <ClCompile Include="DirectShow.cpp" />
     <ClCompile Include="DirectSound.cpp" />

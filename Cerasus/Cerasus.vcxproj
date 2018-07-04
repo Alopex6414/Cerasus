@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Cerasusfps.h" />
+    <ClInclude Include="CerasusUnit.h" />
     <ClInclude Include="DirectCommon.h" />
     <ClInclude Include="DirectFont.h" />
     <ClInclude Include="DirectGraphics.h" />
@@ -228,6 +229,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cerasusfps.cpp" />
+    <ClCompile Include="CerasusUnit.cpp" />
     <ClCompile Include="DirectFont.cpp" />
     <ClCompile Include="DirectGraphics.cpp" />
     <ClCompile Include="DirectGraphics2D.cpp" />

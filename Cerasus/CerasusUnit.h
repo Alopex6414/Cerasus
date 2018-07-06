@@ -6,10 +6,11 @@
 * @file		CreasusUnit.h
 * @brief	This File is CreasusUnit DLL Project.
 * @author	Alopex/Helium
-* @version	v1.02a
+* @version	v1.03a
 * @date		2018-07-04	v1.00a	alopex	Create Project.
 * @date		2018-07-05	v1.01a	alopex	Add Get&Set Function.
 * @date		2018-07-05	v1.02a	alopex	Add Translate Function.
+* @date		2018-07-06	v1.03a	alopex	Modify Para.
 */
 #pragma once
 

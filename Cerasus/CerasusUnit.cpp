@@ -6,10 +6,11 @@
 * @file		CreasusUnit.cpp
 * @brief	This File is CreasusUnit DLL Project.
 * @author	Alopex/Helium
-* @version	v1.02a
+* @version	v1.03a
 * @date		2018-07-04	v1.00a	alopex	Create Project.
 * @date		2018-07-05	v1.01a	alopex	Add Get&Set Function.
 * @date		2018-07-05	v1.02a	alopex	Add Translate Function.
+* @date		2018-07-06	v1.03a	alopex	Modify Para.
 */
 #include "CerasusUnit.h"
 
@@ -535,13 +536,13 @@ void CERASUSUNIT_CALLMODE CCerasusUnit::CCerasusUnitPaddingVertexAndIndex()
 	float fVertex4V = 0.0f;
 
 	fVertex1X = -(m_nScreenWidth * 0.5f) + m_rcUnit.left * 1.0f;
-	fVertex1Y = -(m_nScreenHeight * 0.5f) + m_rcUnit.top * 1.0f;
+	fVertex1Y = (m_nScreenHeight * 0.5f) - m_rcUnit.top * 1.0f;
 	fVertex2X = -(m_nScreenWidth * 0.5f) + m_rcUnit.right * 1.0f;
-	fVertex2Y = -(m_nScreenHeight * 0.5f) + m_rcUnit.top * 1.0f;
+	fVertex2Y = (m_nScreenHeight * 0.5f) - m_rcUnit.top * 1.0f;
 	fVertex3X = -(m_nScreenWidth * 0.5f) + m_rcUnit.right * 1.0f;
-	fVertex3Y = -(m_nScreenHeight * 0.5f) + m_rcUnit.bottom * 1.0f;
+	fVertex3Y = (m_nScreenHeight * 0.5f) - m_rcUnit.bottom * 1.0f;
 	fVertex4X = -(m_nScreenWidth * 0.5f) + m_rcUnit.left * 1.0f;
-	fVertex4Y = -(m_nScreenHeight * 0.5f) + m_rcUnit.bottom * 1.0f;
+	fVertex4Y = (m_nScreenHeight * 0.5f) - m_rcUnit.bottom * 1.0f;
 
 	fVertex1U = (float)(m_rcUnitTex.left * 1.0f / m_nTextureWidth);
 	fVertex1V = (float)(m_rcUnitTex.top * 1.0f / m_nTextureHeight);
@@ -554,10 +555,10 @@ void CERASUSUNIT_CALLMODE CCerasusUnit::CCerasusUnitPaddingVertexAndIndex()
 
 	Vertex3DTexture pVertices[] = 
 	{
-		{ fVertex1X, fVertex1Y, 1.0f, D3DXCOLOR(1.0f, 1.0f, 1.0f, m_fUnitAlpha), fVertex1U, fVertex1V },
-		{ fVertex2X, fVertex2Y, 1.0f, D3DXCOLOR(1.0f, 1.0f, 1.0f, m_fUnitAlpha), fVertex2U, fVertex2V },
-		{ fVertex3X, fVertex3Y, 1.0f, D3DXCOLOR(1.0f, 1.0f, 1.0f, m_fUnitAlpha), fVertex3U, fVertex3V },
-		{ fVertex4X, fVertex4Y, 1.0f, D3DXCOLOR(1.0f, 1.0f, 1.0f, m_fUnitAlpha), fVertex4U, fVertex4V },
+		{ fVertex1X, fVertex1Y, -1.0f, D3DXCOLOR(1.0f, 1.0f, 1.0f, m_fUnitAlpha), fVertex1U, fVertex1V },
+		{ fVertex2X, fVertex2Y, -1.0f, D3DXCOLOR(1.0f, 1.0f, 1.0f, m_fUnitAlpha), fVertex2U, fVertex2V },
+		{ fVertex3X, fVertex3Y, -1.0f, D3DXCOLOR(1.0f, 1.0f, 1.0f, m_fUnitAlpha), fVertex3U, fVertex3V },
+		{ fVertex4X, fVertex4Y, -1.0f, D3DXCOLOR(1.0f, 1.0f, 1.0f, m_fUnitAlpha), fVertex4U, fVertex4V },
 	};
 
 	m_pDirectGraphics3D->DirectGraphics3DPaddingVertexAndIndex(pVertices, 1);

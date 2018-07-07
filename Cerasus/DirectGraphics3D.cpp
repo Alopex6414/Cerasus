@@ -6,7 +6,7 @@
 * @file		DirectGraphics3D.cpp
 * @brief	This File is DirectGraphics3D DLL Project.
 * @author	Alopex/Helium
-* @version	v1.29a
+* @version	v1.30a
 * @date		2017-11-29	v1.00a	alopex	Create Project.
 * @date		2017-12-3	v1.01a	alopex	Modify Bug.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
@@ -17,6 +17,7 @@
 * @date		2018-06-21	v1.27a	alopex	Add Version Infomation.
 * @date		2018-06-21	v1.28a	alopex	Add Transform Function.
 * @date		2018-06-24	v1.29a	alopex	Repair Bugs.
+* @date		2018-06-24	v1.30a	alopex	Repair Texture Alpha Channel.
 */
 #include "DirectCommon.h"
 #include "DirectGraphics3D.h"
@@ -501,7 +502,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3D
 	VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nCount * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
 
 	//Texture创建平面纹理
-	VERIFY(D3DXCreateTextureFromFileExW(m_pD3D9Device, pStr, nWidth, nHeight, 0, 0, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DCOLOR_XRGB(0, 0, 0), NULL, NULL, &m_pD3D9Texture));
+	VERIFY(D3DXCreateTextureFromFileExW(m_pD3D9Device, pStr, nWidth, nHeight, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f), NULL, NULL, &m_pD3D9Texture));
 
 	return S_OK;
 }
@@ -545,7 +546,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3D
 	VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nCount * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
 
 	//Texture创建平面纹理
-	VERIFY(D3DXCreateTextureFromFileExW(m_pD3D9Device, pStr, nWidth, nHeight, 0, 0, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DCOLOR_XRGB(0, 0, 0), NULL, NULL, &m_pD3D9Texture));
+	VERIFY(D3DXCreateTextureFromFileExW(m_pD3D9Device, pStr, nWidth, nHeight, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f), NULL, NULL, &m_pD3D9Texture));
 
 	return S_OK;
 }
@@ -569,7 +570,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3D
 	VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nCount * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
 
 	//Texture创建平面纹理
-	VERIFY(D3DXCreateTextureFromFileExW(m_pD3D9Device, pStr, nWidth, nHeight, 0, 0, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DCOLOR_XRGB(0, 0, 0), NULL, NULL, &m_pD3D9Texture));
+	VERIFY(D3DXCreateTextureFromFileExW(m_pD3D9Device, pStr, nWidth, nHeight, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f), NULL, NULL, &m_pD3D9Texture));
 
 	return S_OK;
 }

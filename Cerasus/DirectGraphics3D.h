@@ -6,7 +6,7 @@
 * @file		DirectGraphics3D.h
 * @brief	This File is DirectGraphics3D DLL Project.
 * @author	Alopex/Helium
-* @version	v1.29a
+* @version	v1.30a
 * @date		2017-11-29	v1.00a	alopex	Create Project.
 * @date		2017-12-3	v1.01a	alopex	Modify Bug.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
@@ -17,6 +17,7 @@
 * @date		2018-06-21	v1.27a	alopex	Add Version Infomation.
 * @date		2018-06-21	v1.28a	alopex	Add Transform Function.
 * @date		2018-06-24	v1.29a	alopex	Repair Bugs.
+* @date		2018-06-24	v1.30a	alopex	Repair Texture Alpha Channel.
 */
 #pragma once
 

@@ -6,12 +6,14 @@
 * @file		DirectTexture.cpp
 * @brief	This File is DirectTexture DLL Project.
 * @author	Alopex/Helium
-* @version	v1.13a
+* @version	v1.15a
 * @date		2017-12-10	v1.00a	alopex	Create This File.
 * @date		2018-01-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-01-10	v1.11a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
 * @date		2018-04-12	v1.12a	alopex	Add Macro Call Mode.
 * @date		2018-06-22	v1.13a	alopex	Add Version Information.
+* @date		2018-07-01	v1.14a	alopex	Modify Thread Safe Class.
+* @date		2018-07-09	v1.15a	alopex	Add 32 Channel Texture.
 */
 #include "DirectCommon.h"
 #include "DirectTexture.h"
@@ -196,6 +198,42 @@ HRESULT DIRECTTEXTURE_CALLMODE DirectTexture::DirectTextureLoadTextureEx(LPCVOID
 
 	VERIFY(D3DXCreateTextureFromFileInMemoryEx(m_pD3D9Device, lpSrcData, nSrcDataSize, nWidth, nHeight, 0, 0, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DCOLOR_XRGB(0, 0, 0), NULL, NULL, &m_pD3D9Texture));
 	
+	return	S_OK;
+}
+
+//----------------------------------------------------------------------------------------
+// @Function:	 DirectTextureLoadTextureEx32(LPWSTR lpszTexture, UINT nWidth, UINT nHeight)
+// @Purpose: DirectTexture加载纹理
+// @Since: v1.00a
+// @Para: LPWSTR lpszTexture	//D3D9纹理路径
+// @Para: UINT nWidth			//纹理宽度(2^n)
+// @Para: UINT nHeight			//纹理高度(2^n)
+// @Return: None
+//----------------------------------------------------------------------------------------
+HRESULT DIRECTTEXTURE_CALLMODE DirectTexture::DirectTextureLoadTextureEx32(LPWSTR lpszTexture, UINT nWidth, UINT nHeight)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	VERIFY(D3DXCreateTextureFromFileEx(m_pD3D9Device, lpszTexture, nWidth, nHeight, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f), NULL, NULL, &m_pD3D9Texture));
+
+	return S_OK;
+}
+
+//----------------------------------------------------------------------------------------------------------
+// @Function:	 DirectTextureLoadTextureEx32(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight)
+// @Purpose: DirectTexture加载纹理
+// @Since: v1.00a
+// @Para: LPWSTR lpszTexture	//D3D9纹理路径
+// @Para: UINT nWidth			//纹理宽度(2^n)
+// @Para: UINT nHeight			//纹理高度(2^n)
+// @Return: None
+//----------------------------------------------------------------------------------------------------------
+HRESULT DIRECTTEXTURE_CALLMODE DirectTexture::DirectTextureLoadTextureEx32(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	VERIFY(D3DXCreateTextureFromFileInMemoryEx(m_pD3D9Device, lpSrcData, nSrcDataSize, nWidth, nHeight, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f), NULL, NULL, &m_pD3D9Texture));
+
 	return	S_OK;
 }
 

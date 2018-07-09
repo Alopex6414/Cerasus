@@ -6,12 +6,14 @@
 * @file		DirectTexture.h
 * @brief	This File is DirectTexture DLL Project.
 * @author	Alopex/Helium
-* @version	v1.13a
+* @version	v1.15a
 * @date		2017-12-10	v1.00a	alopex	Create This File.
 * @date		2018-01-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-01-10	v1.11a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
 * @date		2018-04-12	v1.12a	alopex	Add Macro Call Mode.
 * @date		2018-06-22	v1.13a	alopex	Add Version Information.
+* @date		2018-07-01	v1.14a	alopex	Modify Thread Safe Class.
+* @date		2018-07-09	v1.15a	alopex	Add 32 Channel Texture.
 */
 #pragma once
 
@@ -63,6 +65,8 @@ public:
 	virtual HRESULT DIRECTTEXTURE_CALLMODE DirectTextureLoadTexture(LPCVOID lpSrcData, UINT nSrcDataSize);										//DirectTexture Load Texture(加载纹理)(内存)
 	virtual HRESULT DIRECTTEXTURE_CALLMODE DirectTextureLoadTextureEx(LPWSTR lpszTexture, UINT nWidth, UINT nHeight);							//DirectTexture Load Texture Ex(加载纹理)(文件)
 	virtual HRESULT DIRECTTEXTURE_CALLMODE DirectTextureLoadTextureEx(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight);			//DirectTexture Load Texture Ex(加载纹理)(内存)
+	virtual HRESULT DIRECTTEXTURE_CALLMODE DirectTextureLoadTextureEx32(LPWSTR lpszTexture, UINT nWidth, UINT nHeight);							//DirectTexture Load Texture Ex(加载纹理)(文件)(Alpha通道)
+	virtual HRESULT DIRECTTEXTURE_CALLMODE DirectTextureLoadTextureEx32(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight);		//DirectTexture Load Texture Ex(加载纹理)(内存)(Alpha通道)
 
 	//渲染纹理
 	virtual void DIRECTTEXTURE_CALLMODE DirectTextureSelectTexture(void);					//DirectTexture Select Texture(D3D9设备选中纹理)

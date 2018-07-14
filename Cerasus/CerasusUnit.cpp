@@ -6,12 +6,13 @@
 * @file		CreasusUnit.cpp
 * @brief	This File is CreasusUnit DLL Project.
 * @author	Alopex/Helium
-* @version	v1.04a
+* @version	v1.05a
 * @date		2018-07-04	v1.00a	alopex	Create Project.
 * @date		2018-07-05	v1.01a	alopex	Add Get&Set Function.
 * @date		2018-07-05	v1.02a	alopex	Add Translate Function.
 * @date		2018-07-06	v1.03a	alopex	Modify Para.
 * @date		2018-07-14	v1.04a	alopex	Modify Function.
+* @date		2018-07-14	v1.05a	alopex	Add Texture Create In Memory Function.
 */
 #include "CerasusUnit.h"
 
@@ -31,6 +32,8 @@ CCerasusUnit::CCerasusUnit()
 	m_nScreenWidth = 0;
 	m_nScreenHeight = 0;
 	m_pTextureStr = NULL;
+	m_pTextureArr = NULL;
+	m_nTextureArrSize = 0;
 	m_nTextureWidth = 0;
 	m_nTextureHeight = 0;
 	m_fUnitAlpha = 0.0f;
@@ -70,6 +73,8 @@ CCerasusUnit::CCerasusUnit(IDirect3DDevice9 * pD3D9Device)
 	m_nScreenWidth = 0;
 	m_nScreenHeight = 0;
 	m_pTextureStr = NULL;
+	m_pTextureArr = NULL;
+	m_nTextureArrSize = 0;
 	m_nTextureWidth = 0;
 	m_nTextureHeight = 0;
 	m_fUnitAlpha = 0.0f;
@@ -505,6 +510,24 @@ HRESULT CERASUSUNIT_CALLMODE CCerasusUnit::CCerasusUnitInit(CUUint sUnit)
 	memcpy_s(&m_sCoordsTransformPara, sizeof(m_sCoordsTransformPara), &(sUnit.sCoordsTransformPara), sizeof(sUnit.sCoordsTransformPara));
 
 	return m_pDirectGraphics3D->DirectGraphics3DInitVertex3DTexture(1, m_pTextureStr, m_nTextureWidth, m_nTextureHeight);
+}
+
+HRESULT CERASUSUNIT_CALLMODE CCerasusUnit::CCerasusUnitInit(CUUintEx sUnit)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	m_nScreenWidth = sUnit.nScreenWidth;
+	m_nScreenHeight = sUnit.nScreenHeight;
+	m_pTextureArr = sUnit.pTextureArr;
+	m_nTextureArrSize = sUnit.nTextureArrSize;
+	m_nTextureWidth = sUnit.nTextureWidth;
+	m_nTextureHeight = sUnit.nTextureHeight;
+	m_fUnitAlpha = sUnit.fUnitAlpha;
+	memcpy_s(&m_rcUnit, sizeof(m_rcUnit), &(sUnit.rcUnit), sizeof(sUnit.rcUnit));
+	memcpy_s(&m_rcUnitTex, sizeof(m_rcUnitTex), &(sUnit.rcUnitTex), sizeof(sUnit.rcUnitTex));
+	memcpy_s(&m_sCoordsTransformPara, sizeof(m_sCoordsTransformPara), &(sUnit.sCoordsTransformPara), sizeof(sUnit.sCoordsTransformPara));
+
+	return m_pDirectGraphics3D->DirectGraphics3DInitVertex3DTexture(1, m_pTextureArr, m_nTextureArrSize, m_nTextureWidth, m_nTextureHeight);
 }
 
 //------------------------------------------------------------------

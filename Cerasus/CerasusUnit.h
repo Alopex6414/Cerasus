@@ -6,12 +6,13 @@
 * @file		CreasusUnit.h
 * @brief	This File is CreasusUnit DLL Project.
 * @author	Alopex/Helium
-* @version	v1.04a
+* @version	v1.05a
 * @date		2018-07-04	v1.00a	alopex	Create Project.
 * @date		2018-07-05	v1.01a	alopex	Add Get&Set Function.
 * @date		2018-07-05	v1.02a	alopex	Add Translate Function.
 * @date		2018-07-06	v1.03a	alopex	Modify Para.
 * @date		2018-07-14	v1.04a	alopex	Modify Function.
+* @date		2018-07-14	v1.05a	alopex	Add Texture Create In Memory Function.
 */
 #pragma once
 
@@ -46,6 +47,20 @@ typedef struct
 	DG3D_CoordsTransformPara sCoordsTransformPara;	//坐标变换
 } CUUint, *LPCUUint;
 
+typedef struct
+{
+	UINT nScreenWidth;			//窗口宽度
+	UINT nScreenHeight;			//窗口高度
+	LPVOID pTextureArr;			//纹理数组地址
+	UINT nTextureArrSize;		//纹理数组长度
+	UINT nTextureWidth;			//纹理宽度
+	UINT nTextureHeight;		//纹理高度
+	RECT rcUnit;				//图元矩形
+	RECT rcUnitTex;				//纹理矩形
+	float fUnitAlpha;			//Alpha值
+	DG3D_CoordsTransformPara sCoordsTransformPara;	//坐标变换
+} CUUintEx, *LPCUUintEx;
+
 //Class Definition
 class CERASUSUNIT_API CCerasusUnit
 {
@@ -60,6 +75,8 @@ public:
 	UINT m_nScreenWidth;									//CCerasusUnit Window Screen Width(~CCerasusUnit 窗口宽度)
 	UINT m_nScreenHeight;									//CCerasusUnit Window Screen Height(~CCerasusUnit 窗口高度)
 	LPWSTR m_pTextureStr;									//CCerasusUnit Texture String Path(~CCerasusUnit 纹理路径)
+	LPVOID m_pTextureArr;									//CCerasusUnit Texture In Memory Array(~CCerasusUnit 纹理数组地址)
+	UINT m_nTextureArrSize;									//CCerasusUnit Texture In Memory Array Size(~CCerasusUnit 纹理数组长度)
 	UINT m_nTextureWidth;									//CCerasusUnit Texture Width(~CCerasusUnit 加载纹理宽度)
 	UINT m_nTextureHeight;									//CCerasusUnit Texture Height(~CCerasusUnit 加载纹理高度)
 	RECT m_rcUnit;											//CCerasusUnit Unit Rect(~CCerasusUnit 图元矩形位置)
@@ -119,6 +136,7 @@ public:
 
 	//初始化
 	virtual HRESULT CERASUSUNIT_CALLMODE CCerasusUnitInit(CUUint sUnit);									//CCerasusUnit Init(~CCerasusUnit 初始化)
+	virtual HRESULT CERASUSUNIT_CALLMODE CCerasusUnitInit(CUUintEx sUnit);									//CCerasusUnit Init(~CCerasusUnit 初始化)
 
 	//填充顶点索引
 	virtual void CERASUSUNIT_CALLMODE CCerasusUnitPaddingVertexAndIndex();									//CCerasusUnit PaddingVertexAndIndex(~CCerasusUnit 填充顶点索引)

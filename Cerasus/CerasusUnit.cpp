@@ -6,11 +6,12 @@
 * @file		CreasusUnit.cpp
 * @brief	This File is CreasusUnit DLL Project.
 * @author	Alopex/Helium
-* @version	v1.03a
+* @version	v1.04a
 * @date		2018-07-04	v1.00a	alopex	Create Project.
 * @date		2018-07-05	v1.01a	alopex	Add Get&Set Function.
 * @date		2018-07-05	v1.02a	alopex	Add Translate Function.
 * @date		2018-07-06	v1.03a	alopex	Modify Para.
+* @date		2018-07-14	v1.04a	alopex	Modify Function.
 */
 #include "CerasusUnit.h"
 
@@ -606,6 +607,54 @@ void CERASUSUNIT_CALLMODE CCerasusUnit::CCerasusUnitMatrixTransform()
 }
 
 //------------------------------------------------------------------
+// @Function:	 CCerasusUnitSetAlphaBlendEnable()
+// @Purpose: CCerasusUnitÉèÖÃAlphaäÖÈ¾¿ªÆô
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CERASUSUNIT_CALLMODE CCerasusUnit::CCerasusUnitSetAlphaBlendEnable()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectGraphics3D->DirectGraphics3DRenderStateAlphaEnable();
+}
+
+//------------------------------------------------------------------
+// @Function:	 CCerasusUnitSetAlphaBlendDisable()
+// @Purpose: CCerasusUnitÉèÖÃAlphaäÖÈ¾¹Ø±Õ
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CERASUSUNIT_CALLMODE CCerasusUnit::CCerasusUnitSetAlphaBlendDisable()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectGraphics3D->DirectGraphics3DRenderStateAlphaDisable();
+}
+
+//------------------------------------------------------------------
+// @Function:	 CCerasusUnitSetRenderState()
+// @Purpose: CCerasusUnitÉèÖÃäÖÈ¾×´Ì¬
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CERASUSUNIT_CALLMODE CCerasusUnit::CCerasusUnitSetRenderState()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);					//Alpha»ìºÏÄ£Ê½:ADD
+	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+	//äÖÈ¾Ä£Ê½:ÎÆÀí»ìºÏÉèÖÃ
+	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);//D3DTA_DIFFUSE//D3DTA_TEXTURE
+	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
+	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+}
+
+//------------------------------------------------------------------
 // @Function:	 CCerasusUnitRender()
 // @Purpose: CCerasusUnitäÖÈ¾
 // @Since: v1.00a
@@ -615,7 +664,5 @@ void CERASUSUNIT_CALLMODE CCerasusUnit::CCerasusUnitMatrixTransform()
 void CERASUSUNIT_CALLMODE CCerasusUnit::CCerasusUnitRender()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectGraphics3D->DirectGraphics3DRenderStateSetting();
 	m_pDirectGraphics3D->DirectGraphics3DRender(Vertex3D_Type_Texture, 1, true);
-	m_pDirectGraphics3D->DirectGraphics3DRenderStateAlphaDisable();
 }

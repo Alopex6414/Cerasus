@@ -6,11 +6,12 @@
 * @file		CreasusUnit.h
 * @brief	This File is CreasusUnit DLL Project.
 * @author	Alopex/Helium
-* @version	v1.03a
+* @version	v1.04a
 * @date		2018-07-04	v1.00a	alopex	Create Project.
 * @date		2018-07-05	v1.01a	alopex	Add Get&Set Function.
 * @date		2018-07-05	v1.02a	alopex	Add Translate Function.
 * @date		2018-07-06	v1.03a	alopex	Modify Para.
+* @date		2018-07-14	v1.04a	alopex	Modify Function.
 */
 #pragma once
 
@@ -124,6 +125,11 @@ public:
 
 	//æÿ’Û±‰ªª
 	virtual void CERASUSUNIT_CALLMODE CCerasusUnitMatrixTransform();										//CCerasusUnit MatrixTransform(~CCerasusUnit æÿ’Û±‰ªª)
+
+	//…Ë÷√‰÷»æ◊¥Ã¨
+	virtual void CERASUSUNIT_CALLMODE CCerasusUnitSetAlphaBlendEnable();									//CCerasusUnit Set Alpha Blend Enable(~CCerasusUnit …Ë÷√Alpha‰÷»æø™∆Ù)
+	virtual void CERASUSUNIT_CALLMODE CCerasusUnitSetAlphaBlendDisable();									//CCerasusUnit Set Alpha Blend Disable(~CCerasusUnit …Ë÷√Alpha‰÷»æπÿ±’)
+	virtual void CERASUSUNIT_CALLMODE CCerasusUnitSetRenderState();											//CCerasusUnit Set Render States(~CCerasusUnit …Ë÷√‰÷»æ◊¥Ã¨)
 
 	//ªÊ÷∆
 	virtual void CERASUSUNIT_CALLMODE CCerasusUnitRender();													//CCerasusUnit Render(~CCerasusUnit ‰÷»æ)

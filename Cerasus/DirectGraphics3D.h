@@ -227,6 +227,10 @@ public:
 	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInitVertex3DNormalTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight);			//DirectGraphics3D Initialization(初始化)(3D法线纹理顶点格式)
 	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInitVertex3DNormalSpecularTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight);	//DirectGraphics3D Initialization(初始化)(3D法线镜面反射纹理顶点格式)
 
+	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInitVertex3DTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight);	//DirectGraphics3D Initialization(初始化)(3D纹理顶点格式)(从内存读取纹理)
+	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInitVertex3DNormalTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight);			//DirectGraphics3D Initialization(初始化)(3D法线纹理顶点格式)(从内存读取纹理)
+	virtual HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DInitVertex3DNormalSpecularTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight);	//DirectGraphics3D Initialization(初始化)(3D法线镜面反射纹理顶点格式)(从内存读取纹理)
+
 	//坐标(T)(矩阵变换)
 	//世界变换
 	virtual void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3DWorldSpaceTransform(DG3D_ScalePara sScalePara);																	//DirectGraphics3D WorldSpaceTransform(Scale)(世界变换)(拉伸变换)

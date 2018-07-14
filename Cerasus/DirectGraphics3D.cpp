@@ -576,6 +576,78 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3D
 }
 
 //---------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphics3DInitVertex3DTexture
+// @Purpose: DirectGraphics3D初始化
+// @Since: v1.00a
+// @Para: UINT nCount					//绘制平面数(立方体6个平面)
+// @Para: LPCWSTR pStr					//平面纹理路径(eg:L"Res\\title.png")
+// @Return: None
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	//VertexBuffer创建顶点缓存
+	VERIFY(m_pD3D9Device->CreateVertexBuffer(4 * nCount * sizeof(Vertex3DTexture), 0, D3DFVF_VERTEX3D_TEXTURE, D3DPOOL_DEFAULT, &m_pD3D9VertexBuffer, NULL));
+
+	//IndexBuffer创建索引缓存
+	VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nCount * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
+
+	//Texture创建平面纹理
+	VERIFY(D3DXCreateTextureFromFileInMemoryEx(m_pD3D9Device, pData, nSize, nWidth, nHeight, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f), NULL, NULL, &m_pD3D9Texture));
+
+	return S_OK;
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphics3DInitVertex3DNormalTexture
+// @Purpose: DirectGraphics3D初始化
+// @Since: v1.00a
+// @Para: UINT nCount					//绘制平面数(立方体6个平面)
+// @Para: LPCWSTR pStr					//平面纹理路径(eg:L"Res\\title.png")
+// @Return: None
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DNormalTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	//VertexBuffer创建顶点缓存
+	VERIFY(m_pD3D9Device->CreateVertexBuffer(4 * nCount * sizeof(Vertex3DNormalTexture), 0, D3DFVF_VERTEX3D_NORMAL_TEXTURE, D3DPOOL_DEFAULT, &m_pD3D9VertexBuffer, NULL));
+
+	//IndexBuffer创建索引缓存
+	VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nCount * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
+
+	//Texture创建平面纹理
+	VERIFY(D3DXCreateTextureFromFileInMemoryEx(m_pD3D9Device, pData, nSize, nWidth, nHeight, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f), NULL, NULL, &m_pD3D9Texture));
+
+	return S_OK;
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 DirectGraphics3DInitVertex3DNormalTexture
+// @Purpose: DirectGraphics3D初始化
+// @Since: v1.00a
+// @Para: UINT nCount					//绘制平面数(立方体6个平面)
+// @Para: LPCWSTR pStr					//平面纹理路径(eg:L"Res\\title.png")
+// @Return: None
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DNormalSpecularTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	//VertexBuffer创建顶点缓存
+	VERIFY(m_pD3D9Device->CreateVertexBuffer(4 * nCount * sizeof(Vertex3DNormalSpecularTexture), 0, D3DFVF_VERTEX3D_NORMAL_SPECULAR_TEXTURE, D3DPOOL_DEFAULT, &m_pD3D9VertexBuffer, NULL));
+
+	//IndexBuffer创建索引缓存
+	VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nCount * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
+
+	//Texture创建平面纹理
+	VERIFY(D3DXCreateTextureFromFileInMemoryEx(m_pD3D9Device, pData, nSize, nWidth, nHeight, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f), NULL, NULL, &m_pD3D9Texture));
+
+	return S_OK;
+}
+
+//---------------------------------------------------------------------------------------------------
 // @Function:	 DirectGraphics3DWorldSpaceTransform(DG3D_RotatePara sRotatePara)
 // @Purpose: DirectGraphics3D世界坐标变换
 // @Since: v1.00a

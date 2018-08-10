@@ -11,3 +11,4 @@ This Program is a Cerasus Render Dynamic Link Library Project.
     * #### *`DirectSound`* -- DX9声音部分(音乐、音效)
     * #### *`DirectShow`* -- DX9媒体部分(视频、音乐、动画)
     * #### *`DirectSurface`* -- DX9表面部分(绘制表面)
+    * #### *`DirectTexture`* -- DX9纹理部分(绘制纹理)

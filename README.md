@@ -10,3 +10,4 @@ This Program is a Cerasus Render Dynamic Link Library Project.
     * #### *`DirectInput`* -- DX9输入部分(键盘、鼠标、游戏杆)
     * #### *`DirectSound`* -- DX9声音部分(音乐、音效)
     * #### *`DirectShow`* -- DX9媒体部分(视频、音乐、动画)
+    * #### *`DirectSurface`* -- DX9表面部分(绘制表面)

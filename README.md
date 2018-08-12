@@ -14,3 +14,4 @@ This Program is a Cerasus Render Dynamic Link Library Project.
     * #### *`DirectTexture`* -- DX9纹理部分(绘制纹理)
     * #### *`DirectSprite`* -- DX9精灵部分(粒子动画)
     * #### *`DirectMesh`* -- DX9几何体部分(绘制几何体)
+    * #### *`DirectFont`* -- DX9字体部分(绘制字体)

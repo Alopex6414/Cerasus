@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{16716F3C-134C-407F-ACDC-D82CFEB8C477}</ProjectGuid>
     <RootNamespace>Cerasus</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -135,7 +135,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CerasusBlend.h" />
+    <ClInclude Include="CerasusControl.h" />
+    <ClInclude Include="CerasusElement.h" />
     <ClInclude Include="Cerasusfps.h" />
+    <ClInclude Include="CerasusGrowArray.h" />
+    <ClInclude Include="CerasusStatic.h" />
+    <ClInclude Include="CerasusUICommon.h" />
     <ClInclude Include="CerasusUnit.h" />
     <ClInclude Include="DirectCommon.h" />
     <ClInclude Include="DirectFont.h" />
@@ -228,7 +234,12 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CerasusBlend.cpp" />
+    <ClCompile Include="CerasusControl.cpp" />
+    <ClCompile Include="CerasusElement.cpp" />
     <ClCompile Include="Cerasusfps.cpp" />
+    <ClCompile Include="CerasusGrowArray.cpp" />
+    <ClCompile Include="CerasusStatic.cpp" />
     <ClCompile Include="CerasusUnit.cpp" />
     <ClCompile Include="DirectFont.cpp" />
     <ClCompile Include="DirectGraphics.cpp" />

@@ -338,7 +338,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInit(Vertex3
 		VERIFY(m_pD3D9Device->CreateVertexBuffer(4 * nPlane * sizeof(Vertex3DNormalSpecularTexture), 0, D3DFVF_VERTEX3D_NORMAL_SPECULAR_TEXTURE, D3DPOOL_DEFAULT, &m_pD3D9VertexBuffer, NULL));
 		//IndexBuffer创建索引缓存
 		VERIFY(m_pD3D9Device->CreateIndexBuffer(6 * nPlane * sizeof(WORD), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &m_pD3D9IndexBuffer, NULL));
-		//Texture创建平面ee纹理
+		//Texture创建平面纹理
 		VERIFY(D3DXCreateTextureFromFile(m_pD3D9Device, lpszStrTexture, &m_pD3D9Texture));
 		break;
 	default:

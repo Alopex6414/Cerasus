@@ -28,7 +28,7 @@
 #define CERASUSSTATIC_CALLMODE	__stdcall
 
 //Class Definition
-class CERASUSSTATIC_API CCerasusStatic : public CCerasusControl
+class CCerasusStatic : public CCerasusControl
 {
 protected:
 	WCHAR m_strText[MAX_PATH];			// CCerasusStatic ¾²Ì¬¿Ø¼þÎÄ±¾

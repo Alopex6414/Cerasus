@@ -22,26 +22,29 @@
 class CCerasusElement
 {
 public:
-	UINT m_nTexIndex;						// CCerasusElement 纹理序号
-	UINT m_nFontIndex;						// CCerasusElement 字体序号
+	UINT	m_iFont;			// CCerasusElement 字体元素序号
+	UINT	m_iTexture;			// CCerasusElement 纹理元素序号
+	DWORD	m_dwTextureFormat;	// CCerasusElement 纹理绘制格式
+	RECT	m_rcTexture;		// CCerasusElement 纹理区域大小
+
+	CerasusBlendColor	m_FontColor;		// CCerasusElement 字体渲染颜色
+	CerasusBlendColor	m_TextureColor;		// CCerasusElement 纹理渲染颜色
 
 public:
-	CCerasusBlendTex*	m_pTexElement;		// CCerasusElement 纹理图形(3D图元)
-	CCerasusBlendFont*	m_pFontElement;		// CCerasusElement 字体绘制
-
-public:
-	CCerasusElement(IDirect3DDevice9* pD3D9Device);			// CCerasusElement 构造函数
-	~CCerasusElement();										// CCerasusElement 析构函数
-
-	// 访问
-	CCerasusBlendTex*	CCerasusElementGetTexElement();		// CCerasusElement 获取纹理图形元素
-	CCerasusBlendFont*	CCerasusElementGetFontElement();	// CCerasusElement 获取字体绘制元素
-
-	// 控制
-	void CCerasusElementSetTexElement(CCerasusBlendTex* pTexElement);			// CCerasusElement 设置纹理图形元素
-	void CCerasusElementSetFontElement(CCerasusBlendFont* pFontElement);		// CCerasusElement 设置字体绘制元素
+	void SetFont(UINT iFont, D3DCOLOR defaultFontColor = D3DCOLOR_ARGB(255, 255, 255, 255), DWORD dwTextFormat = DT_CENTER | DT_VCENTER);
+	void SetTexture(UINT iTexture, RECT* prcTexture, D3DCOLOR defaultTextureColor = D3DCOLOR_ARGB(255, 255, 255, 255));
+	void Refresh();
 
 };
+
+//Struct Definition
+struct CerasusElementHolder
+{
+	UINT nControlType;
+	UINT iElement;
+	CCerasusElement Element;
+};
+
 
 #endif // !__CERASUSELEMENT_H_
 

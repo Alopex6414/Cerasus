@@ -48,8 +48,6 @@ void CERASUSSTATIC_CALLMODE CCerasusStatic::Render()
 	{
 		nState = CERASUS_STATE_DISABLED;
 	}
-
-	m_Element->CCerasusElementGetFontElement()->Blend(nState);
 }
 
 //------------------------------------------------------------------

@@ -11,80 +11,55 @@
 */
 #include "CerasusElement.h"
 
-// CreasusUI 控件元素(UI)
+// CreasusUI 渲染元素(UI)
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusElement()
-// @Purpose: CCerasusElement构造函数
+// @Function:	 SetFont()
+// @Purpose: CCerasusElement设置字体
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-CCerasusElement::CCerasusElement(IDirect3DDevice9 * pD3D9Device)
+void CCerasusElement::SetFont(UINT iFont, D3DCOLOR defaultFontColor, DWORD dwTextFormat)
 {
-	m_nTexIndex = 0;
-	m_nFontIndex = 0;
-	m_pTexElement = new CCerasusBlendTex(pD3D9Device);
-	m_pFontElement = new CCerasusBlendFont(pD3D9Device);
+	this->m_iFont = iFont;
+	this->m_dwTextureFormat = dwTextFormat;
+
+	m_FontColor.Init(defaultFontColor);
 }
 
 //------------------------------------------------------------------
-// @Function:	 ~CCerasusElement()
-// @Purpose: CCerasusElement析构函数
+// @Function:	 SetTexture()
+// @Purpose: CCerasusElement设置纹理
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-CCerasusElement::~CCerasusElement()
+void CCerasusElement::SetTexture(UINT iTexture, RECT * prcTexture, D3DCOLOR defaultTextureColor)
 {
-	SAFE_DELETE(m_pFontElement);
-	SAFE_DELETE(m_pTexElement);
+	this->m_iTexture = iTexture;
+
+	if (prcTexture)
+	{
+		m_rcTexture = *prcTexture;
+	}
+	else
+	{
+		SetRectEmpty(&m_rcTexture);
+	}
+
+	m_TextureColor.Init(defaultTextureColor);
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusElementGetTexElement()
-// @Purpose: CCerasusElement获取纹理元素
+// @Function:	 Refresh()
+// @Purpose: CCerasusElement刷新
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-CCerasusBlendTex * CCerasusElement::CCerasusElementGetTexElement()
+void CCerasusElement::Refresh()
 {
-	return m_pTexElement;
-}
-
-//------------------------------------------------------------------
-// @Function:	 CCerasusElementGetFontElement()
-// @Purpose: CCerasusElement获取字体元素
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-CCerasusBlendFont * CCerasusElement::CCerasusElementGetFontElement()
-{
-	return m_pFontElement;
-}
-
-//------------------------------------------------------------------
-// @Function:	 CCerasusElementSetTexElement()
-// @Purpose: CCerasusElement设置纹理元素
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void CCerasusElement::CCerasusElementSetTexElement(CCerasusBlendTex * pTexElement)
-{
-	m_pTexElement = pTexElement;
-}
-
-//------------------------------------------------------------------
-// @Function:	 CCerasusElementSetFontElement()
-// @Purpose: CCerasusElement设置字体元素
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void CCerasusElement::CCerasusElementSetFontElement(CCerasusBlendFont * pFontElement)
-{
-	m_pFontElement = pFontElement;
+	m_FontColor.Current = m_FontColor.States[CERASUS_STATE_HIDDEN];
+	m_TextureColor.Current = m_TextureColor.States[CERASUS_STATE_HIDDEN];
 }

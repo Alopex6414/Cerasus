@@ -300,13 +300,19 @@
     <ClInclude Include="CerasusBlend.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CerasusButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="CerasusControl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CerasusDialog.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CerasusElement.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CerasusGrowArray.h">
+    <ClInclude Include="CerasusResourceManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CerasusStatic.h">
@@ -365,13 +371,19 @@
     <ClCompile Include="CerasusBlend.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="CerasusButton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="CerasusControl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CerasusDialog.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CerasusElement.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CerasusGrowArray.cpp">
+    <ClCompile Include="CerasusResourceManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CerasusStatic.cpp">

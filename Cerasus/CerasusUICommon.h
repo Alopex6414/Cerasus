@@ -17,11 +17,21 @@
 //Include Direct Common Header File
 #include "DirectCommon.h"
 #include "DirectFont.h"
+#include "DirectSprite.h"
 #include "DirectGraphics3D.h"
 #include "DirectThreadSafe.h"
 
 #include "CerasusUnit.h"
-#include "CerasusGrowArray.h"
+
+//Include C/C++ Standard Header File
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <queue>
+#include <map>
+
+//Using C/C++ Class Namespace
+using namespace std;
 
 //Macro Definition
 #define MAX_CONTROL_STATES 6
@@ -50,6 +60,15 @@ enum CERASUS_CONTROL_STATE
 	CERASUS_STATE_MOUSEOVER,
 	CERASUS_STATE_PRESSED,
 };
+
+//Struct Definition
+
+//Class Definition
+class CCerasusDialog;
+class CCerasusControl;
+class CCerasusStatic;
+class CCerasusButton;
+class CCerasusResourceManager;
 
 #endif // !__CERASUSUICOMMON_H_
 

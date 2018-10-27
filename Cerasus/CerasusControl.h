@@ -28,7 +28,7 @@
 #define CERASUSCONTROL_CALLMODE	__stdcall
 
 //Class Definition
-class CERASUSCONTROL_API CCerasusControl
+class CCerasusControl
 {
 public:
 	int m_nX;					// CCerasusControl 控件X坐标
@@ -41,10 +41,10 @@ public:
 	bool m_bHasFocus;			// CCerasusControl 控件是否拥有输入焦点(true:是/false:否)
 	bool m_bIsDefault;			// CCerasusControl 控件是否是默认控件(true:是/false:否)
 
-	//CDXUTDialog* m_pDialog;    // CCerasusControl Parent container
+	CCerasusDialog* m_pDialog;  // CCerasusControl 窗口控件容器
 	UINT m_nIndex;              // CCerasusControl 控件列表中控件索引
 
-	CCerasusElement* m_Element;	// CCerasusControl 控件渲染元素
+	vector<CCerasusElement*> m_vecElements;			// CCerasusControl 控件渲染元素
 
 protected:
 	int m_nID;						// CCerasusControl 控件序号
@@ -60,12 +60,12 @@ protected:
 	virtual void	CERASUSCONTROL_CALLMODE UpdateRects();				// CCerasusControl 更新控件矩形
 
 public:
-	CCerasusControl();				// CCerasusControl 构造函数
-	virtual ~CCerasusControl();		// CCerasusControl 析构函数
+	CCerasusControl(CCerasusDialog* pDialog = NULL);					// CCerasusControl 构造函数
+	virtual ~CCerasusControl();											// CCerasusControl 析构函数
 
 	virtual HRESULT CERASUSCONTROL_CALLMODE OnInit();					// CCerasusControl 初始化控件
 	virtual void	CERASUSCONTROL_CALLMODE Refresh();					// CCerasusControl 刷新控件
-	virtual void	CERASUSCONTROL_CALLMODE Render();					// CCerasusControl 渲染控件
+	virtual void	CERASUSCONTROL_CALLMODE Render(float fElapsedTime);	// CCerasusControl 渲染控件
 
 	virtual bool	CERASUSCONTROL_CALLMODE MsgProc(UINT uMsg, WPARAM wParam, LPARAM lParam);			// CCerasusControl 消息处理
 	virtual bool	CERASUSCONTROL_CALLMODE HandleKeyboard(UINT uMsg, WPARAM wParam, LPARAM lParam);	// CCerasusControl 键盘消息处理
@@ -91,8 +91,9 @@ public:
 	UINT			CERASUSCONTROL_CALLMODE GetHotkey();				// CCerasusControl 获取虚拟键值
 	void			CERASUSCONTROL_CALLMODE SetUserData(void* pUserData);			// CCerasusControl 设置用户数据
 	void*			CERASUSCONTROL_CALLMODE GetUserData();				// CCerasusControl 获取用户数据
-	CCerasusElement*CERASUSCONTROL_CALLMODE GetElement();				// CCerasusControl 获取渲染元素
-	HRESULT			CERASUSCONTROL_CALLMODE SetElement(CCerasusElement* pElement);	// CCerasusControl 设置渲染元素
+	virtual void    CERASUSCONTROL_CALLMODE SetTextColor(D3DCOLOR Color);			// CCerasusControl 设置文本颜色
+	CCerasusElement*CERASUSCONTROL_CALLMODE GetElement(UINT iElement);	// CCerasusControl 获取渲染元素
+	HRESULT			CERASUSCONTROL_CALLMODE SetElement(UINT iElement, CCerasusElement* pElement);	// CCerasusControl 设置渲染元素
 
 };
 

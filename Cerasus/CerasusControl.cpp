@@ -20,7 +20,7 @@
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-CCerasusControl::CCerasusControl()
+CCerasusControl::CCerasusControl(CCerasusDialog* pDialog)
 {
 	m_nX = 0;
 	m_nY = 0;
@@ -36,9 +36,10 @@ CCerasusControl::CCerasusControl()
 	m_nID = 0;
 	m_nIndex = 0;
 	m_pUserData = NULL;
+	m_pDialog = pDialog;
 	m_eType = CERASUS_CONTROL_BUTTON;
 
-	m_Element = NULL;
+	m_vecElements.clear();
 
 	ZeroMemory(&m_rcBoundingBox, sizeof(m_rcBoundingBox));
 }
@@ -52,7 +53,12 @@ CCerasusControl::CCerasusControl()
 //------------------------------------------------------------------
 CCerasusControl::~CCerasusControl()
 {
-	SAFE_DELETE(m_Element);
+	for (int i = 0; i < m_vecElements.size(); ++i)
+	{
+		SAFE_DELETE(m_vecElements[i]);
+	}
+
+	m_vecElements.clear();
 }
 
 //------------------------------------------------------------------
@@ -78,6 +84,12 @@ void CERASUSCONTROL_CALLMODE CCerasusControl::Refresh()
 {
 	m_bMouseOver = false;
 	m_bHasFocus = false;
+
+	for (auto iter = m_vecElements.begin(); iter != m_vecElements.end(); ++iter)
+	{
+		(*iter)->Refresh();
+	}
+
 }
 
 //------------------------------------------------------------------
@@ -87,7 +99,7 @@ void CERASUSCONTROL_CALLMODE CCerasusControl::Refresh()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void CERASUSCONTROL_CALLMODE CCerasusControl::Render()
+void CERASUSCONTROL_CALLMODE CCerasusControl::Render(float fElapsedTime)
 {
 	
 }
@@ -373,15 +385,33 @@ void *CERASUSCONTROL_CALLMODE CCerasusControl::GetUserData()
 }
 
 //------------------------------------------------------------------
+// @Function:	 SetTextColor()
+// @Purpose: CCerasusControl设置文本颜色
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CERASUSCONTROL_CALLMODE CCerasusControl::SetTextColor(D3DCOLOR Color)
+{
+	CCerasusElement* pElement = m_vecElements[0];
+
+	if (pElement)
+	{
+		pElement->m_FontColor.States[CERASUS_STATE_NORMAL] = Color;
+	}
+
+}
+
+//------------------------------------------------------------------
 // @Function:	 GetElement()
 // @Purpose: CCerasusControl获取元素
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-CCerasusElement *CERASUSCONTROL_CALLMODE CCerasusControl::GetElement()
+CCerasusElement *CERASUSCONTROL_CALLMODE CCerasusControl::GetElement(UINT iElement)
 {
-	return m_Element;
+	return m_vecElements[iElement];
 }
 
 //------------------------------------------------------------------
@@ -391,14 +421,27 @@ CCerasusElement *CERASUSCONTROL_CALLMODE CCerasusControl::GetElement()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT CERASUSCONTROL_CALLMODE CCerasusControl::SetElement(CCerasusElement* pElement)
+HRESULT CERASUSCONTROL_CALLMODE CCerasusControl::SetElement(UINT iElement, CCerasusElement* pElement)
 {
 	if (pElement == NULL)
 	{
 		return E_INVALIDARG;
 	}
 
-	m_Element = new CCerasusElement(*pElement);
+	for (UINT i = m_vecElements.size(); i <= iElement; ++i)
+	{
+		CCerasusElement* pNewElement = new CCerasusElement();
+
+		if (pNewElement == NULL)
+		{
+			return E_OUTOFMEMORY;
+		}
+
+		m_vecElements.push_back(pNewElement);
+	}
+
+	CCerasusElement* pCurElement = m_vecElements[iElement];
+	*pCurElement = *pElement;
 
 	return S_OK;
 }

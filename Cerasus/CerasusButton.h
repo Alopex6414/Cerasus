@@ -16,7 +16,6 @@
 
 //Include CerasusUI Common Header File
 #include "CerasusUICommon.h"
-#include "CerasusControl.h"
 #include "CerasusStatic.h"
 
 //Macro Definition
@@ -35,16 +34,16 @@ protected:
 	bool m_bPressed;
 
 public:
-	CCerasusButton();			// CCerasusButton 构造函数
+	CCerasusButton(CCerasusDialog* pDialog = NULL);						// CCerasusButton 构造函数
 
-	virtual void	CERASUSBUTTON_CALLMODE Render();					// CCerasusControl 渲染控件
+	virtual void	CERASUSBUTTON_CALLMODE Render(float fElapsedTime);	// CCerasusButton 渲染控件
 
 	virtual bool	CERASUSBUTTON_CALLMODE HandleKeyboard(UINT uMsg, WPARAM wParam, LPARAM lParam);				// CCerasusButton 键盘消息处理
 	virtual bool	CERASUSBUTTON_CALLMODE HandleMouse(UINT uMsg, POINT pt, WPARAM wParam, LPARAM lParam);		// CCerasusButton 鼠标消息处理
 
-	virtual void	CERASUSBUTTON_CALLMODE OnHotkey();					// CCerasusControl 鼠标热键
-	virtual BOOL	CERASUSBUTTON_CALLMODE ContainsPoint(POINT pt);		// CCerasusControl 鼠标落在控件内
-	virtual bool	CERASUSBUTTON_CALLMODE CanHaveFocus();				// CCerasusControl 是否拥有焦点
+	virtual void	CERASUSBUTTON_CALLMODE OnHotkey();					// CCerasusButton 鼠标热键
+	virtual BOOL	CERASUSBUTTON_CALLMODE ContainsPoint(POINT pt);		// CCerasusButton 鼠标落在控件内
+	virtual bool	CERASUSBUTTON_CALLMODE CanHaveFocus();				// CCerasusButton 是否拥有焦点
 
 };
 

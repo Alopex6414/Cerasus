@@ -18,6 +18,8 @@
 #include "CerasusUICommon.h"
 #include "CerasusResourceManager.h"
 #include "CerasusControl.h"
+#include "CerasusStatic.h"
+#include "CerasusButton.h"
 
 //Macro Definition
 #ifdef	CERASUS_EXPORTS
@@ -90,12 +92,47 @@ public:
 	CCerasusDialog();					// CCerasusDialog 构造函数
 	~CCerasusDialog();					// CCerasusDialog 析构函数
 
-	void	Init(CCerasusResourceManager* pManager, bool bRegisterDialog = true);
+	void	Init(CCerasusResourceManager* pManager, bool bRegisterDialog = true);							// CCerasusDialog 初始化窗口
+	void	Init(CCerasusResourceManager* pManager, bool bRegisterDialog, CUUint sUnit);					// CCerasusDialog 初始化窗口(文件加载)
+	void	Init(CCerasusResourceManager* pManager, bool bRegisterDialog, CUUintEx sUnit);					// CCerasusDialog 初始化窗口(内存加载)
 
-	void	RemoveAllControls();		// CCerasusDialog 移除所有控件
+	bool	MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);									// CCerasusDialog 窗口消息处理
+
+	HRESULT AddStatic(int ID, LPCWSTR strText, int x, int y, int width, int height, bool bIsDefault = false, CCerasusStatic** ppCreated = NULL);						// CCerasusDialog 窗口添加静态控件
+	HRESULT AddButton(int ID, LPCWSTR strText, int x, int y, int width, int height, UINT nHotkey = 0, bool bIsDefault = false, CCerasusButton** ppCreated = NULL);		// CCerasusDialog 窗口添加按钮控件
+
+	HRESULT	AddControl(CCerasusControl* pControl);									// CCerasusDialog 窗口添加控件
+	HRESULT	InitControl(CCerasusControl* pControl);									// CCerasusDialog 窗口初始化控件
+
+	CCerasusStatic*	GetStatic(int ID);												// CCerasusDialog 窗口获取静态控件
+	CCerasusButton*	GetButton(int ID);												// CCerasusDialog 窗口获取按钮控件
+
+	CCerasusControl*GetControl(int ID);												// CCerasusDialog 获取控件指针
+	CCerasusControl*GetControl(int ID, UINT nControlType);							// CCerasusDialog 获取控件指针
+	CCerasusControl*GetControlAtPoint(POINT pt);									// CCerasusDialog 获取鼠标所在的控件指针
+
+	bool	GetControlEnabled(int ID);												// CCerasusDialog 获取控件使能状态
+	void	SetControlEnabled(int ID, bool bEnabled);								// CCerasusDialog 设置控件使能状态
+	
+	void	ClearRadioButtonGroup(UINT nGroup);										// CCerasusDialog 清除RadioButton组
+	void	ClearComboBox(int ID);													// CCerasusDialog 清除ComboBox
 
 	HRESULT			SetDefaultElement(UINT nControlType, UINT iElement, CCerasusElement* pElement);			// CCerasusDialog 设置默认元素
 	CCerasusElement*GetDefaultElement(UINT nControlType, UINT iElement);									// CCerasusDialog 获取默认元素
+
+	void			SendEvent(UINT nEvent, bool bTriggeredByUser, CCerasusControl* pControl);											// CCerasusDialog 发送事件
+	void			RequestFocus(CCerasusControl* pControl);																			// CCerasusDialog 请求焦点
+
+	static CCerasusControl* WINAPI GetNextControl(CCerasusControl* pControl);		// CCerasusDialog 获取窗口下一个控件指针
+	static CCerasusControl* WINAPI GetPrevControl(CCerasusControl* pControl);		// CCerasusDialog 获取窗口上一个控件指针
+
+	void	RemoveAllControls();		// CCerasusDialog 移除所有控件
+
+	void	SetCallback(LPCALLBACKCERASUSGUIEVENT pCallback, void* pUserContext = NULL);					// CCerasusDialog 设置事件回调函数
+	void	EnableNonUserEvents(bool bEnable);																// CCerasusDialog 使能无用户事件
+	void    EnableKeyboardInput(bool bEnable);																// CCerasusDialog 使能键盘输入
+	void    EnableMouseInput(bool bEnable);																	// CCerasusDialog 使能鼠标输入
+	bool    IsKeyboardInputEnabled() const;																	// CCerasusDialog 判断键盘是否使能
 
 	HRESULT			SetFont(UINT Index, LPWSTR strFontName, int nFontSize);			// CCerasusDialog 设置字体元素
 	DirectFont*		GetFont(UINT Index);											// CCerasusDialog 获取字体元素
@@ -104,8 +141,16 @@ public:
 	HRESULT			SetTexture(UINT Index, CUUintEx sUnit);							// CCerasusDialog 设置纹理元素(内存)
 	CCerasusUnit*	GetTexture(UINT Index);											// CCerasusDialog 获取纹理元素
 
+	HRESULT			DrawText(LPCWSTR strText, CCerasusElement* pElement, RECT* prcDest, bool bShadow = false, int nCount = -1);			// CCerasusDialog 绘制文本
+	HRESULT			DrawText9(LPCWSTR strText, CCerasusElement* pElement, RECT* prcDest, bool bShadow = false, int nCount = -1);		// CCerasusDialog 绘制文本
+
+	static void WINAPI	ClearFocus();	// CCerasusDialog 清除控件焦点
+
 private:
 	void	InitDefaultElements();		// CCerasusDialog 初始化默认元素
+
+	void	OnMouseMove(POINT pt);		// CCerasusDialog 鼠标移动
+	bool    OnCycleFocus(bool bForward);// CCerasusDialog 循环焦点
 
 };
 

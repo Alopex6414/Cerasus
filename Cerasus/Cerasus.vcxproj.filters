@@ -297,30 +297,6 @@
     <ClInclude Include="CerasusUnit.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CerasusBlend.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CerasusButton.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CerasusControl.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CerasusDialog.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CerasusElement.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CerasusResourceManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CerasusStatic.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CerasusUICommon.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectFont.cpp">
@@ -366,27 +342,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CerasusUnit.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CerasusBlend.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CerasusButton.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CerasusControl.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CerasusDialog.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CerasusElement.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CerasusResourceManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CerasusStatic.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -23,6 +23,7 @@
 CCerasusResourceManager::CCerasusResourceManager(LPDIRECT3DDEVICE9 pD3D9Device)
 {
 	m_pD3D9Device = pD3D9Device;
+	m_pStateBlock = NULL;
 	m_pSprite = NULL;
 
 	m_pFontCache.clear();
@@ -77,7 +78,7 @@ IDirect3DDevice9 * CERASUSRESOURCEMANAGER_CALLMETHOD CCerasusResourceManager::Ge
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-DirectSprite * CERASUSRESOURCEMANAGER_CALLMETHOD CCerasusResourceManager::GetSprite() const
+ID3DXSprite * CERASUSRESOURCEMANAGER_CALLMETHOD CCerasusResourceManager::GetSprite() const
 {
 	return m_pSprite;
 }
@@ -119,6 +120,23 @@ bool CERASUSRESOURCEMANAGER_CALLMETHOD CCerasusResourceManager::MsgProc(HWND hWn
 }
 
 //------------------------------------------------------------------
+// @Function:	 OnD3D9CreateDevice()
+// @Purpose: CCerasusResourceManager响应D3D9创建设备
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT CERASUSRESOURCEMANAGER_CALLMETHOD CCerasusResourceManager::OnD3D9CreateDevice(LPDIRECT3DDEVICE9 pD3D9Device)
+{
+
+	m_pD3D9Device = pD3D9Device;
+
+	VERIFY(D3DXCreateSprite(m_pD3D9Device, &m_pSprite));
+
+	return S_OK;
+}
+
+//------------------------------------------------------------------
 // @Function:	 OnD3D9ResetDevice()
 // @Purpose: CCerasusResourceManager响应D3D9字体重置设备
 // @Since: v1.00a
@@ -132,11 +150,18 @@ HRESULT CERASUSRESOURCEMANAGER_CALLMETHOD CCerasusResourceManager::OnD3D9ResetDe
 		VERIFY((*iter)->DirectFontGetFont()->OnResetDevice());
 	}
 
+	if (m_pSprite)
+	{
+		m_pSprite->OnResetDevice();
+	}
+
+	VERIFY(m_pD3D9Device->CreateStateBlock(D3DSBT_ALL, &m_pStateBlock));
+
 	return S_OK;
 }
 
 //------------------------------------------------------------------
-// @Function:	 OnD3D9ResetDevice()
+// @Function:	 OnD3D9LostDevice()
 // @Purpose: CCerasusResourceManager响应D3D9字体丢失设备
 // @Since: v1.00a
 // @Para: None
@@ -153,6 +178,13 @@ HRESULT CERASUSRESOURCEMANAGER_CALLMETHOD CCerasusResourceManager::OnD3D9LostDev
 	{
 		VERIFY((*iter)->CCerasusUnitReset());
 	}
+
+	if (m_pSprite)
+	{
+		m_pSprite->OnLostDevice();
+	}
+
+	SAFE_RELEASE(m_pStateBlock);
 
 	return S_OK;
 }
@@ -178,6 +210,7 @@ void CERASUSRESOURCEMANAGER_CALLMETHOD CCerasusResourceManager::OnD3D9DestroyDev
 	}
 	m_pTextureCache.clear();
 
+	SAFE_RELEASE(m_pSprite);
 }
 
 //------------------------------------------------------------------

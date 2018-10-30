@@ -123,9 +123,35 @@ public:
 	void			SendEvent(UINT nEvent, bool bTriggeredByUser, CCerasusControl* pControl);											// CCerasusDialog 发送事件
 	void			RequestFocus(CCerasusControl* pControl);																			// CCerasusDialog 请求焦点
 
+	// Render 属性
+	HRESULT			DrawRect(RECT* pRect, D3DCOLOR color);																				// CCerasusDialog 绘制矩形
+	HRESULT			DrawRect9(RECT* pRect, D3DCOLOR color);																				// CCerasusDialog 绘制矩形
+	HRESULT			DrawText(LPCWSTR strText, CCerasusElement* pElement, RECT* prcDest, bool bShadow = false, int nCount = -1);			// CCerasusDialog 绘制文本
+	HRESULT			DrawText9(LPCWSTR strText, CCerasusElement* pElement, RECT* prcDest, bool bShadow = false, int nCount = -1);		// CCerasusDialog 绘制文本
+
+	// Attributes 属性
+	bool			GetVisible();													// CCerasusDialog 获取可见属性
+	void			SetVisible(bool bVisible);										// CCerasusDialog 设置可见属性
+	bool			GetMinimized();													// CCerasusDialog 获取最小化属性
+	void			SetMinimized(bool bMinimized);									// CCerasusDialog 设置最小化属性
+	void			SetBackgroundColors(D3DCOLOR colorAllCorners);					// CCerasusDialog 设置背景颜色
+	void			SetBackgroundColors(D3DCOLOR colorTopLeft, D3DCOLOR colorTopRight, D3DCOLOR colorBottomLeft, D3DCOLOR colorBottomRight);	// CCerasusDialog 设置背景颜色
+	void			EnableCaption(bool bEnable);									// CCerasusDialog 设置标题栏使能
+	int				GetCaptionHeight() const;										// CCerasusDialog 获取标题栏高度
+	void            SetCaptionHeight(int nHeight);									// CCerasusDialog 设置标题栏高度
+	void			SetCaptionText(const WCHAR* pwszText);							// CCerasusDialog 设置标题栏文本
+	void			GetLocation(POINT& Pt) const;									// CCerasusDialog 获取窗口位置
+	void			SetLocation(int x, int y);										// CCerasusDialog 设置窗口位置
+	void			SetSize(int width, int height);									// CCerasusDialog 设置窗口大小
+	int				GetWidth();														// CCerasusDialog 获取窗口宽度
+	int				GetHeight();													// CCerasusDialog 获取窗口高度
+
+	static void WINAPI  SetRefreshTime(float fTime);								// CCerasusDialog 设置刷新时间
+
 	static CCerasusControl* WINAPI GetNextControl(CCerasusControl* pControl);		// CCerasusDialog 获取窗口下一个控件指针
 	static CCerasusControl* WINAPI GetPrevControl(CCerasusControl* pControl);		// CCerasusDialog 获取窗口上一个控件指针
 
+	void	RemoveControl(int ID);		// CCerasusDialog 移除控件
 	void	RemoveAllControls();		// CCerasusDialog 移除所有控件
 
 	void	SetCallback(LPCALLBACKCERASUSGUIEVENT pCallback, void* pUserContext = NULL);					// CCerasusDialog 设置事件回调函数
@@ -134,17 +160,17 @@ public:
 	void    EnableMouseInput(bool bEnable);																	// CCerasusDialog 使能鼠标输入
 	bool    IsKeyboardInputEnabled() const;																	// CCerasusDialog 判断键盘是否使能
 
+	void	Refresh();																// CCerasusDialog 窗口刷新
+
+	static void WINAPI	ClearFocus();												// CCerasusDialog 清除控件焦点
+	void                FocusDefaultControl();										// CCerasusDialog 默认控件焦点
+
 	HRESULT			SetFont(UINT Index, LPWSTR strFontName, int nFontSize);			// CCerasusDialog 设置字体元素
 	DirectFont*		GetFont(UINT Index);											// CCerasusDialog 获取字体元素
 
 	HRESULT			SetTexture(UINT Index, CUUint sUnit);							// CCerasusDialog 设置纹理元素(文件)
 	HRESULT			SetTexture(UINT Index, CUUintEx sUnit);							// CCerasusDialog 设置纹理元素(内存)
 	CCerasusUnit*	GetTexture(UINT Index);											// CCerasusDialog 获取纹理元素
-
-	HRESULT			DrawText(LPCWSTR strText, CCerasusElement* pElement, RECT* prcDest, bool bShadow = false, int nCount = -1);			// CCerasusDialog 绘制文本
-	HRESULT			DrawText9(LPCWSTR strText, CCerasusElement* pElement, RECT* prcDest, bool bShadow = false, int nCount = -1);		// CCerasusDialog 绘制文本
-
-	static void WINAPI	ClearFocus();	// CCerasusDialog 清除控件焦点
 
 private:
 	void	InitDefaultElements();		// CCerasusDialog 初始化默认元素

@@ -620,6 +620,42 @@ CCerasusControl * __stdcall CCerasusDialog::GetPrevControl(CCerasusControl * pCo
 }
 
 //------------------------------------------------------------------
+// @Function:	 RemoveControl()
+// @Purpose: CCerasusDialog移除控件
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CCerasusDialog::RemoveControl(int ID)
+{
+	for (auto iter = m_vecControls.begin(); iter != m_vecControls.end(); ++iter)
+	{
+		if ((*iter)->GetID() == ID)
+		{
+			ClearFocus();
+
+			if (s_pControlFocus == (*iter))
+			{
+				s_pControlFocus = NULL;
+			}
+			if (s_pControlPressed == (*iter))
+			{
+				s_pControlPressed = NULL;
+			}
+			if (m_pControlMouseOver == (*iter))
+			{
+				m_pControlMouseOver = NULL;
+			}
+
+			SAFE_DELETE((*iter));
+			m_vecControls.erase(iter);
+		}
+
+	}
+
+}
+
+//------------------------------------------------------------------
 // @Function:	 RemoveAllControls()
 // @Purpose: CCerasusDialog移除所有控件
 // @Since: v1.00a
@@ -702,6 +738,38 @@ void CCerasusDialog::EnableMouseInput(bool bEnable)
 bool CCerasusDialog::IsKeyboardInputEnabled() const
 {
 	return m_bKeyboardInput;
+}
+
+//------------------------------------------------------------------
+// @Function:	 Refresh()
+// @Purpose: CCerasusDialog刷新
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CCerasusDialog::Refresh()
+{
+	if (s_pControlFocus)
+	{
+		s_pControlFocus->OnFocusOut();
+	}
+
+	if (m_pControlMouseOver)
+	{
+		m_pControlMouseOver->OnMouseLeave();
+	}
+
+	s_pControlFocus = NULL;
+	s_pControlPressed = NULL;
+	m_pControlMouseOver = NULL;
+
+	for (auto iter = m_vecControls.begin(); iter != m_vecControls.end(); ++iter)
+	{
+		(*iter)->Refresh();
+	}
+
+	if (m_bKeyboardInput)
+		FocusDefaultControl();
 }
 
 //------------------------------------------------------------------
@@ -988,6 +1056,31 @@ void CCerasusDialog::RequestFocus(CCerasusControl * pControl)
 }
 
 //------------------------------------------------------------------
+// @Function:	 DrawRect()
+// @Purpose: CCerasusDialog绘制矩形
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT CCerasusDialog::DrawRect(RECT * pRect, D3DCOLOR color)
+{
+	return DrawRect9(pRect, color);
+}
+
+//------------------------------------------------------------------
+// @Function:	 DrawRect()
+// @Purpose: CCerasusDialog绘制矩形
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT CCerasusDialog::DrawRect9(RECT * pRect, D3DCOLOR color)
+{
+
+	return S_OK;
+}
+
+//------------------------------------------------------------------
 // @Function:	 DrawText()
 // @Purpose: CCerasusDialog绘制文本
 // @Since: v1.00a
@@ -1047,6 +1140,204 @@ HRESULT CCerasusDialog::DrawText9(LPCWSTR strText, CCerasusElement * pElement, R
 }
 
 //------------------------------------------------------------------
+// @Function:	 GetVisible()
+// @Purpose: CCerasusDialog获取可见属性
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+bool CCerasusDialog::GetVisible()
+{
+	return m_bVisible;
+}
+
+//------------------------------------------------------------------
+// @Function:	 SetVisible()
+// @Purpose: CCerasusDialog设置可见属性
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CCerasusDialog::SetVisible(bool bVisible)
+{
+	m_bVisible = bVisible;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetMinimized()
+// @Purpose: CCerasusDialog获取最小化属性
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+bool CCerasusDialog::GetMinimized()
+{
+	return m_bMinimized;
+}
+
+//------------------------------------------------------------------
+// @Function:	 SetMinimized()
+// @Purpose: CCerasusDialog设置最小化属性
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CCerasusDialog::SetMinimized(bool bMinimized)
+{
+	m_bMinimized = bMinimized;
+}
+
+//------------------------------------------------------------------
+// @Function:	 SetBackgroundColors()
+// @Purpose: CCerasusDialog设置背景颜色
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CCerasusDialog::SetBackgroundColors(D3DCOLOR colorAllCorners)
+{
+	SetBackgroundColors(colorAllCorners, colorAllCorners, colorAllCorners, colorAllCorners);
+}
+
+//------------------------------------------------------------------
+// @Function:	 SetBackgroundColors()
+// @Purpose: CCerasusDialog设置背景颜色
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CCerasusDialog::SetBackgroundColors(D3DCOLOR colorTopLeft, D3DCOLOR colorTopRight, D3DCOLOR colorBottomLeft, D3DCOLOR colorBottomRight)
+{
+	m_colorTopLeft = colorTopLeft;
+	m_colorTopRight = colorTopRight;
+	m_colorBottomLeft = colorBottomLeft;
+	m_colorBottomRight = colorBottomRight;
+}
+
+//------------------------------------------------------------------
+// @Function:	 EnableCaption()
+// @Purpose: CCerasusDialog设置标题栏使能
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CCerasusDialog::EnableCaption(bool bEnable)
+{
+	m_bCaption = bEnable;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetCaptionHeight()
+// @Purpose: CCerasusDialog获取标题栏高度
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+int CCerasusDialog::GetCaptionHeight() const
+{
+	return m_nCaptionHeight;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetCaptionHeight()
+// @Purpose: CCerasusDialog设置标题栏高度
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CCerasusDialog::SetCaptionHeight(int nHeight)
+{
+	m_nCaptionHeight = nHeight;
+}
+
+//------------------------------------------------------------------
+// @Function:	 SetCaptionText()
+// @Purpose: CCerasusDialog设置标题栏文本
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CCerasusDialog::SetCaptionText(const WCHAR * pwszText)
+{
+	wcscpy_s(m_wszCaption, sizeof(m_wszCaption) / sizeof(m_wszCaption[0]), pwszText);
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetLocation()
+// @Purpose: CCerasusDialog获取窗口位置
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CCerasusDialog::GetLocation(POINT & Pt) const
+{
+	Pt.x = m_nX; 
+	Pt.y = m_nY;
+}
+
+//------------------------------------------------------------------
+// @Function:	 SetLocation()
+// @Purpose: CCerasusDialog设置窗口位置
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CCerasusDialog::SetLocation(int x, int y)
+{
+	m_nX = x;
+	m_nY = y;
+}
+
+//------------------------------------------------------------------
+// @Function:	 SetSize()
+// @Purpose: CCerasusDialog设置窗口大小
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CCerasusDialog::SetSize(int width, int height)
+{
+	m_nWidth = width;
+	m_nHeight = height;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetWidth()
+// @Purpose: CCerasusDialog获取窗口宽度
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+int CCerasusDialog::GetWidth()
+{
+	return m_nWidth;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetHeight()
+// @Purpose: CCerasusDialog获取窗口高度
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+int CCerasusDialog::GetHeight()
+{
+	return m_nHeight;
+}
+
+//------------------------------------------------------------------
+// @Function:	 SetRefreshTime()
+// @Purpose: CCerasusDialog设置刷新时间
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void __stdcall CCerasusDialog::SetRefreshTime(float fTime)
+{
+	s_fTimeRefresh = fTime;
+}
+
+//------------------------------------------------------------------
 // @Function:	 ClearFocus()
 // @Purpose: CCerasusDialog清除控件焦点
 // @Since: v1.00a
@@ -1062,6 +1353,30 @@ void __stdcall CCerasusDialog::ClearFocus()
 	}
 
 	ReleaseCapture();
+}
+
+//------------------------------------------------------------------
+// @Function:	 ClearFocus()
+// @Purpose: CCerasusDialog清除控件焦点
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CCerasusDialog::FocusDefaultControl()
+{
+	for (auto iter = m_vecControls.begin(); iter != m_vecControls.end(); ++iter)
+	{
+		if ((*iter)->m_bIsDefault)
+		{
+			ClearFocus();
+
+			s_pControlFocus = (*iter);
+			s_pControlFocus->OnFocusIn();
+			return;
+		}
+
+	}
+
 }
 
 //------------------------------------------------------------------

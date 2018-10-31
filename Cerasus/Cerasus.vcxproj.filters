@@ -297,6 +297,18 @@
     <ClInclude Include="CerasusUnit.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SakuraBlend.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SakuraControl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SakuraElement.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SakuraUICommon.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectFont.cpp">
@@ -342,6 +354,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CerasusUnit.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SakuraBlend.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SakuraControl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SakuraElement.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

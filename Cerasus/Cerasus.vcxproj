@@ -235,6 +235,10 @@
     <ClInclude Include="DirectX\Inc\xma2defs.h" />
     <ClInclude Include="DirectX\Inc\xnamath.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SakuraBlend.h" />
+    <ClInclude Include="SakuraControl.h" />
+    <ClInclude Include="SakuraElement.h" />
+    <ClInclude Include="SakuraUICommon.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cerasusfps.cpp" />
@@ -252,6 +256,9 @@
     <ClCompile Include="DirectSurface.cpp" />
     <ClCompile Include="DirectTexture.cpp" />
     <ClCompile Include="DirectThreadSafe.cpp" />
+    <ClCompile Include="SakuraBlend.cpp" />
+    <ClCompile Include="SakuraControl.cpp" />
+    <ClCompile Include="SakuraElement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cerasus.rc" />

@@ -83,7 +83,9 @@ class CSakuraDialog;
 class CSakuraControl;
 class CSakuraStatic;
 class CSakuraButton;
-class CSakuraResourceManager;
+
+//Function Declaration
+typedef VOID(CALLBACK*LPCALLBACKSAKURAGUIEVENT)(UINT nEvent, int nControlID, CSakuraControl* pControl, void* pUserContext);
 
 #endif // !__SAKURAUICOMMON_H_
 

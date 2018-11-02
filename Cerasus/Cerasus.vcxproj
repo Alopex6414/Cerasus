@@ -236,8 +236,11 @@
     <ClInclude Include="DirectX\Inc\xnamath.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SakuraBlend.h" />
+    <ClInclude Include="SakuraButton.h" />
     <ClInclude Include="SakuraControl.h" />
+    <ClInclude Include="SakuraDialog.h" />
     <ClInclude Include="SakuraElement.h" />
+    <ClInclude Include="SakuraStatic.h" />
     <ClInclude Include="SakuraUICommon.h" />
   </ItemGroup>
   <ItemGroup>
@@ -257,8 +260,11 @@
     <ClCompile Include="DirectTexture.cpp" />
     <ClCompile Include="DirectThreadSafe.cpp" />
     <ClCompile Include="SakuraBlend.cpp" />
+    <ClCompile Include="SakuraButton.cpp" />
     <ClCompile Include="SakuraControl.cpp" />
+    <ClCompile Include="SakuraDialog.cpp" />
     <ClCompile Include="SakuraElement.cpp" />
+    <ClCompile Include="SakuraStatic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cerasus.rc" />

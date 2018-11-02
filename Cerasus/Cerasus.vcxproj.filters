@@ -309,6 +309,15 @@
     <ClInclude Include="SakuraUICommon.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SakuraButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SakuraDialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SakuraStatic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectFont.cpp">
@@ -363,6 +372,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SakuraElement.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SakuraButton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SakuraDialog.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SakuraStatic.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

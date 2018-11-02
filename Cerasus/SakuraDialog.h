@@ -1,0 +1,99 @@
+/*
+*     COPYRIGHT NOTICE
+*     Copyright(c) 2018, Team Shanghai Dream Equinox
+*     All rights reserved.
+*
+* @file		SakuraDialog.h
+* @brief	This File is SakuraGUI DLL Project.
+* @author	Alopex/Helium
+* @version	v1.00a
+* @date		2018-10-16	v1.00a	alopex	Create Project.
+*/
+#pragma once
+
+#ifndef __SAKURADIALOG_H_
+#define __SAKURADIALOG_H_
+
+//Include SakuraGUI Common Header File
+#include "SakuraUICommon.h"
+#include "SakuraControl.h"
+#include "SakuraStatic.h"
+#include "SakuraButton.h"
+
+//Macro Definition
+#ifdef	CERASUS_EXPORTS
+#define SAKURADIALOG_API	__declspec(dllexport)
+#else
+#define SAKURADIALOG_API	__declspec(dllimport)
+#endif
+
+#define	SAKURADIALOG_CALLMETHOD	__stdcall
+
+//Class Definition
+class SAKURADIALOG_API CSakuraDialog
+{
+private:
+	int	m_nX;					// CSakuraDialog 窗口X轴坐标
+	int m_nY;					// CSakuraDialog 窗口Y轴坐标
+	int m_nWidth;				// CSakuraDialog 窗口宽度
+	int m_nHeight;				// CSakuraDialog 窗口高度
+
+	bool	m_bVisible;			// CSakuraDialog 窗口可见
+
+	CSakuraControl*	m_pControlMouseOver;				// CSakuraDialog 鼠标在控件上
+
+	static CSakuraControl*	s_pControlFocus;			// CSakuraDialog 获得焦点控件
+	static CSakuraControl*	s_pControlPressed;			// CSakuraDialog 当前按下控件
+
+private:
+	LPCALLBACKSAKURAGUIEVENT	m_pCallbackEvent;					// CSakuraDialog 窗口事件回调函数
+	void*						m_pCallbackEventUserContext;		// CSakuraDialog 窗口事件回调用户参数
+
+	vector<CSakuraControl*>		m_vecControls;						// CSakuraDialog 窗口添加的控件数组
+
+public:
+	bool	m_bNonUserEvents;							// CSakuraDialog 用户事件标志
+	bool	m_bKeyboardInput;							// CSakuraDialog 键盘输入标志
+	bool	m_bMouseInput;								// CSakuraDialog 鼠标输入标志
+
+protected:
+	void	OnMouseMove(POINT pt);						// CSakuraDialog 鼠标移动
+
+public:
+	CSakuraDialog();
+	~CSakuraDialog();
+
+	bool	SAKURADIALOG_CALLMETHOD	MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);			// CSakuraDialog 窗口消息处理
+
+	HRESULT SAKURADIALOG_CALLMETHOD	AddStatic(int ID, LPCWSTR strText, int x, int y, int width, int height, bool bIsDefault = false, CSakuraStatic** ppCreated = NULL);							// CSakuraDialog 窗口添加静态控件
+	HRESULT SAKURADIALOG_CALLMETHOD	AddButton(int ID, LPCWSTR strText, int x, int y, int width, int height, UINT nHotkey = 0, bool bIsDefault = false, CSakuraButton** ppCreated = NULL);		// CSakuraDialog 窗口添加按钮控件
+
+	HRESULT	SAKURADIALOG_CALLMETHOD	AddControl(CSakuraControl* pControl);									// CSakuraDialog 窗口添加控件
+	HRESULT	SAKURADIALOG_CALLMETHOD	InitControl(CSakuraControl* pControl);									// CSakuraDialog 窗口初始化控件
+
+	CSakuraStatic*	SAKURADIALOG_CALLMETHOD GetStatic(int ID);												// CSakuraDialog 窗口获取静态控件
+	CSakuraButton*	SAKURADIALOG_CALLMETHOD GetButton(int ID);												// CSakuraDialog 窗口获取按钮控件
+
+	CSakuraControl*	SAKURADIALOG_CALLMETHOD	GetControl(int ID);												// CSakuraDialog 获取控件指针
+	CSakuraControl*	SAKURADIALOG_CALLMETHOD	GetControl(int ID, UINT nControlType);							// CSakuraDialog 获取控件指针
+	CSakuraControl*	SAKURADIALOG_CALLMETHOD	GetControlAtPoint(POINT pt);									// CSakuraDialog 获取鼠标所在的控件指针
+
+	void	SAKURADIALOG_CALLMETHOD	RemoveControl(int nID);													// CSakuraDialog 窗口移除控件
+	void	SAKURADIALOG_CALLMETHOD RemoveAllControls();													// CSakuraDialog 窗口移除控件(ALL)
+
+	void	SAKURADIALOG_CALLMETHOD	SetCallback(LPCALLBACKSAKURAGUIEVENT pCallback, void* pUserContext = NULL);						// CSakuraDialog 设置事件回调函数
+	void	SAKURADIALOG_CALLMETHOD	EnableNonUserEvents(bool bEnable);																// CSakuraDialog 使能无用户事件
+	void    SAKURADIALOG_CALLMETHOD	EnableKeyboardInput(bool bEnable);																// CSakuraDialog 使能键盘输入
+	void    SAKURADIALOG_CALLMETHOD	EnableMouseInput(bool bEnable);																	// CSakuraDialog 使能鼠标输入
+	bool    SAKURADIALOG_CALLMETHOD	IsKeyboardInputEnabled() const;																	// CSakuraDialog 判断键盘是否使能
+
+	void	SAKURADIALOG_CALLMETHOD SendEvent(UINT nEvent, bool bTriggeredByUser, CSakuraControl* pControl);// CSakuraDialog 发送事件
+	void	SAKURADIALOG_CALLMETHOD RequestFocus(CSakuraControl* pControl);									// CSakuraDialog 请求焦点
+
+	static void	SAKURADIALOG_CALLMETHOD	ClearFocus();														// CSakuraDialog 清除控件焦点
+
+};
+
+
+#endif // !__SAKURADIALOG_H_
+

@@ -113,25 +113,24 @@ void SAKURABLEND_CALLMETHOD CSakuraBlendFont::OnCreate(LPDIRECT3DDEVICE9 pD3D9De
 //------------------------------------------------------------------
 int SAKURABLEND_CALLMETHOD CSakuraBlendFont::AddFont(SAKURA_CONTROL_STATE eType, LPWSTR strFontName, int nFontSize)
 {
-	DirectFont* pFontNode = new DirectFont(m_pD3D9Device);
-
-	if (pFontNode == NULL)
-	{
-		return -1;
-	}
-
-	HRESULT hr = pFontNode->DirectFontInit(nFontSize, strFontName);
-	if (FAILED(hr))
-	{
-		return -2;
-	}
-
 	if (m_States[eType] != NULL)
 	{
 		SAFE_DELETE(m_States[eType]);
 	}
 
-	m_States[eType] = pFontNode;
+	m_States[eType] = new DirectFont(m_pD3D9Device);
+
+	if (m_States[eType] == NULL)
+	{
+		return -1;
+	}
+
+	HRESULT hr = m_States[eType]->DirectFontInit(nFontSize, strFontName);
+	if (FAILED(hr))
+	{
+		return -2;
+	}
+
 	m_Current = m_States[eType];
 
 	return 0;
@@ -255,25 +254,24 @@ void SAKURABLEND_CALLMETHOD CSakuraBlendTexture::OnCreate(LPDIRECT3DDEVICE9 pD3D
 //------------------------------------------------------------------
 int SAKURABLEND_CALLMETHOD CSakuraBlendTexture::AddTexture(SAKURA_CONTROL_STATE eType, CUUint sUnit)
 {
-	CCerasusUnit* pTextureNode = new CCerasusUnit(m_pD3D9Device);
-
-	if (pTextureNode == NULL)
-	{
-		return -1;
-	}
-
-	HRESULT hr = pTextureNode->CCerasusUnitInit(sUnit);
-	if (FAILED(hr))
-	{
-		return -2;
-	}
-
 	if (m_States[eType] != NULL)
 	{
 		SAFE_DELETE(m_States[eType]);
 	}
 
-	m_States[eType] = pTextureNode;
+	m_States[eType] = new CCerasusUnit(m_pD3D9Device);
+
+	if (m_States[eType] == NULL)
+	{
+		return -1;
+	}
+
+	HRESULT hr = m_States[eType]->CCerasusUnitInit(sUnit);
+	if (FAILED(hr))
+	{
+		return -2;
+	}
+
 	m_Current = m_States[eType];
 
 	return 0;
@@ -288,25 +286,24 @@ int SAKURABLEND_CALLMETHOD CSakuraBlendTexture::AddTexture(SAKURA_CONTROL_STATE 
 //------------------------------------------------------------------
 int SAKURABLEND_CALLMETHOD CSakuraBlendTexture::AddTexture(SAKURA_CONTROL_STATE eType, CUUintEx sUnit)
 {
-	CCerasusUnit* pTextureNode = new CCerasusUnit(m_pD3D9Device);
-
-	if (pTextureNode == NULL)
-	{
-		return -1;
-	}
-
-	HRESULT hr = pTextureNode->CCerasusUnitInit(sUnit);
-	if (FAILED(hr))
-	{
-		return -2;
-	}
-
 	if (m_States[eType] != NULL)
 	{
 		SAFE_DELETE(m_States[eType]);
 	}
 
-	m_States[eType] = pTextureNode;
+	m_States[eType] = new CCerasusUnit(m_pD3D9Device);
+
+	if (m_States[eType] == NULL)
+	{
+		return -1;
+	}
+
+	HRESULT hr = m_States[eType]->CCerasusUnitInit(sUnit);
+	if (FAILED(hr))
+	{
+		return -2;
+	}
+
 	m_Current = m_States[eType];
 
 	return 0;

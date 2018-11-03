@@ -79,7 +79,7 @@ enum SAKURA_CONTROL_STATE
 //Struct Definition
 typedef struct
 {
-	LPWSTR strFontName;
+	WCHAR strFontName[MAX_PATH];
 	int nFontSize;
 } CUFont, *LPCUFont;
 

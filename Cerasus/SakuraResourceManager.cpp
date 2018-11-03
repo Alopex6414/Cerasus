@@ -205,7 +205,8 @@ int SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::AddFont(CUFont * pF
 	}
 
 	memset(pNewFont, 0, sizeof(pNewFont));
-	memcpy_s(pNewFont, sizeof(pNewFont), pFont, sizeof(CUFont));
+	wcscpy_s(pNewFont->strFontName, MAX_PATH, pFont->strFontName);
+	pNewFont->nFontSize = pFont->nFontSize;
 	m_pFontCaches.push_back(pNewFont);
 
 	return (m_pFontCaches.size() - 1);

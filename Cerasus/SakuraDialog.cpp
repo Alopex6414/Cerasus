@@ -381,20 +381,18 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::InitControl(CSakuraControl * pCon
 //------------------------------------------------------------------
 HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddFont(int ID, UINT nControlType, UINT iElement, SAKURA_CONTROL_STATE eType, UINT Index)
 {
-	HRESULT hr;
 	CSakuraControl* pControl = GetControl(ID, nControlType);
-	CSakuraElement* pElement = new CSakuraElement(m_pManager->GetDevice());
+	CSakuraElement** ppElement = &(pControl->GetElement(iElement));
 	CUFont* pFont = GetFontRes(Index);
 
-	pElement->GetFontBlend().AddFont(eType, pFont->strFontName, pFont->nFontSize);
-	hr = pControl->SetElement(iElement, pElement);
-	if (FAILED(hr))
+	if (*ppElement)
 	{
-		SAFE_DELETE(pElement);
-		return E_FAIL;
+		SAFE_DELETE(*ppElement);
 	}
 
-	SAFE_DELETE(pElement);
+	(*ppElement) = new CSakuraElement(m_pManager->GetDevice());
+	(*ppElement)->GetFontBlend().AddFont(eType, pFont->strFontName, pFont->nFontSize);
+
 	return S_OK;
 }
 
@@ -407,20 +405,18 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddFont(int ID, UINT nControlType
 //------------------------------------------------------------------
 HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddTexture(int ID, UINT nControlType, UINT iElement, SAKURA_CONTROL_STATE eType, UINT Index)
 {
-	HRESULT hr;
 	CSakuraControl* pControl = GetControl(ID, nControlType);
-	CSakuraElement* pElement = new CSakuraElement(m_pManager->GetDevice());
+	CSakuraElement* pElement = pControl->GetElement(iElement);
 	CUUint* pTexture = GetTextureRes(Index);
 
-	pElement->GetTextureBlend().AddTexture(eType, *pTexture);
-	hr = pControl->SetElement(iElement, pElement);
-	if (FAILED(hr))
+	if (pElement)
 	{
 		SAFE_DELETE(pElement);
-		return E_FAIL;
 	}
 
-	SAFE_DELETE(pElement);
+	pElement = new CSakuraElement(m_pManager->GetDevice());
+	pElement->GetTextureBlend().AddTexture(eType, *pTexture);
+
 	return S_OK;
 }
 
@@ -433,20 +429,18 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddTexture(int ID, UINT nControlT
 //------------------------------------------------------------------
 HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddTextureEx(int ID, UINT nControlType, UINT iElement, SAKURA_CONTROL_STATE eType, UINT Index)
 {
-	HRESULT hr;
 	CSakuraControl* pControl = GetControl(ID, nControlType);
-	CSakuraElement* pElement = new CSakuraElement(m_pManager->GetDevice());
-	CUUintEx* pTexture = GetTextureExRes(Index);
+	CSakuraElement* pElement = pControl->GetElement(iElement);
+	CUUint* pTexture = GetTextureRes(Index);
 
-	pElement->GetTextureBlend().AddTexture(eType, *pTexture);
-	hr = pControl->SetElement(iElement, pElement);
-	if (FAILED(hr))
+	if (pElement)
 	{
 		SAFE_DELETE(pElement);
-		return E_FAIL;
 	}
 
-	SAFE_DELETE(pElement);
+	pElement = new CSakuraElement(m_pManager->GetDevice());
+	pElement->GetTextureBlend().AddTexture(eType, *pTexture);
+
 	return S_OK;
 }
 

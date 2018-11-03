@@ -428,39 +428,12 @@ void *SAKURACONTROL_CALLMETHOD CSakuraControl::GetUserData()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-CSakuraElement *SAKURACONTROL_CALLMETHOD CSakuraControl::GetElement(UINT iElement)
+CSakuraElement *&SAKURACONTROL_CALLMETHOD CSakuraControl::GetElement(UINT iElement)
 {
-	return m_vecElements.at(iElement);
-}
-
-//------------------------------------------------------------------
-// @Function:	 SetElement()
-// @Purpose: CSakuraControl…Ë÷√‰÷»æ‘™Àÿ
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-HRESULT SAKURACONTROL_CALLMETHOD CSakuraControl::SetElement(UINT iElement, CSakuraElement * pElement)
-{
-	if (pElement == NULL)
-	{
-		return E_INVALIDARG;
-	}
-
 	for (auto i = m_vecElements.size(); i <= iElement; ++i)
 	{
-		CSakuraElement* pNewElement = new CSakuraElement(m_pD3D9Device);
-
-		if (pNewElement == NULL)
-		{
-			return E_OUTOFMEMORY;
-		}
-
-		m_vecElements.push_back(pNewElement);
+		m_vecElements.push_back(NULL);
 	}
 
-	CSakuraElement* pCurElement = m_vecElements.at(iElement);
-	*pCurElement = *pElement;
-
-	return S_OK;
+	return m_vecElements[iElement];
 }

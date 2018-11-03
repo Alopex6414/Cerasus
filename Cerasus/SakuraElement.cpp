@@ -46,7 +46,7 @@ CSakuraElement::~CSakuraElement()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-CSakuraBlendFont SAKURAELEMENT_CALLMETHOD CSakuraElement::GetFontBlend()
+CSakuraBlendFont& SAKURAELEMENT_CALLMETHOD CSakuraElement::GetFontBlend()
 {
 	return m_FontBlend;
 }
@@ -58,7 +58,7 @@ CSakuraBlendFont SAKURAELEMENT_CALLMETHOD CSakuraElement::GetFontBlend()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-CSakuraBlendTexture SAKURAELEMENT_CALLMETHOD CSakuraElement::GetTextureBlend()
+CSakuraBlendTexture& SAKURAELEMENT_CALLMETHOD CSakuraElement::GetTextureBlend()
 {
 	return m_TextureBlend;
 }

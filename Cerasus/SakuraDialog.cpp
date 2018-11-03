@@ -838,7 +838,7 @@ int SAKURADIALOG_CALLMETHOD CSakuraDialog::GetHeight()
 //------------------------------------------------------------------
 int SAKURADIALOG_CALLMETHOD CSakuraDialog::SetFontRes(CUFont * pFont)
 {
-	if (m_pManager)
+	if (m_pManager == NULL)
 	{
 		return -1;
 	}
@@ -855,7 +855,7 @@ int SAKURADIALOG_CALLMETHOD CSakuraDialog::SetFontRes(CUFont * pFont)
 //------------------------------------------------------------------
 int SAKURADIALOG_CALLMETHOD CSakuraDialog::SetTextrueRes(CUUint * pTexture)
 {
-	if (m_pManager)
+	if (m_pManager == NULL)
 	{
 		return -1;
 	}
@@ -872,7 +872,7 @@ int SAKURADIALOG_CALLMETHOD CSakuraDialog::SetTextrueRes(CUUint * pTexture)
 //------------------------------------------------------------------
 int SAKURADIALOG_CALLMETHOD CSakuraDialog::SetTextrueExRes(CUUintEx * pTexture)
 {
-	if (m_pManager)
+	if (m_pManager == NULL)
 	{
 		return -1;
 	}

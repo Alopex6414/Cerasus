@@ -189,9 +189,9 @@ int SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::AddFont(CUFont * pF
 	for (auto iter = m_pFontCaches.begin(); iter != m_pFontCaches.end(); ++iter)
 	{
 		size_t nLen = 0;
-		nLen = wcslen(pFont->pString);
+		nLen = wcslen(pFont->strFontName);
 		
-		if (0 == _wcsnicmp((*iter)->pString, pFont->pString, nLen) && (*iter)->pRect == pFont->pRect && (*iter)->dwFormat == pFont->dwFormat && (*iter)->dwColor == pFont->dwColor)
+		if (0 == _wcsnicmp((*iter)->strFontName, pFont->strFontName, nLen) && (*iter)->nFontSize == pFont->nFontSize)
 		{
 			return (iter - m_pFontCaches.begin());
 		}

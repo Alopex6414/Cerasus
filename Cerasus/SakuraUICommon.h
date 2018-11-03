@@ -77,8 +77,18 @@ enum SAKURA_CONTROL_STATE
 };
 
 //Struct Definition
+typedef struct
+{
+	LPWSTR strFontName;
+	int nFontSize;
+	LPCWSTR pString;
+	LPRECT pRect;
+	DWORD dwFormat;
+	D3DCOLOR dwColor;
+} CUFont, *LPCUFont;
 
 //Class Definition
+class CSakuraResourceManager;
 class CSakuraDialog;
 class CSakuraControl;
 class CSakuraStatic;

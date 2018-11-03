@@ -16,6 +16,7 @@
 
 //Include SakuraGUI Common Header File
 #include "SakuraUICommon.h"
+#include "SakuraResourceManager.h"
 #include "SakuraControl.h"
 #include "SakuraStatic.h"
 #include "SakuraButton.h"
@@ -32,6 +33,8 @@
 //Class Definition
 class SAKURADIALOG_API CSakuraDialog
 {
+	friend class CSakuraDialog;
+
 private:
 	int	m_nX;					// CSakuraDialog 窗口X轴坐标
 	int m_nY;					// CSakuraDialog 窗口Y轴坐标
@@ -40,12 +43,18 @@ private:
 
 	bool	m_bVisible;			// CSakuraDialog 窗口可见
 
+	D3DCOLOR	m_colorTopLeft;							// CSakuraDialog 窗口左上角顶点颜色
+	D3DCOLOR	m_colorTopRight;						// CSakuraDialog 窗口右上角顶点颜色
+	D3DCOLOR	m_colorBottomLeft;						// CSakuraDialog 窗口左下角顶点颜色
+	D3DCOLOR	m_colorBottomRight;						// CSakuraDialog 窗口右下角顶点颜色
+
 	CSakuraControl*	m_pControlMouseOver;				// CSakuraDialog 鼠标在控件上
 
 	static CSakuraControl*	s_pControlFocus;			// CSakuraDialog 获得焦点控件
 	static CSakuraControl*	s_pControlPressed;			// CSakuraDialog 当前按下控件
 
 private:
+	CSakuraResourceManager*		m_pManager;							// CSakuraDialog 窗口资源类
 	LPCALLBACKSAKURAGUIEVENT	m_pCallbackEvent;					// CSakuraDialog 窗口事件回调函数
 	void*						m_pCallbackEventUserContext;		// CSakuraDialog 窗口事件回调用户参数
 
@@ -63,6 +72,8 @@ public:
 	CSakuraDialog();
 	~CSakuraDialog();
 
+	void	SAKURADIALOG_CALLMETHOD	OnCreate(CSakuraResourceManager* pManager);								// CSakuraDialog 窗口初始化响应
+
 	bool	SAKURADIALOG_CALLMETHOD	MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);			// CSakuraDialog 窗口消息处理
 
 	HRESULT SAKURADIALOG_CALLMETHOD	AddStatic(int ID, LPCWSTR strText, int x, int y, int width, int height, bool bIsDefault = false, CSakuraStatic** ppCreated = NULL);							// CSakuraDialog 窗口添加静态控件
@@ -70,6 +81,10 @@ public:
 
 	HRESULT	SAKURADIALOG_CALLMETHOD	AddControl(CSakuraControl* pControl);									// CSakuraDialog 窗口添加控件
 	HRESULT	SAKURADIALOG_CALLMETHOD	InitControl(CSakuraControl* pControl);									// CSakuraDialog 窗口初始化控件
+
+	HRESULT	SAKURADIALOG_CALLMETHOD	AddFont(int ID, UINT nControlType, UINT iElement, SAKURA_CONTROL_STATE eType, UINT Index);			// CSakuraDialog 窗口添加控件字体
+	HRESULT	SAKURADIALOG_CALLMETHOD AddTexture(int ID, UINT nControlType, UINT iElement, SAKURA_CONTROL_STATE eType, UINT Index);		// CSakuraDialog 窗口添加控件纹理
+	HRESULT	SAKURADIALOG_CALLMETHOD AddTextureEx(int ID, UINT nControlType, UINT iElement, SAKURA_CONTROL_STATE eType, UINT Index);		// CSakuraDialog 窗口添加控件纹理Ex
 
 	CSakuraStatic*	SAKURADIALOG_CALLMETHOD GetStatic(int ID);												// CSakuraDialog 窗口获取静态控件
 	CSakuraButton*	SAKURADIALOG_CALLMETHOD GetButton(int ID);												// CSakuraDialog 窗口获取按钮控件
@@ -89,6 +104,24 @@ public:
 
 	void	SAKURADIALOG_CALLMETHOD SendEvent(UINT nEvent, bool bTriggeredByUser, CSakuraControl* pControl);// CSakuraDialog 发送事件
 	void	SAKURADIALOG_CALLMETHOD RequestFocus(CSakuraControl* pControl);									// CSakuraDialog 请求焦点
+
+	bool	SAKURADIALOG_CALLMETHOD	GetVisible();															// CSakuraDialog 获取可见属性
+	void	SAKURADIALOG_CALLMETHOD	SetVisible(bool bVisible);												// CSakuraDialog 设置可见属性
+	void	SAKURADIALOG_CALLMETHOD SetBackgroundColors(D3DCOLOR colorAllCorners);							// CCerasusDialog 设置背景颜色
+	void	SAKURADIALOG_CALLMETHOD SetBackgroundColors(D3DCOLOR colorTopLeft, D3DCOLOR colorTopRight, D3DCOLOR colorBottomLeft, D3DCOLOR colorBottomRight);	// CCerasusDialog 设置背景颜色
+	void	SAKURADIALOG_CALLMETHOD	GetLocation(POINT& Pt) const;											// CSakuraDialog 获取窗口位置
+	void	SAKURADIALOG_CALLMETHOD	SetLocation(int x, int y);												// CSakuraDialog 设置窗口位置
+	void	SAKURADIALOG_CALLMETHOD	SetSize(int width, int height);											// CSakuraDialog 设置窗口大小
+	int		SAKURADIALOG_CALLMETHOD	GetWidth();																// CSakuraDialog 获取窗口宽度
+	int		SAKURADIALOG_CALLMETHOD	GetHeight();															// CSakuraDialog 获取窗口高度
+
+	int		SAKURADIALOG_CALLMETHOD	SetFontRes(CUFont* pFont);												// CSakuraDialog 窗口添加字体资源
+	int		SAKURADIALOG_CALLMETHOD	SetTextrueRes(CUUint* pTexture);										// CSakuraDialog 窗口添加纹理资源
+	int		SAKURADIALOG_CALLMETHOD	SetTextrueExRes(CUUintEx* pTexture);									// CSakuraDialog 窗口添加纹理资源(Ex)
+
+	CUFont*	SAKURADIALOG_CALLMETHOD	GetFontRes(UINT Index);													// CSakuraDialog 窗口获取字体资源
+	CUUint*	SAKURADIALOG_CALLMETHOD	GetTextureRes(UINT Index);												// CSakuraDialog 窗口获取纹理资源
+	CUUintEx*	SAKURADIALOG_CALLMETHOD	GetTextureExRes(UINT Index);										// CSakuraDialog 窗口获取纹理资源(Ex)
 
 	static void	SAKURADIALOG_CALLMETHOD	ClearFocus();														// CSakuraDialog 清除控件焦点
 

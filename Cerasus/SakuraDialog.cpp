@@ -62,6 +62,7 @@ CSakuraDialog::CSakuraDialog()
 
 	m_pControlMouseOver = NULL;
 
+	m_pManager = NULL;
 	m_pCallbackEvent = NULL;
 	m_pCallbackEventUserContext = NULL;
 
@@ -80,6 +81,18 @@ CSakuraDialog::CSakuraDialog()
 CSakuraDialog::~CSakuraDialog()
 {
 	RemoveAllControls();
+}
+
+//------------------------------------------------------------------
+// @Function:	 OnCreate()
+// @Purpose: CSakuraDialog窗口初始化处理
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::OnCreate(CSakuraResourceManager * pManager)
+{
+	m_pManager = pManager;
 }
 
 //------------------------------------------------------------------
@@ -360,6 +373,84 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::InitControl(CSakuraControl * pCon
 }
 
 //------------------------------------------------------------------
+// @Function:	 AddFont()
+// @Purpose: CSakuraDialog窗口控件添加字体
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddFont(int ID, UINT nControlType, UINT iElement, SAKURA_CONTROL_STATE eType, UINT Index)
+{
+	HRESULT hr;
+	CSakuraControl* pControl = GetControl(ID, nControlType);
+	CSakuraElement* pElement = new CSakuraElement(m_pManager->GetDevice());
+	CUFont* pFont = GetFontRes(Index);
+
+	pElement->GetFontBlend().AddFont(eType, pFont->strFontName, pFont->nFontSize);
+	hr = pControl->SetElement(iElement, pElement);
+	if (FAILED(hr))
+	{
+		SAFE_DELETE(pElement);
+		return E_FAIL;
+	}
+
+	SAFE_DELETE(pElement);
+	return S_OK;
+}
+
+//------------------------------------------------------------------
+// @Function:	 AddTexture()
+// @Purpose: CSakuraDialog窗口控件添加纹理
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddTexture(int ID, UINT nControlType, UINT iElement, SAKURA_CONTROL_STATE eType, UINT Index)
+{
+	HRESULT hr;
+	CSakuraControl* pControl = GetControl(ID, nControlType);
+	CSakuraElement* pElement = new CSakuraElement(m_pManager->GetDevice());
+	CUUint* pTexture = GetTextureRes(Index);
+
+	pElement->GetTextureBlend().AddTexture(eType, *pTexture);
+	hr = pControl->SetElement(iElement, pElement);
+	if (FAILED(hr))
+	{
+		SAFE_DELETE(pElement);
+		return E_FAIL;
+	}
+
+	SAFE_DELETE(pElement);
+	return S_OK;
+}
+
+//------------------------------------------------------------------
+// @Function:	 AddTextureEx()
+// @Purpose: CSakuraDialog窗口控件添加纹理Ex
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddTextureEx(int ID, UINT nControlType, UINT iElement, SAKURA_CONTROL_STATE eType, UINT Index)
+{
+	HRESULT hr;
+	CSakuraControl* pControl = GetControl(ID, nControlType);
+	CSakuraElement* pElement = new CSakuraElement(m_pManager->GetDevice());
+	CUUintEx* pTexture = GetTextureExRes(Index);
+
+	pElement->GetTextureBlend().AddTexture(eType, *pTexture);
+	hr = pControl->SetElement(iElement, pElement);
+	if (FAILED(hr))
+	{
+		SAFE_DELETE(pElement);
+		return E_FAIL;
+	}
+
+	SAFE_DELETE(pElement);
+	return S_OK;
+}
+
+//------------------------------------------------------------------
 // @Function:	 GetStatic()
 // @Purpose: CSakuraDialog窗口获取静态控件
 // @Since: v1.00a
@@ -622,6 +713,222 @@ void SAKURADIALOG_CALLMETHOD CSakuraDialog::RequestFocus(CSakuraControl * pContr
 
 	pControl->OnFocusIn();
 	s_pControlFocus = pControl;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetVisible()
+// @Purpose: CSakuraDialog获取窗口是否可见
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+bool SAKURADIALOG_CALLMETHOD CSakuraDialog::GetVisible()
+{
+	return m_bVisible;
+}
+
+//------------------------------------------------------------------
+// @Function:	 SetVisible()
+// @Purpose: CSakuraDialog设置窗口是否可见
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::SetVisible(bool bVisible)
+{
+	m_bVisible = bVisible;
+}
+
+//------------------------------------------------------------------
+// @Function:	 SetBackgroundColors()
+// @Purpose: CSakuraDialog设置窗口背景颜色
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::SetBackgroundColors(D3DCOLOR colorAllCorners)
+{
+	SetBackgroundColors(colorAllCorners, colorAllCorners, colorAllCorners, colorAllCorners);
+}
+
+//------------------------------------------------------------------
+// @Function:	 SetBackgroundColors()
+// @Purpose: CSakuraDialog设置窗口背景颜色
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::SetBackgroundColors(D3DCOLOR colorTopLeft, D3DCOLOR colorTopRight, D3DCOLOR colorBottomLeft, D3DCOLOR colorBottomRight)
+{
+	m_colorTopLeft = colorTopLeft;
+	m_colorTopRight = colorTopRight;
+	m_colorBottomLeft = colorBottomLeft;
+	m_colorBottomRight = colorBottomRight;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetLocation()
+// @Purpose: CSakuraDialog获取窗口坐标
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::GetLocation(POINT & Pt) const
+{
+	Pt.x = m_nX;
+	Pt.y = m_nY;
+}
+
+//------------------------------------------------------------------
+// @Function:	 SetLocation()
+// @Purpose: CSakuraDialog设置窗口坐标
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::SetLocation(int x, int y)
+{
+	m_nX = x;
+	m_nY = y;
+}
+
+//------------------------------------------------------------------
+// @Function:	 SetSize()
+// @Purpose: CSakuraDialog设置窗口大小
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::SetSize(int width, int height)
+{
+	m_nWidth = width;
+	m_nHeight = height;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetWidth()
+// @Purpose: CSakuraDialog获取窗口宽度
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+int SAKURADIALOG_CALLMETHOD CSakuraDialog::GetWidth()
+{
+	return m_nWidth;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetHeight()
+// @Purpose: CSakuraDialog获取窗口高度
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+int SAKURADIALOG_CALLMETHOD CSakuraDialog::GetHeight()
+{
+	return m_nHeight;
+}
+
+//------------------------------------------------------------------
+// @Function:	 AddFontRes()
+// @Purpose: CSakuraDialog添加字体资源
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+int SAKURADIALOG_CALLMETHOD CSakuraDialog::SetFontRes(CUFont * pFont)
+{
+	if (m_pManager)
+	{
+		return -1;
+	}
+
+	return m_pManager->AddFont(pFont);
+}
+
+//------------------------------------------------------------------
+// @Function:	 AddTextrueRes()
+// @Purpose: CSakuraDialog添加纹理资源
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+int SAKURADIALOG_CALLMETHOD CSakuraDialog::SetTextrueRes(CUUint * pTexture)
+{
+	if (m_pManager)
+	{
+		return -1;
+	}
+
+	return m_pManager->AddTexture(pTexture);
+}
+
+//------------------------------------------------------------------
+// @Function:	 AddTextrueExRes()
+// @Purpose: CSakuraDialog添加纹理资源
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+int SAKURADIALOG_CALLMETHOD CSakuraDialog::SetTextrueExRes(CUUintEx * pTexture)
+{
+	if (m_pManager)
+	{
+		return -1;
+	}
+
+	return m_pManager->AddTexture(pTexture);
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetFontRes()
+// @Purpose: CSakuraDialog获取字体资源
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CUFont *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetFontRes(UINT Index)
+{
+	if (m_pManager == NULL)
+	{
+		return NULL;
+	}
+
+	return m_pManager->GetFontNode(Index);
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetTextureRes()
+// @Purpose: CSakuraDialog获取纹理资源
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CUUint *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetTextureRes(UINT Index)
+{
+	if (m_pManager == NULL)
+	{
+		return NULL;
+	}
+
+	return m_pManager->GetTextureNode(Index);
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetTextureExRes()
+// @Purpose: CSakuraDialog获取纹理资源Ex
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CUUintEx *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetTextureExRes(UINT Index)
+{
+	if (m_pManager == NULL)
+	{
+		return NULL;
+	}
+
+	return m_pManager->GetTextureNodeEx(Index);
 }
 
 //------------------------------------------------------------------

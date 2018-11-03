@@ -318,6 +318,9 @@
     <ClInclude Include="SakuraStatic.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SakuraResourceManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectFont.cpp">
@@ -381,6 +384,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SakuraStatic.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SakuraResourceManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -105,6 +105,44 @@ void SAKURABLEND_CALLMETHOD CSakuraBlendFont::OnCreate(LPDIRECT3DDEVICE9 pD3D9De
 }
 
 //------------------------------------------------------------------
+// @Function:	 OnLostDevice()
+// @Purpose: CSakuraBlendFont丢失设备
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURABLEND_CALLMETHOD CSakuraBlendFont::OnLostDevice()
+{
+	for (int i = 0; i < MAX_CONTROL_STATES; ++i)
+	{
+		if (m_States[i] != NULL)
+		{
+			m_States[i]->DirectFontGetFont()->OnLostDevice();
+		}
+	}
+
+}
+
+//------------------------------------------------------------------
+// @Function:	 OnResetDevice()
+// @Purpose: CSakuraBlendFont重置设备
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURABLEND_CALLMETHOD CSakuraBlendFont::OnResetDevice()
+{
+	for (int i = 0; i < MAX_CONTROL_STATES; ++i)
+	{
+		if (m_States[i] != NULL)
+		{
+			m_States[i]->DirectFontGetFont()->OnResetDevice();
+		}
+	}
+
+}
+
+//------------------------------------------------------------------
 // @Function:	 AddFont()
 // @Purpose: CSakuraBlendFont添加字体
 // @Since: v1.00a
@@ -243,6 +281,36 @@ CCerasusUnit *SAKURABLEND_CALLMETHOD CSakuraBlendTexture::GetCurrent() const
 void SAKURABLEND_CALLMETHOD CSakuraBlendTexture::OnCreate(LPDIRECT3DDEVICE9 pD3D9Device)
 {
 	m_pD3D9Device = pD3D9Device;
+}
+
+//------------------------------------------------------------------
+// @Function:	 OnLostDevice()
+// @Purpose: CSakuraBlendTexture丢失设备
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURABLEND_CALLMETHOD CSakuraBlendTexture::OnLostDevice()
+{
+	for (int i = 0; i < MAX_CONTROL_STATES; ++i)
+	{
+		if (m_States[i] != NULL)
+		{
+			m_States[i]->CCerasusUnitReset();
+		}
+	}
+}
+
+//------------------------------------------------------------------
+// @Function:	 OnResetDevice()
+// @Purpose: CSakuraBlendTexture重置设备
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURABLEND_CALLMETHOD CSakuraBlendTexture::OnResetDevice()
+{
+	
 }
 
 //------------------------------------------------------------------

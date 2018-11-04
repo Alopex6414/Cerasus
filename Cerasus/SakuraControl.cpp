@@ -178,6 +178,18 @@ LPDIRECT3DDEVICE9 SAKURACONTROL_CALLMETHOD CSakuraControl::GetDevice() const
 }
 
 //------------------------------------------------------------------
+// @Function:	 GetElements()
+// @Purpose: CSakuraControl获取控件渲染元素向量
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+vector<CSakuraElement*>&SAKURACONTROL_CALLMETHOD CSakuraControl::GetElements()
+{
+	return m_vecElements;
+}
+
+//------------------------------------------------------------------
 // @Function:	 CanHaveFocus()
 // @Purpose: CSakuraControl是否获取焦点
 // @Since: v1.00a
@@ -435,5 +447,5 @@ CSakuraElement *&SAKURACONTROL_CALLMETHOD CSakuraControl::GetElement(UINT iEleme
 		m_vecElements.push_back(NULL);
 	}
 
-	return m_vecElements[iElement];
+	return m_vecElements.at(iElement);
 }

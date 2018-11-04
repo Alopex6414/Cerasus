@@ -60,6 +60,9 @@ private:
 
 	vector<CSakuraControl*>		m_vecControls;						// CSakuraDialog 窗口添加的控件数组
 
+protected:
+	DirectGraphics3D*	m_pDialogGraphics;				// CSakuraDialog 窗口绘制背景
+
 public:
 	bool	m_bNonUserEvents;							// CSakuraDialog 用户事件标志
 	bool	m_bKeyboardInput;							// CSakuraDialog 键盘输入标志
@@ -74,6 +77,9 @@ public:
 
 	void	SAKURADIALOG_CALLMETHOD	OnCreate(CSakuraResourceManager* pManager);								// CSakuraDialog 窗口初始化响应
 
+	void	SAKURADIALOG_CALLMETHOD	OnLost();																// CSakuraDialog 窗口丢失设备
+	void	SAKURADIALOG_CALLMETHOD	OnReset();																// CSakuraDialog 窗口重置设备
+	
 	bool	SAKURADIALOG_CALLMETHOD	MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);			// CSakuraDialog 窗口消息处理
 
 	HRESULT SAKURADIALOG_CALLMETHOD	AddStatic(int ID, LPCWSTR strText, int x, int y, int width, int height, bool bIsDefault = false, CSakuraStatic** ppCreated = NULL);							// CSakuraDialog 窗口添加静态控件
@@ -124,6 +130,8 @@ public:
 	CUUintEx*	SAKURADIALOG_CALLMETHOD	GetTextureExRes(UINT Index);										// CSakuraDialog 窗口获取纹理资源(Ex)
 
 	static void	SAKURADIALOG_CALLMETHOD	ClearFocus();														// CSakuraDialog 清除控件焦点
+
+	HRESULT	SAKURADIALOG_CALLMETHOD	OnRender();																// CSakuraDialog 窗口渲染
 
 };
 

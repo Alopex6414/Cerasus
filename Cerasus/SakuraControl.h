@@ -77,6 +77,8 @@ public:
 	void				SAKURACONTROL_CALLMETHOD	SetDevice(LPDIRECT3DDEVICE9	pD3D9Device);						// CSakuraControl 设置渲染设备
 	LPDIRECT3DDEVICE9	SAKURACONTROL_CALLMETHOD	GetDevice() const;												// CSakuraControl 获取渲染设备
 
+	vector<CSakuraElement*>&	SAKURACONTROL_CALLMETHOD	GetElements();	// CSakuraControl 获取控件渲染元素
+
 	virtual bool	SAKURACONTROL_CALLMETHOD	CanHaveFocus();				// CSakuraControl 是否拥有焦点
 	virtual void	SAKURACONTROL_CALLMETHOD	OnFocusIn();				// CSakuraControl 设置焦点
 	virtual void	SAKURACONTROL_CALLMETHOD	OnFocusOut();				// CSakuraControl 丢失焦点

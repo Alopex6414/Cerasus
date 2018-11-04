@@ -69,6 +69,15 @@ CSakuraDialog::CSakuraDialog()
 	m_bNonUserEvents = false;
 	m_bKeyboardInput = false;
 	m_bMouseInput = true;
+
+	srand((unsigned int)time(NULL));
+
+	m_colorTopLeft = D3DCOLOR_XRGB(rand() % 256, rand() % 256, rand() % 256);
+	m_colorTopRight = D3DCOLOR_XRGB(rand() % 256, rand() % 256, rand() % 256);
+	m_colorBottomLeft = D3DCOLOR_XRGB(rand() % 256, rand() % 256, rand() % 256);
+	m_colorBottomRight = D3DCOLOR_XRGB(rand() % 256, rand() % 256, rand() % 256);
+
+	m_pDialogGraphics = NULL;
 }
 
 //------------------------------------------------------------------
@@ -81,6 +90,7 @@ CSakuraDialog::CSakuraDialog()
 CSakuraDialog::~CSakuraDialog()
 {
 	RemoveAllControls();
+	SAFE_DELETE(m_pDialogGraphics);
 }
 
 //------------------------------------------------------------------
@@ -93,6 +103,50 @@ CSakuraDialog::~CSakuraDialog()
 void SAKURADIALOG_CALLMETHOD CSakuraDialog::OnCreate(CSakuraResourceManager * pManager)
 {
 	m_pManager = pManager;
+	m_pDialogGraphics = new DirectGraphics3D(m_pManager->GetDevice());
+	m_pDialogGraphics->DirectGraphics3DInit(Vertex3D_Type_Base, 1);
+}
+
+//------------------------------------------------------------------
+// @Function:	 OnLost()
+// @Purpose: CSakuraDialog窗口丢失设备
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::OnLost()
+{
+	for (auto iter = m_vecControls.begin(); iter != m_vecControls.end(); ++iter)
+	{
+		for (auto iter2 = (*iter)->GetElements().begin(); iter2 != (*iter)->GetElements().end(); ++iter2)
+		{
+			(*iter2)->GetFontBlend().OnLostDevice();
+			(*iter2)->GetTextureBlend().OnLostDevice();
+		}
+	}
+
+	m_pDialogGraphics->DirectGraphics3DReset();
+}
+
+//------------------------------------------------------------------
+// @Function:	 OnReset()
+// @Purpose: CSakuraDialog窗口重置设备
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::OnReset()
+{
+	for (auto iter = m_vecControls.begin(); iter != m_vecControls.end(); ++iter)
+	{
+		for (auto iter2 = (*iter)->GetElements().begin(); iter2 != (*iter)->GetElements().end(); ++iter2)
+		{
+			(*iter2)->GetFontBlend().OnResetDevice();
+			(*iter2)->GetTextureBlend().OnResetDevice();
+		}
+	}
+
+	m_pDialogGraphics->DirectGraphics3DInit(Vertex3D_Type_Base, 1);
 }
 
 //------------------------------------------------------------------
@@ -941,4 +995,96 @@ void SAKURADIALOG_CALLMETHOD CSakuraDialog::ClearFocus()
 	}
 
 	ReleaseCapture();
+}
+
+//------------------------------------------------------------------
+// @Function:	 OnRender()
+// @Purpose: CSakuraDialog窗口渲染
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::OnRender()
+{
+	if (m_pManager == NULL)
+	{
+		return E_FAIL;
+	}
+
+	if (!m_bVisible)
+	{
+		return S_OK;
+	}
+
+	// 渲染窗口
+	IDirect3DDevice9* pD3D9Device = m_pManager->GetDevice();
+	DG3D_CoordsTransformPara sCoordsTransformPara = { 0 };
+
+	//世界变换
+	sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleX = 1.0f;
+	sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleY = 1.0f;
+	sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleZ = 1.0f;
+	sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateX = 0.0f;
+	sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateY = 0.0f;
+	sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateZ = 0.0f;
+	sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateX = 0.0f;
+	sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateY = 0.0f;
+	sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateZ = 0.0f;
+
+	//取景变换
+	sCoordsTransformPara.sViewTransformPara.vAt = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	sCoordsTransformPara.sViewTransformPara.vUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	sCoordsTransformPara.sViewTransformPara.vEye = D3DXVECTOR3(0.0f, 0.0f, -(m_nHeight * 0.5f));
+
+	//投影变换
+	sCoordsTransformPara.sPrespectiveTransformPara.fovy = D3DX_PI / 2.0f;;
+	sCoordsTransformPara.sPrespectiveTransformPara.fAspect = (float)(m_nWidth * 1.0f / m_nHeight);
+	sCoordsTransformPara.sPrespectiveTransformPara.fZn = 1.0f;
+	sCoordsTransformPara.sPrespectiveTransformPara.fZf = (m_nHeight * 0.5f);
+
+	//视口变换
+	sCoordsTransformPara.sViewPortTransformPara.nUserWidth = m_nWidth;
+	sCoordsTransformPara.sViewPortTransformPara.nUserHeight = m_nHeight;
+
+	m_pDialogGraphics->DirectGraphics3DMatrixTransform(sCoordsTransformPara);
+
+	float fVertex1X = 0.0f;
+	float fVertex2X = 0.0f;
+	float fVertex3X = 0.0f;
+	float fVertex4X = 0.0f;
+	float fVertex1Y = 0.0f;
+	float fVertex2Y = 0.0f;
+	float fVertex3Y = 0.0f;
+	float fVertex4Y = 0.0f;
+
+	fVertex1X = -(m_nWidth * 0.5f);
+	fVertex1Y = (m_nHeight * 0.5f);
+	fVertex2X = (m_nWidth * 0.5f);
+	fVertex2Y = (m_nHeight * 0.5f);
+	fVertex3X = (m_nWidth * 0.5f);
+	fVertex3Y = -(m_nHeight * 0.5f);
+	fVertex4X = -(m_nWidth * 0.5f);
+	fVertex4Y = -(m_nHeight * 0.5f);
+
+	Vertex3DBase pVertices[] =
+	{
+		{ fVertex1X, fVertex1Y, -1.0f, m_colorTopLeft },
+		{ fVertex2X, fVertex2Y, -1.0f, m_colorTopRight },
+		{ fVertex3X, fVertex3Y, -1.0f, m_colorBottomRight },
+		{ fVertex4X, fVertex4Y, -1.0f, m_colorBottomLeft },
+	};
+
+	m_pDialogGraphics->DirectGraphics3DPaddingVertexAndIndex(pVertices, 1);
+
+	m_pDialogGraphics->DirectGraphics3DRenderStateSetting();
+	m_pDialogGraphics->DirectGraphics3DRender(Vertex3D_Type_Base, 1);
+	m_pDialogGraphics->DirectGraphics3DRenderStateAlphaDisable();
+
+	// 渲染控件
+	for (auto iter = m_vecControls.begin(); iter != m_vecControls.end(); ++iter)
+	{
+		(*iter)->Render();
+	}
+
+	return S_OK;
 }

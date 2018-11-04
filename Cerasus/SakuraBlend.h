@@ -46,6 +46,8 @@ public:
 	DirectFont*			SAKURABLEND_CALLMETHOD	GetCurrent() const;													// CSakuraBlendFont 获取控件状态字体
 
 	void	SAKURABLEND_CALLMETHOD	OnCreate(LPDIRECT3DDEVICE9 pD3D9Device);										// CSakuraBlendFont 初始化
+	void	SAKURABLEND_CALLMETHOD	OnLostDevice();																	// CSakuraBlendFont 丢失设备
+	void	SAKURABLEND_CALLMETHOD	OnResetDevice();																// CSakuraBlendFont	重置设备
 	int		SAKURABLEND_CALLMETHOD	AddFont(SAKURA_CONTROL_STATE eType, LPWSTR strFontName, int nFontSize);			// CSakuraBlendFont 添加字体(字体名称、字体大小)
 	void	SAKURABLEND_CALLMETHOD	Blend(SAKURA_CONTROL_STATE eType, LPCWSTR pString, LPRECT pRect, DWORD Format = DT_CENTER | DT_VCENTER, D3DCOLOR Color = D3DCOLOR_ARGB(255, 255, 255, 255));			// CSakuraBlendFont 渲染字体
 
@@ -70,6 +72,8 @@ public:
 	CCerasusUnit*		SAKURABLEND_CALLMETHOD	GetCurrent() const;													// CSakuraBlendTexture 获取控件状态字体
 
 	void	SAKURABLEND_CALLMETHOD	OnCreate(LPDIRECT3DDEVICE9 pD3D9Device);										// CSakuraBlendTexture 初始化
+	void	SAKURABLEND_CALLMETHOD	OnLostDevice();																	// CSakuraBlendTexture 丢失设备
+	void	SAKURABLEND_CALLMETHOD	OnResetDevice();																// CSakuraBlendTexture	重置设备
 	int		SAKURABLEND_CALLMETHOD	AddTexture(SAKURA_CONTROL_STATE eType, CUUint sUnit);							// CSakuraBlendTexture 添加纹理(文件导入)
 	int		SAKURABLEND_CALLMETHOD	AddTexture(SAKURA_CONTROL_STATE eType, CUUintEx sUnit);							// CSakuraBlendTexture 添加纹理(内存导入)
 	void	SAKURABLEND_CALLMETHOD	Blend(SAKURA_CONTROL_STATE eType);												// CSakuraBlendTexture 渲染纹理

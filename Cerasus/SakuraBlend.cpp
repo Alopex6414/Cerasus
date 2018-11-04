@@ -310,7 +310,13 @@ void SAKURABLEND_CALLMETHOD CSakuraBlendTexture::OnLostDevice()
 //------------------------------------------------------------------
 void SAKURABLEND_CALLMETHOD CSakuraBlendTexture::OnResetDevice()
 {
-	
+	for (int i = 0; i < MAX_CONTROL_STATES; ++i)
+	{
+		if (m_States[i] != NULL)
+		{
+			m_States[i]->CCerasusUnitReCreate();
+		}
+	}
 }
 
 //------------------------------------------------------------------

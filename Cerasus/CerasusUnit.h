@@ -6,13 +6,14 @@
 * @file		CreasusUnit.h
 * @brief	This File is CreasusUnit DLL Project.
 * @author	Alopex/Helium
-* @version	v1.05a
+* @version	v1.06a
 * @date		2018-07-04	v1.00a	alopex	Create Project.
 * @date		2018-07-05	v1.01a	alopex	Add Get&Set Function.
 * @date		2018-07-05	v1.02a	alopex	Add Translate Function.
 * @date		2018-07-06	v1.03a	alopex	Modify Para.
 * @date		2018-07-14	v1.04a	alopex	Modify Function.
 * @date		2018-07-14	v1.05a	alopex	Add Texture Create In Memory Function.
+* @date		2018-11-04	v1.06a	alopex	Add LostDevice ReCreate Method.
 */
 #pragma once
 
@@ -133,6 +134,7 @@ public:
 
 	//重置
 	virtual HRESULT CERASUSUNIT_CALLMODE CCerasusUnitReset();												//CCerasusUnit Reset(~CCerasusUnit 重置)
+	virtual HRESULT CERASUSUNIT_CALLMODE CCerasusUnitReCreate();											//CCerasusUnit ReCreate(~CCerasusUnit 丢失设备重新初始化)
 
 	//初始化
 	virtual HRESULT CERASUSUNIT_CALLMODE CCerasusUnitInit(CUUint sUnit);									//CCerasusUnit Init(~CCerasusUnit 初始化)

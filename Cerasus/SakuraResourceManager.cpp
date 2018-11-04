@@ -228,7 +228,21 @@ int SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::AddTexture(CUUint *
 	}
 
 	memset(pNewTexture, 0, sizeof(pNewTexture));
-	memcpy_s(pNewTexture, sizeof(pNewTexture), pTexture, sizeof(CUUint));
+	pNewTexture->nTextureWidth = pTexture->nTextureWidth;
+	pNewTexture->nTextureHeight = pTexture->nTextureHeight;
+	pNewTexture->nScreenWidth = pTexture->nScreenWidth;
+	pNewTexture->nScreenHeight = pTexture->nScreenHeight;
+	pNewTexture->fUnitAlpha = pTexture->fUnitAlpha;
+	pNewTexture->pTextureStr = pTexture->pTextureStr;
+	pNewTexture->rcUnit.left = pTexture->rcUnit.left;
+	pNewTexture->rcUnit.right = pTexture->rcUnit.right;
+	pNewTexture->rcUnit.top = pTexture->rcUnit.top;
+	pNewTexture->rcUnit.bottom = pTexture->rcUnit.bottom;
+	pNewTexture->rcUnitTex.left = pTexture->rcUnitTex.left;
+	pNewTexture->rcUnitTex.right = pTexture->rcUnitTex.right;
+	pNewTexture->rcUnitTex.top = pTexture->rcUnitTex.top;
+	pNewTexture->rcUnitTex.bottom = pTexture->rcUnitTex.bottom;
+	memcpy_s(&(pNewTexture->sCoordsTransformPara), sizeof(pNewTexture->sCoordsTransformPara), &(pTexture->sCoordsTransformPara), sizeof(pTexture->sCoordsTransformPara));
 	m_pTextureCaches.push_back(pNewTexture);
 
 	return (m_pTextureCaches.size() - 1);
@@ -250,7 +264,22 @@ int SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::AddTexture(CUUintEx
 	}
 
 	memset(pNewTexture, 0, sizeof(pNewTexture));
-	memcpy_s(pNewTexture, sizeof(pNewTexture), pTexture, sizeof(CUUintEx));
+	pNewTexture->nTextureWidth = pTexture->nTextureWidth;
+	pNewTexture->nTextureHeight = pTexture->nTextureHeight;
+	pNewTexture->nScreenWidth = pTexture->nScreenWidth;
+	pNewTexture->nScreenHeight = pTexture->nScreenHeight;
+	pNewTexture->fUnitAlpha = pTexture->fUnitAlpha;
+	pNewTexture->pTextureArr = pTexture->pTextureArr;
+	pNewTexture->nTextureArrSize = pTexture->nTextureArrSize;
+	pNewTexture->rcUnit.left = pTexture->rcUnit.left;
+	pNewTexture->rcUnit.right = pTexture->rcUnit.right;
+	pNewTexture->rcUnit.top = pTexture->rcUnit.top;
+	pNewTexture->rcUnit.bottom = pTexture->rcUnit.bottom;
+	pNewTexture->rcUnitTex.left = pTexture->rcUnitTex.left;
+	pNewTexture->rcUnitTex.right = pTexture->rcUnitTex.right;
+	pNewTexture->rcUnitTex.top = pTexture->rcUnitTex.top;
+	pNewTexture->rcUnitTex.bottom = pTexture->rcUnitTex.bottom;
+	memcpy_s(&(pNewTexture->sCoordsTransformPara), sizeof(pNewTexture->sCoordsTransformPara), &(pTexture->sCoordsTransformPara), sizeof(pTexture->sCoordsTransformPara));
 	m_pTextureExCaches.push_back(pNewTexture);
 
 	return (m_pTextureExCaches.size() - 1);

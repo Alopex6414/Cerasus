@@ -397,8 +397,8 @@ void SAKURABLEND_CALLMETHOD CSakuraBlendTexture::Blend(SAKURA_CONTROL_STATE eTyp
 		return;
 	}
 
-	m_States[eType]->CCerasusUnitPaddingVertexAndIndex();
 	m_States[eType]->CCerasusUnitMatrixTransform();
+	m_States[eType]->CCerasusUnitPaddingVertexAndIndex();
 	m_States[eType]->CCerasusUnitSetAlphaBlendEnable();
 	m_States[eType]->CCerasusUnitSetRenderState();
 	m_States[eType]->CCerasusUnitRender();

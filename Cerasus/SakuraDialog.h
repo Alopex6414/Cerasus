@@ -61,7 +61,7 @@ private:
 	vector<CSakuraControl*>		m_vecControls;						// CSakuraDialog 窗口添加的控件数组
 
 protected:
-	DirectGraphics3D*	m_pDialogGraphics;				// CSakuraDialog 窗口绘制背景
+	CCerasusUnit*	m_pDialogGraphics;					// CSakuraDialog 窗口绘制背景
 
 public:
 	bool	m_bNonUserEvents;							// CSakuraDialog 用户事件标志
@@ -76,6 +76,8 @@ public:
 	~CSakuraDialog();
 
 	void	SAKURADIALOG_CALLMETHOD	OnCreate(CSakuraResourceManager* pManager);								// CSakuraDialog 窗口初始化响应
+	void	SAKURADIALOG_CALLMETHOD	OnCreate(CSakuraResourceManager* pManager, CUUint sUnit);				// CSakuraDialog 窗口初始化响应
+	void	SAKURADIALOG_CALLMETHOD	OnCreate(CSakuraResourceManager* pManager, CUUintEx sUnit);				// CSakuraDialog 窗口初始化响应
 
 	void	SAKURADIALOG_CALLMETHOD	OnLost();																// CSakuraDialog 窗口丢失设备
 	void	SAKURADIALOG_CALLMETHOD	OnReset();																// CSakuraDialog 窗口重置设备

@@ -103,8 +103,34 @@ CSakuraDialog::~CSakuraDialog()
 void SAKURADIALOG_CALLMETHOD CSakuraDialog::OnCreate(CSakuraResourceManager * pManager)
 {
 	m_pManager = pManager;
-	m_pDialogGraphics = new DirectGraphics3D(m_pManager->GetDevice());
-	m_pDialogGraphics->DirectGraphics3DInit(Vertex3D_Type_Base, 1);
+}
+
+//------------------------------------------------------------------
+// @Function:	 OnCreate()
+// @Purpose: CSakuraDialog窗口初始化处理
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::OnCreate(CSakuraResourceManager * pManager, CUUint sUnit)
+{
+	m_pManager = pManager;
+	m_pDialogGraphics = new CCerasusUnit(m_pManager->GetDevice());
+	m_pDialogGraphics->CCerasusUnitInit(sUnit);
+}
+
+//------------------------------------------------------------------
+// @Function:	 OnCreate()
+// @Purpose: CSakuraDialog窗口初始化处理
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::OnCreate(CSakuraResourceManager * pManager, CUUintEx sUnit)
+{
+	m_pManager = pManager;
+	m_pDialogGraphics = new CCerasusUnit(m_pManager->GetDevice());
+	m_pDialogGraphics->CCerasusUnitInit(sUnit);
 }
 
 //------------------------------------------------------------------
@@ -125,7 +151,11 @@ void SAKURADIALOG_CALLMETHOD CSakuraDialog::OnLost()
 		}
 	}
 
-	m_pDialogGraphics->DirectGraphics3DReset();
+	if (m_pDialogGraphics)
+	{
+		m_pDialogGraphics->CCerasusUnitReset();
+	}
+	
 }
 
 //------------------------------------------------------------------
@@ -146,7 +176,11 @@ void SAKURADIALOG_CALLMETHOD CSakuraDialog::OnReset()
 		}
 	}
 
-	m_pDialogGraphics->DirectGraphics3DInit(Vertex3D_Type_Base, 1);
+	if (m_pDialogGraphics)
+	{
+		m_pDialogGraphics->CCerasusUnitReCreate();
+	}
+
 }
 
 //------------------------------------------------------------------
@@ -1002,68 +1036,15 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::OnRender()
 	}
 
 	// 渲染窗口
-	IDirect3DDevice9* pD3D9Device = m_pManager->GetDevice();
-	DG3D_CoordsTransformPara sCoordsTransformPara = { 0 };
-
-	//世界变换
-	sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleX = 1.0f;
-	sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleY = 1.0f;
-	sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleZ = 1.0f;
-	sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateX = 0.0f;
-	sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateY = 0.0f;
-	sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateZ = 0.0f;
-	sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateX = 0.0f;
-	sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateY = 0.0f;
-	sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateZ = 0.0f;
-
-	//取景变换
-	sCoordsTransformPara.sViewTransformPara.vAt = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	sCoordsTransformPara.sViewTransformPara.vUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	sCoordsTransformPara.sViewTransformPara.vEye = D3DXVECTOR3(0.0f, 0.0f, -(m_nHeight * 0.5f));
-
-	//投影变换
-	sCoordsTransformPara.sPrespectiveTransformPara.fovy = D3DX_PI / 2.0f;;
-	sCoordsTransformPara.sPrespectiveTransformPara.fAspect = (float)(m_nWidth * 1.0f / m_nHeight);
-	sCoordsTransformPara.sPrespectiveTransformPara.fZn = 1.0f;
-	sCoordsTransformPara.sPrespectiveTransformPara.fZf = (m_nHeight * 0.5f);
-
-	//视口变换
-	sCoordsTransformPara.sViewPortTransformPara.nUserWidth = m_nWidth;
-	sCoordsTransformPara.sViewPortTransformPara.nUserHeight = m_nHeight;
-
-	m_pDialogGraphics->DirectGraphics3DMatrixTransform(sCoordsTransformPara);
-
-	float fVertex1X = 0.0f;
-	float fVertex2X = 0.0f;
-	float fVertex3X = 0.0f;
-	float fVertex4X = 0.0f;
-	float fVertex1Y = 0.0f;
-	float fVertex2Y = 0.0f;
-	float fVertex3Y = 0.0f;
-	float fVertex4Y = 0.0f;
-
-	fVertex1X = -(m_nWidth * 0.5f);
-	fVertex1Y = (m_nHeight * 0.5f);
-	fVertex2X = (m_nWidth * 0.5f);
-	fVertex2Y = (m_nHeight * 0.5f);
-	fVertex3X = (m_nWidth * 0.5f);
-	fVertex3Y = -(m_nHeight * 0.5f);
-	fVertex4X = -(m_nWidth * 0.5f);
-	fVertex4Y = -(m_nHeight * 0.5f);
-
-	Vertex3DBase pVertices[] =
+	if (m_pDialogGraphics)
 	{
-		{ fVertex1X, fVertex1Y, -1.0f, m_colorTopLeft },
-		{ fVertex2X, fVertex2Y, -1.0f, m_colorTopRight },
-		{ fVertex3X, fVertex3Y, -1.0f, m_colorBottomRight },
-		{ fVertex4X, fVertex4Y, -1.0f, m_colorBottomLeft },
-	};
-
-	m_pDialogGraphics->DirectGraphics3DPaddingVertexAndIndex(pVertices, 1);
-
-	m_pDialogGraphics->DirectGraphics3DRenderStateSetting();
-	m_pDialogGraphics->DirectGraphics3DRender(Vertex3D_Type_Base, 1);
-	m_pDialogGraphics->DirectGraphics3DRenderStateAlphaDisable();
+		m_pDialogGraphics->CCerasusUnitMatrixTransform();
+		m_pDialogGraphics->CCerasusUnitPaddingVertexAndIndex();
+		m_pDialogGraphics->CCerasusUnitSetAlphaBlendEnable();
+		m_pDialogGraphics->CCerasusUnitSetRenderState();
+		m_pDialogGraphics->CCerasusUnitRender();
+		m_pDialogGraphics->CCerasusUnitSetAlphaBlendDisable();
+	}
 
 	// 渲染控件
 	for (auto iter = m_vecControls.begin(); iter != m_vecControls.end(); ++iter)

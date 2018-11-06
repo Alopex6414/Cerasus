@@ -22,7 +22,7 @@ CSakuraControl*	CSakuraDialog::s_pControlPressed = NULL;		// CCerasusDialog 当前
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void CSakuraDialog::OnMouseMove(POINT pt)
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::OnMouseMove(POINT pt)
 {
 	CSakuraControl* pControl = GetControlAtPoint(pt);
 
@@ -41,6 +41,27 @@ void CSakuraDialog::OnMouseMove(POINT pt)
 	{
 		m_pControlMouseOver->OnMouseEnter();
 	}
+
+}
+
+//------------------------------------------------------------------
+// @Function:	 InitDefaultElement()
+// @Purpose: CSakuraDialog初始化默认控件资源
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::InitDefaultElement()
+{
+	CUFont sFont = { 0 };
+
+	wcscpy_s(sFont.strFontName, MAX_PATH, _T("Consolas"));
+	sFont.nFontSize = 16;
+	SetFontRes(&sFont);
+
+	// CSakuraStatic 静态控件
+	CSakuraElement* pElement = new CSakuraElement(m_pManager->GetDevice());
+	SetDefaultElement(SAKURA_CONTROL_STATIC, 0, &pElement);
 
 }
 
@@ -90,6 +111,7 @@ CSakuraDialog::CSakuraDialog()
 CSakuraDialog::~CSakuraDialog()
 {
 	RemoveAllControls();
+	RemoveAllDefaultElements();
 	SAFE_DELETE(m_pDialogGraphics);
 }
 
@@ -606,6 +628,73 @@ CSakuraControl *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetControlAtPoint(POINT p
 	}
 
 	return NULL;
+}
+
+//------------------------------------------------------------------
+// @Function:	 SetDefaultElement()
+// @Purpose: CSakuraDialog设置默认元素
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::SetDefaultElement(UINT nControlType, UINT iElement, CSakuraElement ** ppElement)
+{
+	for (auto iter = m_vecDefaultControls.begin(); iter != m_vecDefaultControls.end(); ++iter)
+	{
+		if ((*iter)->nControlType == nControlType && (*iter)->iElement == iElement)
+		{
+			SAFE_DELETE((*iter)->pElement);
+			(*iter)->pElement = *ppElement;
+			return S_OK;
+		}
+
+	}
+
+	m_vecDefaultControls.push_back(NULL);
+	CSakuraElementHolder** ppNewElementHolder = &(*(m_vecDefaultControls.end() - 1));
+	(*ppNewElementHolder) = new CSakuraElementHolder();
+	(*ppNewElementHolder)->nControlType = nControlType;
+	(*ppNewElementHolder)->iElement = iElement;
+	(*ppNewElementHolder)->pElement = *ppElement;
+
+	return S_OK;
+}
+
+
+//------------------------------------------------------------------
+// @Function:	 GetDefaultElement()
+// @Purpose: CSakuraDialog获取默认元素
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CSakuraElement *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetDefaultElement(UINT nControlType, UINT iElement)
+{
+	for (auto iter = m_vecDefaultControls.begin(); iter != m_vecDefaultControls.end(); ++iter)
+	{
+		if ((*iter)->nControlType == nControlType && (*iter)->iElement == iElement)
+		{
+			return (*iter)->pElement;
+		}
+	}
+
+	return NULL;
+}
+
+//------------------------------------------------------------------
+// @Function:	 RemoveAllDefaultElements()
+// @Purpose: CSakuraDialog移除全部默认元素
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::RemoveAllDefaultElements()
+{
+	for (auto iter = m_vecDefaultControls.begin(); iter != m_vecDefaultControls.end(); ++iter)
+	{
+		SAFE_DELETE((*iter)->pElement);
+		SAFE_DELETE((*iter));
+	}
 }
 
 //------------------------------------------------------------------

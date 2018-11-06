@@ -51,7 +51,6 @@ CSakuraControl::CSakuraControl(CSakuraDialog * pDialog)
 	m_pDialog = pDialog;
 	m_eType = SAKURA_CONTROL_BUTTON;
 
-	m_pD3D9Device = NULL;
 	m_vecElements.clear();
 
 	ZeroMemory(&m_rcBoundingBox, sizeof(m_rcBoundingBox));
@@ -151,30 +150,6 @@ bool SAKURACONTROL_CALLMETHOD CSakuraControl::HandleKeyboard(UINT uMsg, WPARAM w
 bool SAKURACONTROL_CALLMETHOD CSakuraControl::HandleMouse(UINT uMsg, POINT pt, WPARAM wParam, LPARAM lParam)
 {
 	return false;
-}
-
-//------------------------------------------------------------------
-// @Function:	 SetDevice()
-// @Purpose: CSakuraControl设置D3D9渲染设备
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void SAKURACONTROL_CALLMETHOD CSakuraControl::SetDevice(LPDIRECT3DDEVICE9 pD3D9Device)
-{
-	m_pD3D9Device = pD3D9Device;
-}
-
-//------------------------------------------------------------------
-// @Function:	 GetDevice()
-// @Purpose: CSakuraControl获取D3D9渲染设备
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-LPDIRECT3DDEVICE9 SAKURACONTROL_CALLMETHOD CSakuraControl::GetDevice() const
-{
-	return m_pD3D9Device;
 }
 
 //------------------------------------------------------------------

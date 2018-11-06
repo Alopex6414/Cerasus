@@ -48,5 +48,13 @@ public:
 
 };
 
+//Struct Definition
+typedef struct
+{
+	UINT nControlType;
+	UINT iElement;
+	CSakuraElement* pElement;
+} CSakuraElementHolder, *LPCSakuraElementHolder;
+
 
 #endif // !__SAKURAELEMENT_H_

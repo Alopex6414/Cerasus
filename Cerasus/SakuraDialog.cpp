@@ -125,6 +125,7 @@ CSakuraDialog::~CSakuraDialog()
 void SAKURADIALOG_CALLMETHOD CSakuraDialog::OnCreate(CSakuraResourceManager * pManager)
 {
 	m_pManager = pManager;
+	InitDefaultElement();
 }
 
 //------------------------------------------------------------------
@@ -139,6 +140,7 @@ void SAKURADIALOG_CALLMETHOD CSakuraDialog::OnCreate(CSakuraResourceManager * pM
 	m_pManager = pManager;
 	m_pDialogGraphics = new CCerasusUnit(m_pManager->GetDevice());
 	m_pDialogGraphics->CCerasusUnitInit(sUnit);
+	InitDefaultElement();
 }
 
 //------------------------------------------------------------------
@@ -153,6 +155,7 @@ void SAKURADIALOG_CALLMETHOD CSakuraDialog::OnCreate(CSakuraResourceManager * pM
 	m_pManager = pManager;
 	m_pDialogGraphics = new CCerasusUnit(m_pManager->GetDevice());
 	m_pDialogGraphics->CCerasusUnitInit(sUnit);
+	InitDefaultElement();
 }
 
 //------------------------------------------------------------------

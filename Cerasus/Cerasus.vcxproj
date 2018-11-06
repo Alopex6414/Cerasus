@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CerasusAlgorithm.h" />
     <ClInclude Include="Cerasusfps.h" />
     <ClInclude Include="CerasusUnit.h" />
     <ClInclude Include="DirectCommon.h" />
@@ -245,6 +246,7 @@
     <ClInclude Include="SakuraUICommon.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CerasusAlgorithm.cpp" />
     <ClCompile Include="Cerasusfps.cpp" />
     <ClCompile Include="CerasusUnit.cpp" />
     <ClCompile Include="DirectFont.cpp" />

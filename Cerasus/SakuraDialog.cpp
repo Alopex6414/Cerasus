@@ -59,9 +59,28 @@ void SAKURADIALOG_CALLMETHOD CSakuraDialog::InitDefaultElement()
 	sFont.nFontSize = 16;
 	SetFontRes(&sFont);
 
-	// CSakuraStatic ¾²Ì¬¿Ø¼þ
-	CSakuraElement* pElement = new CSakuraElement(m_pManager->GetDevice());
-	SetDefaultElement(SAKURA_CONTROL_STATIC, 0, &pElement);
+	// CSakuraStatic ¾²Ì¬¿Ø¼þ(Ä¬ÈÏ)
+	{
+		CSakuraElement* pElement = new CSakuraElement(m_pManager->GetDevice());
+		pElement->GetFontBlend().AddFont(SAKURA_STATE_NORMAL, sFont.strFontName, sFont.nFontSize);
+		pElement->GetFontBlend().AddFont(SAKURA_STATE_DISABLED, sFont.strFontName, sFont.nFontSize);
+		pElement->GetFontBlend().AddFont(SAKURA_STATE_FOCUS, sFont.strFontName, sFont.nFontSize);
+		pElement->GetFontBlend().AddFont(SAKURA_STATE_MOUSEOVER, sFont.strFontName, sFont.nFontSize);
+		pElement->GetFontBlend().AddFont(SAKURA_STATE_PRESSED, sFont.strFontName, sFont.nFontSize);
+		SetDefaultElement(SAKURA_CONTROL_STATIC, 0, &pElement);
+	}
+
+	// CSakuraButton °´Å¥¿Ø¼þ(Ä¬ÈÏ)
+	{
+		CSakuraElement* pElement = new CSakuraElement(m_pManager->GetDevice());
+		pElement->GetFontBlend().AddFont(SAKURA_STATE_NORMAL, sFont.strFontName, sFont.nFontSize);
+		pElement->GetFontBlend().AddFont(SAKURA_STATE_DISABLED, sFont.strFontName, sFont.nFontSize);
+		pElement->GetFontBlend().AddFont(SAKURA_STATE_FOCUS, sFont.strFontName, sFont.nFontSize);
+		pElement->GetFontBlend().AddFont(SAKURA_STATE_MOUSEOVER, sFont.strFontName, sFont.nFontSize);
+		pElement->GetFontBlend().AddFont(SAKURA_STATE_PRESSED, sFont.strFontName, sFont.nFontSize);
+		SetDefaultElement(SAKURA_CONTROL_BUTTON, 0, &pElement);
+	}
+
 
 }
 
@@ -478,7 +497,17 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::InitControl(CSakuraControl * pCon
 
 	pControl->m_nIndex = m_vecControls.size();
 
-	//...
+	for (auto iter = m_vecDefaultControls.begin(); iter != m_vecDefaultControls.end(); ++iter)
+	{
+		if ((*iter)->nControlType == pControl->GetType())
+		{
+			CSakuraElement** ppElement = &(pControl->GetElement((*iter)->iElement));
+			
+			SAFE_DELETE(*ppElement);
+			*ppElement = (*iter)->pElement;
+		}
+
+	}
 
 	VERIFY(pControl->OnInit());
 

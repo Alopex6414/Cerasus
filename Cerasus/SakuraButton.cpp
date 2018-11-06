@@ -11,6 +11,7 @@
 */
 #include "SakuraDialog.h"
 #include "SakuraButton.h"
+#include "CerasusAlgorithm.h"
 
 // SakuraGUI 按钮控件派生类(UI)
 
@@ -46,23 +47,37 @@ void SAKURABUTTON_CALLMETHOD CSakuraButton::Render()
 
 	SAKURA_CONTROL_STATE iState = SAKURA_STATE_NORMAL;
 
-	if (m_bEnabled == false)
+	if (m_bIsDefault == true)
 	{
-		iState = SAKURA_STATE_DISABLED;
+		if (m_bMouseOver == true)
+		{
+			CCerasusAlgorithm::Increase(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->CCerasusUnitGetAlpha(), 1.0f, 0.05f);
+		}
+		else
+		{
+			CCerasusAlgorithm::Decrease(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->CCerasusUnitGetAlpha(), 0.5f, 0.05f);
+		}
 	}
-	else if (m_bPressed == true)
+	else
 	{
-		iState = SAKURA_STATE_PRESSED;
+		if (m_bEnabled == false)
+		{
+			iState = SAKURA_STATE_DISABLED;
+		}
+		else if (m_bPressed == true)
+		{
+			iState = SAKURA_STATE_PRESSED;
+		}
+		else if (m_bMouseOver == true)
+		{
+			iState = SAKURA_STATE_FOCUS;
+		}
+		else if (m_bHasFocus == true)
+		{
+			iState = SAKURA_STATE_FOCUS;
+		}
 	}
-	else if (m_bMouseOver == true)
-	{
-		iState = SAKURA_STATE_FOCUS;
-	}
-	else if (m_bHasFocus == true)
-	{
-		iState = SAKURA_STATE_FOCUS;
-	}
-	
+
 	m_vecElements.at(0)->GetTextureBlend().Blend(iState);
 	m_vecElements.at(0)->GetFontBlend().Blend(iState, m_strText, &m_rcBoundingBox, m_dwFormat, m_dwColor);
 }

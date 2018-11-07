@@ -25,3 +25,4 @@ This project is mainly about DX9 playing games, video, wallpaper rendering, musi
     * #### *`DirectThreadSafe`* -- DX9线程安全(线程安全)
     * #### *`Cerasufps`* -- DX9帧速率(绘制帧速率)
     * #### *`CerasuUnit`* -- DX93D图形单元(图形单元)
+    * #### *`CerasusAlgorithm`* -- DX93D算法部分

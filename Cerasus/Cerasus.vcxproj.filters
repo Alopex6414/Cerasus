@@ -324,6 +324,9 @@
     <ClInclude Include="CerasusAlgorithm.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SakuraCheckBox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectFont.cpp">
@@ -393,6 +396,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CerasusAlgorithm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SakuraCheckBox.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

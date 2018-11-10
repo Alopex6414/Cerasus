@@ -74,7 +74,7 @@ void SAKURABUTTON_CALLMETHOD CSakuraButton::Render()
 		}
 		else if (m_bMouseOver == true)
 		{
-			iState = SAKURA_STATE_FOCUS;
+			iState = SAKURA_STATE_MOUSEOVER;
 		}
 		else if (m_bHasFocus == true)
 		{

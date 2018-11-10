@@ -49,13 +49,17 @@ void SAKURABUTTON_CALLMETHOD CSakuraButton::Render()
 
 	if (m_bIsDefault == true)
 	{
-		if (m_bMouseOver == true)
+		if (m_bPressed == true)
 		{
 			CCerasusAlgorithm::Increase(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->CCerasusUnitGetAlpha(), 1.0f, 0.05f);
 		}
+		else if (m_bMouseOver == true)
+		{
+			CCerasusAlgorithm::Increase(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->CCerasusUnitGetAlpha(), 0.8f, 0.01f);
+		}
 		else
 		{
-			CCerasusAlgorithm::Decrease(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->CCerasusUnitGetAlpha(), 0.5f, 0.05f);
+			CCerasusAlgorithm::Decrease(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->CCerasusUnitGetAlpha(), 0.6f, 0.01f);
 		}
 	}
 	else

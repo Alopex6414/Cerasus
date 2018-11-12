@@ -17,9 +17,12 @@
 //Include SakuraGUI Common Header File
 #include "SakuraUICommon.h"
 #include "SakuraResourceManager.h"
+#include "SakuraResource.h"
 #include "SakuraControl.h"
 #include "SakuraStatic.h"
 #include "SakuraButton.h"
+
+#include "DirectGraphics.h"
 
 //Macro Definition
 #ifdef	CERASUS_EXPORTS

@@ -90,7 +90,7 @@ void SAKURADIALOG_CALLMETHOD CSakuraDialog::InitDefaultElement()
 		pElement->GetFontBlend().AddFont(SAKURA_STATE_MOUSEOVER, sFont.strFontName, sFont.nFontSize);
 		pElement->GetFontBlend().AddFont(SAKURA_STATE_PRESSED, sFont.strFontName, sFont.nFontSize);
 
-		CUUintEx sUnitNormal = { 0 };
+		/*CUUintEx sUnitNormal = { 0 };
 
 		sUnitNormal.nScreenWidth = USER_SCREENWIDTH;
 		sUnitNormal.nScreenHeight = USER_SCREENHEIGHT;
@@ -163,7 +163,7 @@ void SAKURADIALOG_CALLMETHOD CSakuraDialog::InitDefaultElement()
 		sUnitPressed.sCoordsTransformPara.sViewPortTransformPara.nUserHeight = USER_SCREENHEIGHT;
 
 		pElement->GetTextureBlend().AddTexture(SAKURA_STATE_NORMAL, sUnitNormal);
-		pElement->GetTextureBlend().AddTexture(SAKURA_STATE_PRESSED, sUnitPressed);
+		pElement->GetTextureBlend().AddTexture(SAKURA_STATE_PRESSED, sUnitPressed);*/
 		SetDefaultElement(SAKURA_CONTROL_CHECKBOX, 0, &pElement);
 	}
 
@@ -647,7 +647,10 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddFont(int ID, UINT nControlType
 	CSakuraElement** ppElement = &(pControl->GetElement(iElement));
 	CUFont* pFont = GetFontRes(Index);
 
-	(*ppElement) = new CSakuraElement(m_pManager->GetDevice());
+	if ((*ppElement) == NULL)
+	{
+		(*ppElement) = new CSakuraElement(m_pManager->GetDevice());
+	}
 	(*ppElement)->GetFontBlend().AddFont(eType, pFont->strFontName, pFont->nFontSize);
 
 	return S_OK;
@@ -666,7 +669,10 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddTexture(int ID, UINT nControlT
 	CSakuraElement** ppElement = &(pControl->GetElement(iElement));
 	CUUint* pTexture = GetTextureRes(Index);
 
-	(*ppElement) = new CSakuraElement(m_pManager->GetDevice());
+	if ((*ppElement) == NULL)
+	{
+		(*ppElement) = new CSakuraElement(m_pManager->GetDevice());
+	}
 	(*ppElement)->GetTextureBlend().AddTexture(eType, *pTexture);
 
 	return S_OK;
@@ -685,7 +691,10 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddTextureEx(int ID, UINT nContro
 	CSakuraElement** ppElement = &(pControl->GetElement(iElement));
 	CUUintEx* pTexture = GetTextureExRes(Index);
 
-	(*ppElement) = new CSakuraElement(m_pManager->GetDevice());
+	if ((*ppElement) == NULL)
+	{
+		(*ppElement) = new CSakuraElement(m_pManager->GetDevice());
+	}
 	(*ppElement)->GetTextureBlend().AddTexture(eType, *pTexture);
 
 	return S_OK;

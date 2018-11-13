@@ -22,6 +22,7 @@
 #include "SakuraStatic.h"
 #include "SakuraButton.h"
 #include "SakuraCheckBox.h"
+#include "SakuraRadioButton.h"
 
 #include "DirectGraphics.h"
 
@@ -107,6 +108,9 @@ public:
 	CSakuraControl*	SAKURADIALOG_CALLMETHOD	GetControl(int ID);												// CSakuraDialog 获取控件指针
 	CSakuraControl*	SAKURADIALOG_CALLMETHOD	GetControl(int ID, UINT nControlType);							// CSakuraDialog 获取控件指针
 	CSakuraControl*	SAKURADIALOG_CALLMETHOD	GetControlAtPoint(POINT pt);									// CSakuraDialog 获取鼠标所在的控件指针
+
+	void	SAKURADIALOG_CALLMETHOD	ClearRadioButtonGroup(UINT nGroup);										// CSakuraDialog 清除单选按钮的组别
+	void	SAKURADIALOG_CALLMETHOD	ClearComboBox(int nID);													// CSakuraDialog 清除下拉列表
 
 	HRESULT	SAKURADIALOG_CALLMETHOD SetDefaultElement(UINT nControlType, UINT iElement, CSakuraElement** ppElement);				// CSakuraDialog 设置默认控件元素
 	CSakuraElement*	SAKURADIALOG_CALLMETHOD	GetDefaultElement(UINT nControlType, UINT iElement);									// CSakuraDialog 获取默认控件元素

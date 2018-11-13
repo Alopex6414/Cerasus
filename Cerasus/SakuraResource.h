@@ -27,7 +27,7 @@
 #define	SAKURARESOURCE_CALLMETHOD	__stdcall
 
 //Class Definition
-class CSakuraResource
+class SAKURARESOURCE_API CSakuraResource
 {
 public:
 	// CheckBox

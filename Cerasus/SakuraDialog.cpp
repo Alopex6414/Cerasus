@@ -89,81 +89,6 @@ void SAKURADIALOG_CALLMETHOD CSakuraDialog::InitDefaultElement()
 		pElement->GetFontBlend().AddFont(SAKURA_STATE_FOCUS, sFont.strFontName, sFont.nFontSize);
 		pElement->GetFontBlend().AddFont(SAKURA_STATE_MOUSEOVER, sFont.strFontName, sFont.nFontSize);
 		pElement->GetFontBlend().AddFont(SAKURA_STATE_PRESSED, sFont.strFontName, sFont.nFontSize);
-
-		/*CUUintEx sUnitNormal = { 0 };
-
-		sUnitNormal.nScreenWidth = USER_SCREENWIDTH;
-		sUnitNormal.nScreenHeight = USER_SCREENHEIGHT;
-		sUnitNormal.nTextureWidth = 16;
-		sUnitNormal.nTextureHeight = 16;
-		sUnitNormal.fUnitAlpha = 1.0f;
-		sUnitNormal.pTextureArr = CSakuraResource::m_ucCheckBox_UnChecked;
-		sUnitNormal.nTextureArrSize = sizeof(CSakuraResource::m_ucCheckBox_UnChecked);
-		sUnitNormal.rcUnit.left = 0;
-		sUnitNormal.rcUnit.top = 0;
-		sUnitNormal.rcUnit.right = USER_SCREENWIDTH;
-		sUnitNormal.rcUnit.bottom = USER_SCREENHEIGHT;
-		sUnitNormal.rcUnitTex.left = 0;
-		sUnitNormal.rcUnitTex.top = 0;
-		sUnitNormal.rcUnitTex.right = 16;
-		sUnitNormal.rcUnitTex.bottom = 16;
-		sUnitNormal.sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleX = 1.0f;
-		sUnitNormal.sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleY = 1.0f;
-		sUnitNormal.sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleZ = 1.0f;
-		sUnitNormal.sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateX = 0.0f;
-		sUnitNormal.sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateY = 0.0f;
-		sUnitNormal.sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateZ = 0.0f;
-		sUnitNormal.sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateX = 0.0f;
-		sUnitNormal.sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateY = 0.0f;
-		sUnitNormal.sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateZ = 0.0f;
-		sUnitNormal.sCoordsTransformPara.sViewTransformPara.vAt = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-		sUnitNormal.sCoordsTransformPara.sViewTransformPara.vUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-		sUnitNormal.sCoordsTransformPara.sViewTransformPara.vEye = D3DXVECTOR3(0.0f, 0.0f, -(USER_SCREENHEIGHT * 0.5f));
-		sUnitNormal.sCoordsTransformPara.sPrespectiveTransformPara.fovy = D3DX_PI / 2.0f;;
-		sUnitNormal.sCoordsTransformPara.sPrespectiveTransformPara.fAspect = (float)(USER_SCREENWIDTH * 1.0f / USER_SCREENHEIGHT);
-		sUnitNormal.sCoordsTransformPara.sPrespectiveTransformPara.fZn = 1.0f;
-		sUnitNormal.sCoordsTransformPara.sPrespectiveTransformPara.fZf = (USER_SCREENHEIGHT * 0.5f);
-		sUnitNormal.sCoordsTransformPara.sViewPortTransformPara.nUserWidth = USER_SCREENHEIGHT;
-		sUnitNormal.sCoordsTransformPara.sViewPortTransformPara.nUserHeight = USER_SCREENHEIGHT;
-
-		CUUintEx sUnitPressed = { 0 };
-
-		sUnitPressed.nScreenWidth = USER_SCREENWIDTH;
-		sUnitPressed.nScreenHeight = USER_SCREENHEIGHT;
-		sUnitPressed.nTextureWidth = 16;
-		sUnitPressed.nTextureHeight = 16;
-		sUnitPressed.fUnitAlpha = 1.0f;
-		sUnitPressed.pTextureArr = CSakuraResource::m_ucCheckBox_Checked;
-		sUnitPressed.nTextureArrSize = sizeof(CSakuraResource::m_ucCheckBox_Checked);
-		sUnitPressed.rcUnit.left = 0;
-		sUnitPressed.rcUnit.top = 0;
-		sUnitPressed.rcUnit.right = USER_SCREENWIDTH;
-		sUnitPressed.rcUnit.bottom = USER_SCREENHEIGHT;
-		sUnitPressed.rcUnitTex.left = 0;
-		sUnitPressed.rcUnitTex.top = 0;
-		sUnitPressed.rcUnitTex.right = 16;
-		sUnitPressed.rcUnitTex.bottom = 16;
-		sUnitPressed.sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleX = 1.0f;
-		sUnitPressed.sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleY = 1.0f;
-		sUnitPressed.sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleZ = 1.0f;
-		sUnitPressed.sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateX = 0.0f;
-		sUnitPressed.sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateY = 0.0f;
-		sUnitPressed.sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateZ = 0.0f;
-		sUnitPressed.sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateX = 0.0f;
-		sUnitPressed.sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateY = 0.0f;
-		sUnitPressed.sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateZ = 0.0f;
-		sUnitPressed.sCoordsTransformPara.sViewTransformPara.vAt = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-		sUnitPressed.sCoordsTransformPara.sViewTransformPara.vUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-		sUnitPressed.sCoordsTransformPara.sViewTransformPara.vEye = D3DXVECTOR3(0.0f, 0.0f, -(USER_SCREENHEIGHT * 0.5f));
-		sUnitPressed.sCoordsTransformPara.sPrespectiveTransformPara.fovy = D3DX_PI / 2.0f;;
-		sUnitPressed.sCoordsTransformPara.sPrespectiveTransformPara.fAspect = (float)(USER_SCREENWIDTH * 1.0f / USER_SCREENHEIGHT);
-		sUnitPressed.sCoordsTransformPara.sPrespectiveTransformPara.fZn = 1.0f;
-		sUnitPressed.sCoordsTransformPara.sPrespectiveTransformPara.fZf = (USER_SCREENHEIGHT * 0.5f);
-		sUnitPressed.sCoordsTransformPara.sViewPortTransformPara.nUserWidth = USER_SCREENHEIGHT;
-		sUnitPressed.sCoordsTransformPara.sViewPortTransformPara.nUserHeight = USER_SCREENHEIGHT;
-
-		pElement->GetTextureBlend().AddTexture(SAKURA_STATE_NORMAL, sUnitNormal);
-		pElement->GetTextureBlend().AddTexture(SAKURA_STATE_PRESSED, sUnitPressed);*/
 		SetDefaultElement(SAKURA_CONTROL_CHECKBOX, 0, &pElement);
 	}
 
@@ -789,6 +714,43 @@ CSakuraControl *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetControlAtPoint(POINT p
 	}
 
 	return NULL;
+}
+
+//------------------------------------------------------------------
+// @Function:	 ClearRadioButtonGroup()
+// @Purpose: CSakuraDialog清除单选按钮组别
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::ClearRadioButtonGroup(UINT nGroup)
+{
+	for (auto iter = m_vecControls.begin(); iter != m_vecControls.end(); ++iter)
+	{
+		if ((*iter)->GetType() == SAKURA_CONTROL_RADIOBUTTON)
+		{
+			CSakuraRadioButton* pRadioButton = dynamic_cast<CSakuraRadioButton*>(*iter);
+			if (pRadioButton->GetButtonGroup() == nGroup)
+			{
+				pRadioButton->SetChecked(false, false);
+			}
+
+		}
+
+	}
+
+}
+
+//------------------------------------------------------------------
+// @Function:	 ClearComboBox()
+// @Purpose: CSakuraDialog清除下拉列表框
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::ClearComboBox(int nID)
+{
+	
 }
 
 //------------------------------------------------------------------

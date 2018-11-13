@@ -90,6 +90,7 @@ class CSakuraControl;
 class CSakuraStatic;
 class CSakuraButton;
 class CSakuraCheckBox;
+class CSakuraRadioButton;
 
 //Function Declaration
 typedef VOID(CALLBACK*LPCALLBACKSAKURAGUIEVENT)(UINT nEvent, int nControlID, CSakuraControl* pControl, void* pUserContext);

@@ -552,6 +552,40 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddButton(int ID, LPCWSTR strText
 }
 
 //------------------------------------------------------------------
+// @Function:	 AddCheckBox()
+// @Purpose: CSakuraDialog窗口添加复选框控件
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddCheckBox(int ID, LPCWSTR strText, int x, int y, int width, int height, bool bChecked, UINT nHotkey, bool bIsDefault, CSakuraCheckBox ** ppCreated)
+{
+	CSakuraCheckBox* pCheckBox = new CSakuraCheckBox(this);
+
+	if (ppCreated != NULL)
+	{
+		*ppCreated = pCheckBox;
+	}
+
+	if (pCheckBox == NULL)
+	{
+		return E_OUTOFMEMORY;
+	}
+
+	VERIFY(AddControl(pCheckBox));
+	
+	pCheckBox->SetID(ID);
+	pCheckBox->SetText(strText);
+	pCheckBox->SetLocation(x, y);
+	pCheckBox->SetSize(width, height);
+	pCheckBox->SetHotkey(nHotkey);
+	pCheckBox->m_bIsDefault = bIsDefault;
+	pCheckBox->SetChecked(bChecked);
+
+	return S_OK;
+}
+
+//------------------------------------------------------------------
 // @Function:	 AddControl()
 // @Purpose: CSakuraDialog窗口添加控件
 // @Since: v1.00a

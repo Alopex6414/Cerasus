@@ -91,9 +91,10 @@ public:
 	
 	bool	SAKURADIALOG_CALLMETHOD	MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);			// CSakuraDialog 窗口消息处理
 
-	HRESULT SAKURADIALOG_CALLMETHOD	AddStatic(int ID, LPCWSTR strText, int x, int y, int width, int height, bool bIsDefault = false, CSakuraStatic** ppCreated = NULL);													// CSakuraDialog 窗口添加静态控件
-	HRESULT SAKURADIALOG_CALLMETHOD	AddButton(int ID, LPCWSTR strText, int x, int y, int width, int height, UINT nHotkey = 0, bool bIsDefault = false, CSakuraButton** ppCreated = NULL);								// CSakuraDialog 窗口添加按钮控件
-	HRESULT SAKURADIALOG_CALLMETHOD AddCheckBox(int ID, LPCWSTR strText, int x, int y, int width, int height, bool bChecked = false, UINT nHotkey = 0, bool bIsDefault = false, CSakuraCheckBox** ppCreated = NULL);	// CSakuraDialog 窗口添加复选框按钮
+	HRESULT SAKURADIALOG_CALLMETHOD	AddStatic(int ID, LPCWSTR strText, int x, int y, int width, int height, bool bIsDefault = false, CSakuraStatic** ppCreated = NULL);																				// CSakuraDialog 窗口添加静态控件
+	HRESULT SAKURADIALOG_CALLMETHOD	AddButton(int ID, LPCWSTR strText, int x, int y, int width, int height, UINT nHotkey = 0, bool bIsDefault = false, CSakuraButton** ppCreated = NULL);															// CSakuraDialog 窗口添加按钮控件
+	HRESULT SAKURADIALOG_CALLMETHOD AddCheckBox(int ID, LPCWSTR strText, int x, int y, int width, int height, bool bChecked = false, UINT nHotkey = 0, bool bIsDefault = false, CSakuraCheckBox** ppCreated = NULL);								// CSakuraDialog 窗口添加复选框按钮
+	HRESULT	SAKURADIALOG_CALLMETHOD AddRadioButton(int ID, UINT nButtonGroup, LPCWSTR strText, int x, int y, int width, int height, bool bChecked = false, UINT nHotkey = 0, bool bIsDefault = false, CSakuraRadioButton** ppCreated = NULL);		// CSakuraDialog 窗口添加单选框按钮
 
 	HRESULT	SAKURADIALOG_CALLMETHOD	AddControl(CSakuraControl* pControl);									// CSakuraDialog 窗口添加控件
 	HRESULT	SAKURADIALOG_CALLMETHOD	InitControl(CSakuraControl* pControl);									// CSakuraDialog 窗口初始化控件
@@ -102,8 +103,10 @@ public:
 	HRESULT	SAKURADIALOG_CALLMETHOD AddTexture(int ID, UINT nControlType, UINT iElement, SAKURA_CONTROL_STATE eType, UINT Index);		// CSakuraDialog 窗口添加控件纹理
 	HRESULT	SAKURADIALOG_CALLMETHOD AddTextureEx(int ID, UINT nControlType, UINT iElement, SAKURA_CONTROL_STATE eType, UINT Index);		// CSakuraDialog 窗口添加控件纹理Ex
 
-	CSakuraStatic*	SAKURADIALOG_CALLMETHOD GetStatic(int ID);												// CSakuraDialog 窗口获取静态控件
-	CSakuraButton*	SAKURADIALOG_CALLMETHOD GetButton(int ID);												// CSakuraDialog 窗口获取按钮控件
+	CSakuraStatic*		SAKURADIALOG_CALLMETHOD GetStatic(int ID);											// CSakuraDialog 窗口获取静态控件
+	CSakuraButton*		SAKURADIALOG_CALLMETHOD GetButton(int ID);											// CSakuraDialog 窗口获取按钮控件
+	CSakuraCheckBox*	SAKURADIALOG_CALLMETHOD	GetCheckBox(int ID);										// CSakuraDialog 窗口获取复选框控件
+	CSakuraRadioButton*	SAKURADIALOG_CALLMETHOD	GetRadioButton(int ID);										// CSakuraDialog 窗口获取单选框控件
 
 	CSakuraControl*	SAKURADIALOG_CALLMETHOD	GetControl(int ID);												// CSakuraDialog 获取控件指针
 	CSakuraControl*	SAKURADIALOG_CALLMETHOD	GetControl(int ID, UINT nControlType);							// CSakuraDialog 获取控件指针

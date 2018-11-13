@@ -511,6 +511,42 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddCheckBox(int ID, LPCWSTR strTe
 }
 
 //------------------------------------------------------------------
+// @Function:	 AddRadioButton()
+// @Purpose: CSakuraDialog窗口添加单选框控件
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddRadioButton(int ID, UINT nButtonGroup, LPCWSTR strText, int x, int y, int width, int height, bool bChecked, UINT nHotkey, bool bIsDefault, CSakuraRadioButton ** ppCreated)
+{
+	CSakuraRadioButton* pRadioButton = new CSakuraRadioButton();
+
+	if (ppCreated != NULL)
+	{
+		*ppCreated = pRadioButton;
+	}
+
+	if (pRadioButton == NULL)
+	{
+		return E_OUTOFMEMORY;
+	}
+
+	VERIFY(AddControl(pRadioButton));
+
+	pRadioButton->SetID(ID);
+	pRadioButton->SetText(strText);
+	pRadioButton->SetButtonGroup(nButtonGroup);
+	pRadioButton->SetLocation(x, y);
+	pRadioButton->SetSize(width, height);
+	pRadioButton->SetHotkey(nHotkey);
+	pRadioButton->SetChecked(bChecked);
+	pRadioButton->m_bIsDefault = bIsDefault;
+	pRadioButton->SetChecked(bChecked);
+
+	return S_OK;
+}
+
+//------------------------------------------------------------------
 // @Function:	 AddControl()
 // @Purpose: CSakuraDialog窗口添加控件
 // @Since: v1.00a
@@ -647,6 +683,30 @@ CSakuraStatic *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetStatic(int ID)
 CSakuraButton *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetButton(int ID)
 {
 	return (CSakuraButton*)GetControl(ID, SAKURA_CONTROL_BUTTON);
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetCheckBox()
+// @Purpose: CSakuraDialog窗口获取复选框控件
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CSakuraCheckBox *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetCheckBox(int ID)
+{
+	return (CSakuraCheckBox*)GetControl(ID, SAKURA_CONTROL_CHECKBOX);
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetRadioButton()
+// @Purpose: CSakuraDialog窗口获取单选框控件
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CSakuraRadioButton *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetRadioButton(int ID)
+{
+	return (CSakuraRadioButton*)GetControl(ID, SAKURA_CONTROL_RADIOBUTTON);
 }
 
 //------------------------------------------------------------------

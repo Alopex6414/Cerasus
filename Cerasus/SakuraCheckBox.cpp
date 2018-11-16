@@ -81,19 +81,19 @@ void SAKURACHECKBOX_CALLMETHOD CSakuraCheckBox::Render()
 		}
 		else
 		{
-			if (m_bPressed = true)
+			if (m_bPressed == true)
 			{
 				iState = SAKURA_STATE_NORMAL;
 			}
 			else if (m_bMouseOver == true)
 			{
 				iState = SAKURA_STATE_PRESSED;
-				CCerasusAlgorithm::Increase(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->CCerasusUnitGetAlpha(), 1.0f, 0.02f);
+				CCerasusAlgorithm::Increase(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_PRESSED]->CCerasusUnitGetAlpha(), 1.0f, 0.02f);
 			}
 			else
 			{
 				iState = SAKURA_STATE_PRESSED;
-				CCerasusAlgorithm::Decrease(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->CCerasusUnitGetAlpha(), 0.6f, 0.02f);
+				CCerasusAlgorithm::Decrease(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_PRESSED]->CCerasusUnitGetAlpha(), 0.6f, 0.02f);
 			}
 		}
 	}

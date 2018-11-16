@@ -636,6 +636,9 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddTexture(int ID, UINT nControlT
 	}
 	(*ppElement)->GetTextureBlend().AddTexture(eType, *pTexture);
 
+	pControl->SetLocation(pTexture->rcUnit.left, pTexture->rcUnit.top);
+	pControl->SetSize(pTexture->rcUnit.right - pTexture->rcUnit.left, pTexture->rcUnit.bottom - pTexture->rcUnit.top);
+
 	return S_OK;
 }
 
@@ -657,6 +660,9 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddTextureEx(int ID, UINT nContro
 		(*ppElement) = new CSakuraElement(m_pManager->GetDevice());
 	}
 	(*ppElement)->GetTextureBlend().AddTexture(eType, *pTexture);
+
+	pControl->SetLocation(pTexture->rcUnit.left, pTexture->rcUnit.top);
+	pControl->SetSize(pTexture->rcUnit.right - pTexture->rcUnit.left, pTexture->rcUnit.bottom - pTexture->rcUnit.top);
 
 	return S_OK;
 }

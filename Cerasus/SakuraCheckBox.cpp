@@ -118,7 +118,7 @@ void SAKURACHECKBOX_CALLMETHOD CSakuraCheckBox::Render()
 	}
 
 	m_vecElements.at(0)->GetTextureBlend().Blend(iState);
-	m_vecElements.at(0)->GetFontBlend().Blend(iState, m_strText, &m_rcBoundingBox, m_dwFormat, m_dwColor);
+	m_vecElements.at(0)->GetFontBlend().Blend(iState, m_strText, &m_rcText, m_dwFormat, m_dwColor);
 }
 
 //------------------------------------------------------------------

@@ -40,7 +40,8 @@ public:
 	CSakuraBlendFont();									// CSakuraBlendFont 构造函数
 	~CSakuraBlendFont();								// CSakuraBlendFont 析构函数
 
-	CSakuraBlendFont(LPDIRECT3DDEVICE9 pD3D9Device);	// CSakuraBlendFont 构造函数(重载+1)
+	CSakuraBlendFont(const CSakuraBlendFont& Object);	// CSakuraBlendFont 拷贝构造函数(重载+1)
+	CSakuraBlendFont(LPDIRECT3DDEVICE9 pD3D9Device);	// CSakuraBlendFont 构造函数(重载+2)
 
 	LPDIRECT3DDEVICE9	SAKURABLEND_CALLMETHOD	GetDevice() const;													// CSakuraBlendFont 获取D3D9设备指针
 	DirectFont*			SAKURABLEND_CALLMETHOD	GetCurrent() const;													// CSakuraBlendFont 获取控件状态字体
@@ -66,7 +67,8 @@ public:
 	CSakuraBlendTexture();								// CSakuraBlendTexture 构造函数
 	~CSakuraBlendTexture();								// CSakuraBlendTexture 析构函数
 
-	CSakuraBlendTexture(LPDIRECT3DDEVICE9 pD3D9Device);	// CSakuraBlendTexture 构造函数
+	CSakuraBlendTexture(const CSakuraBlendTexture& Object);	// CSakuraBlendTexture 拷贝构造函数(重载+1)
+	CSakuraBlendTexture(LPDIRECT3DDEVICE9 pD3D9Device);	// CSakuraBlendTexture 构造函数(重载+2)
 
 	LPDIRECT3DDEVICE9	SAKURABLEND_CALLMETHOD	GetDevice() const;													// CSakuraBlendTexture 获取D3D9设备指针
 	CCerasusUnit*		SAKURABLEND_CALLMETHOD	GetCurrent() const;													// CSakuraBlendTexture 获取控件状态字体

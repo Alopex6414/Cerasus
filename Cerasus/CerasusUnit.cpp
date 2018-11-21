@@ -57,6 +57,32 @@ CCerasusUnit::~CCerasusUnit()
 	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);	//删除临界区
 }
 
+//------------------------------------------------------------------
+// @Function:	 CCerasusUnit()
+// @Purpose: CCerasusUnit拷贝构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CCerasusUnit::CCerasusUnit(const CCerasusUnit & Object)
+{
+	m_pDirectGraphics3D = Object.m_pDirectGraphics3D;
+	m_cs = Object.m_cs;
+	m_bThreadSafe = Object.m_bThreadSafe;
+
+	m_nScreenWidth = Object.m_nScreenWidth;
+	m_nScreenHeight = Object.m_nScreenHeight;
+	m_pTextureStr = Object.m_pTextureStr;
+	m_pTextureArr = Object.m_pTextureArr;
+	m_nTextureArrSize = Object.m_nTextureArrSize;
+	m_nTextureWidth = Object.m_nTextureWidth;
+	m_nTextureHeight = Object.m_nTextureHeight;
+	m_rcUnit = Object.m_rcUnit;
+	m_rcUnitTex = Object.m_rcUnitTex;
+	m_fUnitAlpha = Object.m_fUnitAlpha;
+
+	memcpy_s(&m_sCoordsTransformPara, sizeof(m_sCoordsTransformPara), &(Object.m_sCoordsTransformPara), sizeof(Object.m_sCoordsTransformPara));
+}
 
 //------------------------------------------------------------------
 // @Function:	 CCerasusUnit()

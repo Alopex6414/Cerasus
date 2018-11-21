@@ -51,6 +51,21 @@ DirectFont::~DirectFont()
 }
 
 //------------------------------------------------------------------
+// @Function:	 DirectFont(const DirectFont & Object)
+// @Purpose: DirectFont拷贝构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+DirectFont::DirectFont(const DirectFont & Object)
+{
+	m_pD3D9Device = Object.m_pD3D9Device;
+	m_pD3D9Font = Object.m_pD3D9Font;
+	m_cs = Object.m_cs;
+	m_bThreadSafe = Object.m_bThreadSafe;
+}
+
+//------------------------------------------------------------------
 // @Function:	 DirectFont(IDirect3DDevice9* pD3D9Device)
 // @Purpose: DirectFont构造函数
 // @Since: v1.00a

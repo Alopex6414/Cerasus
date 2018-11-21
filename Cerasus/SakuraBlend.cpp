@@ -51,7 +51,26 @@ CSakuraBlendFont::~CSakuraBlendFont()
 
 //------------------------------------------------------------------
 // @Function:	 CSakuraBlendFont()
-// @Purpose: CSakuraBlendFont构造函数(重载+1)
+// @Purpose: CSakuraBlendFont拷贝构造函数(重载+1)
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CSakuraBlendFont::CSakuraBlendFont(const CSakuraBlendFont & Object)
+{
+	m_pD3D9Device = Object.m_pD3D9Device;
+
+	for (int i = 0; i < MAX_CONTROL_STATES; ++i)
+	{
+		m_States[i] = new DirectFont(*(Object.m_States[i]));
+	}
+
+	m_Current = NULL;
+}
+
+//------------------------------------------------------------------
+// @Function:	 CSakuraBlendFont()
+// @Purpose: CSakuraBlendFont构造函数(重载+2)
 // @Since: v1.00a
 // @Para: None
 // @Return: None
@@ -230,7 +249,26 @@ CSakuraBlendTexture::~CSakuraBlendTexture()
 
 //------------------------------------------------------------------
 // @Function:	 CSakuraBlendTexture()
-// @Purpose: CSakuraBlendTexture构造函数(重载+1)
+// @Purpose: CSakuraBlendTexture拷贝构造函数(重载+1)
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CSakuraBlendTexture::CSakuraBlendTexture(const CSakuraBlendTexture & Object)
+{
+	m_pD3D9Device = Object.m_pD3D9Device;
+
+	for (int i = 0; i < MAX_CONTROL_STATES; ++i)
+	{
+		m_States[i] = new CCerasusUnit(*(Object.m_States[i]));
+	}
+
+	m_Current = NULL;
+}
+
+//------------------------------------------------------------------
+// @Function:	 CSakuraBlendTexture()
+// @Purpose: CSakuraBlendTexture构造函数(重载+2)
 // @Since: v1.00a
 // @Para: None
 // @Return: None

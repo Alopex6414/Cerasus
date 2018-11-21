@@ -585,7 +585,7 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::InitControl(CSakuraControl * pCon
 			CSakuraElement** ppElement = &(pControl->GetElement((*iter)->iElement));
 			
 			SAFE_DELETE(*ppElement);
-			*ppElement = (*iter)->pElement;
+			(*ppElement) = new CSakuraElement(*((*iter)->pElement));
 		}
 
 	}

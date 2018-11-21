@@ -41,6 +41,8 @@ public:
 	CSakuraElement(LPDIRECT3DDEVICE9 pD3D9Device);		// CSakuraElement 构造函数
 	~CSakuraElement();									// CSakuraElement 析构函数
 
+	CSakuraElement(const CSakuraElement& Object);		// CSakuraElement 拷贝构造函数
+
 	CSakuraBlendFont&		SAKURAELEMENT_CALLMETHOD	GetFontBlend();			// CSakuraElement 获取字体渲染类
 	CSakuraBlendTexture&	SAKURAELEMENT_CALLMETHOD	GetTextureBlend();		// CSakuraElement 获取纹理渲染类
 

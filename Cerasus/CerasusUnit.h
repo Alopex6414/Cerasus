@@ -91,7 +91,8 @@ public:
 	~CCerasusUnit();										//CCerasusUnit Destructor Function(~CCerasusUnit 析构函数)
 
 	//构造
-	CCerasusUnit(IDirect3DDevice9* pD3D9Device);			//CCerasusUnit Constructor Function(~CCerasusUnit 构造函数)(重载+1)
+	CCerasusUnit(const CCerasusUnit& Object);				//CCerasusUnit Constructor Function(~CCerasusUnit 构造函数)(重载+1)
+	CCerasusUnit(IDirect3DDevice9* pD3D9Device);			//CCerasusUnit Constructor Function(~CCerasusUnit 构造函数)(重载+2)
 
 	//访问
 	virtual DirectGraphics3D* CERASUSUNIT_CALLMODE CCerasusUnitGetDirectGraphics3D() const;					//CCerasusUnit Get DirectGraphics3D(~CCerasusUnit 获取DirectGraphics3D接口指针)

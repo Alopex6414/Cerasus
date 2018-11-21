@@ -40,6 +40,20 @@ CSakuraElement::~CSakuraElement()
 }
 
 //------------------------------------------------------------------
+// @Function:	 CSakuraElement()
+// @Purpose: CSakuraElement构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CSakuraElement::CSakuraElement(const CSakuraElement & Object)
+{
+	m_pD3D9Device = Object.m_pD3D9Device;
+	m_FontBlend = Object.m_FontBlend;
+	m_TextureBlend = Object.m_TextureBlend;
+}
+
+//------------------------------------------------------------------
 // @Function:	 GetFontBlend()
 // @Purpose: CSakuraElement获取字体渲染类
 // @Since: v1.00a

@@ -58,6 +58,7 @@ public:
 	~DirectFont();								//DirectFont Destructor  Function(析构函数)
 
 	//构造
+	DirectFont(const DirectFont& Object);		//DirectFont Constructor Function(构造函数)
 	DirectFont(IDirect3DDevice9* pD3D9Device);	//DirectFont Constructor Function(构造函数)
 
 	//访问

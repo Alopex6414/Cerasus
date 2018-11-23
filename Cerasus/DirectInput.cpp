@@ -14,6 +14,7 @@
 * @date		2018-01-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
 * @date		2018-04-12	v1.22a	alopex	Add Macro Call Mode.
 * @date		2018-06-22	v1.23a	alopex	Add Get Members Function.
+* @date		2018-11-23	v1.24a	alopex	Alter Call Method.
 */
 #include "DirectCommon.h"
 #include "DirectInput.h"
@@ -81,7 +82,7 @@ DirectInput::~DirectInput()
 // @Para: LPVOID pGUID_Ptr(DirectInput设备全局唯一标识符字符指针)
 // @Return: DIENUM_STOP(停止枚举)
 //----------------------------------------------------------------------------------------------------
-BOOL DIRECTINPUT_CALLMODE DirectInputEnumJoySticks(LPCDIDEVICEINSTANCE pDirectDeviceInstance, LPVOID pGUID_Ptr)
+BOOL DIRECTINPUT_CALLMETHOD DirectInputEnumJoySticks(LPCDIDEVICEINSTANCE pDirectDeviceInstance, LPVOID pGUID_Ptr)
 {
 	*(GUID*)pGUID_Ptr = pDirectDeviceInstance->guidInstance;
 	strcpy_s(g_cJoyStickName, (char*)pDirectDeviceInstance->tszProductName);
@@ -95,7 +96,7 @@ BOOL DIRECTINPUT_CALLMODE DirectInputEnumJoySticks(LPCDIDEVICEINSTANCE pDirectDe
 // @Para: None
 // @Return: LPDIRECTINPUT8(DirectInput8接口指针)
 //-------------------------------------------------------------------------------
-LPDIRECTINPUT8 DIRECTINPUT_CALLMODE DirectInput::DirectInputGetInput(void) const
+LPDIRECTINPUT8 DIRECTINPUT_CALLMETHOD DirectInput::DirectInputGetInput(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pDirectInput;
@@ -108,7 +109,7 @@ LPDIRECTINPUT8 DIRECTINPUT_CALLMODE DirectInput::DirectInputGetInput(void) const
 // @Para: None
 // @Return: LPDIRECTINPUTDEVICE8(DirectInput8接口设备指针)
 //-------------------------------------------------------------------------------
-LPDIRECTINPUTDEVICE8 DIRECTINPUT_CALLMODE DirectInput::DirectInputGetInputDeviceKeyBoard(void) const
+LPDIRECTINPUTDEVICE8 DIRECTINPUT_CALLMETHOD DirectInput::DirectInputGetInputDeviceKeyBoard(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pDirectInputDeviceKeyBoard;
@@ -121,7 +122,7 @@ LPDIRECTINPUTDEVICE8 DIRECTINPUT_CALLMODE DirectInput::DirectInputGetInputDevice
 // @Para: None
 // @Return: LPDIRECTINPUTDEVICE8(DirectInput8接口设备指针)
 //-------------------------------------------------------------------------------
-LPDIRECTINPUTDEVICE8 DIRECTINPUT_CALLMODE DirectInput::DirectInputGetInputDeviceMouse(void) const
+LPDIRECTINPUTDEVICE8 DIRECTINPUT_CALLMETHOD DirectInput::DirectInputGetInputDeviceMouse(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pDirectInputDeviceMouse;
@@ -134,7 +135,7 @@ LPDIRECTINPUTDEVICE8 DIRECTINPUT_CALLMODE DirectInput::DirectInputGetInputDevice
 // @Para: None
 // @Return: LPDIRECTINPUTDEVICE8(DirectInput8接口设备指针)
 //-------------------------------------------------------------------------------
-LPDIRECTINPUTDEVICE8 DIRECTINPUT_CALLMODE DirectInput::DirectInputGetInputDeviceJoyStick(void) const
+LPDIRECTINPUTDEVICE8 DIRECTINPUT_CALLMETHOD DirectInput::DirectInputGetInputDeviceJoyStick(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pDirectInputDeviceJoyStick;
@@ -147,7 +148,7 @@ LPDIRECTINPUTDEVICE8 DIRECTINPUT_CALLMODE DirectInput::DirectInputGetInputDevice
 // @Para: None
 // @Return: None
 //-------------------------------------------------------------------------------
-void DIRECTINPUT_CALLMODE DirectInput::DirectInputSetInput(LPDIRECTINPUT8 pDirectInput)
+void DIRECTINPUT_CALLMETHOD DirectInput::DirectInputSetInput(LPDIRECTINPUT8 pDirectInput)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectInput = pDirectInput;
@@ -160,7 +161,7 @@ void DIRECTINPUT_CALLMODE DirectInput::DirectInputSetInput(LPDIRECTINPUT8 pDirec
 // @Para: None
 // @Return: None
 //-------------------------------------------------------------------------------
-void DIRECTINPUT_CALLMODE DirectInput::DirectInputSetInputDeviceKeyBoard(LPDIRECTINPUTDEVICE8 pDirectInputDeviceKeyBoard)
+void DIRECTINPUT_CALLMETHOD DirectInput::DirectInputSetInputDeviceKeyBoard(LPDIRECTINPUTDEVICE8 pDirectInputDeviceKeyBoard)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectInputDeviceKeyBoard = pDirectInputDeviceKeyBoard;
@@ -173,7 +174,7 @@ void DIRECTINPUT_CALLMODE DirectInput::DirectInputSetInputDeviceKeyBoard(LPDIREC
 // @Para: None
 // @Return: None
 //-------------------------------------------------------------------------------
-void DIRECTINPUT_CALLMODE DirectInput::DirectInputSetInputDeviceMouse(LPDIRECTINPUTDEVICE8 pDirectInputDeviceMouse)
+void DIRECTINPUT_CALLMETHOD DirectInput::DirectInputSetInputDeviceMouse(LPDIRECTINPUTDEVICE8 pDirectInputDeviceMouse)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectInputDeviceMouse = pDirectInputDeviceMouse;
@@ -186,7 +187,7 @@ void DIRECTINPUT_CALLMODE DirectInput::DirectInputSetInputDeviceMouse(LPDIRECTIN
 // @Para: None
 // @Return: None
 //-------------------------------------------------------------------------------
-void DIRECTINPUT_CALLMODE DirectInput::DirectInputSetInputDeviceJoyStick(LPDIRECTINPUTDEVICE8 pDirectInputDeviceJoyStick)
+void DIRECTINPUT_CALLMETHOD DirectInput::DirectInputSetInputDeviceJoyStick(LPDIRECTINPUTDEVICE8 pDirectInputDeviceJoyStick)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectInputDeviceJoyStick = pDirectInputDeviceJoyStick;
@@ -200,7 +201,7 @@ void DIRECTINPUT_CALLMODE DirectInput::DirectInputSetInputDeviceJoyStick(LPDIREC
 // @Para: HINSTANCE hInstance(窗口实例句柄)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------
-HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputInit(HWND hWnd, HINSTANCE hInstance)
+HRESULT DIRECTINPUT_CALLMETHOD DirectInput::DirectInputInit(HWND hWnd, HINSTANCE hInstance)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -234,7 +235,7 @@ HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputInit(HWND hWnd, HINSTANCE h
 // @Para: DWORD dwDeviceCoopFlags(设备协作级别)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------------------------------------------------------------------------
-HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputDevice eDirectInputDevice_X, DWORD dwDeviceCoopFlags)
+HRESULT DIRECTINPUT_CALLMETHOD DirectInput::DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputDevice eDirectInputDevice_X, DWORD dwDeviceCoopFlags)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -287,7 +288,7 @@ HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputInit(HWND hWnd, HINSTANCE h
 // @Para: DWORD dwDeviceCoopFlags2(设备2协作级别)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
-HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputMulDevice eDirectInputMulDevice_X, DWORD dwDeviceCoopFlags1, DWORD dwDeviceCoopFlags2)
+HRESULT DIRECTINPUT_CALLMETHOD DirectInput::DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputMulDevice eDirectInputMulDevice_X, DWORD dwDeviceCoopFlags1, DWORD dwDeviceCoopFlags2)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -358,7 +359,7 @@ HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputInit(HWND hWnd, HINSTANCE h
 // @Para: DirectInputDeviceCoopFlags eDirectInputDeviceCoopFlags(枚举类型:设备协作级别)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
-HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputDevice eDirectInputDevice_X, DirectInputDeviceCoopFlags eDirectInputDeviceCoopFlags)
+HRESULT DIRECTINPUT_CALLMETHOD DirectInput::DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputDevice eDirectInputDevice_X, DirectInputDeviceCoopFlags eDirectInputDeviceCoopFlags)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	DWORD dwDeviceCoopFlags;
@@ -428,7 +429,7 @@ HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputInit(HWND hWnd, HINSTANCE h
 // @Para: DirectInputDeviceCoopFlags eDirectInputDeviceCoopFlags2(枚举类型:设备协作级别)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputMulDevice eDirectInputMulDevice_X, DirectInputDeviceCoopFlags eDirectInputDeviceCoopFlags1, DirectInputDeviceCoopFlags eDirectInputDeviceCoopFlags2)
+HRESULT DIRECTINPUT_CALLMETHOD DirectInput::DirectInputInit(HWND hWnd, HINSTANCE hInstance, DirectInputMulDevice eDirectInputMulDevice_X, DirectInputDeviceCoopFlags eDirectInputDeviceCoopFlags1, DirectInputDeviceCoopFlags eDirectInputDeviceCoopFlags2)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	DWORD dwDeviceCoopFlags1;
@@ -530,7 +531,7 @@ HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputInit(HWND hWnd, HINSTANCE h
 // @Para: HINSTANCE hInstance(窗口实例句柄)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------
-HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputKeyBoardInit(HWND hWnd, HINSTANCE hInstance)
+HRESULT DIRECTINPUT_CALLMETHOD DirectInput::DirectInputKeyBoardInit(HWND hWnd, HINSTANCE hInstance)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -556,7 +557,7 @@ HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputKeyBoardInit(HWND hWnd, HIN
 // @Para: DWORD dwDeviceCoopFlags(设备协作级别)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //----------------------------------------------------------------------------------------------
-HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputKeyBoardInit(HWND hWnd, HINSTANCE hInstance, DWORD dwDeviceCoopFlags)
+HRESULT DIRECTINPUT_CALLMETHOD DirectInput::DirectInputKeyBoardInit(HWND hWnd, HINSTANCE hInstance, DWORD dwDeviceCoopFlags)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -582,7 +583,7 @@ HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputKeyBoardInit(HWND hWnd, HIN
 // @Para: DirectInputDeviceCoopFlags eDeviceCoopFlags(枚举类型:设备协作级别)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------------------------------------------------
-HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputKeyBoardInit(HWND hWnd, HINSTANCE hInstance, DirectInputDeviceCoopFlags eDeviceCoopFlags)
+HRESULT DIRECTINPUT_CALLMETHOD DirectInput::DirectInputKeyBoardInit(HWND hWnd, HINSTANCE hInstance, DirectInputDeviceCoopFlags eDeviceCoopFlags)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	DWORD dwDeviceCoopFlags;
@@ -624,7 +625,7 @@ HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputKeyBoardInit(HWND hWnd, HIN
 // @Para: HINSTANCE hInstance(窗口实例句柄)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------
-HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputMouseInit(HWND hWnd, HINSTANCE hInstance)
+HRESULT DIRECTINPUT_CALLMETHOD DirectInput::DirectInputMouseInit(HWND hWnd, HINSTANCE hInstance)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -650,7 +651,7 @@ HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputMouseInit(HWND hWnd, HINSTA
 // @Para: DWORD dwDeviceCoopFlags(设备协作级别)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //----------------------------------------------------------------------------------------------
-HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputMouseInit(HWND hWnd, HINSTANCE hInstance, DWORD dwDeviceCoopFlags)
+HRESULT DIRECTINPUT_CALLMETHOD DirectInput::DirectInputMouseInit(HWND hWnd, HINSTANCE hInstance, DWORD dwDeviceCoopFlags)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -676,7 +677,7 @@ HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputMouseInit(HWND hWnd, HINSTA
 // @Para: DirectInputDeviceCoopFlags eDeviceCoopFlags(枚举类型:设备协作级别)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------------------------------------------
-HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputMouseInit(HWND hWnd, HINSTANCE hInstance, DirectInputDeviceCoopFlags eDeviceCoopFlags)
+HRESULT DIRECTINPUT_CALLMETHOD DirectInput::DirectInputMouseInit(HWND hWnd, HINSTANCE hInstance, DirectInputDeviceCoopFlags eDeviceCoopFlags)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	DWORD dwDeviceCoopFlags;
@@ -717,7 +718,7 @@ HRESULT DIRECTINPUT_CALLMODE DirectInput::DirectInputMouseInit(HWND hWnd, HINSTA
 // @Para: None
 // @Return: None
 //-------------------------------------------------------------------------------
-void DIRECTINPUT_CALLMODE DirectInput::DirectInputGetDeviceState(void) const
+void DIRECTINPUT_CALLMETHOD DirectInput::DirectInputGetDeviceState(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	HRESULT hr;
@@ -748,7 +749,7 @@ void DIRECTINPUT_CALLMODE DirectInput::DirectInputGetDeviceState(void) const
 // @Para: DirectInputDevice eDirectInputDevice_X(枚举类型:键盘/鼠标/游戏杆)
 // @Return: None
 //-------------------------------------------------------------------------------
-void DIRECTINPUT_CALLMODE DirectInput::DirectInputGetDeviceState(DirectInputDevice eDirectInputDevice_X) const
+void DIRECTINPUT_CALLMETHOD DirectInput::DirectInputGetDeviceState(DirectInputDevice eDirectInputDevice_X) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	HRESULT hr;
@@ -797,7 +798,7 @@ void DIRECTINPUT_CALLMODE DirectInput::DirectInputGetDeviceState(DirectInputDevi
 // @Para: int nKeyValue(KeyBoard键值)(eg:DIK_A)
 // @Return: bool(true:KeyDown,false:KeyUp)
 //--------------------------------------------------------------
-bool DIRECTINPUT_CALLMODE DirectInput::DIKeyBoardIsDown(int nKeyValue) const
+bool DIRECTINPUT_CALLMETHOD DirectInput::DIKeyBoardIsDown(int nKeyValue) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return (m_cKeyBoradBuffer[nKeyValue] & 0x80) ? true : false;
@@ -810,7 +811,7 @@ bool DIRECTINPUT_CALLMODE DirectInput::DIKeyBoardIsDown(int nKeyValue) const
 // @Para: int nKeyValue(KeyBoard键值)(eg:DIK_A)
 // @Return: bool(true:KeyUp,false:KeyDown)
 //--------------------------------------------------------------
-bool DIRECTINPUT_CALLMODE DirectInput::DIKeyBoardIsUp(int nKeyValue) const
+bool DIRECTINPUT_CALLMETHOD DirectInput::DIKeyBoardIsUp(int nKeyValue) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return (m_cKeyBoradBuffer[nKeyValue] & 0x80) ? false : true;
@@ -823,7 +824,7 @@ bool DIRECTINPUT_CALLMODE DirectInput::DIKeyBoardIsUp(int nKeyValue) const
 // @Para: DirectInputMouseState eDIMouse_XButton(鼠标键值)
 // @Return: bool(true:MouseDown,false:MouseUp)
 //-------------------------------------------------------------------------
-bool DIRECTINPUT_CALLMODE DirectInput::DIMouseIsDown(DirectInputMouseState eDIMouse_XButton) const
+bool DIRECTINPUT_CALLMETHOD DirectInput::DIMouseIsDown(DirectInputMouseState eDIMouse_XButton) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return (m_DIMouseState.rgbButtons[eDIMouse_XButton] & 0x80) ? true : false;
@@ -836,7 +837,7 @@ bool DIRECTINPUT_CALLMODE DirectInput::DIMouseIsDown(DirectInputMouseState eDIMo
 // @Para: DirectInputMouseState eDIMouse_XButton(鼠标键值)
 // @Return: bool(true:MouseUp,false:MouseDown)
 //-------------------------------------------------------------------------
-bool DIRECTINPUT_CALLMODE DirectInput::DIMouseIsUp(DirectInputMouseState eDIMouse_XButton) const
+bool DIRECTINPUT_CALLMETHOD DirectInput::DIMouseIsUp(DirectInputMouseState eDIMouse_XButton) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return (m_DIMouseState.rgbButtons[eDIMouse_XButton] & 0x80) ? false : true;
@@ -849,7 +850,7 @@ bool DIRECTINPUT_CALLMODE DirectInput::DIMouseIsUp(DirectInputMouseState eDIMous
 // @Para: None
 // @Return: float(Mouse鼠标X轴坐标)
 //-------------------------------------------------------------------------
-float DIRECTINPUT_CALLMODE DirectInput::DIMouseGetX(void) const
+float DIRECTINPUT_CALLMETHOD DirectInput::DIMouseGetX(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return (float)m_DIMouseState.lX;
@@ -862,7 +863,7 @@ float DIRECTINPUT_CALLMODE DirectInput::DIMouseGetX(void) const
 // @Para: None
 // @Return: float(Mouse鼠标Y轴坐标)
 //-------------------------------------------------------------------------
-float DIRECTINPUT_CALLMODE DirectInput::DIMouseGetY(void) const
+float DIRECTINPUT_CALLMETHOD DirectInput::DIMouseGetY(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return (float)m_DIMouseState.lY;
@@ -875,7 +876,7 @@ float DIRECTINPUT_CALLMODE DirectInput::DIMouseGetY(void) const
 // @Para: None
 // @Return: float(Mouse鼠标Z轴坐标)
 //-------------------------------------------------------------------------
-float DIRECTINPUT_CALLMODE DirectInput::DIMouseGetZ(void) const
+float DIRECTINPUT_CALLMETHOD DirectInput::DIMouseGetZ(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return (float)m_DIMouseState.lZ;

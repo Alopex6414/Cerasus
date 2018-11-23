@@ -6,7 +6,7 @@
 * @file		DirectSound.cpp
 * @brief	This Program is DirectSound DLL Project.
 * @author	Alopex/Helium
-* @version	v1.23a
+* @version	v1.24a
 * @date		2017-10-31	v1.00a	alopex	Create Project
 * @date		2017-12-03	v1.01a	alopex	Add Enum
 * @date		2017-12-8	v1.11a	alopex	Code Do Not Rely On MSVCR Library
@@ -14,6 +14,7 @@
 * @date		2018-01-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
 * @date		2018-04-12	v1.22a	alopex	Add Macro Call Mode.
 * @date		2018-06-22	v1.23a	alopex	Add Get Members Function.
+* @date		2018-11-23	v1.24a	alopex	Alter Call Method.
 */
 #include "DirectCommon.h"
 #include "DirectSound.h"
@@ -65,7 +66,7 @@ DirectSound::~DirectSound()
 // @Para: None
 // @Return: LPDIRECTSOUND8
 //------------------------------------------------------------------------
-LPDIRECTSOUND8 DIRECTSOUND_CALLMODE DirectSound::DirectSoundGetSound(void) const
+LPDIRECTSOUND8 DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundGetSound(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pDirectSound;
@@ -78,7 +79,7 @@ LPDIRECTSOUND8 DIRECTSOUND_CALLMODE DirectSound::DirectSoundGetSound(void) const
 // @Para: None
 // @Return: LPDIRECTSOUNDBUFFER
 //------------------------------------------------------------------------
-LPDIRECTSOUNDBUFFER DIRECTSOUND_CALLMODE DirectSound::DirectSoundGetSoundBuffer(void) const
+LPDIRECTSOUNDBUFFER DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundGetSoundBuffer(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pDirectSoundBuffer;
@@ -91,7 +92,7 @@ LPDIRECTSOUNDBUFFER DIRECTSOUND_CALLMODE DirectSound::DirectSoundGetSoundBuffer(
 // @Para: None
 // @Return: LPDIRECTSOUNDBUFFER
 //------------------------------------------------------------------------
-LPDIRECTSOUNDBUFFER DIRECTSOUND_CALLMODE DirectSound::DirectSoundGetSoundPrimary(void) const
+LPDIRECTSOUNDBUFFER DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundGetSoundPrimary(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pDirectSoundPrimary;
@@ -104,7 +105,7 @@ LPDIRECTSOUNDBUFFER DIRECTSOUND_CALLMODE DirectSound::DirectSoundGetSoundPrimary
 // @Para: None
 // @Return: LPDIRECTSOUND3DBUFFER
 //------------------------------------------------------------------------
-LPDIRECTSOUND3DBUFFER DIRECTSOUND_CALLMODE DirectSound::DirectSoundGetSound3DBuffer(void) const
+LPDIRECTSOUND3DBUFFER DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundGetSound3DBuffer(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pDirectSound3DBuffer;
@@ -117,7 +118,7 @@ LPDIRECTSOUND3DBUFFER DIRECTSOUND_CALLMODE DirectSound::DirectSoundGetSound3DBuf
 // @Para: None
 // @Return: LPDIRECTSOUND3DLISTENER
 //------------------------------------------------------------------------
-LPDIRECTSOUND3DLISTENER DIRECTSOUND_CALLMODE DirectSound::DirectSoundGetSound3DListener(void) const
+LPDIRECTSOUND3DLISTENER DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundGetSound3DListener(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pDirectSound3DListener;
@@ -130,7 +131,7 @@ LPDIRECTSOUND3DLISTENER DIRECTSOUND_CALLMODE DirectSound::DirectSoundGetSound3DL
 // @Para: None
 // @Return: LPDIRECTSOUND8
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetSound(LPDIRECTSOUND8 pDirectSound)
+void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetSound(LPDIRECTSOUND8 pDirectSound)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectSound = pDirectSound;
@@ -143,7 +144,7 @@ void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetSound(LPDIRECTSOUND8 pDirec
 // @Para: None
 // @Return: LPDIRECTSOUNDBUFFER
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetSoundBuffer(LPDIRECTSOUNDBUFFER pDirectSoundBuffer)
+void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetSoundBuffer(LPDIRECTSOUNDBUFFER pDirectSoundBuffer)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectSoundBuffer = pDirectSoundBuffer;
@@ -156,7 +157,7 @@ void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetSoundBuffer(LPDIRECTSOUNDBU
 // @Para: None
 // @Return: LPDIRECTSOUNDBUFFER
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetSoundPrimary(LPDIRECTSOUNDBUFFER pDirectSoundPrimary)
+void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetSoundPrimary(LPDIRECTSOUNDBUFFER pDirectSoundPrimary)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectSoundPrimary = pDirectSoundPrimary;
@@ -169,7 +170,7 @@ void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetSoundPrimary(LPDIRECTSOUNDB
 // @Para: None
 // @Return: LPDIRECTSOUND3DBUFFER
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetSound3DBuffer(LPDIRECTSOUND3DBUFFER pDirectSound3DBuffer)
+void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetSound3DBuffer(LPDIRECTSOUND3DBUFFER pDirectSound3DBuffer)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectSound3DBuffer = pDirectSound3DBuffer;
@@ -182,7 +183,7 @@ void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetSound3DBuffer(LPDIRECTSOUND
 // @Para: None
 // @Return: LPDIRECTSOUND3DLISTENER
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetSound3DListener(LPDIRECTSOUND3DLISTENER pDirectSound3DListener)
+void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetSound3DListener(LPDIRECTSOUND3DLISTENER pDirectSound3DListener)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectSound3DListener = pDirectSound3DListener;
@@ -195,7 +196,7 @@ void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetSound3DListener(LPDIRECTSOU
 // @Para: HWND hWnd(窗口句柄)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------
-HRESULT DIRECTSOUND_CALLMODE DirectSound::DirectSoundInit(HWND hWnd)
+HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundInit(HWND hWnd)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -214,7 +215,7 @@ HRESULT DIRECTSOUND_CALLMODE DirectSound::DirectSoundInit(HWND hWnd)
 // @Para: DWORD dwSoundCoopFlags(声音协作级别)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------
-HRESULT DIRECTSOUND_CALLMODE DirectSound::DirectSoundInit(HWND hWnd, DWORD dwSoundCoopFlags)
+HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundInit(HWND hWnd, DWORD dwSoundCoopFlags)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -233,7 +234,7 @@ HRESULT DIRECTSOUND_CALLMODE DirectSound::DirectSoundInit(HWND hWnd, DWORD dwSou
 // @Para: DirectSoundCoopFlags eDirectSoundCoopFlags(枚举类型:声音协作级别)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------------------
-HRESULT DIRECTSOUND_CALLMODE DirectSound::DirectSoundInit(HWND hWnd, DirectSoundCoopFlags eDirectSoundCoopFlags)
+HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundInit(HWND hWnd, DirectSoundCoopFlags eDirectSoundCoopFlags)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	DWORD dwSoundCoopFlags;
@@ -273,7 +274,7 @@ HRESULT DIRECTSOUND_CALLMODE DirectSound::DirectSoundInit(HWND hWnd, DirectSound
 // @Para: HWND hWnd(窗口句柄)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------
-HRESULT DIRECTSOUND_CALLMODE DirectSound::DirectSound3DInit(HWND hWnd)
+HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSound3DInit(HWND hWnd)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -299,7 +300,7 @@ HRESULT DIRECTSOUND_CALLMODE DirectSound::DirectSound3DInit(HWND hWnd)
 // @Para: LPWSTR lpszFileName(Wave音源文件相对地址)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------
-HRESULT DIRECTSOUND_CALLMODE DirectSound::DirectSoundLoadWave(LPWSTR lpszFileName)
+HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundLoadWave(LPWSTR lpszFileName)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	HMMIO hWave;
@@ -418,7 +419,7 @@ HRESULT DIRECTSOUND_CALLMODE DirectSound::DirectSoundLoadWave(LPWSTR lpszFileNam
 // @Para: LPWSTR lpszFileName(Wave音源文件相对地址)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------
-HRESULT DIRECTSOUND_CALLMODE DirectSound::DirectSoundLoad3DWave(LPWSTR lpszFileName)
+HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundLoad3DWave(LPWSTR lpszFileName)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	HMMIO hWave;
@@ -549,7 +550,7 @@ HRESULT DIRECTSOUND_CALLMODE DirectSound::DirectSoundLoad3DWave(LPWSTR lpszFileN
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMODE DirectSound::DirectSoundPlay(void)
+void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundPlay(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectSoundBuffer->Play(NULL, NULL, NULL);//单次播放 Once
@@ -562,7 +563,7 @@ void DIRECTSOUND_CALLMODE DirectSound::DirectSoundPlay(void)
 // @Para: DirectSoundPlayState eDSPlayState_X(播放状态)
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMODE DirectSound::DirectSoundPlay(DirectSoundPlayState eDSPlayState_X)
+void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundPlay(DirectSoundPlayState eDSPlayState_X)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -586,7 +587,7 @@ void DIRECTSOUND_CALLMODE DirectSound::DirectSoundPlay(DirectSoundPlayState eDSP
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMODE DirectSound::DirectSoundPlayOnce(void)
+void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundPlayOnce(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectSoundBuffer->Play(NULL, NULL, NULL);//单次播放 Once
@@ -599,7 +600,7 @@ void DIRECTSOUND_CALLMODE DirectSound::DirectSoundPlayOnce(void)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMODE DirectSound::DirectSoundPlayLoop(void)
+void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundPlayLoop(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectSoundBuffer->Play(NULL, NULL, DSBPLAY_LOOPING);//循环播放 Loop
@@ -612,7 +613,7 @@ void DIRECTSOUND_CALLMODE DirectSound::DirectSoundPlayLoop(void)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMODE DirectSound::DirectSoundStop(void)
+void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundStop(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectSoundBuffer->Stop();//停止播放
@@ -625,7 +626,7 @@ void DIRECTSOUND_CALLMODE DirectSound::DirectSoundStop(void)
 // @Para: LONG lVolume(-10000~0)
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetVolume(LONG lVolume)
+void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetVolume(LONG lVolume)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -648,7 +649,7 @@ void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetVolume(LONG lVolume)
 // @Para: DWORD dwFrequency(100Hz~200,000Hz)
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetFrequency(DWORD dwFrequency)
+void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetFrequency(DWORD dwFrequency)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -671,7 +672,7 @@ void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetFrequency(DWORD dwFrequency
 // @Para: LONG lPan
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetPan(LONG lPan)
+void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetPan(LONG lPan)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -694,7 +695,7 @@ void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetPan(LONG lPan)
 // @Para: DWORD dwNewPositon(播放位置)
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMODE DirectSound::DirectSoundSetCurrentPosition(DWORD dwNewPositon)
+void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetCurrentPosition(DWORD dwNewPositon)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectSoundBuffer->SetCurrentPosition(dwNewPositon);

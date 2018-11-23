@@ -1,12 +1,12 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox 
+*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
 *     All rights reserved.
 *
-* @file		DirectSprite.cpp
+* @file		DirectSprite.h
 * @brief	This File is DirectSprite DLL Project Header.
 * @author	Alopex/Helium
-* @version	v1.24a
+* @version	v1.25a
 * @date		2017-11-28	v1.00a	alopex	Create This Project.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
 * @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
@@ -14,6 +14,7 @@
 * @date		2018-04-12	v1.22a	alopex	Add Macro Call Mode.
 * @date		2018-06-22	v1.23a	alopex	Add Version Infomation.
 * @date		2018-06-22	v1.24a	alopex	Add Struct Definition.
+* @date		2018-11-23	v1.25a	alopex	Alter Call Method.
 */
 #include "DirectCommon.h"
 #include "DirectSprite.h"
@@ -77,7 +78,7 @@ DirectSprite::DirectSprite(LPDIRECT3DDEVICE9 pD3D9Device)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPDIRECT3DDEVICE9 DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteGetDevice(void) const
+LPDIRECT3DDEVICE9 DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteGetDevice(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Device;
@@ -90,7 +91,7 @@ LPDIRECT3DDEVICE9 DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteGetDevice(void
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPDIRECT3DTEXTURE9 DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteGetTexture(void) const
+LPDIRECT3DTEXTURE9 DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteGetTexture(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pSpriteTexture;
@@ -103,7 +104,7 @@ LPDIRECT3DTEXTURE9 DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteGetTexture(vo
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPD3DXSPRITE DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteGetSprite(void) const
+LPD3DXSPRITE DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteGetSprite(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pSprite;
@@ -116,7 +117,7 @@ LPD3DXSPRITE DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteGetSprite(void) con
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteSetDevice(LPDIRECT3DDEVICE9 pD3D9Device)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteSetDevice(LPDIRECT3DDEVICE9 pD3D9Device)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device = pD3D9Device;
@@ -129,7 +130,7 @@ void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteSetDevice(LPDIRECT3DDEVICE9
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteSetTexture(LPDIRECT3DTEXTURE9 pSpriteTexture)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteSetTexture(LPDIRECT3DTEXTURE9 pSpriteTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pSpriteTexture = pSpriteTexture;
@@ -142,7 +143,7 @@ void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteSetTexture(LPDIRECT3DTEXTUR
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteSetSprite(LPD3DXSPRITE pSprite)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteSetSprite(LPD3DXSPRITE pSprite)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pSprite = pSprite;
@@ -155,7 +156,7 @@ void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteSetSprite(LPD3DXSPRITE pSpr
 // @Para: LPCWSTR lpszStr		//精灵纹理路径
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteInit(LPCWSTR lpszStr)
+HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteInit(LPCWSTR lpszStr)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -172,7 +173,7 @@ HRESULT DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteInit(LPCWSTR lpszStr)
 // @Para: LPCWSTR lpszStr		//精灵纹理路径
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteReload(LPCWSTR lpszStr)
+HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteReload(LPCWSTR lpszStr)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -191,7 +192,7 @@ HRESULT DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteReload(LPCWSTR lpszStr)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteReset(void)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteReset(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	SAFE_RELEASE(m_pSpriteTexture);	//释放m_pSpriteTexture
@@ -205,7 +206,7 @@ void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteReset(void)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteBegin(void)
+HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteBegin(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	VERIFY(m_pSprite->Begin(D3DXSPRITE_ALPHABLEND));
@@ -219,7 +220,7 @@ HRESULT DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteBegin(void)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteEnd(void)
+HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteEnd(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	VERIFY(m_pSprite->End());
@@ -233,7 +234,7 @@ HRESULT DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteEnd(void)
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteGetTransform(D3DXMATRIX* pMatrix)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteGetTransform(D3DXMATRIX* pMatrix)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pSprite->GetTransform(pMatrix);
@@ -246,7 +247,7 @@ void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteGetTransform(D3DXMATRIX* pM
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteSetTransform(D3DXMATRIX* pMatrix)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteSetTransform(D3DXMATRIX* pMatrix)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pSprite->SetTransform(pMatrix);
@@ -259,7 +260,7 @@ void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteSetTransform(D3DXMATRIX* pM
 // @Para: DirectSpriteDrawPara* sSpriteDrawPara
 // @Return: None
 //----------------------------------------------------------------------
-void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDraw(DirectSpriteDrawPara* sSpriteDrawPara)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDraw(DirectSpriteDrawPara* sSpriteDrawPara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pSprite->Draw(m_pSpriteTexture, &(sSpriteDrawPara->SpriteRect), &(sSpriteDrawPara->SpriteCenter), &(sSpriteDrawPara->SpritePosition), sSpriteDrawPara->SpriteColor);
@@ -275,7 +276,7 @@ void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDraw(DirectSpriteDrawPara* 
 // @Para: D3DCOLOR SpriteColor			//绘制颜色
 // @Return: None
 //----------------------------------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDraw(RECT* pSpriteRect, D3DXVECTOR3* pSpriteCenter, D3DXVECTOR3* pSpritePosition, D3DCOLOR SpriteColor)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDraw(RECT* pSpriteRect, D3DXVECTOR3* pSpriteCenter, D3DXVECTOR3* pSpritePosition, D3DCOLOR SpriteColor)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pSprite->Draw(m_pSpriteTexture, pSpriteRect, pSpriteCenter, pSpritePosition, SpriteColor);
@@ -288,7 +289,7 @@ void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDraw(RECT* pSpriteRect, D3D
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //---------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDrawScale(DirectSpriteDrawPara* sSpriteDrawPara, float fScaleX, float fScaleY)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawScale(DirectSpriteDrawPara* sSpriteDrawPara, float fScaleX, float fScaleY)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX Matrix;
@@ -311,7 +312,7 @@ void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDrawScale(DirectSpriteDrawP
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //-----------------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDrawScale(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteScale sScalePara)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawScale(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteScale sScalePara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX Matrix;
@@ -334,7 +335,7 @@ void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDrawScale(DirectSpriteDrawP
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //-----------------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDrawRotate(DirectSpriteDrawPara* sSpriteDrawPara, float fRotateZ)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawRotate(DirectSpriteDrawPara* sSpriteDrawPara, float fRotateZ)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX Matrix;
@@ -357,7 +358,7 @@ void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDrawRotate(DirectSpriteDraw
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //-----------------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDrawRotate(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteRotate sRotatePara)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawRotate(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteRotate sRotatePara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX Matrix;
@@ -380,7 +381,7 @@ void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDrawRotate(DirectSpriteDraw
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDrawTranslate(DirectSpriteDrawPara* sSpriteDrawPara, float fTranslateX, float fTranslateY)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawTranslate(DirectSpriteDrawPara* sSpriteDrawPara, float fTranslateX, float fTranslateY)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX Matrix;
@@ -405,7 +406,7 @@ void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDrawTranslate(DirectSpriteD
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //-------------------------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDrawTranslate(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTranslate sTranslatePara)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawTranslate(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTranslate sTranslatePara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX Matrix;
@@ -430,7 +431,7 @@ void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDrawTranslate(DirectSpriteD
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //-------------------------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMODE DirectSprite::DirectSpriteDrawTransform(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTransformPara sTransformPara)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawTransform(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTransformPara sTransformPara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX Matrix;

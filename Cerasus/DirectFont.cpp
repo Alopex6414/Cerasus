@@ -13,6 +13,7 @@
 * @date		2018-02-12	v1.11a	alopex	Add Reset Device & Definion of DirectFont Colors.
 * @date		2018-04-12	v1.12a	alopex	Add Macro Call Mode.
 * @date		2018-06-22	v1.13a	alopex	Add Version Information.
+* @date		2018-11-23	v1.14a	alopex	Alter Call Method.
 */
 #include "DirectCommon.h"
 #include "DirectFont.h"
@@ -88,7 +89,7 @@ DirectFont::DirectFont(IDirect3DDevice9* pD3D9Device)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-IDirect3DDevice9* DIRECTFONT_CALLMODE DirectFont::DirectFontGetDevice(void) const
+IDirect3DDevice9* DIRECTFONT_CALLMETHOD DirectFont::DirectFontGetDevice(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Device;
@@ -101,7 +102,7 @@ IDirect3DDevice9* DIRECTFONT_CALLMODE DirectFont::DirectFontGetDevice(void) cons
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-ID3DXFont* DIRECTFONT_CALLMODE DirectFont::DirectFontGetFont(void) const
+ID3DXFont* DIRECTFONT_CALLMETHOD DirectFont::DirectFontGetFont(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Font;
@@ -114,7 +115,7 @@ ID3DXFont* DIRECTFONT_CALLMODE DirectFont::DirectFontGetFont(void) const
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTFONT_CALLMODE DirectFont::DirectFontSetDevice(IDirect3DDevice9* pD3D9Device)
+void DIRECTFONT_CALLMETHOD DirectFont::DirectFontSetDevice(IDirect3DDevice9* pD3D9Device)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device = pD3D9Device;
@@ -127,7 +128,7 @@ void DIRECTFONT_CALLMODE DirectFont::DirectFontSetDevice(IDirect3DDevice9* pD3D9
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTFONT_CALLMODE DirectFont::DirectFontSetFont(ID3DXFont* pD3DXFont)
+void DIRECTFONT_CALLMETHOD DirectFont::DirectFontSetFont(ID3DXFont* pD3DXFont)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Font = pD3DXFont;
@@ -140,7 +141,7 @@ void DIRECTFONT_CALLMODE DirectFont::DirectFontSetFont(ID3DXFont* pD3DXFont)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTFONT_CALLMODE DirectFont::DirectFontReset(void)
+HRESULT DIRECTFONT_CALLMETHOD DirectFont::DirectFontReset(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Font->OnLostDevice();
@@ -154,7 +155,7 @@ HRESULT DIRECTFONT_CALLMODE DirectFont::DirectFontReset(void)
 // @Para: LPWSTR lpszFontType
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTFONT_CALLMODE DirectFont::DirectFontInit(void)
+HRESULT DIRECTFONT_CALLMETHOD DirectFont::DirectFontInit(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -171,7 +172,7 @@ HRESULT DIRECTFONT_CALLMODE DirectFont::DirectFontInit(void)
 // @Para: LPWSTR lpszFontType
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTFONT_CALLMODE DirectFont::DirectFontInit(int nFontSize)
+HRESULT DIRECTFONT_CALLMETHOD DirectFont::DirectFontInit(int nFontSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -188,7 +189,7 @@ HRESULT DIRECTFONT_CALLMODE DirectFont::DirectFontInit(int nFontSize)
 // @Para: LPWSTR lpszFontType
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTFONT_CALLMODE DirectFont::DirectFontInit(int nFontSize, LPWSTR lpszFontType)
+HRESULT DIRECTFONT_CALLMETHOD DirectFont::DirectFontInit(int nFontSize, LPWSTR lpszFontType)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -205,7 +206,7 @@ HRESULT DIRECTFONT_CALLMODE DirectFont::DirectFontInit(int nFontSize, LPWSTR lps
 // @Para: LPWSTR lpszFontType
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTFONT_CALLMODE DirectFont::DirectFontDrawText(HWND hWnd, LPCWSTR lpcszStr, DWORD Format, D3DCOLOR Color)
+void DIRECTFONT_CALLMETHOD DirectFont::DirectFontDrawText(HWND hWnd, LPCWSTR lpcszStr, DWORD Format, D3DCOLOR Color)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	RECT Rect;
@@ -222,7 +223,7 @@ void DIRECTFONT_CALLMODE DirectFont::DirectFontDrawText(HWND hWnd, LPCWSTR lpcsz
 // @Para: LPSTR lpszFontType
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTFONT_CALLMODE DirectFont::DirectFontDrawTextA(HWND hWnd, LPCSTR lpcszStr, DWORD Format, D3DCOLOR Color)
+void DIRECTFONT_CALLMETHOD DirectFont::DirectFontDrawTextA(HWND hWnd, LPCSTR lpcszStr, DWORD Format, D3DCOLOR Color)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	RECT Rect;
@@ -239,7 +240,7 @@ void DIRECTFONT_CALLMODE DirectFont::DirectFontDrawTextA(HWND hWnd, LPCSTR lpcsz
 // @Para: LPWSTR lpszFontType
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTFONT_CALLMODE DirectFont::DirectFontDrawTextW(HWND hWnd, LPCWSTR lpcszStr, DWORD Format, D3DCOLOR Color)
+void DIRECTFONT_CALLMETHOD DirectFont::DirectFontDrawTextW(HWND hWnd, LPCWSTR lpcszStr, DWORD Format, D3DCOLOR Color)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	RECT Rect;

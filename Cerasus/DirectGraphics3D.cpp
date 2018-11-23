@@ -18,6 +18,7 @@
 * @date		2018-06-21	v1.28a	alopex	Add Transform Function.
 * @date		2018-06-24	v1.29a	alopex	Repair Bugs.
 * @date		2018-06-24	v1.30a	alopex	Repair Texture Alpha Channel.
+* @date		2018-11-23	v1.31a	alopex	Alter Call Method.
 */
 #include "DirectCommon.h"
 #include "DirectGraphics3D.h"
@@ -82,7 +83,7 @@ DirectGraphics3D::DirectGraphics3D(IDirect3DDevice9* pD3D9Device)
 // @Para: None
 // @Return: IDirect3DDevice9*
 //-------------------------------------------------------------------------------
-IDirect3DDevice9* DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DGetDevice(void) const
+IDirect3DDevice9* DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DGetDevice(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Device;
@@ -95,7 +96,7 @@ IDirect3DDevice9* DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DGe
 // @Para: None
 // @Return: IDirect3DVertexBuffer9*
 //-------------------------------------------------------------------------------
-IDirect3DVertexBuffer9* DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DGetVertexBuffer(void) const
+IDirect3DVertexBuffer9* DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DGetVertexBuffer(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9VertexBuffer;
@@ -108,7 +109,7 @@ IDirect3DVertexBuffer9* DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphi
 // @Para: None
 // @Return: IDirect3DIndexBuffer9*
 //-------------------------------------------------------------------------------
-IDirect3DIndexBuffer9* DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DGetIndexBuffer(void) const
+IDirect3DIndexBuffer9* DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DGetIndexBuffer(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9IndexBuffer;
@@ -121,7 +122,7 @@ IDirect3DIndexBuffer9* DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphic
 // @Para: None
 // @Return: IDirect3DTexture9*
 //-------------------------------------------------------------------------------
-IDirect3DTexture9* DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DGetTexture(void) const
+IDirect3DTexture9* DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DGetTexture(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Texture;
@@ -134,7 +135,7 @@ IDirect3DTexture9* DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DG
 // @Para: None
 // @Return: None
 //-------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DSetDevice(IDirect3DDevice9* pD3D9Device)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DSetDevice(IDirect3DDevice9* pD3D9Device)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device = pD3D9Device;
@@ -147,7 +148,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DSetDevice(IDire
 // @Para: None
 // @Return: None
 //----------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DSetVertexBuffer(IDirect3DVertexBuffer9* pD3D9VertexBuffer)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DSetVertexBuffer(IDirect3DVertexBuffer9* pD3D9VertexBuffer)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9VertexBuffer = pD3D9VertexBuffer;
@@ -160,7 +161,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DSetVertexBuffer
 // @Para: None
 // @Return: None
 //----------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DSetIndexBuffer(IDirect3DIndexBuffer9* pD3D9IndexBuffer)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DSetIndexBuffer(IDirect3DIndexBuffer9* pD3D9IndexBuffer)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9IndexBuffer = pD3D9IndexBuffer;
@@ -173,7 +174,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DSetIndexBuffer(
 // @Para: None
 // @Return: None
 //----------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DSetTexture(IDirect3DTexture9* pD3D9Texture)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DSetTexture(IDirect3DTexture9* pD3D9Texture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Texture = pD3D9Texture;
@@ -186,7 +187,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DSetTexture(IDir
 // @Para: None
 // @Return: None
 //----------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DReset(void)
+HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DReset(void)
 {
 	SAFE_RELEASE(m_pD3D9VertexBuffer);		//IDirect3DVertexBuffer9接口指针释放
 	SAFE_RELEASE(m_pD3D9IndexBuffer);		//IDirect3DIndexBuffer9接口指针释放
@@ -201,7 +202,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DReset(void)
 // @Para: int nPlane	//绘制平面数(立方体6个平面)(以此类推...)(Vertex类型:Base)
 // @Return: None
 //-------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInit(int nPlane)
+HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DInit(int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -222,7 +223,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInit(int nPl
 // @Para: LPCWSTR lpszStrTexture		//平面纹理路径(eg:L"Res\\title.png")
 // @Return: None
 //------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInit(int nPlane, LPCWSTR lpszStrTexture)
+HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DInit(int nPlane, LPCWSTR lpszStrTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -246,7 +247,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInit(int nPl
 // @Para: int nPlane					//绘制平面数(立方体6个平面)(以此类推...)(Vertex类型:Normal)
 // @Return: None
 //------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInit(Vertex3DType eVertex3DType, int nPlane)
+HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DInit(Vertex3DType eVertex3DType, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -299,7 +300,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInit(Vertex3
 // @Para: LPCWSTR lpszStrTexture		//平面纹理路径(eg:L"Res\\title.png")
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInit(Vertex3DType eVertex3DType, int nPlane, LPCWSTR lpszStrTexture)
+HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DInit(Vertex3DType eVertex3DType, int nPlane, LPCWSTR lpszStrTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -359,7 +360,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInit(Vertex3
 // @Para: int nPlane					//绘制平面数(立方体6个平面)(以此类推...)(Vertex类型:Normal)
 // @Return: None
 //--------------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInit(D3DPOOL ePool, DWORD Usage, Vertex3DType eVertex3DType, int nPlane)
+HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DInit(D3DPOOL ePool, DWORD Usage, Vertex3DType eVertex3DType, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -413,7 +414,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInit(D3DPOOL
 // @Para: int nPlane					//绘制平面数(立方体6个平面)(以此类推...)(Vertex类型:Normal)
 // @Return: None
 //-------------------------------------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInit(D3DPOOL ePool, DWORD Usage, Vertex3DType eVertex3DType, int nPlane, LPCWSTR lpszStrTexture)
+HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DInit(D3DPOOL ePool, DWORD Usage, Vertex3DType eVertex3DType, int nPlane, LPCWSTR lpszStrTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -470,7 +471,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInit(D3DPOOL
 // @Para: UINT nCount					//绘制平面数(立方体6个平面)
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DBase(UINT nCount)
+HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DInitVertex3DBase(UINT nCount)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -491,7 +492,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3D
 // @Para: LPCWSTR pStr					//平面纹理路径(eg:L"Res\\title.png")
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight)
+HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DInitVertex3DTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -514,7 +515,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3D
 // @Para: UINT nCount					//绘制平面数(立方体6个平面)
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DNormal(UINT nCount)
+HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DInitVertex3DNormal(UINT nCount)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -535,7 +536,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3D
 // @Para: LPCWSTR pStr					//平面纹理路径(eg:L"Res\\title.png")
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DNormalTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight)
+HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DInitVertex3DNormalTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -559,7 +560,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3D
 // @Para: LPCWSTR pStr					//平面纹理路径(eg:L"Res\\title.png")
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DNormalSpecularTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight)
+HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DInitVertex3DNormalSpecularTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -583,7 +584,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3D
 // @Para: LPCWSTR pStr					//平面纹理路径(eg:L"Res\\title.png")
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
+HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DInitVertex3DTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -607,7 +608,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3D
 // @Para: LPCWSTR pStr					//平面纹理路径(eg:L"Res\\title.png")
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DNormalTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
+HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DInitVertex3DNormalTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -631,7 +632,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3D
 // @Para: LPCWSTR pStr					//平面纹理路径(eg:L"Res\\title.png")
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3DNormalSpecularTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
+HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DInitVertex3DNormalSpecularTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -654,7 +655,7 @@ HRESULT DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DInitVertex3D
 // @Para: DG3D_RotatePara sRotatePara			//伸缩变换参数
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_ScalePara sScalePara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_ScalePara sScalePara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixWorld;									//世界变换矩阵
@@ -673,7 +674,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTrans
 // @Para: DG3D_RotatePara sRotatePara			//旋转变换参数
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_RotatePara sRotatePara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_RotatePara sRotatePara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixWorld;									//世界变换矩阵
@@ -694,7 +695,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTrans
 // @Para: DG3D_TranslatePara sTranslatePara			//平移变换参数
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_TranslatePara sTranslatePara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_TranslatePara sTranslatePara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixWorld;									//世界变换矩阵
@@ -713,7 +714,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTrans
 // @Para: DG3D_TranslatePara sTranslatePara			//平移变换参数
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_ScalePara sScalePara, DG3D_RotatePara sRotatePara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_ScalePara sScalePara, DG3D_RotatePara sRotatePara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixWorld;									//世界变换矩阵
@@ -736,7 +737,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTrans
 // @Para: DG3D_TranslatePara sTranslatePara			//平移变换参数
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_ScalePara sScalePara, DG3D_TranslatePara sTranslatePara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_ScalePara sScalePara, DG3D_TranslatePara sTranslatePara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixWorld;									//世界变换矩阵
@@ -757,7 +758,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTrans
 // @Para: DG3D_TranslatePara sTranslatePara			//平移变换参数
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_RotatePara sRotatePara, DG3D_TranslatePara sTranslatePara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_RotatePara sRotatePara, DG3D_TranslatePara sTranslatePara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixWorld;									//世界变换矩阵
@@ -780,7 +781,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTrans
 // @Para: DG3D_ScalePara sScalePara			//伸缩变换参数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_ScalePara sScalePara, DG3D_RotatePara sRotatePara, DG3D_TranslatePara sTranslatePara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_ScalePara sScalePara, DG3D_RotatePara sRotatePara, DG3D_TranslatePara sTranslatePara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixWorld;									//世界变换矩阵
@@ -805,7 +806,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTrans
 // @Para: DG3D_ScalePara sScalePara			//伸缩变换参数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_WorldTransformPara sWorldTransformPara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DWorldSpaceTransform(DG3D_WorldTransformPara sWorldTransformPara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixWorld;									//世界变换矩阵
@@ -830,7 +831,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DWorldSpaceTrans
 // @Para: D3DXVECTOR3* pvEye		//摄像机位置(观察者位置)
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixView;
@@ -848,7 +849,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DViewSpaceTransf
 // @Para: D3DXVECTOR3* pvAt			//物体位置
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye, D3DXVECTOR3* pvAt)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye, D3DXVECTOR3* pvAt)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixView;
@@ -866,7 +867,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DViewSpaceTransf
 // @Para: D3DXVECTOR3* pvUp			//向上向量
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye, D3DXVECTOR3* pvAt, D3DXVECTOR3* pvUp)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye, D3DXVECTOR3* pvAt, D3DXVECTOR3* pvUp)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixView;
@@ -883,7 +884,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DViewSpaceTransf
 // @Para: D3DXVECTOR3* pvUp			//向上向量
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DViewSpaceTransform(DG3D_ViewTransformPara sViewTransformPara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewSpaceTransform(DG3D_ViewTransformPara sViewTransformPara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixView;
@@ -898,7 +899,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DViewSpaceTransf
 // @Para: DG3D_PrespectiveTransformPara sPrespectiveTransformPara		//投影变换结构体参数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPerspectiveTransform(DG3D_PrespectiveTransformPara sPrespectiveTransformPara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPerspectiveTransform(DG3D_PrespectiveTransformPara sPrespectiveTransformPara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixProject;
@@ -913,7 +914,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPerspectiveTran
 // @Para: DG3D_PrespectiveTransformPara sPrespectiveTransformPara		//投影变换结构体参数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPerspectiveTransform(float fovy, float fAspect, float fZn, float fZf)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPerspectiveTransform(float fovy, float fAspect, float fZn, float fZf)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixProject;
@@ -928,7 +929,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPerspectiveTran
 // @Para: DG3D_ViewPortTransformPara sViewPortTransformPara				//视口变换结构体参数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DViewPortTransform(DG3D_ViewPortTransformPara sViewPortTransformPara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewPortTransform(DG3D_ViewPortTransformPara sViewPortTransformPara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DVIEWPORT9 ViewPort;
@@ -948,7 +949,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DViewPortTransfo
 // @Para: DG3D_ViewPortTransformPara sViewPortTransformPara				//视口变换结构体参数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DViewPortTransform(int nUserWidth, int nUserHeight)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewPortTransform(int nUserWidth, int nUserHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DVIEWPORT9 ViewPort;
@@ -968,7 +969,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DViewPortTransfo
 // @Para: DG3D_ViewPortTransformPara sViewPortTransformPara				
 // @Return: None
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DMatrixTransform(DG3D_WorldTransformPara sWorldTransformPara, DG3D_ViewTransformPara sViewTransformPara, DG3D_PrespectiveTransformPara sPrespectiveTransformPara, DG3D_ViewPortTransformPara sViewPortTransformPara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DMatrixTransform(DG3D_WorldTransformPara sWorldTransformPara, DG3D_ViewTransformPara sViewTransformPara, DG3D_PrespectiveTransformPara sPrespectiveTransformPara, DG3D_ViewPortTransformPara sViewPortTransformPara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixWorld;									//世界变换矩阵
@@ -1010,7 +1011,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DMatrixTransform
 // @Para: DG3D_CoordsTransformPara sCoordsTransformPara		//矩阵变换系数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DMatrixTransform(DG3D_CoordsTransformPara sCoordsTransformPara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DMatrixTransform(DG3D_CoordsTransformPara sCoordsTransformPara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixWorld;									//世界变换矩阵
@@ -1053,7 +1054,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DMatrixTransform
 // @Para: D3DCOLOR dwAmbientLight					//环境光
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DLightSettingPoint(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, float fRange, D3DCOLOR dwAmbientLight)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DLightSettingPoint(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, float fRange, D3DCOLOR dwAmbientLight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DLIGHT9 D3D9Light;
@@ -1083,7 +1084,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DLightSettingPoi
 // @Para: D3DCOLOR dwAmbientLight					//环境光
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DLightSettingDirectional(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vDirectional, D3DCOLOR dwAmbientLight)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DLightSettingDirectional(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vDirectional, D3DCOLOR dwAmbientLight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DLIGHT9 D3D9Light;
@@ -1109,7 +1110,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DLightSettingDir
 // @Para: D3DCOLOR dwAmbientLight					//环境光
 // @Return: None
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DLightSettingSpot(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, D3DXVECTOR3 vDirectional, float fRange, float fFallOff, float fPhi, float fTheta, D3DCOLOR dwAmbientLight)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DLightSettingSpot(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, D3DXVECTOR3 vDirectional, float fRange, float fFallOff, float fPhi, float fTheta, D3DCOLOR dwAmbientLight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DLIGHT9 D3D9Light;
@@ -1143,7 +1144,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DLightSettingSpo
 // @Para: D3DCOLOR dwAmbientLight					//环境光
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DLightSetting(D3DLIGHT9* pD3D9Light, D3DCOLOR dwAmbientLight)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DLightSetting(D3DLIGHT9* pD3D9Light, D3DCOLOR dwAmbientLight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device->SetLight(0, pD3D9Light);										//设置光源  
@@ -1159,7 +1160,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DLightSetting(D3
 // @Para: D3DCOLOR dwAmbientLight					//环境光
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DLightSetting(LightType eLightType, D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, D3DXVECTOR3 vDirectional, float fRange, float fFallOff, float fPhi, float fTheta, D3DCOLOR dwAmbientLight)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DLightSetting(LightType eLightType, D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, D3DXVECTOR3 vDirectional, float fRange, float fFallOff, float fPhi, float fTheta, D3DCOLOR dwAmbientLight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DLIGHT9 D3D9Light;
@@ -1218,7 +1219,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DLightSetting(Li
 // @Para: D3DMATERIAL9* pD3D9Material				//D3D9材质
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DMaterialSetting(D3DMATERIAL9* pD3D9Material)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DMaterialSetting(D3DMATERIAL9* pD3D9Material)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device->SetMaterial(pD3D9Material);				//设置一下材质
@@ -1231,7 +1232,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DMaterialSetting
 // @Para: D3DMATERIAL9* pD3D9Material				//D3D9材质
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DMaterialSetting(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DMaterialSetting(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DMATERIAL9 D3D9Material;
@@ -1253,7 +1254,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DMaterialSetting
 // @Para: D3DMATERIAL9* pD3D9Material				//D3D9材质
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DMaterialSetting(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive, float fPower)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DMaterialSetting(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive, float fPower)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DMATERIAL9 D3D9Material;
@@ -1277,7 +1278,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DMaterialSetting
 // @Para: int nSize
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DBase* VertexArray, int nSize)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DBase* VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	Vertex3DBase* pVertices = NULL;
@@ -1300,7 +1301,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertex(V
 // @Para: int nSize
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DTexture* VertexArray, int nSize)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DTexture* VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	Vertex3DTexture* pVertices = NULL;
@@ -1323,7 +1324,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertex(V
 // @Para: int nSize
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DNormal* VertexArray, int nSize)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DNormal* VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	Vertex3DNormal* pVertices = NULL;
@@ -1346,7 +1347,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertex(V
 // @Para: int nSize
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DNormalTexture* VertexArray, int nSize)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DNormalTexture* VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	Vertex3DNormalTexture* pVertices = NULL;
@@ -1369,7 +1370,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertex(V
 // @Para: int nSize
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DNormalSpecularTexture* VertexArray, int nSize)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DNormalSpecularTexture* VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	Vertex3DNormalSpecularTexture* pVertices = NULL;
@@ -1393,7 +1394,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertex(V
 // @Para: int nSize
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DType eVertex3DType, LPVOID VertexArray, int nSize)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DType eVertex3DType, LPVOID VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	Vertex3DBase* pVertices3DBase = NULL;
@@ -1462,7 +1463,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertex(V
 // @Para: int nPlane	//平面数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingIndex(int nPlane)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingIndex(int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	WORD* pIndices = NULL;
@@ -1489,7 +1490,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingIndex(in
 // @Para: int nPlane	//平面数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DBase* VertexArray, int nPlane)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DBase* VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -1530,7 +1531,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertexAn
 // @Para: int nPlane	//平面数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DTexture* VertexArray, int nPlane)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DTexture* VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -1571,7 +1572,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertexAn
 // @Para: int nPlane	//平面数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DNormal* VertexArray, int nPlane)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DNormal* VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -1612,7 +1613,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertexAn
 // @Para: int nPlane	//平面数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DNormalTexture* VertexArray, int nPlane)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DNormalTexture* VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -1653,7 +1654,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertexAn
 // @Para: int nPlane	//平面数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DNormalSpecularTexture* VertexArray, int nPlane)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DNormalSpecularTexture* VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -1694,7 +1695,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertexAn
 // @Para: int nPlane	//平面数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DType eVertex3DType, LPVOID VertexArray, int nPlane)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DType eVertex3DType, LPVOID VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -1782,7 +1783,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DPaddingVertexAn
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DRenderStateAlphaEnable()
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRenderStateAlphaEnable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);					//Alpha混合开启
@@ -1795,7 +1796,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DRenderStateAlph
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DRenderStateAlphaDisable()
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRenderStateAlphaDisable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);					//Alpha混合关闭
@@ -1808,7 +1809,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DRenderStateAlph
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DRenderStateLightEnable()
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRenderStateLightEnable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device->SetRenderState(D3DRS_LIGHTING, TRUE);							//Light开启光照
@@ -1821,7 +1822,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DRenderStateLigh
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DRenderStateLightDisable()
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRenderStateLightDisable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device->SetRenderState(D3DRS_LIGHTING, FALSE);							//Light关闭光照
@@ -1834,7 +1835,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DRenderStateLigh
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DRenderStateSetting()
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRenderStateSetting()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -1861,7 +1862,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DRenderStateSett
 // @Para: bool bIsTexture				//是否启用纹理
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DRender(Vertex3DType eVertex3DType, int nPlane, bool bIsTexture)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRender(Vertex3DType eVertex3DType, int nPlane, bool bIsTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -1919,7 +1920,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DRender(Vertex3D
 // @Para: bool bIsTexture				//是否启用纹理
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DRender(Vertex3DType eVertex3DType, int nStartIndex, int nPlane, bool bIsTexture)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRender(Vertex3DType eVertex3DType, int nStartIndex, int nPlane, bool bIsTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -1976,7 +1977,7 @@ void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DRender(Vertex3D
 // @Para: LPDIRECT3DTEXTURE9 pRenderTexture		//导入渲染纹理
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMODE DirectGraphics3D::DirectGraphics3DRender(Vertex3DType eVertex3DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRender(Vertex3DType eVertex3DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 

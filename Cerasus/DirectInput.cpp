@@ -6,7 +6,7 @@
 * @file		DirectInput.cpp
 * @brief	This Program is DirectInput DLL Project.
 * @author	Alopex/Helium
-* @version	v1.23a
+* @version	v1.24a
 * @date		2017-10-27	v1.00a	alopex	Create Project.
 * @date		2017-12-3	v1.01a	alopex	Add Enum & Modify CallBack Function.
 * @date		2017-12-8	v1.11a	alopex	Code Do Not Rely On MSVCR Library.

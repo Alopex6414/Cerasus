@@ -6,10 +6,11 @@
 * @file		DirectMesh.cpp
 * @brief	This File is DirectX Library Common Header.
 * @author	Alopex/Helium
-* @version	v1.02a
+* @version	v1.03a
 * @date		2018-06-25	v1.00a	alopex	Create This File.
 * @date		2018-06-26	v1.01a	alopex	Add Get&Set Function.
 * @date		2018-06-26	v1.02a	alopex	Add Reset Function.
+* @date		2018-11-23	v1.03a	alopex	Alter Call Method.
 */
 #include "DirectCommon.h"
 #include "DirectMesh.h"
@@ -83,7 +84,7 @@ DirectMesh::DirectMesh(LPDIRECT3DDEVICE9 pD3D9Device)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPDIRECT3DDEVICE9 DIRECTMESH_CALLMODE DirectMesh::DirectMeshGetDevice() const
+LPDIRECT3DDEVICE9 DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshGetDevice() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Device;
@@ -96,7 +97,7 @@ LPDIRECT3DDEVICE9 DIRECTMESH_CALLMODE DirectMesh::DirectMeshGetDevice() const
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPD3DXMESH DIRECTMESH_CALLMODE DirectMesh::DirectMeshGetCube() const
+LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshGetCube() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshCube;
@@ -109,7 +110,7 @@ LPD3DXMESH DIRECTMESH_CALLMODE DirectMesh::DirectMeshGetCube() const
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPD3DXMESH DIRECTMESH_CALLMODE DirectMesh::DirectMeshGetSphere() const
+LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshGetSphere() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshSphere;
@@ -122,7 +123,7 @@ LPD3DXMESH DIRECTMESH_CALLMODE DirectMesh::DirectMeshGetSphere() const
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPD3DXMESH DIRECTMESH_CALLMODE DirectMesh::DirectMeshGetCylinder() const
+LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshGetCylinder() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshCylinder;
@@ -135,7 +136,7 @@ LPD3DXMESH DIRECTMESH_CALLMODE DirectMesh::DirectMeshGetCylinder() const
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPD3DXMESH DIRECTMESH_CALLMODE DirectMesh::DirectMeshGetTorus() const
+LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshGetTorus() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshTorus;
@@ -148,7 +149,7 @@ LPD3DXMESH DIRECTMESH_CALLMODE DirectMesh::DirectMeshGetTorus() const
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPD3DXMESH DIRECTMESH_CALLMODE DirectMesh::DirectMeshGetPolygon() const
+LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshGetPolygon() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshPolygon;
@@ -161,7 +162,7 @@ LPD3DXMESH DIRECTMESH_CALLMODE DirectMesh::DirectMeshGetPolygon() const
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPD3DXMESH DIRECTMESH_CALLMODE DirectMesh::DirectMeshGetTeapot() const
+LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshGetTeapot() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshTeapot;
@@ -174,7 +175,7 @@ LPD3DXMESH DIRECTMESH_CALLMODE DirectMesh::DirectMeshGetTeapot() const
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTMESH_CALLMODE DirectMesh::DirectMeshSetDevice(LPDIRECT3DDEVICE9 pD3D9Device)
+void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshSetDevice(LPDIRECT3DDEVICE9 pD3D9Device)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device = pD3D9Device;
@@ -187,7 +188,7 @@ void DIRECTMESH_CALLMODE DirectMesh::DirectMeshSetDevice(LPDIRECT3DDEVICE9 pD3D9
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTMESH_CALLMODE DirectMesh::DirectMeshSetCube(LPD3DXMESH pD3DXMeshCube)
+void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshSetCube(LPD3DXMESH pD3DXMeshCube)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3DXMeshCube = pD3DXMeshCube;
@@ -200,7 +201,7 @@ void DIRECTMESH_CALLMODE DirectMesh::DirectMeshSetCube(LPD3DXMESH pD3DXMeshCube)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTMESH_CALLMODE DirectMesh::DirectMeshSetSphere(LPD3DXMESH pD3DXMeshSphere)
+void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshSetSphere(LPD3DXMESH pD3DXMeshSphere)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3DXMeshSphere = pD3DXMeshSphere;
@@ -213,7 +214,7 @@ void DIRECTMESH_CALLMODE DirectMesh::DirectMeshSetSphere(LPD3DXMESH pD3DXMeshSph
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTMESH_CALLMODE DirectMesh::DirectMeshSetCylinder(LPD3DXMESH pD3DXMeshCylinder)
+void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshSetCylinder(LPD3DXMESH pD3DXMeshCylinder)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3DXMeshCylinder = pD3DXMeshCylinder;
@@ -226,7 +227,7 @@ void DIRECTMESH_CALLMODE DirectMesh::DirectMeshSetCylinder(LPD3DXMESH pD3DXMeshC
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTMESH_CALLMODE DirectMesh::DirectMeshSetTorus(LPD3DXMESH pD3DXMeshTorus)
+void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshSetTorus(LPD3DXMESH pD3DXMeshTorus)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3DXMeshTorus = pD3DXMeshTorus;
@@ -239,7 +240,7 @@ void DIRECTMESH_CALLMODE DirectMesh::DirectMeshSetTorus(LPD3DXMESH pD3DXMeshToru
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTMESH_CALLMODE DirectMesh::DirectMeshSetPolygon(LPD3DXMESH pD3DXMeshPolygon)
+void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshSetPolygon(LPD3DXMESH pD3DXMeshPolygon)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3DXMeshPolygon = pD3DXMeshPolygon;
@@ -252,7 +253,7 @@ void DIRECTMESH_CALLMODE DirectMesh::DirectMeshSetPolygon(LPD3DXMESH pD3DXMeshPo
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTMESH_CALLMODE DirectMesh::DirectMeshSetTeapot(LPD3DXMESH pD3DXMeshTeapot)
+void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshSetTeapot(LPD3DXMESH pD3DXMeshTeapot)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3DXMeshTeapot = pD3DXMeshTeapot;
@@ -265,7 +266,7 @@ void DIRECTMESH_CALLMODE DirectMesh::DirectMeshSetTeapot(LPD3DXMESH pD3DXMeshTea
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTMESH_CALLMODE DirectMesh::DirectMeshReset()
+void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshReset()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	SAFE_RELEASE(m_pD3DXMeshCube);
@@ -285,7 +286,7 @@ void DIRECTMESH_CALLMODE DirectMesh::DirectMeshReset()
 // @Para: FLOAT fDepth(Cube立方体Z轴向深度)
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshInitCube(FLOAT fWidth, FLOAT fHeight, FLOAT fDepth)
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshInitCube(FLOAT fWidth, FLOAT fHeight, FLOAT fDepth)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return D3DXCreateBox(m_pD3D9Device, fWidth, fHeight, fDepth, &m_pD3DXMeshCube, NULL);
@@ -302,7 +303,7 @@ HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshInitCube(FLOAT fWidth, FLOAT f
 // @Para: UINT nStacks(Cylinder柱体的两端间共有几段)
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshInitCylinder(FLOAT fRadius1, FLOAT fRadius2, FLOAT fLength, UINT nSlices, UINT nStacks)
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshInitCylinder(FLOAT fRadius1, FLOAT fRadius2, FLOAT fLength, UINT nSlices, UINT nStacks)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return D3DXCreateCylinder(m_pD3D9Device, fRadius1, fRadius2, fLength, nSlices, nStacks, &m_pD3DXMeshCylinder, NULL);
@@ -317,7 +318,7 @@ HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshInitCylinder(FLOAT fRadius1, F
 // @Para: UINT nStacks(Sphere球面体绕主轴线的纬线数)
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshInitSphere(FLOAT fRadius, UINT nSlices, UINT nStacks)
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshInitSphere(FLOAT fRadius, UINT nSlices, UINT nStacks)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return D3DXCreateSphere(m_pD3D9Device, fRadius, nSlices, nStacks, &m_pD3DXMeshSphere, NULL);
@@ -333,7 +334,7 @@ HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshInitSphere(FLOAT fRadius, UINT
 // @Para: UINT nRings(Torus圆环的内圈有几个面)
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshInitTorus(FLOAT fInnerRadius, FLOAT fOuterRadius, UINT nSides, UINT nRings)
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshInitTorus(FLOAT fInnerRadius, FLOAT fOuterRadius, UINT nSides, UINT nRings)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return D3DXCreateTorus(m_pD3D9Device, fInnerRadius, fOuterRadius, nSides, nRings, &m_pD3DXMeshTorus, NULL);
@@ -347,7 +348,7 @@ HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshInitTorus(FLOAT fInnerRadius, 
 // @Para: UINT nSides(多面体边数)
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshInitPolygon(FLOAT fLength, UINT nSides)
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshInitPolygon(FLOAT fLength, UINT nSides)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return D3DXCreatePolygon(m_pD3D9Device, fLength, nSides, &m_pD3DXMeshPolygon, NULL);
@@ -360,7 +361,7 @@ HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshInitPolygon(FLOAT fLength, UIN
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshInitTeapot()
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshInitTeapot()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return D3DXCreateTeapot(m_pD3D9Device, &m_pD3DXMeshTeapot, NULL);
@@ -373,7 +374,7 @@ HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshInitTeapot()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshDrawSubsetCube()
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshDrawSubsetCube()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshCube->DrawSubset(0);
@@ -386,7 +387,7 @@ HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshDrawSubsetCube()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshDrawSubsetCylinder()
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshDrawSubsetCylinder()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshCylinder->DrawSubset(0);
@@ -399,7 +400,7 @@ HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshDrawSubsetCylinder()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshDrawSubsetSphere()
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshDrawSubsetSphere()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshSphere->DrawSubset(0);
@@ -412,7 +413,7 @@ HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshDrawSubsetSphere()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshDrawSubsetTorus()
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshDrawSubsetTorus()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshTorus->DrawSubset(0);
@@ -425,7 +426,7 @@ HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshDrawSubsetTorus()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshDrawSubsetPolygon()
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshDrawSubsetPolygon()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshPolygon->DrawSubset(0);
@@ -438,7 +439,7 @@ HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshDrawSubsetPolygon()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshDrawSubsetTeapot()
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshDrawSubsetTeapot()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshTeapot->DrawSubset(0);
@@ -451,7 +452,7 @@ HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshDrawSubsetTeapot()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMODE DirectMesh::DirectMeshDrawSubset(DM_GEOMETRY eGeometry)
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshDrawSubset(DM_GEOMETRY eGeometry)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	HRESULT hr;

@@ -6,7 +6,7 @@
 * @file		DirectGraphics2D.cpp
 * @brief	This Program is DirectGraphics2D DLL Project.
 * @author	Alopex/Helium
-* @version	v1.24a
+* @version	v1.25a
 * @date		2017-11-2	v1.00a	alopex	Create Project.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
 * @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.

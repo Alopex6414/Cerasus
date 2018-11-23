@@ -6,7 +6,7 @@
 * @file		DirectFont.h
 * @brief	This File is DirectFont DLL Project.
 * @author	Alopex/Helium
-* @version	v1.13a
+* @version	v1.14a
 * @date		2017-12-16	v1.00a	alopex	Create This File.
 * @date		2018-01-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-01-10	v1.10a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).

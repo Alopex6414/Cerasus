@@ -6,7 +6,7 @@
 * @file		DirectGraphics3D.h
 * @brief	This File is DirectGraphics3D DLL Project.
 * @author	Alopex/Helium
-* @version	v1.30a
+* @version	v1.31a
 * @date		2017-11-29	v1.00a	alopex	Create Project.
 * @date		2017-12-3	v1.01a	alopex	Modify Bug.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.

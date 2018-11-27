@@ -737,7 +737,7 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddCheckBox(int ID, LPCWSTR strTe
 //------------------------------------------------------------------
 HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddRadioButton(int ID, UINT nButtonGroup, LPCWSTR strText, int x, int y, int width, int height, bool bChecked, UINT nHotkey, bool bIsDefault, CSakuraRadioButton ** ppCreated)
 {
-	CSakuraRadioButton* pRadioButton = new CSakuraRadioButton();
+	CSakuraRadioButton* pRadioButton = new CSakuraRadioButton(this);
 
 	if (ppCreated != NULL)
 	{

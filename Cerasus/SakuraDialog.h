@@ -77,6 +77,7 @@ public:
 protected:
 	void	SAKURADIALOG_CALLMETHOD	OnMouseMove(POINT pt);													// CSakuraDialog 鼠标移动
 	void	SAKURADIALOG_CALLMETHOD	InitDefaultElement();													// CSakuraDialog 窗口控件默认资源初始化
+	void	SAKURADIALOG_CALLMETHOD AlterDefaultElement(CSakuraControl* pControl);							// CSakuraDialog 窗口控件默认资源修改
 
 public:
 	CSakuraDialog();

@@ -246,6 +246,7 @@
     <ClInclude Include="SakuraRadioButton.h" />
     <ClInclude Include="SakuraResource.h" />
     <ClInclude Include="SakuraResourceManager.h" />
+    <ClInclude Include="SakuraScrollBar.h" />
     <ClInclude Include="SakuraStatic.h" />
     <ClInclude Include="SakuraUICommon.h" />
   </ItemGroup>
@@ -276,6 +277,7 @@
     <ClCompile Include="SakuraRadioButton.cpp" />
     <ClCompile Include="SakuraResource.cpp" />
     <ClCompile Include="SakuraResourceManager.cpp" />
+    <ClCompile Include="SakuraScrollBar.cpp" />
     <ClCompile Include="SakuraStatic.cpp" />
   </ItemGroup>
   <ItemGroup>

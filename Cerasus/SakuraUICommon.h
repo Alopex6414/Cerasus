@@ -76,6 +76,15 @@ enum SAKURA_CONTROL_STATE
 	SAKURA_STATE_PRESSED,
 };
 
+enum SAKURA_SCROLLBAR_STATE
+{
+	SAKURA_SCROLLBAR_STATE_CLEAR,
+	SAKURA_SCROLLBAR_STATE_CLICKED_UP,
+	SAKURA_SCROLLBAR_STATE_CLICKED_DOWN,
+	SAKURA_SCROLLBAR_STATE_HELD_UP,
+	SAKURA_SCROLLBAR_STATE_HELD_DOWN,
+};
+
 //Struct Definition
 typedef struct
 {
@@ -91,6 +100,8 @@ class CSakuraStatic;
 class CSakuraButton;
 class CSakuraCheckBox;
 class CSakuraRadioButton;
+class CSakuraComboBox;
+class CSakuraScrollBar;
 
 //Function Declaration
 typedef VOID(CALLBACK*LPCALLBACKSAKURAGUIEVENT)(UINT nEvent, int nControlID, CSakuraControl* pControl, void* pUserContext);

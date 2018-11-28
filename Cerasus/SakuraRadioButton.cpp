@@ -12,6 +12,8 @@
 #include "SakuraDialog.h"
 #include "SakuraRadioButton.h"
 
+// SakuraGUI 单选框控件派生类(UI)
+
 //------------------------------------------------------------------
 // @Function:	 SetCheckedInternal()
 // @Purpose: CSakuraRadioButton设置控件内部选中

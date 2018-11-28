@@ -60,10 +60,11 @@ DirectFont::~DirectFont()
 //------------------------------------------------------------------
 DirectFont::DirectFont(const DirectFont & Object)
 {
+	m_bThreadSafe = true;									//线程安全
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
+
 	m_pD3D9Device = Object.m_pD3D9Device;
 	m_pD3D9Font = Object.m_pD3D9Font;
-	m_cs = Object.m_cs;
-	m_bThreadSafe = Object.m_bThreadSafe;
 }
 
 //------------------------------------------------------------------

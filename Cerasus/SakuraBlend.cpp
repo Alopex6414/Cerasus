@@ -62,7 +62,14 @@ CSakuraBlendFont::CSakuraBlendFont(const CSakuraBlendFont & Object)
 
 	for (int i = 0; i < MAX_CONTROL_STATES; ++i)
 	{
-		m_States[i] = new DirectFont(*(Object.m_States[i]));
+		if (Object.m_States[i] == NULL)
+		{
+			m_States[i] = NULL;
+		}
+		else
+		{
+			m_States[i] = new DirectFont(*(Object.m_States[i]));
+		}
 	}
 
 	m_Current = NULL;
@@ -85,6 +92,33 @@ CSakuraBlendFont::CSakuraBlendFont(LPDIRECT3DDEVICE9 pD3D9Device)
 	}
 
 	m_Current = NULL;
+}
+
+//------------------------------------------------------------------
+// @Function:	 CSakuraBlendFont()
+// @Purpose: CSakuraBlendFont赋值运算符重载
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CSakuraBlendFont & CSakuraBlendFont::operator=(const CSakuraBlendFont & Object)
+{
+	m_pD3D9Device = Object.m_pD3D9Device;
+
+	for (int i = 0; i < MAX_CONTROL_STATES; ++i)
+	{
+		if (Object.m_States[i] == NULL)
+		{
+			m_States[i] = NULL;
+		}
+		else
+		{
+			m_States[i] = new DirectFont(*(Object.m_States[i]));
+		}
+	}
+
+	m_Current = NULL;
+	return *this;
 }
 
 //------------------------------------------------------------------
@@ -260,7 +294,14 @@ CSakuraBlendTexture::CSakuraBlendTexture(const CSakuraBlendTexture & Object)
 
 	for (int i = 0; i < MAX_CONTROL_STATES; ++i)
 	{
-		m_States[i] = new CCerasusUnit(*(Object.m_States[i]));
+		if (Object.m_States[i] == NULL)
+		{
+			m_States[i] = NULL;
+		}
+		else
+		{
+			m_States[i] = new CCerasusUnit(*(Object.m_States[i]));
+		}
 	}
 
 	m_Current = NULL;
@@ -283,6 +324,33 @@ CSakuraBlendTexture::CSakuraBlendTexture(LPDIRECT3DDEVICE9 pD3D9Device)
 	}
 
 	m_Current = NULL;
+}
+
+//------------------------------------------------------------------
+// @Function:	 CSakuraBlendTexture()
+// @Purpose: CSakuraBlendTexture赋值运算符重载
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CSakuraBlendTexture & CSakuraBlendTexture::operator=(const CSakuraBlendTexture & Object)
+{
+	m_pD3D9Device = Object.m_pD3D9Device;
+
+	for (int i = 0; i < MAX_CONTROL_STATES; ++i)
+	{
+		if (Object.m_States[i] == NULL)
+		{
+			m_States[i] = NULL;
+		}
+		else
+		{
+			m_States[i] = new CCerasusUnit(*(Object.m_States[i]));
+		}
+	}
+
+	m_Current = NULL;
+	return *this;
 }
 
 //------------------------------------------------------------------

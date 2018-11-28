@@ -67,10 +67,10 @@ CCerasusUnit::~CCerasusUnit()
 //------------------------------------------------------------------
 CCerasusUnit::CCerasusUnit(const CCerasusUnit & Object)
 {
-	m_pDirectGraphics3D = Object.m_pDirectGraphics3D;
-	m_cs = Object.m_cs;
-	m_bThreadSafe = Object.m_bThreadSafe;
+	m_bThreadSafe = true;									//线程安全
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
 
+	m_pDirectGraphics3D = Object.m_pDirectGraphics3D;
 	m_nScreenWidth = Object.m_nScreenWidth;
 	m_nScreenHeight = Object.m_nScreenHeight;
 	m_pTextureStr = Object.m_pTextureStr;

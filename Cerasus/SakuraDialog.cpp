@@ -280,7 +280,7 @@ void SAKURADIALOG_CALLMETHOD CSakuraDialog::AlterDefaultElement(CSakuraControl *
 				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->m_nScreenHeight = pControl->m_pDialog->GetHeight();
 				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->m_rcUnit.left = pControl->m_nX;
 				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->m_rcUnit.top = pControl->m_nY;
-				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->m_rcUnit.right = pControl->m_nX + pControl->m_nWidth;
+				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->m_rcUnit.right = pControl->m_nX + pControl->m_nHeight;
 				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->m_rcUnit.bottom = pControl->m_nY + pControl->m_nHeight;
 				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->m_sCoordsTransformPara.sViewTransformPara.vEye = D3DXVECTOR3(0.0f, 0.0f, -(pControl->m_pDialog->GetHeight() * 0.5f));
 				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->m_sCoordsTransformPara.sPrespectiveTransformPara.fAspect = (float)(pControl->m_pDialog->GetWidth() * 1.0f / pControl->m_pDialog->GetHeight());
@@ -292,7 +292,7 @@ void SAKURADIALOG_CALLMETHOD CSakuraDialog::AlterDefaultElement(CSakuraControl *
 				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_PRESSED]->m_nScreenHeight = pControl->m_pDialog->GetHeight();
 				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_PRESSED]->m_rcUnit.left = pControl->m_nX;
 				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_PRESSED]->m_rcUnit.top = pControl->m_nY;
-				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_PRESSED]->m_rcUnit.right = pControl->m_nX + pControl->m_nWidth;
+				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_PRESSED]->m_rcUnit.right = pControl->m_nX + pControl->m_nHeight;
 				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_PRESSED]->m_rcUnit.bottom = pControl->m_nY + pControl->m_nHeight;
 				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_PRESSED]->m_sCoordsTransformPara.sViewTransformPara.vEye = D3DXVECTOR3(0.0f, 0.0f, -(pControl->m_pDialog->GetHeight() * 0.5f));
 				(*ppElement)->GetTextureBlend().m_States[SAKURA_STATE_PRESSED]->m_sCoordsTransformPara.sPrespectiveTransformPara.fAspect = (float)(pControl->m_pDialog->GetWidth() * 1.0f / pControl->m_pDialog->GetHeight());

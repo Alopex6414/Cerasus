@@ -28,7 +28,7 @@
 #define	SAKURARADIOBUTTON_CALLMETHOD	__stdcall
 
 //Class Definition
-class CSakuraRadioButton : public CSakuraCheckBox
+class SAKURARADIOBUTTON_API CSakuraRadioButton : public CSakuraCheckBox
 {
 protected:
 	UINT m_nButtonGroup;

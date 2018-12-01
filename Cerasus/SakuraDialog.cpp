@@ -767,6 +767,76 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddRadioButton(int ID, UINT nButt
 }
 
 //------------------------------------------------------------------
+// @Function:	 AddComboBox()
+// @Purpose: CSakuraDialog窗口添加下拉选择框控件
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddComboBox(int ID, int x, int y, int width, int height, UINT nHotkey, bool bIsDefault, CSakuraComboBox ** ppCreated)
+{
+	CSakuraComboBox* pComboBox = new CSakuraComboBox(this);
+
+	if (ppCreated != NULL)
+	{
+		*ppCreated = pComboBox;
+	}
+
+	if (pComboBox == NULL)
+	{
+		return E_OUTOFMEMORY;
+	}
+
+	VERIFY(AddControl(pComboBox));
+
+	pComboBox->SetID(ID);
+	pComboBox->SetLocation(x, y);
+	pComboBox->SetSize(width, height);
+	pComboBox->SetHotkey(nHotkey);
+	pComboBox->m_bIsDefault = bIsDefault;
+
+	AlterDefaultElement(pComboBox);
+
+	return S_OK;
+}
+
+//------------------------------------------------------------------
+// @Function:	 AddSlider()
+// @Purpose: CSakuraDialog窗口添加滑块控件
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddSlider(int ID, int x, int y, int width, int height, int min, int max, int value, bool bIsDefault, CSakuraSlider ** ppCreated)
+{
+	CSakuraSlider* pSlider = new CSakuraSlider(this);
+
+	if (ppCreated != NULL)
+	{
+		*ppCreated = pSlider;
+	}
+
+	if (pSlider == NULL)
+	{
+		return E_OUTOFMEMORY;
+	}
+
+	VERIFY(AddControl(pSlider));
+
+	pSlider->SetID(ID);
+	pSlider->SetLocation(x, y);
+	pSlider->SetSize(width, height);
+	pSlider->m_bIsDefault = bIsDefault;
+	pSlider->SetRange(min, max);
+	pSlider->SetValue(value);
+	pSlider->UpdateRects();
+
+	AlterDefaultElement(pSlider);
+
+	return S_OK;
+}
+
+//------------------------------------------------------------------
 // @Function:	 AddControl()
 // @Purpose: CSakuraDialog窗口添加控件
 // @Since: v1.00a
@@ -896,7 +966,7 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddTextureEx(int ID, UINT nContro
 //------------------------------------------------------------------
 CSakuraStatic *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetStatic(int ID)
 {
-	return (CSakuraStatic*)GetControl(ID, SAKURA_CONTROL_STATIC);
+	return dynamic_cast<CSakuraStatic*>(GetControl(ID, SAKURA_CONTROL_STATIC));
 }
 
 //------------------------------------------------------------------
@@ -908,7 +978,7 @@ CSakuraStatic *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetStatic(int ID)
 //------------------------------------------------------------------
 CSakuraButton *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetButton(int ID)
 {
-	return (CSakuraButton*)GetControl(ID, SAKURA_CONTROL_BUTTON);
+	return dynamic_cast<CSakuraButton*>(GetControl(ID, SAKURA_CONTROL_BUTTON));
 }
 
 //------------------------------------------------------------------
@@ -920,7 +990,7 @@ CSakuraButton *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetButton(int ID)
 //------------------------------------------------------------------
 CSakuraCheckBox *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetCheckBox(int ID)
 {
-	return (CSakuraCheckBox*)GetControl(ID, SAKURA_CONTROL_CHECKBOX);
+	return dynamic_cast<CSakuraCheckBox*>(GetControl(ID, SAKURA_CONTROL_CHECKBOX));
 }
 
 //------------------------------------------------------------------
@@ -932,7 +1002,31 @@ CSakuraCheckBox *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetCheckBox(int ID)
 //------------------------------------------------------------------
 CSakuraRadioButton *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetRadioButton(int ID)
 {
-	return (CSakuraRadioButton*)GetControl(ID, SAKURA_CONTROL_RADIOBUTTON);
+	return dynamic_cast<CSakuraRadioButton*>(GetControl(ID, SAKURA_CONTROL_RADIOBUTTON));
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetComboBox()
+// @Purpose: CSakuraDialog窗口获取下拉框控件
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CSakuraComboBox *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetComboBox(int ID)
+{
+	return dynamic_cast<CSakuraComboBox*>(GetControl(ID, SAKURA_CONTROL_COMBOBOX));
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetSlider()
+// @Purpose: CSakuraDialog窗口获取滑块控件
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CSakuraSlider *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetSlider(int ID)
+{
+	return dynamic_cast<CSakuraSlider*>(GetControl(ID, SAKURA_CONTROL_SLIDER));
 }
 
 //------------------------------------------------------------------
@@ -1003,6 +1097,44 @@ CSakuraControl *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetControlAtPoint(POINT p
 }
 
 //------------------------------------------------------------------
+// @Function:	 GetControlEnabled()
+// @Purpose: CSakuraDialog获取控件使能状态
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+bool SAKURADIALOG_CALLMETHOD CSakuraDialog::GetControlEnabled(int ID)
+{
+	CSakuraControl* pControl = GetControl(ID);
+
+	if (pControl == NULL)
+	{
+		return false;
+	}
+
+	return (pControl->GetEnabled());
+}
+
+//------------------------------------------------------------------
+// @Function:	 SetControlEnabled()
+// @Purpose: CSakuraDialog设置控件使能状态
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void SAKURADIALOG_CALLMETHOD CSakuraDialog::SetControlEnabled(int ID, bool bEnabled)
+{
+	CSakuraControl* pControl = GetControl(ID);
+
+	if (pControl == NULL)
+	{
+		return;
+	}
+
+	pControl->SetEnabled(bEnabled);
+}
+
+//------------------------------------------------------------------
 // @Function:	 ClearRadioButtonGroup()
 // @Purpose: CSakuraDialog清除单选按钮组别
 // @Since: v1.00a
@@ -1036,7 +1168,14 @@ void SAKURADIALOG_CALLMETHOD CSakuraDialog::ClearRadioButtonGroup(UINT nGroup)
 //------------------------------------------------------------------
 void SAKURADIALOG_CALLMETHOD CSakuraDialog::ClearComboBox(int nID)
 {
+	CSakuraComboBox* pComboBox = GetComboBox(nID);
+
+	if (pComboBox == NULL)
+	{
+		return;
+	}
 	
+	pComboBox->RemoveAllItems();
 }
 
 //------------------------------------------------------------------

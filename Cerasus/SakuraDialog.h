@@ -23,6 +23,9 @@
 #include "SakuraButton.h"
 #include "SakuraCheckBox.h"
 #include "SakuraRadioButton.h"
+#include "SakuraComboBox.h"
+#include "SakuraSlider.h"
+#include "SakuraScrollBar.h"
 
 #include "DirectGraphics.h"
 
@@ -94,8 +97,10 @@ public:
 
 	HRESULT SAKURADIALOG_CALLMETHOD	AddStatic(int ID, LPCWSTR strText, int x, int y, int width, int height, bool bIsDefault = false, CSakuraStatic** ppCreated = NULL);																				// CSakuraDialog 窗口添加静态控件
 	HRESULT SAKURADIALOG_CALLMETHOD	AddButton(int ID, LPCWSTR strText, int x, int y, int width, int height, UINT nHotkey = 0, bool bIsDefault = false, CSakuraButton** ppCreated = NULL);															// CSakuraDialog 窗口添加按钮控件
-	HRESULT SAKURADIALOG_CALLMETHOD AddCheckBox(int ID, LPCWSTR strText, int x, int y, int width, int height, bool bChecked = false, UINT nHotkey = 0, bool bIsDefault = false, CSakuraCheckBox** ppCreated = NULL);								// CSakuraDialog 窗口添加复选框按钮
-	HRESULT	SAKURADIALOG_CALLMETHOD AddRadioButton(int ID, UINT nButtonGroup, LPCWSTR strText, int x, int y, int width, int height, bool bChecked = false, UINT nHotkey = 0, bool bIsDefault = false, CSakuraRadioButton** ppCreated = NULL);		// CSakuraDialog 窗口添加单选框按钮
+	HRESULT SAKURADIALOG_CALLMETHOD AddCheckBox(int ID, LPCWSTR strText, int x, int y, int width, int height, bool bChecked = false, UINT nHotkey = 0, bool bIsDefault = false, CSakuraCheckBox** ppCreated = NULL);								// CSakuraDialog 窗口添加复选框控件
+	HRESULT	SAKURADIALOG_CALLMETHOD AddRadioButton(int ID, UINT nButtonGroup, LPCWSTR strText, int x, int y, int width, int height, bool bChecked = false, UINT nHotkey = 0, bool bIsDefault = false, CSakuraRadioButton** ppCreated = NULL);		// CSakuraDialog 窗口添加单选框控件
+	HRESULT	SAKURADIALOG_CALLMETHOD	AddComboBox(int ID, int x, int y, int width, int height, UINT nHotkey = 0, bool bIsDefault = false, CSakuraComboBox** ppCreated = NULL);																		// CSakuraDialog 窗口添加下拉选择框控件
+	HRESULT	SAKURADIALOG_CALLMETHOD	AddSlider(int ID, int x, int y, int width, int height, int min = 0, int max = 100, int value = 50, bool bIsDefault = false, CSakuraSlider** ppCreated = NULL);													// CSakuraDialog 窗口添加滑块控件
 
 	HRESULT	SAKURADIALOG_CALLMETHOD	AddControl(CSakuraControl* pControl);									// CSakuraDialog 窗口添加控件
 	HRESULT	SAKURADIALOG_CALLMETHOD	InitControl(CSakuraControl* pControl);									// CSakuraDialog 窗口初始化控件
@@ -108,10 +113,15 @@ public:
 	CSakuraButton*		SAKURADIALOG_CALLMETHOD GetButton(int ID);											// CSakuraDialog 窗口获取按钮控件
 	CSakuraCheckBox*	SAKURADIALOG_CALLMETHOD	GetCheckBox(int ID);										// CSakuraDialog 窗口获取复选框控件
 	CSakuraRadioButton*	SAKURADIALOG_CALLMETHOD	GetRadioButton(int ID);										// CSakuraDialog 窗口获取单选框控件
+	CSakuraComboBox*	SAKURADIALOG_CALLMETHOD	GetComboBox(int ID);										// CSakuraDialog 窗口获取下拉框控件
+	CSakuraSlider*		SAKURADIALOG_CALLMETHOD GetSlider(int ID);											// CSakuraDialog 窗口获取滑块控件
 
 	CSakuraControl*	SAKURADIALOG_CALLMETHOD	GetControl(int ID);												// CSakuraDialog 获取控件指针
 	CSakuraControl*	SAKURADIALOG_CALLMETHOD	GetControl(int ID, UINT nControlType);							// CSakuraDialog 获取控件指针
 	CSakuraControl*	SAKURADIALOG_CALLMETHOD	GetControlAtPoint(POINT pt);									// CSakuraDialog 获取鼠标所在的控件指针
+
+	bool	SAKURADIALOG_CALLMETHOD GetControlEnabled(int ID);												// CSakuraDialog 获取控件使能
+	void	SAKURADIALOG_CALLMETHOD	SetControlEnabled(int ID, bool bEnabled);								// CSakuraDialog 设置控件使能
 
 	void	SAKURADIALOG_CALLMETHOD	ClearRadioButtonGroup(UINT nGroup);										// CSakuraDialog 清除单选按钮的组别
 	void	SAKURADIALOG_CALLMETHOD	ClearComboBox(int nID);													// CSakuraDialog 清除下拉列表

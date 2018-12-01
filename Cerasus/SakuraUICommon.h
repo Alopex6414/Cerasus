@@ -30,6 +30,7 @@
 //Include C/C++ Standard Header File
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include <vector>
 #include <queue>
 #include <map>

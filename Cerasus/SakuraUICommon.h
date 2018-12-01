@@ -102,6 +102,7 @@ class CSakuraCheckBox;
 class CSakuraRadioButton;
 class CSakuraComboBox;
 class CSakuraScrollBar;
+class CSakuraSlider;
 
 //Function Declaration
 typedef VOID(CALLBACK*LPCALLBACKSAKURAGUIEVENT)(UINT nEvent, int nControlID, CSakuraControl* pControl, void* pUserContext);

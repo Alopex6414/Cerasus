@@ -39,6 +39,11 @@ public:
 	static unsigned char m_ucRadioButton_UnChecked[851];
 	static unsigned char m_ucRadioButton_Checked[900];
 
+	// StarButton
+	static unsigned char m_ucStarButton_Empty[900];
+	static unsigned char m_ucStarButton_Full[862];
+	static unsigned char m_ucStarButton_Half[889];
+
 };
 
 #endif // !__SAKURARESOURCE_H_

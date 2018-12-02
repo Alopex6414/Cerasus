@@ -197,7 +197,11 @@ public:
 	virtual ~DirectGraphics3D();	//DirectGraphics3D Destructor  Function
 
 	//构造
+	DirectGraphics3D(const DirectGraphics3D& Object);	//DirectGraphics3D Constructor Function(D3D9拷贝构造函数)
 	DirectGraphics3D(IDirect3DDevice9* pD3D9Device);	//DirectGraphics3D Constructor Function(D3D9设备传入)(重载+1)
+
+	//运算符
+	DirectGraphics3D& operator=(const DirectGraphics3D& Object);	//DirectGraphics3D Operator=(D3D9运算符重载)
 
 	//访问
 	virtual IDirect3DDevice9* DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DGetDevice(void) const;					//DirectGraphics3D Get D3D9 Device 获取D3D9设备

@@ -59,6 +59,24 @@ DirectGraphics3D::~DirectGraphics3D()
 }
 
 //------------------------------------------------------------------
+// @Function:	 DirectGraphics3D()
+// @Purpose: DirectGraphics3D拷贝构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+DirectGraphics3D::DirectGraphics3D(const DirectGraphics3D & Object)
+{
+	m_bThreadSafe = true;									//线程安全
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
+
+	m_pD3D9Device = Object.m_pD3D9Device;					//IDirect3DDevice9接口指针初始化
+	m_pD3D9VertexBuffer = Object.m_pD3D9VertexBuffer;		//IDirect3DVertexBuffer9接口指针初始化(NULL)
+	m_pD3D9IndexBuffer = Object.m_pD3D9IndexBuffer;			//IDirect3DIndexBuffer9接口指针初始化(NULL)
+	m_pD3D9Texture = Object.m_pD3D9Texture;					//IDirect3DTexture9接口指针初始化(NULL)
+}
+
+//------------------------------------------------------------------
 // @Function:	 DirectGraphics3D(IDirect3DDevice9* pD3D9Device)
 // @Purpose: DirectGraphics3D构造函数
 // @Since: v1.00a
@@ -74,6 +92,26 @@ DirectGraphics3D::DirectGraphics3D(IDirect3DDevice9* pD3D9Device)
 	m_pD3D9VertexBuffer = NULL;				//IDirect3DVertexBuffer9接口指针初始化(NULL)
 	m_pD3D9IndexBuffer = NULL;				//IDirect3DIndexBuffer9接口指针初始化(NULL)
 	m_pD3D9Texture = NULL;					//IDirect3DTexture9接口指针初始化(NULL)
+}
+
+//------------------------------------------------------------------
+// @Function:	 operator=()
+// @Purpose: DirectGraphics3D运算符重载
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+DirectGraphics3D & DirectGraphics3D::operator=(const DirectGraphics3D & Object)
+{
+	m_bThreadSafe = true;									//线程安全
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
+
+	m_pD3D9Device = Object.m_pD3D9Device;					//IDirect3DDevice9接口指针初始化
+	m_pD3D9VertexBuffer = Object.m_pD3D9VertexBuffer;		//IDirect3DVertexBuffer9接口指针初始化(NULL)
+	m_pD3D9IndexBuffer = Object.m_pD3D9IndexBuffer;			//IDirect3DIndexBuffer9接口指针初始化(NULL)
+	m_pD3D9Texture = Object.m_pD3D9Texture;					//IDirect3DTexture9接口指针初始化(NULL)
+
+	return *this;
 }
 
 //-------------------------------------------------------------------------------

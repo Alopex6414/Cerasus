@@ -294,6 +294,9 @@
     <None Include="DirectX\Inc\xnamathmisc.inl" />
     <None Include="DirectX\Inc\xnamathvector.inl" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Icon\Sakura.ico" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

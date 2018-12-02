@@ -460,4 +460,9 @@
       <Filter>DirectX\Inc</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Icon\Sakura.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

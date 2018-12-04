@@ -385,7 +385,37 @@ void SAKURACOMBOBOX_CALLMETHOD CSakuraComboBox::OnFocusOut()
 //------------------------------------------------------------------
 void SAKURACOMBOBOX_CALLMETHOD CSakuraComboBox::Render()
 {
+	SAKURA_CONTROL_STATE iState = SAKURA_STATE_NORMAL;
 
+	if (!m_bOpened)
+	{
+		iState = SAKURA_STATE_HIDDEN;
+	}
+
+	if (m_bOpened)
+	{
+		m_ScrollBar.Render();
+	}
+
+	if (m_bEnabled == false)
+	{
+		iState = SAKURA_STATE_DISABLED;
+	}
+	else if (m_bPressed)
+	{
+		iState = SAKURA_STATE_PRESSED;
+	}
+	else if (m_bMouseOver)
+	{
+		iState = SAKURA_STATE_MOUSEOVER;
+	}
+	else if (m_bHasFocus)
+	{
+		iState = SAKURA_STATE_FOCUS;
+	}
+
+	m_vecElements.at(0)->GetTextureBlend().Blend(iState);
+	m_vecElements.at(0)->GetFontBlend().Blend(iState, m_strText, &m_rcBoundingBox, m_dwFormat, m_dwColor);
 }
 
 //------------------------------------------------------------------

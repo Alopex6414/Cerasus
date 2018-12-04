@@ -270,7 +270,32 @@ void SAKURASLIDER_CALLMETHOD CSakuraSlider::UpdateRects()
 //------------------------------------------------------------------
 void SAKURASLIDER_CALLMETHOD CSakuraSlider::Render()
 {
+	if (m_bVisible == false)
+	{
+		return;
+	}
+
+	SAKURA_CONTROL_STATE iState = SAKURA_STATE_NORMAL;
+
+	if (m_bEnabled == false)
+	{
+		iState = SAKURA_STATE_DISABLED;
+	}
+	else if (m_bPressed)
+	{
+		iState = SAKURA_STATE_PRESSED;
+	}
+	else if (m_bMouseOver)
+	{
+		iState = SAKURA_STATE_MOUSEOVER;
+	}
+	else if (m_bHasFocus)
+	{
+		iState = SAKURA_STATE_FOCUS;
+	}
 	
+	m_vecElements.at(0)->GetTextureBlend().Blend(iState);
+	m_vecElements.at(1)->GetTextureBlend().Blend(iState);
 }
 
 //------------------------------------------------------------------

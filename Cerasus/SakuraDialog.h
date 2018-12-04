@@ -160,6 +160,8 @@ public:
 	CUUint*	SAKURADIALOG_CALLMETHOD	GetTextureRes(UINT Index);												// CSakuraDialog 窗口获取纹理资源
 	CUUintEx*	SAKURADIALOG_CALLMETHOD	GetTextureExRes(UINT Index);										// CSakuraDialog 窗口获取纹理资源(Ex)
 
+	CSakuraResourceManager* SAKURADIALOG_CALLMETHOD	GetManager();											// CSakuraDialog 窗口获取资源管理类
+
 	static void	SAKURADIALOG_CALLMETHOD	ClearFocus();														// CSakuraDialog 清除控件焦点
 
 	HRESULT	SAKURADIALOG_CALLMETHOD	OnRender();																// CSakuraDialog 窗口渲染

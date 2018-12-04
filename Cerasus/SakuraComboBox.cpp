@@ -385,7 +385,7 @@ void SAKURACOMBOBOX_CALLMETHOD CSakuraComboBox::OnFocusOut()
 //------------------------------------------------------------------
 void SAKURACOMBOBOX_CALLMETHOD CSakuraComboBox::Render()
 {
-	
+
 }
 
 //------------------------------------------------------------------

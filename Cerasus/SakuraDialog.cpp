@@ -1636,6 +1636,18 @@ CUUintEx *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetTextureExRes(UINT Index)
 }
 
 //------------------------------------------------------------------
+// @Function:	 GetManager()
+// @Purpose: CSakuraDialog获取资源管理类
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CSakuraResourceManager *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetManager()
+{
+	return m_pManager;
+}
+
+//------------------------------------------------------------------
 // @Function:	 ClearFocus()
 // @Purpose: CSakuraDialog清除控件焦点
 // @Since: v1.00a

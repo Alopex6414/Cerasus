@@ -244,6 +244,7 @@
     <ClInclude Include="SakuraDialog.h" />
     <ClInclude Include="SakuraEditBox.h" />
     <ClInclude Include="SakuraElement.h" />
+    <ClInclude Include="SakuraListBox.h" />
     <ClInclude Include="SakuraRadioButton.h" />
     <ClInclude Include="SakuraResource.h" />
     <ClInclude Include="SakuraResourceManager.h" />
@@ -277,6 +278,7 @@
     <ClCompile Include="SakuraDialog.cpp" />
     <ClCompile Include="SakuraEditBox.cpp" />
     <ClCompile Include="SakuraElement.cpp" />
+    <ClCompile Include="SakuraListBox.cpp" />
     <ClCompile Include="SakuraRadioButton.cpp" />
     <ClCompile Include="SakuraResource.cpp" />
     <ClCompile Include="SakuraResourceManager.cpp" />

@@ -419,6 +419,81 @@ bool SAKURALISTBOX_CALLMETHOD CSakuraListBox::MsgProc(UINT uMsg, WPARAM wParam, 
 //------------------------------------------------------------------
 void SAKURALISTBOX_CALLMETHOD CSakuraListBox::Render()
 {
+	if (m_bVisible == false)
+	{
+		return;
+	}
+
+	m_vecElements.at(0)->GetTextureBlend().Blend(SAKURA_STATE_NORMAL);
+	m_vecElements.at(0)->GetFontBlend().Blend(SAKURA_STATE_NORMAL, _T(""), &m_rcBoundingBox);
+
+	m_vecElements.at(1)->GetTextureBlend().Blend(SAKURA_STATE_NORMAL);
+	m_vecElements.at(1)->GetFontBlend().Blend(SAKURA_STATE_NORMAL, _T(""), &m_rcBoundingBox);
+
+	if (m_Items.size() > 0)
+	{
+		RECT rc = m_rcText;
+		RECT rcSel = m_rcSelection;
+		rc.bottom = rc.top + m_pDialog->GetManager()->GetFontNode(0)->nFontSize;
+
+		m_nTextHeight = rc.bottom - rc.top;
+
+		static bool bSBInit;
+		if (!bSBInit)
+		{
+			if (m_nTextHeight)
+			{
+				m_ScrollBar.SetPageSize((m_rcText.bottom - m_rcText.top) / m_nTextHeight);
+			}
+			else
+			{
+				m_ScrollBar.SetPageSize((m_rcText.bottom - m_rcText.top));
+			}
+			bSBInit = true;
+		}
+
+		rc.right = m_rcText.right;
+		for (int i = m_ScrollBar.GetTrackPos(); i < (int)m_Items.size(); ++i)
+		{
+			if (rc.bottom > m_rcText.bottom)
+			{
+				break;
+			}
+
+			CSakuraListBoxItem* pItem = m_Items.at(i);
+
+			bool bSelectedStyle = false;
+
+			if (!(m_dwStyle & MULTISELECTION) && i == m_nSelected)
+			{
+				bSelectedStyle = true;
+			}
+			else if (m_dwStyle & MULTISELECTION)
+			{
+				if (m_bDrag && ((i >= m_nSelected && i < m_nSelStart) || (i <= m_nSelected && i > m_nSelStart)))
+				{
+					bSelectedStyle = m_Items[m_nSelStart]->bSelected;
+				}
+				else if (pItem->bSelected)
+				{
+					bSelectedStyle = true;
+				}
+			}
+
+			if (bSelectedStyle)
+			{
+				rcSel.top = rc.top; rcSel.bottom = rc.bottom;
+				m_vecElements.at(1)->GetFontBlend().Blend(SAKURA_STATE_NORMAL, pItem->strText, &rcSel);
+			}
+			else
+			{
+				m_vecElements.at(0)->GetFontBlend().Blend(SAKURA_STATE_NORMAL, pItem->strText, &rc);
+			}
+
+			OffsetRect(&rc, 0, m_nTextHeight);
+		}
+	}
+
 }
 
 //------------------------------------------------------------------

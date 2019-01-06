@@ -252,6 +252,7 @@
     <ClInclude Include="SakuraSlider.h" />
     <ClInclude Include="SakuraStatic.h" />
     <ClInclude Include="SakuraUICommon.h" />
+    <ClInclude Include="SakuraUnit.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CerasusAlgorithm.cpp" />
@@ -285,6 +286,7 @@
     <ClCompile Include="SakuraScrollBar.cpp" />
     <ClCompile Include="SakuraSlider.cpp" />
     <ClCompile Include="SakuraStatic.cpp" />
+    <ClCompile Include="SakuraUnit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cerasus.rc" />

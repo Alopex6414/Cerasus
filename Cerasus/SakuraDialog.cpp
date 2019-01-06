@@ -849,6 +849,40 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddSlider(int ID, int x, int y, i
 }
 
 //------------------------------------------------------------------
+// @Function:	 AddUnit()
+// @Purpose: CSakuraDialog窗口添加图形控件
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddUnit(int ID, int x, int y, int width, int height, UINT nHotkey, bool bIsDefault, CSakuraUnit ** ppCreated)
+{
+	CSakuraUnit* pUnit = new CSakuraUnit(this);
+
+	if (ppCreated != NULL)
+	{
+		*ppCreated = pUnit;
+	}
+
+	if (pUnit == NULL)
+	{
+		return E_OUTOFMEMORY;
+	}
+
+	VERIFY(AddControl(pUnit));
+
+	pUnit->SetID(ID);
+	pUnit->SetLocation(x, y);
+	pUnit->SetSize(width, height);
+	pUnit->SetHotkey(nHotkey);
+	pUnit->m_bIsDefault = bIsDefault;
+
+	AlterDefaultElement(pUnit);
+
+	return S_OK;
+}
+
+//------------------------------------------------------------------
 // @Function:	 AddControl()
 // @Purpose: CSakuraDialog窗口添加控件
 // @Since: v1.00a
@@ -1039,6 +1073,18 @@ CSakuraComboBox *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetComboBox(int ID)
 CSakuraSlider *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetSlider(int ID)
 {
 	return dynamic_cast<CSakuraSlider*>(GetControl(ID, SAKURA_CONTROL_SLIDER));
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetUnit()
+// @Purpose: CSakuraDialog窗口获取图形控件
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CSakuraUnit *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetUnit(int ID)
+{
+	return dynamic_cast<CSakuraUnit*>(GetControl(ID, SAKURA_CONTROL_UNIT));
 }
 
 //------------------------------------------------------------------

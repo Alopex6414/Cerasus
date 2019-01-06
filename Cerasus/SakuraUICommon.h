@@ -65,6 +65,7 @@ enum SAKURA_CONTROL_TYPE
 	SAKURA_CONTROL_IMEEDITBOX,
 	SAKURA_CONTROL_LISTBOX,
 	SAKURA_CONTROL_SCROLLBAR,
+	SAKURA_CONTROL_UNIT,
 };
 
 enum SAKURA_CONTROL_STATE
@@ -104,6 +105,7 @@ class CSakuraRadioButton;
 class CSakuraComboBox;
 class CSakuraScrollBar;
 class CSakuraSlider;
+class CSakuraUnit;
 
 //Function Declaration
 typedef VOID(CALLBACK*LPCALLBACKSAKURAGUIEVENT)(UINT nEvent, int nControlID, CSakuraControl* pControl, void* pUserContext);

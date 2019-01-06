@@ -418,6 +418,12 @@ void SAKURADIALOG_CALLMETHOD CSakuraDialog::OnLost()
 		}
 	}
 
+	for (auto iter = m_vecDefaultControls.begin(); iter != m_vecDefaultControls.end(); ++iter)
+	{
+		(*iter)->pElement->GetFontBlend().OnLostDevice();
+		(*iter)->pElement->GetTextureBlend().OnLostDevice();
+	}
+
 	if (m_pDialogGraphics)
 	{
 		m_pDialogGraphics->CCerasusUnitReset();
@@ -441,6 +447,12 @@ void SAKURADIALOG_CALLMETHOD CSakuraDialog::OnReset()
 			(*iter2)->GetFontBlend().OnResetDevice();
 			(*iter2)->GetTextureBlend().OnResetDevice();
 		}
+	}
+
+	for (auto iter = m_vecDefaultControls.begin(); iter != m_vecDefaultControls.end(); ++iter)
+	{
+		(*iter)->pElement->GetFontBlend().OnResetDevice();
+		(*iter)->pElement->GetTextureBlend().OnResetDevice();
 	}
 
 	if (m_pDialogGraphics)

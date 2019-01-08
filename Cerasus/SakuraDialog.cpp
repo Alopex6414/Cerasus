@@ -1004,6 +1004,18 @@ HRESULT SAKURADIALOG_CALLMETHOD CSakuraDialog::AddTextureEx(int ID, UINT nContro
 }
 
 //------------------------------------------------------------------
+// @Function:	 GetDialogGraphics()
+// @Purpose: CSakuraDialog窗口获取背景图形
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CCerasusUnit *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetDialogGraphics()
+{
+	return m_pDialogGraphics;
+}
+
+//------------------------------------------------------------------
 // @Function:	 GetStatic()
 // @Purpose: CSakuraDialog窗口获取静态控件
 // @Since: v1.00a

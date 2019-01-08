@@ -111,6 +111,8 @@ public:
 	HRESULT	SAKURADIALOG_CALLMETHOD AddTexture(int ID, UINT nControlType, UINT iElement, SAKURA_CONTROL_STATE eType, UINT Index);		// CSakuraDialog 窗口添加控件纹理
 	HRESULT	SAKURADIALOG_CALLMETHOD AddTextureEx(int ID, UINT nControlType, UINT iElement, SAKURA_CONTROL_STATE eType, UINT Index);		// CSakuraDialog 窗口添加控件纹理Ex
 
+	CCerasusUnit*		SAKURADIALOG_CALLMETHOD GetDialogGraphics();										// CSakuraDialog 窗口获取背景图形
+
 	CSakuraStatic*		SAKURADIALOG_CALLMETHOD GetStatic(int ID);											// CSakuraDialog 窗口获取静态控件
 	CSakuraButton*		SAKURADIALOG_CALLMETHOD GetButton(int ID);											// CSakuraDialog 窗口获取按钮控件
 	CSakuraCheckBox*	SAKURADIALOG_CALLMETHOD	GetCheckBox(int ID);										// CSakuraDialog 窗口获取复选框控件

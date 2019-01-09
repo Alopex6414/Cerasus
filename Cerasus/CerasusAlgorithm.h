@@ -38,6 +38,19 @@ public:
 	static void	CERASUSALGORITHM_CALLMETHOD	Decrease(float& fVar, float fMin, float fStep);
 	static void	CERASUSALGORITHM_CALLMETHOD Circulation(float& fVar, float fMin, float fMax, float fStep);
 
+	/*
+	* 线性函数:Y=k*X
+	*/
+	static void	CERASUSALGORITHM_CALLMETHOD	Linear_Increase(float& fVar, float fMax, float fStep);							// CCerasusAlgorithm 线性递增
+	static void	CERASUSALGORITHM_CALLMETHOD	Linear_Decrease(float& fVar, float fMin, float fStep);							// CCerasusAlgorithm 线性递减
+	static void	CERASUSALGORITHM_CALLMETHOD Linear_Circulation(float& fVar, float fMin, float fMax, float fStep);			// CCerasusAlgorithm 线性循环
+
+	/*
+	* 二次函数:Y=k*X^2
+	*/
+	static void	CERASUSALGORITHM_CALLMETHOD	Quadratic_Increase(float& fVt, float fV0, float fVmax, float fAcc);				// CCerasusAlgorithm 二次递增
+	static void	CERASUSALGORITHM_CALLMETHOD	Quadratic_Decrease(float& fVt, float fV0, float fVmin, float fAcc);				// CCerasusAlgorithm 二次递减
+
 };
 
 #endif // !__CERASUSALGORITHM_H_

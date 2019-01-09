@@ -102,3 +102,127 @@ void CERASUSALGORITHM_CALLMETHOD CCerasusAlgorithm::Circulation(float & fVar, fl
 	}
 
 }
+
+//------------------------------------------------------------------
+// @Function:	 Linear_Increase()
+// @Purpose: CerasusAlgorithm线性递增
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CERASUSALGORITHM_CALLMETHOD CCerasusAlgorithm::Linear_Increase(float & fVar, float fMax, float fStep)
+{
+	Increase(fVar, fMax, fStep);
+}
+
+//------------------------------------------------------------------
+// @Function:	 Linear_Decrease()
+// @Purpose: CerasusAlgorithm线性递减
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CERASUSALGORITHM_CALLMETHOD CCerasusAlgorithm::Linear_Decrease(float & fVar, float fMin, float fStep)
+{
+	Decrease(fVar, fMin, fStep);
+}
+
+//------------------------------------------------------------------
+// @Function:	 Linear_Circulation()
+// @Purpose: CerasusAlgorithm线性循环
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CERASUSALGORITHM_CALLMETHOD CCerasusAlgorithm::Linear_Circulation(float & fVar, float fMin, float fMax, float fStep)
+{
+	Circulation(fVar, fMin, fMax, fStep);
+}
+
+//------------------------------------------------------------------
+// @Function:	 Quadratic_Increase()
+// @Purpose: CerasusAlgorithm二次递增
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CERASUSALGORITHM_CALLMETHOD CCerasusAlgorithm::Quadratic_Increase(float& fVt, float fV0, float fVmax, float fAcc)
+{
+	if (fAcc >= 0)
+	{
+		float fX0 = fV0;
+		float fXt = sqrtf(2.0f * fAcc * (fVt - fV0));
+
+		fXt += fAcc;
+		fVt = fX0 + powf(fXt, 2.0f) / (2.0f * fAcc);
+		if (fVt >= fVmax)
+		{
+			fVt = fVmax;
+		}
+	}
+	else
+	{
+		float fX0 = fV0;
+		float fXl = sqrtf(2.0f * (-fAcc) * (fVmax - fV0));
+		float fXt = fXl;
+
+		fXt += fAcc;
+		if (fXt <= 0)
+		{
+			fVt = fVmax;
+		}
+		else
+		{
+			fVt = fX0 + (powf(fXt, 2.0f) - powf(fXl, 2.0f)) / (2.0f * fAcc);
+			if (fVt >= fVmax)
+			{
+				fVt = fVmax;
+			}
+		}		
+	}
+
+}
+
+//------------------------------------------------------------------
+// @Function:	 Quadratic_Decrease()
+// @Purpose: CerasusAlgorithm二次递减
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CERASUSALGORITHM_CALLMETHOD CCerasusAlgorithm::Quadratic_Decrease(float& fVt, float fV0, float fVmin, float fAcc)
+{
+	if (fAcc >= 0)
+	{
+		float fX0 = fV0;
+		float fXt = sqrtf(2.0f * fAcc * (fV0 - fVt));
+
+		fXt += fAcc;
+		fVt = fX0 - powf(fXt, 2.0f) / (2.0f * fAcc);
+		if (fVt <= fVmin)
+		{
+			fVt = fVmin;
+		}
+	}
+	else
+	{
+		float fX0 = fV0;
+		float fXl = sqrtf(2.0f * (-fAcc) * (fV0 - fVmin));
+		float fXt = fXl;
+
+		fXt += fAcc;
+		if (fXt <= 0)
+		{
+			fVt = fVmin;
+		}
+		else
+		{
+			fVt = fX0 - (powf(fXt, 2.0f) - powf(fXl, 2.0f)) / (2.0f * fAcc);
+			if (fVt <= fVmin)
+			{
+				fVt = fVmin;
+			}
+		}
+	}
+
+}

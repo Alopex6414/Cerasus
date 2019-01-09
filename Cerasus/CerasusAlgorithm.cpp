@@ -164,7 +164,7 @@ void CERASUSALGORITHM_CALLMETHOD CCerasusAlgorithm::Quadratic_Increase(float& fV
 	{
 		float fX0 = fV0;
 		float fXl = sqrtf(2.0f * (-fAcc) * (fVmax - fV0));
-		float fXt = fXl;
+		float fXt = sqrtf(powf(fXl, 2.0f) + 2.0f * fAcc * (fVt - fV0));
 
 		fXt += fAcc;
 		if (fXt <= 0)
@@ -208,7 +208,7 @@ void CERASUSALGORITHM_CALLMETHOD CCerasusAlgorithm::Quadratic_Decrease(float& fV
 	{
 		float fX0 = fV0;
 		float fXl = sqrtf(2.0f * (-fAcc) * (fV0 - fVmin));
-		float fXt = fXl;
+		float fXt = sqrtf(powf(fXl, 2.0f) + 2.0f * fAcc * (fVt - fV0));
 
 		fXt += fAcc;
 		if (fXt <= 0)

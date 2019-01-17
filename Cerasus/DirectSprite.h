@@ -6,7 +6,7 @@
 * @file		DirectSprite.h
 * @brief	This File is DirectSprite DLL Project Header.
 * @author	Alopex/Helium
-* @version	v1.25a
+* @version	v1.26a
 * @date		2017-11-28	v1.00a	alopex	Create This Project.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
 * @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
@@ -15,6 +15,7 @@
 * @date		2018-06-22	v1.23a	alopex	Add Version Infomation.
 * @date		2018-06-22	v1.24a	alopex	Add Struct Definition.
 * @date		2018-11-23	v1.25a	alopex	Alter Call Method.
+* @date		2019-01-17	v1.26a	alopex	Add Init&ReInit Method.
 */
 #pragma once
 
@@ -95,6 +96,9 @@ public:
 
 	virtual HRESULT DIRECTSPRITE_CALLMETHOD DirectSpriteInit(LPCWSTR lpszStr);						//DirectSprite Initialize
 	virtual HRESULT DIRECTSPRITE_CALLMETHOD DirectSpriteReload(LPCWSTR lpszStr);					//DirectSprite Reload(Texture Changed)
+
+	virtual HRESULT DIRECTSPRITE_CALLMETHOD DirectSpriteInit(LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight);		//DirectSprite Initialize
+	virtual HRESULT DIRECTSPRITE_CALLMETHOD DirectSpriteReload(LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight);	//DirectSprite Reload(Texture Changed)
 
 	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteReset(void);									//DirectSprite Reset(D3D9丢失设备)(需要重新初始化)
 

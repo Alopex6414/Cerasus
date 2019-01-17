@@ -6,7 +6,7 @@
 * @file		DirectSprite.h
 * @brief	This File is DirectSprite DLL Project Header.
 * @author	Alopex/Helium
-* @version	v1.25a
+* @version	v1.26a
 * @date		2017-11-28	v1.00a	alopex	Create This Project.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
 * @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
@@ -15,6 +15,7 @@
 * @date		2018-06-22	v1.23a	alopex	Add Version Infomation.
 * @date		2018-06-22	v1.24a	alopex	Add Struct Definition.
 * @date		2018-11-23	v1.25a	alopex	Alter Call Method.
+* @date		2019-01-17	v1.26a	alopex	Add Init&ReInit Method.
 */
 #include "DirectCommon.h"
 #include "DirectSprite.h"
@@ -180,6 +181,44 @@ HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteReload(LPCWSTR lpszStr
 	SAFE_RELEASE(m_pSpriteTexture);	//释放m_pSpriteTexture
 	SAFE_RELEASE(m_pSprite);		//释放m_pSprite
 	VERIFY(D3DXCreateTextureFromFile(m_pD3D9Device, lpszStr, &m_pSpriteTexture));//D3DXSprite精灵加载纹理
+	VERIFY(D3DXCreateSprite(m_pD3D9Device, &m_pSprite));//D3DXSprite精灵创建
+
+	return S_OK;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectSpriteInit(LPCWSTR lpszStr)
+// @Purpose: DirectSprite初始化函数
+// @Since: v1.00a
+// @Para: LPCVOID pData			//精灵内存数组地址
+// @Para: UINT nSize			//精灵内存数组长度
+// @Return: None
+//------------------------------------------------------------------
+HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteInit(LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	VERIFY(D3DXCreateTextureFromFileInMemoryEx(m_pD3D9Device, pData, nSize, nWidth, nHeight, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f), NULL, NULL, &m_pSpriteTexture));//D3DXSprite精灵加载纹理
+	VERIFY(D3DXCreateSprite(m_pD3D9Device, &m_pSprite));//D3DXSprite精灵创建
+
+	return S_OK;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectSpriteReload(LPCWSTR lpszStr)
+// @Purpose: DirectSprite重新加载纹理
+// @Since: v1.00a
+// @Para: LPCVOID pData			//精灵内存数组地址
+// @Para: UINT nSize			//精灵内存数组长度
+// @Return: None
+//------------------------------------------------------------------
+HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteReload(LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	SAFE_RELEASE(m_pSpriteTexture);	//释放m_pSpriteTexture
+	SAFE_RELEASE(m_pSprite);		//释放m_pSprite
+	VERIFY(D3DXCreateTextureFromFileInMemoryEx(m_pD3D9Device, pData, nSize, nWidth, nHeight, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f), NULL, NULL, &m_pSpriteTexture));//D3DXSprite精灵加载纹理
 	VERIFY(D3DXCreateSprite(m_pD3D9Device, &m_pSprite));//D3DXSprite精灵创建
 
 	return S_OK;

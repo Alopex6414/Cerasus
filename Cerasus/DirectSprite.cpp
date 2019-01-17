@@ -6,7 +6,7 @@
 * @file		DirectSprite.h
 * @brief	This File is DirectSprite DLL Project Header.
 * @author	Alopex/Helium
-* @version	v1.26a
+* @version	v1.27a
 * @date		2017-11-28	v1.00a	alopex	Create This Project.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
 * @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
@@ -16,6 +16,7 @@
 * @date		2018-06-22	v1.24a	alopex	Add Struct Definition.
 * @date		2018-11-23	v1.25a	alopex	Alter Call Method.
 * @date		2019-01-17	v1.26a	alopex	Add Init&ReInit Method.
+* @date		2019-01-17	v1.27a	alopex	Add Draw Method.
 */
 #include "DirectCommon.h"
 #include "DirectSprite.h"
@@ -489,5 +490,37 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawTransform(DirectSprit
 	Matrix = Matrix * MatrixInvrsT * MatrixScale * MatrixRotate * MatrixTranslate;
 	m_pSprite->SetTransform(&Matrix);
 	m_pSprite->Draw(m_pSpriteTexture, &(sSpriteDrawPara->SpriteRect), &(sSpriteDrawPara->SpriteCenter), &(sSpriteDrawPara->SpritePosition), sSpriteDrawPara->SpriteColor);
+	m_pSprite->SetTransform(&MatrixNative);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------
+// @Function:	 DirectSpriteDrawTransform(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTransformPara sTransformPara)
+// @Purpose: DirectSprite»æÖÆ±ä»»¾ØÕó
+// @Since: v1.00a
+// @Para: D3DXMATRIX* pMatrix
+// @Return: None
+//-------------------------------------------------------------------------------------------------------------------------
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawTransform(DirectSpriteDrawPara * sSpriteDrawPara, DirectSpriteTransformPara sTransformPara, int nNowY, int nPosY)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	D3DXMATRIX Matrix;
+	D3DXMATRIX MatrixNative;
+	D3DXMATRIX MatrixScale;
+	D3DXMATRIX MatrixRotate;
+	D3DXMATRIX MatrixTranslate;
+	D3DXMATRIX MatrixInvrsT;
+
+	m_pSprite->GetTransform(&MatrixNative);
+	Matrix = MatrixNative;
+	D3DXMatrixScaling(&MatrixScale, sTransformPara.sScalePara.fScaleX, sTransformPara.sScalePara.fScaleY, 1.0f);
+	D3DXMatrixRotationZ(&MatrixRotate, sTransformPara.sRotatePara.fRotateZ);
+	D3DXMatrixTranslation(&MatrixTranslate, sTransformPara.sTranslatePara.fTranslateX, sTransformPara.sTranslatePara.fTranslateY, 0.0f);
+	D3DXMatrixInverse(&MatrixInvrsT, NULL, &MatrixTranslate);
+	Matrix = Matrix * MatrixInvrsT * MatrixScale * MatrixRotate * MatrixTranslate;
+	m_pSprite->SetTransform(&Matrix);
+	if (nNowY >= nPosY)
+	{
+		m_pSprite->Draw(m_pSpriteTexture, &(sSpriteDrawPara->SpriteRect), &(sSpriteDrawPara->SpriteCenter), &(sSpriteDrawPara->SpritePosition), sSpriteDrawPara->SpriteColor);
+	}
 	m_pSprite->SetTransform(&MatrixNative);
 }

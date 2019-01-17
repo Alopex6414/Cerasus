@@ -6,7 +6,7 @@
 * @file		DirectSprite.h
 * @brief	This File is DirectSprite DLL Project Header.
 * @author	Alopex/Helium
-* @version	v1.26a
+* @version	v1.27a
 * @date		2017-11-28	v1.00a	alopex	Create This Project.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
 * @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
@@ -16,6 +16,7 @@
 * @date		2018-06-22	v1.24a	alopex	Add Struct Definition.
 * @date		2018-11-23	v1.25a	alopex	Alter Call Method.
 * @date		2019-01-17	v1.26a	alopex	Add Init&ReInit Method.
+* @date		2019-01-17	v1.27a	alopex	Add Draw Method.
 */
 #pragma once
 
@@ -117,6 +118,7 @@ public:
 	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDrawTranslate(DirectSpriteDrawPara* sSpriteDrawPara, float fTranslateX = 0.0f, float fTranslateY = 0.0f);	//DirectSprite Draw Translate
 	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDrawTranslate(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTranslate sTranslatePara);				//DirectSprite Draw Translate(жиди+1)
 	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDrawTransform(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTransformPara sTransformPara);			//DirectSprite Draw Transform
+	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDrawTransform(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTransformPara sTransformPara, int nNowY, int nPosY);//DirectSprite Draw Transform
 };
 
 #endif

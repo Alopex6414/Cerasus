@@ -1016,6 +1016,18 @@ CCerasusUnit *SAKURADIALOG_CALLMETHOD CSakuraDialog::GetDialogGraphics()
 }
 
 //------------------------------------------------------------------
+// @Function:	 GetControls()
+// @Purpose: CSakuraDialog窗口获取控件向量
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+vector<CSakuraControl*>&SAKURADIALOG_CALLMETHOD CSakuraDialog::GetControls()
+{
+	return m_vecControls;
+}
+
+//------------------------------------------------------------------
 // @Function:	 GetStatic()
 // @Purpose: CSakuraDialog窗口获取静态控件
 // @Since: v1.00a

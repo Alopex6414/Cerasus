@@ -351,6 +351,9 @@
     <ClInclude Include="SakuraUnit.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="DXUICommon.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectFont.cpp">

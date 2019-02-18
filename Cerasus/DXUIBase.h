@@ -30,6 +30,20 @@ public:
 	~CDXUIWindow();					// CDXUIWindow 析构函数
 
 	HWND GetHWND() const;			// CDXUIWindow 获取窗口句柄
+	operator HWND() const;			// CDXUIWindow 获取窗口句柄
+
+	bool RegisterWindowClass();		// CDXUIWindow 注册窗口类
+
+protected:
+	virtual	LPCTSTR	GetWindowClassName() const = 0;			// CDXUIWindow 获取窗口类名
+	virtual	LPCTSTR	GetSuperClassName() const;				// CDXUIWindow 获取窗口类名Ex
+	virtual	UINT	GetClassStyle() const;					// CDXUIWindow 获取窗口类型
+
+	virtual LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);			// CDXUIWindow 消息处理函数
+	virtual void	OnFinalMessage(HWND hWnd);										// CDXUIWindow 消息结束函数
+
+	static LRESULT CALLBACK __WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK __ControlProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 };
 

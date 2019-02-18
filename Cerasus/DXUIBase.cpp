@@ -11,6 +11,8 @@
 */
 #include "DXUIBase.h"
 
+// CDXUIWindow 窗口基类
+
 //------------------------------------------------------------------
 // @Function:	 CDXUIWindow()
 // @Purpose: CDXUIWindow构造函数
@@ -46,4 +48,75 @@ CDXUIWindow::~CDXUIWindow()
 HWND CDXUIWindow::GetHWND() const
 {
 	return m_hWnd;
+}
+
+//------------------------------------------------------------------
+// @Function:	 operator HWND()
+// @Purpose: CDXUIWindow获取窗口句柄
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+CDXUIWindow::operator HWND() const
+{
+	return m_hWnd;
+}
+
+//------------------------------------------------------------------
+// @Function:	 RegisterWindowClass()
+// @Purpose: CDXUIWindow注册窗口类
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+bool CDXUIWindow::RegisterWindowClass()
+{
+	return false;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetSuperClassName()
+// @Purpose: CDXUIWindow获取窗口类名Ex
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+LPCTSTR CDXUIWindow::GetSuperClassName() const
+{
+	return NULL;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetClassStyle()
+// @Purpose: CDXUIWindow获取窗口类型
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+UINT CDXUIWindow::GetClassStyle() const
+{
+	return 0;
+}
+
+//------------------------------------------------------------------
+// @Function:	 HandleMessage()
+// @Purpose: CDXUIWindow消息处理函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+LRESULT CDXUIWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	return LRESULT();
+}
+
+//------------------------------------------------------------------
+// @Function:	 OnFinalMessage()
+// @Purpose: CDXUIWindow消息结束函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CDXUIWindow::OnFinalMessage(HWND hWnd)
+{
 }

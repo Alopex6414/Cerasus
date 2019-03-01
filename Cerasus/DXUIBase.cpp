@@ -120,3 +120,27 @@ LRESULT CDXUIWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 void CDXUIWindow::OnFinalMessage(HWND hWnd)
 {
 }
+
+//------------------------------------------------------------------
+// @Function:	 __WndProc()
+// @Purpose: CDXUIWindow窗口处理函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+LRESULT CDXUIWindow::__WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	return LRESULT();
+}
+
+//------------------------------------------------------------------
+// @Function:	 __ControlProc()
+// @Purpose: CDXUIWindow控件处理函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+LRESULT CDXUIWindow::__ControlProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	return LRESULT();
+}

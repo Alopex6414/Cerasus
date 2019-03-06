@@ -17,6 +17,11 @@
 // Include DXUI Common Header File
 #include "DXUICommon.h"
 
+// Macro Definition
+#ifndef ASSERT
+#define ASSERT(expr)  _ASSERTE(expr)
+#endif
+
 // Class Definition
 class DXUI_API CDXUIWindow
 {
@@ -33,6 +38,7 @@ public:
 	operator HWND() const;			// CDXUIWindow 获取窗口句柄
 
 	bool RegisterWindowClass();		// CDXUIWindow 注册窗口类
+	bool RegisterSuperclass();		// CDXUIWindow 注册窗口类Ex
 
 protected:
 	virtual	LPCTSTR	GetWindowClassName() const = 0;			// CDXUIWindow 获取窗口类名
@@ -43,7 +49,7 @@ protected:
 	virtual void	OnFinalMessage(HWND hWnd);														// CDXUIWindow 消息结束函数
 
 	static LRESULT CALLBACK __WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);			// CDXUIWindow 窗口消息处理函数
-	static LRESULT CALLBACK __ControlProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);		// CDXUIWindow 控件
+	static LRESULT CALLBACK __ControlProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);		// CDXUIWindow 控件消息处理函数
 
 };
 

@@ -71,6 +71,31 @@ CDXUIWindow::operator HWND() const
 //------------------------------------------------------------------
 bool CDXUIWindow::RegisterWindowClass()
 {
+	WNDCLASS wc = { 0 };
+	wc.style = GetClassStyle();
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+	wc.hIcon = NULL;
+	wc.lpfnWndProc = CDXUIWindow::__WndProc;
+	wc.hInstance = CPaintManagerUI::GetInstance();
+	wc.hCursor = ::LoadCursor(NULL, IDC_ARROW);
+	wc.hbrBackground = NULL;
+	wc.lpszMenuName = NULL;
+	wc.lpszClassName = GetWindowClassName();
+	ATOM ret = ::RegisterClass(&wc);
+	ASSERT(ret != NULL || ::GetLastError() == ERROR_CLASS_ALREADY_EXISTS);
+	return ret != NULL || ::GetLastError() == ERROR_CLASS_ALREADY_EXISTS;
+}
+
+//------------------------------------------------------------------
+// @Function:	 RegisterSuperclass()
+// @Purpose: CDXUIWindow×¢²á´°¿ÚÀàEx
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+bool CDXUIWindow::RegisterSuperclass()
+{
 	return false;
 }
 
@@ -107,7 +132,7 @@ UINT CDXUIWindow::GetClassStyle() const
 //------------------------------------------------------------------
 LRESULT CDXUIWindow::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	return LRESULT();
+	return ::CallWindowProc(m_OldWndProc, m_hWnd, uMsg, wParam, lParam);
 }
 
 //------------------------------------------------------------------
@@ -130,7 +155,41 @@ void CDXUIWindow::OnFinalMessage(HWND hWnd)
 //------------------------------------------------------------------
 LRESULT CDXUIWindow::__WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	return LRESULT();
+	CDXUIWindow* pThis = NULL;
+	if (uMsg == WM_NCCREATE) 
+	{
+		LPCREATESTRUCT lpcs = reinterpret_cast<LPCREATESTRUCT>(lParam);
+		pThis = static_cast<CDXUIWindow*>(lpcs->lpCreateParams);
+		pThis->m_hWnd = hWnd;
+		::SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LPARAM>(pThis));
+	}
+	else 
+	{
+		pThis = reinterpret_cast<CDXUIWindow*>(::GetWindowLongPtr(hWnd, GWLP_USERDATA));
+		if (uMsg == WM_NCDESTROY && pThis != NULL) 
+		{
+			LRESULT lRes = ::CallWindowProc(pThis->m_OldWndProc, hWnd, uMsg, wParam, lParam);
+			::SetWindowLongPtr(pThis->m_hWnd, GWLP_USERDATA, 0L);
+
+			if (pThis->m_bSubclassed)
+			{
+				pThis->Unsubclass();
+			}
+
+			pThis->m_hWnd = NULL;
+			pThis->OnFinalMessage(hWnd);
+			return lRes;
+		}
+	}
+
+	if (pThis != NULL) 
+	{
+		return pThis->HandleMessage(uMsg, wParam, lParam);
+	}
+	else 
+	{
+		return ::DefWindowProc(hWnd, uMsg, wParam, lParam);
+	}
 }
 
 //------------------------------------------------------------------
@@ -142,5 +201,38 @@ LRESULT CDXUIWindow::__WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPara
 //------------------------------------------------------------------
 LRESULT CDXUIWindow::__ControlProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	return LRESULT();
+	CDXUIWindow* pThis = NULL;
+	if (uMsg == WM_NCCREATE) 
+	{
+		LPCREATESTRUCT lpcs = reinterpret_cast<LPCREATESTRUCT>(lParam);
+		pThis = static_cast<CDXUIWindow*>(lpcs->lpCreateParams);
+		::SetProp(hWnd, _T("WndX"), (HANDLE)pThis);
+		pThis->m_hWnd = hWnd;
+	}
+	else 
+	{
+		pThis = reinterpret_cast<CDXUIWindow*>(::GetProp(hWnd, _T("WndX")));
+		if (uMsg == WM_NCDESTROY && pThis != NULL) {
+			LRESULT lRes = ::CallWindowProc(pThis->m_OldWndProc, hWnd, uMsg, wParam, lParam);
+			
+			if (pThis->m_bSubclassed)
+			{
+				pThis->Unsubclass();
+			}
+
+			::SetProp(hWnd, _T("WndX"), NULL);
+			pThis->m_hWnd = NULL;
+			pThis->OnFinalMessage(hWnd);
+			return lRes;
+		}
+	}
+
+	if (pThis != NULL) 
+	{
+		return pThis->HandleMessage(uMsg, wParam, lParam);
+	}
+	else 
+	{
+		return ::DefWindowProc(hWnd, uMsg, wParam, lParam);
+	}
 }

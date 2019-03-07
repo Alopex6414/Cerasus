@@ -116,6 +116,43 @@ bool CDXUIWindow::RegisterSuperclass()
 }
 
 //------------------------------------------------------------------
+// @Function:	 Create()
+// @Purpose: CDXUIWindow创建窗口
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HWND CDXUIWindow::Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, const RECT rc, HMENU hMenu)
+{
+	return Create(hwndParent, pstrName, dwStyle, dwExStyle, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, hMenu);
+}
+
+//------------------------------------------------------------------
+// @Function:	 Create()
+// @Purpose: CDXUIWindow创建窗口
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HWND CDXUIWindow::Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, int x, int y, int cx, int cy, HMENU hMenu)
+{
+	if (GetSuperClassName() != NULL && !RegisterSuperclass())
+	{
+		return NULL;
+	}
+
+	if (GetSuperClassName() == NULL && !RegisterWindowClass())
+	{
+		return NULL;
+	}
+
+	m_hWnd = ::CreateWindowEx(dwExStyle, GetWindowClassName(), pstrName, dwStyle, x, y, cx, cy, hwndParent, hMenu, CPaintManagerUI::GetInstance(), this);
+	ASSERT(m_hWnd != NULL);
+
+	return m_hWnd;
+}
+
+//------------------------------------------------------------------
 // @Function:	 GetSuperClassName()
 // @Purpose: CDXUIWindow获取窗口类名Ex
 // @Since: v1.00a

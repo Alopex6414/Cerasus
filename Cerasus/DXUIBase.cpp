@@ -96,7 +96,23 @@ bool CDXUIWindow::RegisterWindowClass()
 //------------------------------------------------------------------
 bool CDXUIWindow::RegisterSuperclass()
 {
-	return false;
+	WNDCLASSEX wc = { 0 };
+	wc.cbSize = sizeof(WNDCLASSEX);
+	if (!::GetClassInfoEx(NULL, GetSuperClassName(), &wc))
+	{
+		if (!::GetClassInfoEx(CPaintManagerUI::GetInstance(), GetSuperClassName(), &wc)) 
+		{
+			ASSERT(!"Unable to locate window class");
+			return NULL;
+		}
+	}
+	m_OldWndProc = wc.lpfnWndProc;
+	wc.lpfnWndProc = CDXUIWindow::__ControlProc;
+	wc.hInstance = CPaintManagerUI::GetInstance();
+	wc.lpszClassName = GetWindowClassName();
+	ATOM ret = ::RegisterClassEx(&wc);
+	ASSERT(ret != NULL || ::GetLastError() == ERROR_CLASS_ALREADY_EXISTS);
+	return ret != NULL || ::GetLastError() == ERROR_CLASS_ALREADY_EXISTS;
 }
 
 //------------------------------------------------------------------

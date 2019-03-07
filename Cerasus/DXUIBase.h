@@ -40,6 +40,9 @@ public:
 	bool RegisterWindowClass();		// CDXUIWindow 注册窗口类
 	bool RegisterSuperclass();		// CDXUIWindow 注册窗口类Ex
 
+	HWND Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, const RECT rc, HMENU hMenu = NULL);																							// CDXUIWindow 创建窗口
+	HWND Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, int x = CW_USEDEFAULT, int y = CW_USEDEFAULT, int cx = CW_USEDEFAULT, int cy = CW_USEDEFAULT, HMENU hMenu = NULL);			// CDXUIWindow 创建窗口
+
 protected:
 	virtual	LPCTSTR	GetWindowClassName() const = 0;			// CDXUIWindow 获取窗口类名
 	virtual	LPCTSTR	GetSuperClassName() const;				// CDXUIWindow 获取窗口类名Ex

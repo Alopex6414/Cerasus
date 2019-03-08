@@ -10,6 +10,7 @@
 * @date		2019-02-15	v1.00a	alopex	Create Project.
 */
 #include "DXUIBase.h"
+#include "DXUIManager.h"
 
 // CDXUIWindow 窗口基类
 
@@ -77,7 +78,7 @@ bool CDXUIWindow::RegisterWindowClass()
 	wc.cbWndExtra = 0;
 	wc.hIcon = NULL;
 	wc.lpfnWndProc = CDXUIWindow::__WndProc;
-	wc.hInstance = CPaintManagerUI::GetInstance();
+	wc.hInstance = CDXUIPaintManagerUI::GetInstance();
 	wc.hCursor = ::LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = NULL;
 	wc.lpszMenuName = NULL;
@@ -100,7 +101,7 @@ bool CDXUIWindow::RegisterSuperclass()
 	wc.cbSize = sizeof(WNDCLASSEX);
 	if (!::GetClassInfoEx(NULL, GetSuperClassName(), &wc))
 	{
-		if (!::GetClassInfoEx(CPaintManagerUI::GetInstance(), GetSuperClassName(), &wc)) 
+		if (!::GetClassInfoEx(CDXUIPaintManagerUI::GetInstance(), GetSuperClassName(), &wc))
 		{
 			ASSERT(!"Unable to locate window class");
 			return NULL;
@@ -108,7 +109,7 @@ bool CDXUIWindow::RegisterSuperclass()
 	}
 	m_OldWndProc = wc.lpfnWndProc;
 	wc.lpfnWndProc = CDXUIWindow::__ControlProc;
-	wc.hInstance = CPaintManagerUI::GetInstance();
+	wc.hInstance = CDXUIPaintManagerUI::GetInstance();
 	wc.lpszClassName = GetWindowClassName();
 	ATOM ret = ::RegisterClassEx(&wc);
 	ASSERT(ret != NULL || ::GetLastError() == ERROR_CLASS_ALREADY_EXISTS);
@@ -146,8 +147,46 @@ HWND CDXUIWindow::Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD
 		return NULL;
 	}
 
-	m_hWnd = ::CreateWindowEx(dwExStyle, GetWindowClassName(), pstrName, dwStyle, x, y, cx, cy, hwndParent, hMenu, CPaintManagerUI::GetInstance(), this);
+	m_hWnd = ::CreateWindowEx(dwExStyle, GetWindowClassName(), pstrName, dwStyle, x, y, cx, cy, hwndParent, hMenu, CDXUIPaintManagerUI::GetInstance(), this);
 	ASSERT(m_hWnd != NULL);
+
+	return m_hWnd;
+}
+
+//------------------------------------------------------------------
+// @Function:	 CreateDXUIWindow()
+// @Purpose: CDXUIWindow创建窗口
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HWND CDXUIWindow::CreateDXUIWindow(HWND hwndParent, LPCTSTR pstrWindowName, DWORD dwStyle, DWORD dwExStyle)
+{
+	return Create(hwndParent, pstrWindowName, dwStyle, dwExStyle, 0, 0, 0, 0, NULL);
+}
+
+//------------------------------------------------------------------
+// @Function:	 Subclass()
+// @Purpose: CDXUIWindow创建子窗口
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HWND CDXUIWindow::Subclass(HWND hWnd)
+{
+	ASSERT(::IsWindow(hWnd));
+	ASSERT(m_hWnd == NULL);
+
+	m_OldWndProc = SubclassWindow(hWnd, __WndProc);
+
+	if (m_OldWndProc == NULL)
+	{
+		return NULL;
+	}
+
+	m_bSubclassed = true;
+	m_hWnd = hWnd;
+	::SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LPARAM>(this));
 
 	return m_hWnd;
 }

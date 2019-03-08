@@ -42,6 +42,14 @@ public:
 
 	HWND Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, const RECT rc, HMENU hMenu = NULL);																							// CDXUIWindow 创建窗口
 	HWND Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, int x = CW_USEDEFAULT, int y = CW_USEDEFAULT, int cx = CW_USEDEFAULT, int cy = CW_USEDEFAULT, HMENU hMenu = NULL);			// CDXUIWindow 创建窗口
+	HWND CreateDXUIWindow(HWND hwndParent, LPCTSTR pstrWindowName, DWORD dwStyle = 0, DWORD dwExStyle = 0);																										// CDXUIWindow 创建窗口
+	HWND Subclass(HWND hWnd);																																													// CDXUIWindow 创建子窗口
+	void Unsubclass();
+	void ShowWindow(bool bShow = true, bool bTakeFocus = true);
+	UINT ShowModal();
+	void Close(UINT nRet = IDOK);
+	void CenterWindow();
+	void SetIcon(UINT nRes);
 
 protected:
 	virtual	LPCTSTR	GetWindowClassName() const = 0;			// CDXUIWindow 获取窗口类名

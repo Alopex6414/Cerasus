@@ -18,6 +18,19 @@
 #include "DXUICommon.h"
 
 // Macro Definition
+#define UI_WNDSTYLE_CONTAINER	(0)
+#define UI_WNDSTYLE_FRAME		(WS_VISIBLE | WS_OVERLAPPEDWINDOW)
+#define UI_WNDSTYLE_CHILD		(WS_VISIBLE | WS_CHILD | WS_CLIPSIBLINGS | WS_CLIPCHILDREN)
+#define UI_WNDSTYLE_DIALOG		(WS_VISIBLE | WS_POPUPWINDOW | WS_CAPTION | WS_DLGFRAME | WS_CLIPSIBLINGS | WS_CLIPCHILDREN)
+
+#define UI_WNDSTYLE_EX_FRAME	(WS_EX_WINDOWEDGE)
+#define UI_WNDSTYLE_EX_DIALOG	(WS_EX_TOOLWINDOW | WS_EX_DLGMODALFRAME)
+
+#define UI_CLASSSTYLE_CONTAINER (0)
+#define UI_CLASSSTYLE_FRAME     (CS_VREDRAW | CS_HREDRAW)
+#define UI_CLASSSTYLE_CHILD		(CS_VREDRAW | CS_HREDRAW | CS_DBLCLKS | CS_SAVEBITS)
+#define UI_CLASSSTYLE_DIALOG    (CS_VREDRAW | CS_HREDRAW | CS_DBLCLKS | CS_SAVEBITS)
+
 #ifndef ASSERT
 #define ASSERT(expr)  _ASSERTE(expr)
 #endif
@@ -40,10 +53,10 @@ public:
 	bool RegisterWindowClass();		// CDXUIWindow 注册窗口类
 	bool RegisterSuperclass();		// CDXUIWindow 注册窗口类Ex
 
-	HWND Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, const RECT rc, HMENU hMenu = NULL);																							// CDXUIWindow 创建窗口
-	HWND Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, int x = CW_USEDEFAULT, int y = CW_USEDEFAULT, int cx = CW_USEDEFAULT, int cy = CW_USEDEFAULT, HMENU hMenu = NULL);			// CDXUIWindow 创建窗口
-	HWND CreateDXUIWindow(HWND hwndParent, LPCTSTR pstrWindowName, DWORD dwStyle = 0, DWORD dwExStyle = 0);																										// CDXUIWindow 创建窗口
-	HWND Subclass(HWND hWnd);																																													// CDXUIWindow 创建子窗口
+	HWND Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, const RECT rc, HMENU hMenu = NULL);
+	HWND Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, int x = CW_USEDEFAULT, int y = CW_USEDEFAULT, int cx = CW_USEDEFAULT, int cy = CW_USEDEFAULT, HMENU hMenu = NULL);
+	HWND CreateDXUIWindow(HWND hwndParent, LPCTSTR pstrWindowName, DWORD dwStyle = 0, DWORD dwExStyle = 0);
+	HWND Subclass(HWND hWnd);
 	void Unsubclass();
 	void ShowWindow(bool bShow = true, bool bTakeFocus = true);
 	UINT ShowModal();

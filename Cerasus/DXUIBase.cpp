@@ -192,6 +192,113 @@ HWND CDXUIWindow::Subclass(HWND hWnd)
 }
 
 //------------------------------------------------------------------
+// @Function:	 Unsubclass()
+// @Purpose: CDXUIWindow注销子窗口
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CDXUIWindow::Unsubclass()
+{
+	ASSERT(::IsWindow(m_hWnd));
+
+	if (!::IsWindow(m_hWnd))
+	{
+		return;
+	}
+
+	if (!m_bSubclassed)
+	{
+		return;
+	}
+
+	SubclassWindow(m_hWnd, m_OldWndProc);
+	m_OldWndProc = ::DefWindowProc;
+	m_bSubclassed = false;
+}
+
+//------------------------------------------------------------------
+// @Function:	 ShowWindow()
+// @Purpose: CDXUIWindow显示非模态对话框
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void CDXUIWindow::ShowWindow(bool bShow, bool bTakeFocus)
+{
+	ASSERT(::IsWindow(m_hWnd));
+
+	if (!::IsWindow(m_hWnd))
+	{
+		return;
+	}
+
+	::ShowWindow(m_hWnd, bShow ? (bTakeFocus ? SW_SHOWNORMAL : SW_SHOWNOACTIVATE) : SW_HIDE);
+}
+
+//------------------------------------------------------------------
+// @Function:	 ShowModal()
+// @Purpose: CDXUIWindow显示模态对话框
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+UINT CDXUIWindow::ShowModal()
+{
+	ASSERT(::IsWindow(m_hWnd));
+
+	UINT nRet = 0;
+	HWND hWndParent = GetWindowOwner(m_hWnd);
+
+	::ShowWindow(m_hWnd, SW_SHOWNORMAL);
+	::EnableWindow(hWndParent, FALSE);
+
+	MSG msg = { 0 };
+	while (::IsWindow(m_hWnd) && ::GetMessage(&msg, NULL, 0, 0)) 
+	{
+		if (msg.message == WM_CLOSE && msg.hwnd == m_hWnd) 
+		{
+			nRet = msg.wParam;
+			::EnableWindow(hWndParent, TRUE);
+			::SetFocus(hWndParent);
+		}
+
+		if (!CDXUIPaintManagerUI::TranslateMessage(&msg)) 
+		{
+			::TranslateMessage(&msg);
+			::DispatchMessage(&msg);
+		}
+
+		if (msg.message == WM_QUIT)
+		{
+			break;
+		}
+	}
+
+	::EnableWindow(hWndParent, TRUE);
+	::SetFocus(hWndParent);
+
+	if (msg.message == WM_QUIT)
+	{
+		::PostQuitMessage(msg.wParam);
+	}
+
+	return nRet;
+}
+
+void CDXUIWindow::Close(UINT nRet)
+{
+}
+
+void CDXUIWindow::CenterWindow()
+{
+}
+
+void CDXUIWindow::SetIcon(UINT nRes)
+{
+}
+
+//------------------------------------------------------------------
 // @Function:	 GetSuperClassName()
 // @Purpose: CDXUIWindow获取窗口类名Ex
 // @Since: v1.00a

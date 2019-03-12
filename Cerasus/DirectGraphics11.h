@@ -42,7 +42,9 @@ public:
 	DirectGraphics11();									// DirectGraphics11 Constructor Function(~DirectGraphics11构造函数)
 	~DirectGraphics11();								// DirectGraphics11 Destructor Function(~DirectGraphics11析构函数)
 
-	virtual bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphicsInit(HWND hWnd);			// DirectGraphics11 Init(~DirectGraphics11初始化)
+	virtual bool	DIRECTGRAPHICS11_CALLMETHOD	DirectGraphicsInit(HWND hWnd);													// DirectGraphics11 Init(~DirectGraphics11初始化)
+	virtual bool	DIRECTGRAPHICS11_CALLMETHOD	DirectGraphicsInit(HWND hWnd, UINT nScreenWidth, UINT nScreenHeight);			// DirectGraphics11 Init(~DirectGraphics11初始化)(重载+1)
+	virtual bool	DIRECTGRAPHICS11_CALLMETHOD	DirectGraphicsInit(HWND hWnd, DXGI_SWAP_CHAIN_DESC swapChainDesc);				// DirectGraphics11 Init(~DirectGraphics11初始化)(重载+2)
 
 };
 

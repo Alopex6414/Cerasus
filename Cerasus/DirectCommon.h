@@ -38,6 +38,8 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <d3dx9math.h>
+#include <d3d11.h>
+#include <d3dx11.h>
 #include <dinput.h>
 #include <dsound.h>
 #include <dxerr.h>
@@ -46,6 +48,8 @@
 //Include Static Library File
 #pragma comment(lib,"d3d9.lib")
 #pragma comment(lib,"d3dx9.lib")
+#pragma comment(lib,"d3d11.lib")
+#pragma comment(lib,"d3dx11.lib")
 #pragma comment(lib,"dinput8.lib")
 #pragma comment(lib,"dsound.lib")
 #pragma comment(lib,"dxguid.lib")

@@ -6,8 +6,9 @@
 * @file		DirectGraphics11.cpp
 * @brief	This Program is DirectGraphics11 DLL Project.
 * @author	Alopex/Helium
-* @version	v1.00a
+* @version	v1.01a
 * @date		2019-03-12	v1.00a	alopex	Create Project.
+* @date		2019-03-13	v1.01a	alopex	Add Method.
 */
 #include "DirectCommon.h"
 #include "DirectGraphics11.h"
@@ -60,6 +61,45 @@ ID3D11Device *DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11GetD
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D11Device;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphics11GetContext()
+// @Purpose: DirectGraphics11 获取D3D11设备上下文
+// @Since: v1.00a
+// @Para: None
+// @Return: ID3D11DeviceContext*(D3D11设备上下文指针)
+//------------------------------------------------------------------
+ID3D11DeviceContext *DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11GetContext() const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pD3D11Context;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphics11GetSwapChain()
+// @Purpose: DirectGraphics11 获取D3D11交换链
+// @Since: v1.00a
+// @Para: None
+// @Return: IDXGISwapChain*(D3D11交换链指针)
+//------------------------------------------------------------------
+IDXGISwapChain *DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11GetSwapChain() const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pD3D11SwapChain;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphics11GetRenderTargetView()
+// @Purpose: DirectGraphics11 获取D3D11渲染视口目标
+// @Since: v1.00a
+// @Para: None
+// @Return: ID3D11RenderTargetView*(D3D11渲染视口目标)
+//------------------------------------------------------------------
+ID3D11RenderTargetView *DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11GetRenderTargetView() const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pD3D11BackBufferTarget;
 }
 
 //------------------------------------------------------------------

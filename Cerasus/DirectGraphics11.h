@@ -6,8 +6,9 @@
 * @file		DirectGraphics11.h
 * @brief	This Program is DirectGraphics11 DLL Project.
 * @author	Alopex/Helium
-* @version	v1.00a
+* @version	v1.01a
 * @date		2019-03-12	v1.00a	alopex	Create Project.
+* @date		2019-03-13	v1.01a	alopex	Add Method.
 */
 #pragma once
 
@@ -42,7 +43,10 @@ public:
 	DirectGraphics11();									// DirectGraphics11 Constructor Function(~DirectGraphics11构造函数)
 	~DirectGraphics11();								// DirectGraphics11 Destructor Function(~DirectGraphics11析构函数)
 
-	virtual ID3D11Device*	DIRECTGRAPHICS11_CALLMETHOD	DirectGraphics11GetDevice() const;										// DirectGraphics11 Get Device(~DirectGraphics11获取设备对象)
+	virtual ID3D11Device*			DIRECTGRAPHICS11_CALLMETHOD	DirectGraphics11GetDevice() const;								// DirectGraphics11 Get Device(~DirectGraphics11获取设备对象)
+	virtual ID3D11DeviceContext*	DIRECTGRAPHICS11_CALLMETHOD	DirectGraphics11GetContext() const;								// DirectGraphics11 Get Context(~DirectGraphics11获取设备上下文)
+	virtual IDXGISwapChain*			DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11GetSwapChain() const;							// DirectGraphics11 Get Swap Chain(~DirectGraphics11获取交换链)
+	virtual ID3D11RenderTargetView*	DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11GetRenderTargetView() const;					// DirectGraphics11 Get Render Target View(~DirectGraphics11获取渲染视口目标)
 
 	virtual bool	DIRECTGRAPHICS11_CALLMETHOD	DirectGraphics11Init(HWND hWnd);												// DirectGraphics11 Init(~DirectGraphics11初始化)
 	virtual bool	DIRECTGRAPHICS11_CALLMETHOD	DirectGraphics11Init(HWND hWnd, UINT nScreenWidth, UINT nScreenHeight);			// DirectGraphics11 Init(~DirectGraphics11初始化)(重载+1)

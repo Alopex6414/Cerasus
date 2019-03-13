@@ -111,6 +111,7 @@ ID3D11RenderTargetView *DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGrap
 //------------------------------------------------------------------
 bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWnd)
 {
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	RECT Rect = { 0 };
 	UINT nWidth = 0;
 	UINT nHeight = 0;
@@ -227,6 +228,7 @@ bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWn
 //------------------------------------------------------------------
 bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWnd, UINT nScreenWidth, UINT nScreenHeight)
 {
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	UINT nWidth = nScreenWidth;
 	UINT nHeight = nScreenHeight;
 
@@ -336,6 +338,7 @@ bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWn
 //------------------------------------------------------------------
 bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWnd, DXGI_SWAP_CHAIN_DESC swapChainDesc)
 {
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	RECT Rect = { 0 };
 	UINT nWidth = 0;
 	UINT nHeight = 0;
@@ -436,6 +439,51 @@ bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWn
 	viewport.TopLeftY = 0.0f;
 
 	m_pD3D11Context->RSSetViewports(1, &viewport);
+
+	return true;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphics11Render()
+// @Purpose: DirectGraphics11 äÖÈ¾
+// @Since: v1.00a
+// @Para: None
+// @Return: bool(false:Ê§°Ü/true:³É¹¦)
+//------------------------------------------------------------------
+bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Render()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+
+	if (m_pD3D11Context == NULL)
+	{
+		return false;
+	}
+
+	m_pD3D11Context->ClearRenderTargetView(m_pD3D11BackBufferTarget, ClearColor);
+	m_pD3D11SwapChain->Present(0, 0);
+
+	return true;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphics11Render()
+// @Purpose: DirectGraphics11 äÖÈ¾
+// @Since: v1.00a
+// @Para: const float ClearColor[4](ÇåÆÁ±³¾°É«RGBA)
+// @Return: bool(false:Ê§°Ü/true:³É¹¦)
+//------------------------------------------------------------------
+bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Render(const float ClearColor[4])
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	if (m_pD3D11Context == NULL)
+	{
+		return false;
+	}
+
+	m_pD3D11Context->ClearRenderTargetView(m_pD3D11BackBufferTarget, ClearColor);
+	m_pD3D11SwapChain->Present(0, 0);
 
 	return true;
 }

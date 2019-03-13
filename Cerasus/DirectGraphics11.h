@@ -51,6 +51,8 @@ public:
 	virtual bool	DIRECTGRAPHICS11_CALLMETHOD	DirectGraphics11Init(HWND hWnd);												// DirectGraphics11 Init(~DirectGraphics11初始化)
 	virtual bool	DIRECTGRAPHICS11_CALLMETHOD	DirectGraphics11Init(HWND hWnd, UINT nScreenWidth, UINT nScreenHeight);			// DirectGraphics11 Init(~DirectGraphics11初始化)(重载+1)
 	virtual bool	DIRECTGRAPHICS11_CALLMETHOD	DirectGraphics11Init(HWND hWnd, DXGI_SWAP_CHAIN_DESC swapChainDesc);			// DirectGraphics11 Init(~DirectGraphics11初始化)(重载+2)
+	virtual bool	DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11Render();														// DirectGraphics11 Render(~DirectGraphics11开始渲染)(黑色)
+	virtual bool	DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11Render(const float ClearColor[4]);								// DirectGraphics11 Render(~DirectGraphics11开始渲染)(重载+1)
 
 };
 

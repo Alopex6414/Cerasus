@@ -357,6 +357,9 @@
     <ClInclude Include="DXUICommon.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="DXUIWindow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectFont.cpp">
@@ -456,6 +459,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="DirectGraphics11.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUIWindow.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

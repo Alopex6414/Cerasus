@@ -236,6 +236,7 @@
     <ClInclude Include="DirectX\Inc\XInput.h" />
     <ClInclude Include="DirectX\Inc\xma2defs.h" />
     <ClInclude Include="DirectX\Inc\xnamath.h" />
+    <ClInclude Include="DXUICommon.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SakuraBlend.h" />
     <ClInclude Include="SakuraButton.h" />

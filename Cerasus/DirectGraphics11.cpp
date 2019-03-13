@@ -28,6 +28,8 @@ DirectGraphics11::DirectGraphics11() :
 	m_DriverType(D3D_DRIVER_TYPE_NULL),
 	m_FeatureLevel(D3D_FEATURE_LEVEL_11_0)
 {
+	m_bThreadSafe = true;									// DirectGraphics11 线程安全
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// DirectGraphics11 初始化临界区
 }
 
 //------------------------------------------------------------------
@@ -43,16 +45,31 @@ DirectGraphics11::~DirectGraphics11()
 	SAFE_RELEASE(m_pD3D11SwapChain);
 	SAFE_RELEASE(m_pD3D11Context);
 	SAFE_RELEASE(m_pD3D11Device);
+
+	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);		// DirectGraphics11 删除临界区
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphicsInit()
+// @Function:	 DirectGraphics11GetDevice()
+// @Purpose: DirectGraphics11 获取D3D11设备对象
+// @Since: v1.00a
+// @Para: None
+// @Return: ID3D11Device*(D3D11设备对象指针)
+//------------------------------------------------------------------
+ID3D11Device *DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11GetDevice() const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pD3D11Device;
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphics11Init()
 // @Purpose: DirectGraphics11 初始化
 // @Since: v1.00a
 // @Para: HWND hWnd(窗口句柄)
 // @Return: bool(false:失败/true:成功)
 //------------------------------------------------------------------
-bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphicsInit(HWND hWnd)
+bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWnd)
 {
 	RECT Rect = { 0 };
 	UINT nWidth = 0;
@@ -160,7 +177,7 @@ bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphicsInit(HWND hWnd)
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphicsInit()
+// @Function:	 DirectGraphics11Init()
 // @Purpose: DirectGraphics11 初始化
 // @Since: v1.00a
 // @Para: HWND hWnd(窗口句柄)
@@ -168,7 +185,7 @@ bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphicsInit(HWND hWnd)
 // @Para: UINT nScreenHeight(窗口高度)
 // @Return: bool(false:失败/true:成功)
 //------------------------------------------------------------------
-bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphicsInit(HWND hWnd, UINT nScreenWidth, UINT nScreenHeight)
+bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWnd, UINT nScreenWidth, UINT nScreenHeight)
 {
 	UINT nWidth = nScreenWidth;
 	UINT nHeight = nScreenHeight;
@@ -270,14 +287,14 @@ bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphicsInit(HWND hWnd,
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphicsInit()
+// @Function:	 DirectGraphics11Init()
 // @Purpose: DirectGraphics11 初始化
 // @Since: v1.00a
 // @Para: HWND hWnd(窗口句柄)
 // @Para: DXGI_SWAP_CHAIN_DESC swapChainDesc(交换链结构)
 // @Return: bool(false:失败/true:成功)
 //------------------------------------------------------------------
-bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphicsInit(HWND hWnd, DXGI_SWAP_CHAIN_DESC swapChainDesc)
+bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWnd, DXGI_SWAP_CHAIN_DESC swapChainDesc)
 {
 	RECT Rect = { 0 };
 	UINT nWidth = 0;

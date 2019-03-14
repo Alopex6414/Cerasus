@@ -46,4 +46,8 @@
 // Using C/C++ Class Namespace
 using namespace std;
 
+// Class Declaration
+class CDXUIManager;
+class CDXUIWindow;
+
 #endif // !__DXUICOMMON_H_

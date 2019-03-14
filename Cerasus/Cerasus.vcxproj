@@ -237,6 +237,7 @@
     <ClInclude Include="DirectX\Inc\xma2defs.h" />
     <ClInclude Include="DirectX\Inc\xnamath.h" />
     <ClInclude Include="DXUICommon.h" />
+    <ClInclude Include="DXUIManager.h" />
     <ClInclude Include="DXUIWindow.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SakuraBlend.h" />
@@ -275,6 +276,7 @@
     <ClCompile Include="DirectSurface.cpp" />
     <ClCompile Include="DirectTexture.cpp" />
     <ClCompile Include="DirectThreadSafe.cpp" />
+    <ClCompile Include="DXUIManager.cpp" />
     <ClCompile Include="DXUIWindow.cpp" />
     <ClCompile Include="SakuraBlend.cpp" />
     <ClCompile Include="SakuraButton.cpp" />

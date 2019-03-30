@@ -248,6 +248,18 @@ void DXUIWINDOW_CALLMETHOD CDXUIWindow::ShowWindow(bool bShow, bool bTakeFocus)
 }
 
 //------------------------------------------------------------------
+// @Function:	 ShowModal()
+// @Purpose: CDXUIWindow显示窗口(模态)
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+UINT DXUIWINDOW_CALLMETHOD CDXUIWindow::ShowModal()
+{
+	return 0;
+}
+
+//------------------------------------------------------------------
 // @Function:	 GetWindowClassName()
 // @Purpose: CDXUIWindow获取窗口类名
 // @Since: v1.00a

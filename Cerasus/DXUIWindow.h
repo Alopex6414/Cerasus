@@ -52,6 +52,7 @@ public:
 	void	DXUIWINDOW_CALLMETHOD	UnSubClass();									// CDXUIWindow 窗口非子类化
 
 	void	DXUIWINDOW_CALLMETHOD	ShowWindow(bool bShow = true, bool bTakeFocus = true);			// CDXUIWindow 显示窗口(非模态)
+	UINT	DXUIWINDOW_CALLMETHOD	ShowModal();													// CDXUIWindow 显示窗口(模态)
 
 protected:
 	virtual	LPCTSTR	DXUIWINDOW_CALLMETHOD	GetWindowClassName() const;				// CDXUIWindow 获取窗口类名

@@ -71,6 +71,90 @@ DirectGraphics::~DirectGraphics()
 }
 
 //------------------------------------------------------------------
+// @Function:	 DirectGraphics(bool bSafe)
+// @Purpose: DirectGraphics构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+DirectGraphics::DirectGraphics(bool bSafe) :
+	m_pD3D9(NULL),
+	m_pD3D9Device(NULL),
+	m_pD3DXFont(NULL),
+	m_nWidth(0),
+	m_nHeight(0)
+{
+	m_bThreadSafe = bSafe;									// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
+
+	ZeroMemory(&m_D3D9Caps, sizeof(m_D3D9Caps));
+	ZeroMemory(&m_D3D9pp, sizeof(m_D3D9pp));
+	ZeroMemory(m_wcD3D9AdapterType, sizeof(wchar_t)*DX9_GRAPHICS_ADAPTER_ARRAY_SIZE);
+	ZeroMemory(m_wcD3D9BackFormat, sizeof(wchar_t)*DX9_GRAPHICS_FORMAT_ARRAY_SIZE);
+	ZeroMemory(m_wcD3D9AutoDepthStencilFormat, sizeof(wchar_t)*DX9_GRAPHICS_FORMAT_ARRAY_SIZE);
+	ZeroMemory(m_wcD3D9ScreenInfo, sizeof(wchar_t)*DX9_GRAPHICS_SCREEN_ARRAY_SIZE);
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphics(const DirectGraphics & Object)
+// @Purpose: DirectGraphics构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+DirectGraphics::DirectGraphics(const DirectGraphics & Object)
+{
+	m_bThreadSafe = Object.m_bThreadSafe;					// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
+
+	m_pD3D9 = Object.m_pD3D9;
+	m_pD3D9Device = Object.m_pD3D9Device;
+	m_pD3DXFont = Object.m_pD3DXFont;
+
+	m_nWidth = Object.m_nWidth;
+	m_nHeight = Object.m_nHeight;
+
+	memcpy_s(&m_D3D9Caps, sizeof(m_D3D9Caps), &(Object.m_D3D9Caps), sizeof(Object.m_D3D9Caps));
+	memcpy_s(&m_D3D9pp, sizeof(m_D3D9pp), &(Object.m_D3D9pp), sizeof(Object.m_D3D9pp));
+	memcpy_s(&m_wcD3D9AdapterType, sizeof(m_wcD3D9AdapterType), &(Object.m_wcD3D9AdapterType), sizeof(Object.m_wcD3D9AdapterType));
+	memcpy_s(&m_wcD3D9BackFormat, sizeof(m_wcD3D9BackFormat), &(Object.m_wcD3D9BackFormat), sizeof(Object.m_wcD3D9BackFormat));
+	memcpy_s(&m_wcD3D9AutoDepthStencilFormat, sizeof(m_wcD3D9AutoDepthStencilFormat), &(Object.m_wcD3D9AutoDepthStencilFormat), sizeof(Object.m_wcD3D9AutoDepthStencilFormat));
+	memcpy_s(&m_wcD3D9ScreenInfo, sizeof(m_wcD3D9ScreenInfo), &(Object.m_wcD3D9ScreenInfo), sizeof(Object.m_wcD3D9ScreenInfo));
+}
+
+//----------------------------------------------------------------------------------------------
+// @Function:	 const DirectGraphics & DirectGraphics::operator=(const DirectGraphics & Object)
+// @Purpose: DirectGraphics重载=
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//----------------------------------------------------------------------------------------------
+const DirectGraphics & DirectGraphics::operator=(const DirectGraphics & Object)
+{
+	if (&Object != this)
+	{
+		m_bThreadSafe = Object.m_bThreadSafe;					// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+		if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
+
+		m_pD3D9 = Object.m_pD3D9;
+		m_pD3D9Device = Object.m_pD3D9Device;
+		m_pD3DXFont = Object.m_pD3DXFont;
+
+		m_nWidth = Object.m_nWidth;
+		m_nHeight = Object.m_nHeight;
+
+		memcpy_s(&m_D3D9Caps, sizeof(m_D3D9Caps), &(Object.m_D3D9Caps), sizeof(Object.m_D3D9Caps));
+		memcpy_s(&m_D3D9pp, sizeof(m_D3D9pp), &(Object.m_D3D9pp), sizeof(Object.m_D3D9pp));
+		memcpy_s(&m_wcD3D9AdapterType, sizeof(m_wcD3D9AdapterType), &(Object.m_wcD3D9AdapterType), sizeof(Object.m_wcD3D9AdapterType));
+		memcpy_s(&m_wcD3D9BackFormat, sizeof(m_wcD3D9BackFormat), &(Object.m_wcD3D9BackFormat), sizeof(Object.m_wcD3D9BackFormat));
+		memcpy_s(&m_wcD3D9AutoDepthStencilFormat, sizeof(m_wcD3D9AutoDepthStencilFormat), &(Object.m_wcD3D9AutoDepthStencilFormat), sizeof(Object.m_wcD3D9AutoDepthStencilFormat));
+		memcpy_s(&m_wcD3D9ScreenInfo, sizeof(m_wcD3D9ScreenInfo), &(Object.m_wcD3D9ScreenInfo), sizeof(Object.m_wcD3D9ScreenInfo));
+	}
+
+	return *this;
+}
+
+//------------------------------------------------------------------
 // @Function:	 GetD3D9() const
 // @Purpose: DirectGraphics读取D3D9对象
 // @Since: v1.00a
@@ -213,6 +297,257 @@ UINT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetHeight() const
 	return m_nHeight;
 }
 
+//------------------------------------------------------------------------
+// @Function:	 GetFormat(LPCWSTR pString, UINT nSize)
+// @Purpose: DirectGraphics 获取后台缓冲型号
+// @Since: v1.01a
+// @Para: D3DFORMAT Format		// D3D9格式
+// @Para: LPCSTR pString		// 字符数组(Uincode)
+// @Return: None
+//------------------------------------------------------------------------
+void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetFormat(D3DFORMAT Format, LPWSTR pString)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	CHAR chString[MAX_PATH] = { 0 };
+	INT nSize = 0;
+
+	switch (Format)
+	{
+	case D3DFMT_UNKNOWN:
+		strcpy_s(chString, "D3DFMT_UNKNOWN");
+		break;
+	case D3DFMT_R8G8B8:
+		strcpy_s(chString, "D3DFMT_R8G8B8");
+		break;
+	case D3DFMT_A8R8G8B8:
+		strcpy_s(chString, "D3DFMT_A8R8G8B8");
+		break;
+	case D3DFMT_X8R8G8B8:
+		strcpy_s(chString, "D3DFMT_A8R8G8B8");
+		break;
+	case D3DFMT_R5G6B5:
+		strcpy_s(chString, "D3DFMT_R5G6B5");
+		break;
+	case D3DFMT_X1R5G5B5:
+		strcpy_s(chString, "D3DFMT_X1R5G5B5");
+		break;
+	case D3DFMT_A1R5G5B5:
+		strcpy_s(chString, "D3DFMT_A1R5G5B5");
+		break;
+	case D3DFMT_A4R4G4B4:
+		strcpy_s(chString, "D3DFMT_A4R4G4B4");
+		break;
+	case D3DFMT_R3G3B2:
+		strcpy_s(chString, "D3DFMT_R3G3B2");
+		break;
+	case D3DFMT_A8:
+		strcpy_s(chString, "D3DFMT_A8");
+		break;
+	case D3DFMT_A8R3G3B2:
+		strcpy_s(chString, "D3DFMT_A8R3G3B2");
+		break;
+	case D3DFMT_X4R4G4B4:
+		strcpy_s(chString, "D3DFMT_X4R4G4B4");
+		break;
+	case D3DFMT_A2B10G10R10:
+		strcpy_s(chString, "D3DFMT_A2B10G10R10");
+		break;
+	case D3DFMT_A8B8G8R8:
+		strcpy_s(chString, "D3DFMT_A8B8G8R8");
+		break;
+	case D3DFMT_X8B8G8R8:
+		strcpy_s(chString, "D3DFMT_X8B8G8R8");
+		break;
+	case D3DFMT_G16R16:
+		strcpy_s(chString, "D3DFMT_G16R16");
+		break;
+	case D3DFMT_A2R10G10B10:
+		strcpy_s(chString, "D3DFMT_A2R10G10B10");
+		break;
+	case D3DFMT_A16B16G16R16:
+		strcpy_s(chString, "D3DFMT_A16B16G16R16");
+		break;
+	case D3DFMT_A8P8:
+		strcpy_s(chString, "D3DFMT_A8P8");
+		break;
+	case D3DFMT_P8:
+		strcpy_s(chString, "D3DFMT_P8");
+		break;
+	case D3DFMT_L8:
+		strcpy_s(chString, "D3DFMT_L8");
+		break;
+	case D3DFMT_A8L8:
+		strcpy_s(chString, "D3DFMT_A8L8");
+		break;
+	case D3DFMT_A4L4:
+		strcpy_s(chString, "D3DFMT_A4L4");
+		break;
+	case D3DFMT_V8U8:
+		strcpy_s(chString, "D3DFMT_V8U8");
+		break;
+	case D3DFMT_L6V5U5:
+		strcpy_s(chString, "D3DFMT_L6V5U5");
+		break;
+	case D3DFMT_X8L8V8U8:
+		strcpy_s(chString, "D3DFMT_X8L8V8U8");
+		break;
+	case D3DFMT_Q8W8V8U8:
+		strcpy_s(chString, "D3DFMT_Q8W8V8U8");
+		break;
+	case D3DFMT_V16U16:
+		strcpy_s(chString, "D3DFMT_V16U16");
+		break;
+	case D3DFMT_A2W10V10U10:
+		strcpy_s(chString, "D3DFMT_A2W10V10U10");
+		break;
+	case D3DFMT_UYVY:
+		strcpy_s(chString, "D3DFMT_UYVY");
+		break;
+	case D3DFMT_R8G8_B8G8:
+		strcpy_s(chString, "D3DFMT_R8G8_B8G8");
+		break;
+	case D3DFMT_YUY2:
+		strcpy_s(chString, "D3DFMT_YUY2");
+		break;
+	case D3DFMT_G8R8_G8B8:
+		strcpy_s(chString, "D3DFMT_G8R8_G8B8");
+		break;
+	case D3DFMT_DXT1:
+		strcpy_s(chString, "D3DFMT_DXT1");
+		break;
+	case D3DFMT_DXT2:
+		strcpy_s(chString, "D3DFMT_DXT2");
+		break;
+	case D3DFMT_DXT3:
+		strcpy_s(chString, "D3DFMT_DXT3");
+		break;
+	case D3DFMT_DXT4:
+		strcpy_s(chString, "D3DFMT_DXT4");
+		break;
+	case D3DFMT_DXT5:
+		strcpy_s(chString, "D3DFMT_DXT5");
+		break;
+	case D3DFMT_D16_LOCKABLE:
+		strcpy_s(chString, "D3DFMT_D16_LOCKABLE");
+		break;
+	case D3DFMT_D32:
+		strcpy_s(chString, "D3DFMT_D32");
+		break;
+	case D3DFMT_D15S1:
+		strcpy_s(chString, "D3DFMT_D15S1");
+		break;
+	case D3DFMT_D24S8:
+		strcpy_s(chString, "D3DFMT_D24S8");
+		break;
+	case D3DFMT_D24X8:
+		strcpy_s(chString, "D3DFMT_D24X8");
+		break;
+	case D3DFMT_D24X4S4:
+		strcpy_s(chString, "D3DFMT_D24X4S4");
+		break;
+	case D3DFMT_D16:
+		strcpy_s(chString, "D3DFMT_D16");
+		break;
+	case D3DFMT_D32F_LOCKABLE:
+		strcpy_s(chString, "D3DFMT_D32F_LOCKABLE");
+		break;
+	case D3DFMT_D24FS8:
+		strcpy_s(chString, "D3DFMT_D24FS8");
+		break;
+		/* D3D9Ex only -- */
+#if !defined(D3D_DISABLE_9EX)
+	case D3DFMT_D32_LOCKABLE:
+		strcpy_s(chString, "D3DFMT_D32_LOCKABLE");
+		break;
+	case D3DFMT_S8_LOCKABLE:
+		strcpy_s(chString, "D3DFMT_S8_LOCKABLE");
+		break;
+#endif // !D3D_DISABLE_9EX
+	case D3DFMT_L16:
+		strcpy_s(chString, "D3DFMT_L16");
+		break;
+	case D3DFMT_VERTEXDATA:
+		strcpy_s(chString, "D3DFMT_VERTEXDATA");
+		break;
+	case D3DFMT_INDEX16:
+		strcpy_s(chString, "D3DFMT_INDEX16");
+		break;
+	case D3DFMT_INDEX32:
+		strcpy_s(chString, "D3DFMT_INDEX32");
+		break;
+	case D3DFMT_Q16W16V16U16:
+		strcpy_s(chString, "D3DFMT_Q16W16V16U16");
+		break;
+	case D3DFMT_MULTI2_ARGB8:
+		strcpy_s(chString, "D3DFMT_MULTI2_ARGB8");
+		break;
+	case D3DFMT_R16F:
+		strcpy_s(chString, "D3DFMT_R16F");
+		break;
+	case D3DFMT_G16R16F:
+		strcpy_s(chString, "D3DFMT_G16R16F");
+		break;
+	case D3DFMT_A16B16G16R16F:
+		strcpy_s(chString, "D3DFMT_A16B16G16R16F");
+		break;
+	case D3DFMT_R32F:
+		strcpy_s(chString, "D3DFMT_R32F");
+		break;
+	case D3DFMT_G32R32F:
+		strcpy_s(chString, "D3DFMT_G32R32F");
+		break;
+	case D3DFMT_A32B32G32R32F:
+		strcpy_s(chString, "D3DFMT_A32B32G32R32F");
+		break;
+	case D3DFMT_CxV8U8:
+		strcpy_s(chString, "D3DFMT_CxV8U8");
+		break;
+		/* D3D9Ex only -- */
+#if !defined(D3D_DISABLE_9EX)
+	case D3DFMT_A1:
+		strcpy_s(chString, "D3DFMT_A1");
+		break;
+	case D3DFMT_A2B10G10R10_XR_BIAS:
+		strcpy_s(chString, "D3DFMT_A2B10G10R10_XR_BIAS");
+		break;
+	case D3DFMT_BINARYBUFFER:
+		strcpy_s(chString, "D3DFMT_BINARYBUFFER");
+		break;
+#endif // !D3D_DISABLE_9EX
+
+	case D3DFMT_FORCE_DWORD:
+		strcpy_s(chString, "D3DFMT_FORCE_DWORD");
+		break;
+	default:
+		strcpy_s(chString, "D3DFMT_UNKNOWN");
+		break;
+	}
+
+	nSize = MultiByteToWideChar(CP_ACP, 0, chString, -1, NULL, 0);
+	MultiByteToWideChar(CP_ACP, 0, chString, -1, pString, nSize);
+}
+
+//--------------------------------------------------------------------------------------
+// @Function:	 DirectGraphicsGetD3D9Screen(UINT nWidth, UINT nHeight, LPWSTR pString)
+// @Purpose: DirectGraphics 获取后台缓冲型号
+// @Since: v1.01a
+// @Para: UINT nWidth			//屏幕宽度
+// @Para: UINT nHeight			//屏幕高度
+// @Para: LPCSTR pString		//字符数组(Uincode)
+// @Return: None
+//--------------------------------------------------------------------------------------
+void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetScreen(UINT nWidth, UINT nHeight, LPWSTR pString)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	CHAR chString[MAX_PATH] = { 0 };
+	INT nSize = 0;
+
+	sprintf_s(chString, "D3D9 Vsync on (%dx%d)", nWidth, nHeight);
+
+	nSize = MultiByteToWideChar(CP_ACP, 0, chString, -1, NULL, 0);
+	MultiByteToWideChar(CP_ACP, 0, chString, -1, pString, nSize);
+}
+
 //------------------------------------------------------------------
 // @Function:	 DirectGraphicsTestCooperativeLevel(void) const
 // @Purpose: DirectGraphics读取D3D9 当前状态
@@ -227,6 +562,320 @@ HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsTestCooperativeL
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return (m_pD3D9Device->TestCooperativeLevel());
 }
+
+//------------------------------------------------------------------
+// @Function:	 Create(HWND hWnd)
+// @Purpose: DirectGraphics 初始化
+// @Since: v1.00a
+// @Para: HWND hWnd(窗口句柄)
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Create(HWND hWnd)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	int nSize;
+	int Vp;
+	D3DADAPTER_IDENTIFIER9 D3D9Adapter;
+
+	// 读取Direct3D9接口对象指针
+	m_pD3D9 = Direct3DCreate9(D3D_SDK_VERSION);		// 创建Direct3D9接口对象
+
+	// 读取D3DCAPS9校验硬件顶点运算
+	VERIFY(m_pD3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &m_D3D9Caps));	// 校验硬件顶点运算能力
+
+	if (m_D3D9Caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT)
+	{
+		Vp = D3DCREATE_HARDWARE_VERTEXPROCESSING;	// 支持硬件顶点运算(硬件顶点运算)
+	}
+	else
+	{
+		Vp = D3DCREATE_SOFTWARE_VERTEXPROCESSING;	// 不支持硬件顶点运算(软件顶点运算)
+	}
+
+	// 填充D3DPRESENT_PARAMETERS结构
+	m_D3D9pp.BackBufferWidth = USER_SCREENWIDTH;										// 后台缓冲表面宽度(Pixel)
+	m_D3D9pp.BackBufferHeight = USER_SCREENHEIGHT;										// 后台缓冲表面高度(Pixel)
+	m_D3D9pp.BackBufferFormat = D3DFMT_A8R8G8B8;										// 后台缓冲像素格式
+	m_D3D9pp.BackBufferCount = 1;														// 后台缓冲数量(1)
+	m_D3D9pp.MultiSampleType = D3DMULTISAMPLE_NONE;										// 后台缓冲多重采样类型
+	m_D3D9pp.MultiSampleQuality = 0;													// 后台缓冲多重采样质量
+	m_D3D9pp.SwapEffect = D3DSWAPEFFECT_DISCARD;										// 交换链页面置换方式
+	m_D3D9pp.hDeviceWindow = hWnd;														// 设备相关窗口句柄
+	m_D3D9pp.Windowed = true;															// 窗口模式:true/全屏模式:false
+	m_D3D9pp.EnableAutoDepthStencil = true;												// Direct3D自动创建维护深度缓冲和模板缓冲
+	m_D3D9pp.AutoDepthStencilFormat = D3DFMT_D24S8;										// 深度缓冲和模板缓冲像素格式
+	m_D3D9pp.Flags = 0;																	// 无标记格式
+	m_D3D9pp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;						// Direct3D默认刷新频率
+	m_D3D9pp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;						// Direct3D提交频率(默认提交)
+
+	// 创建IDirect3DDevice9接口对象指针
+	VERIFY(m_pD3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, Vp, &m_D3D9pp, &m_pD3D9Device));		// 创建IDirect3DDevice9接口对象指针
+
+	// 读取窗口尺寸
+	m_nWidth = m_D3D9pp.BackBufferWidth;
+	m_nHeight = m_D3D9pp.BackBufferHeight;
+
+	// 读取GPU型号
+	m_pD3D9->GetAdapterIdentifier(0, 0, &D3D9Adapter);		// 读取GPU信息
+	nSize = MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, NULL, 0);
+	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
+
+	// 读取后台缓冲像素格式
+	GetFormat(m_D3D9pp.BackBufferFormat, m_wcD3D9BackFormat);
+
+	// 读取深度缓存和模板缓冲像素格式
+	GetFormat(m_D3D9pp.AutoDepthStencilFormat, m_wcD3D9AutoDepthStencilFormat);
+
+	// 读取屏幕分辨率信息
+	GetScreen(m_nWidth, m_nHeight, m_wcD3D9ScreenInfo);
+
+	return S_OK;//OK
+}
+
+//------------------------------------------------------------------
+// @Function:	 Create(HWND hWnd, bool bIsWindowed)
+// @Purpose: DirectGraphics 初始化
+// @Since: v1.00a
+// @Para: HWND hWnd(窗口句柄)
+// @Para: bool bIsWindowed(是否以窗口模式运行)
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Create(HWND hWnd, bool bIsWindowed)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	int nSize;
+	int Vp;
+	D3DADAPTER_IDENTIFIER9 D3D9Adapter;
+
+	// 读取Direct3D9接口对象指针
+	m_pD3D9 = Direct3DCreate9(D3D_SDK_VERSION);		// 创建Direct3D9接口对象
+
+	// 读取D3DCAPS9校验硬件顶点运算
+	VERIFY(m_pD3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &m_D3D9Caps));	// 校验硬件顶点运算能力
+
+	if (m_D3D9Caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT)
+	{
+		Vp = D3DCREATE_HARDWARE_VERTEXPROCESSING;	// 支持硬件顶点运算(硬件顶点运算)
+	}
+	else
+	{
+		Vp = D3DCREATE_SOFTWARE_VERTEXPROCESSING;	// 不支持硬件顶点运算(软件顶点运算)
+	}
+
+	// 填充D3DPRESENT_PARAMETERS结构
+	m_D3D9pp.BackBufferWidth = USER_SCREENWIDTH;										// 后台缓冲表面宽度(Pixel)
+	m_D3D9pp.BackBufferHeight = USER_SCREENHEIGHT;										// 后台缓冲表面高度(Pixel)
+	m_D3D9pp.BackBufferFormat = D3DFMT_A8R8G8B8;										// 后台缓冲像素格式
+	m_D3D9pp.BackBufferCount = 1;														// 后台缓冲数量(1)
+	m_D3D9pp.MultiSampleType = D3DMULTISAMPLE_NONE;										// 后台缓冲多重采样类型
+	m_D3D9pp.MultiSampleQuality = 0;													// 后台缓冲多重采样质量
+	m_D3D9pp.SwapEffect = D3DSWAPEFFECT_DISCARD;										// 交换链页面置换方式
+	m_D3D9pp.hDeviceWindow = hWnd;														// 设备相关窗口句柄
+	m_D3D9pp.Windowed = bIsWindowed;													// 窗口模式:true/全屏模式:false
+	m_D3D9pp.EnableAutoDepthStencil = true;												// Direct3D自动创建维护深度缓冲和模板缓冲
+	m_D3D9pp.AutoDepthStencilFormat = D3DFMT_D24S8;										// 深度缓冲和模板缓冲像素格式
+	m_D3D9pp.Flags = 0;																	// 无标记格式
+	m_D3D9pp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;						// Direct3D默认刷新频率
+	m_D3D9pp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;						// Direct3D提交频率(默认提交)
+
+																						// 创建IDirect3DDevice9接口对象指针
+	VERIFY(m_pD3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, Vp, &m_D3D9pp, &m_pD3D9Device));		// 创建IDirect3DDevice9接口对象指针
+
+	// 读取窗口尺寸
+	m_nWidth = m_D3D9pp.BackBufferWidth;
+	m_nHeight = m_D3D9pp.BackBufferHeight;
+
+	// 读取GPU型号
+	m_pD3D9->GetAdapterIdentifier(0, 0, &D3D9Adapter);		// 读取GPU信息
+	nSize = MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, NULL, 0);
+	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
+
+	// 读取后台缓冲像素格式
+	GetFormat(m_D3D9pp.BackBufferFormat, m_wcD3D9BackFormat);
+
+	// 读取深度缓存和模板缓冲像素格式
+	GetFormat(m_D3D9pp.AutoDepthStencilFormat, m_wcD3D9AutoDepthStencilFormat);
+
+	// 读取屏幕分辨率信息
+	GetScreen(m_nWidth, m_nHeight, m_wcD3D9ScreenInfo);
+
+	return S_OK;//OK
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 Create(HWND hWnd, bool bIsWindowed, int nScreenWidth, int nScreenHeight)
+// @Purpose: DirectGraphics 初始化
+// @Since: v1.00a
+// @Para: HWND hWnd(窗口句柄)
+// @Para: bool bIsWindowed(是否以窗口模式运行)
+// @Para: int nScreenWidth(屏幕宽度)
+// @Para: int nScreenHeight(屏幕高度)
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Create(HWND hWnd, bool bIsWindowed, int nScreenWidth, int nScreenHeight)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	int nSize;
+	int Vp;
+	D3DADAPTER_IDENTIFIER9 D3D9Adapter;
+
+	// 读取Direct3D9接口对象指针
+	m_pD3D9 = Direct3DCreate9(D3D_SDK_VERSION);		// 创建Direct3D9接口对象
+
+	// 读取D3DCAPS9校验硬件顶点运算
+	VERIFY(m_pD3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &m_D3D9Caps));	// 校验硬件顶点运算能力
+
+	if (m_D3D9Caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT)
+	{
+		Vp = D3DCREATE_HARDWARE_VERTEXPROCESSING;	// 支持硬件顶点运算(硬件顶点运算)
+	}
+	else
+	{
+		Vp = D3DCREATE_SOFTWARE_VERTEXPROCESSING;	// 不支持硬件顶点运算(软件顶点运算)
+	}
+
+	// 填充D3DPRESENT_PARAMETERS结构
+	m_D3D9pp.BackBufferWidth = nScreenWidth;											// 后台缓冲表面宽度(Pixel)
+	m_D3D9pp.BackBufferHeight = nScreenHeight;											// 后台缓冲表面高度(Pixel)
+	m_D3D9pp.BackBufferFormat = D3DFMT_A8R8G8B8;										// 后台缓冲像素格式
+	m_D3D9pp.BackBufferCount = 1;														// 后台缓冲数量(1)
+	m_D3D9pp.MultiSampleType = D3DMULTISAMPLE_NONE;										// 后台缓冲多重采样类型
+	m_D3D9pp.MultiSampleQuality = 0;													// 后台缓冲多重采样质量
+	m_D3D9pp.SwapEffect = D3DSWAPEFFECT_DISCARD;										// 交换链页面置换方式
+	m_D3D9pp.hDeviceWindow = hWnd;														// 设备相关窗口句柄
+	m_D3D9pp.Windowed = bIsWindowed;													// 窗口模式:true/全屏模式:false
+	m_D3D9pp.EnableAutoDepthStencil = true;												// Direct3D自动创建维护深度缓冲和模板缓冲
+	m_D3D9pp.AutoDepthStencilFormat = D3DFMT_D24S8;										// 深度缓冲和模板缓冲像素格式
+	m_D3D9pp.Flags = 0;																	// 无标记格式
+	m_D3D9pp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;						// Direct3D默认刷新频率
+	m_D3D9pp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;						// Direct3D提交频率(默认提交)
+
+																						// 创建IDirect3DDevice9接口对象指针
+	VERIFY(m_pD3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, Vp, &m_D3D9pp, &m_pD3D9Device));		// 创建IDirect3DDevice9接口对象指针
+
+	// 读取窗口尺寸
+	m_nWidth = m_D3D9pp.BackBufferWidth;
+	m_nHeight = m_D3D9pp.BackBufferHeight;
+
+	// 读取GPU型号
+	m_pD3D9->GetAdapterIdentifier(0, 0, &D3D9Adapter);		// 读取GPU信息
+	nSize = MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, NULL, 0);
+	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
+
+	// 读取后台缓冲像素格式
+	GetFormat(m_D3D9pp.BackBufferFormat, m_wcD3D9BackFormat);
+
+	// 读取深度缓存和模板缓冲像素格式
+	GetFormat(m_D3D9pp.AutoDepthStencilFormat, m_wcD3D9AutoDepthStencilFormat);
+
+	// 读取屏幕分辨率信息
+	GetScreen(m_nWidth, m_nHeight, m_wcD3D9ScreenInfo);
+
+	return S_OK;//OK
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 Create(D3DPRESENT_PARAMETERS D3D9pp)
+// @Purpose: DirectGraphics 初始化
+// @Since: v1.00a
+// @Para: D3DPRESENT_PARAMETERS D3D9pp(D3D9参数)
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Create(D3DPRESENT_PARAMETERS D3D9pp)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	int nSize;
+	int Vp;
+	D3DADAPTER_IDENTIFIER9 D3D9Adapter;
+
+	// 读取Direct3D9接口对象指针
+	m_pD3D9 = Direct3DCreate9(D3D_SDK_VERSION);		// 创建Direct3D9接口对象
+
+	// 读取D3DCAPS9校验硬件顶点运算
+	VERIFY(m_pD3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &m_D3D9Caps));	// 校验硬件顶点运算能力
+
+	if (m_D3D9Caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT)
+	{
+		Vp = D3DCREATE_HARDWARE_VERTEXPROCESSING;	// 支持硬件顶点运算(硬件顶点运算)
+	}
+	else
+	{
+		Vp = D3DCREATE_SOFTWARE_VERTEXPROCESSING;	// 不支持硬件顶点运算(软件顶点运算)
+	}
+
+	// 填充D3DPRESENT_PARAMETERS结构
+	m_D3D9pp.BackBufferWidth = D3D9pp.BackBufferWidth;									// 后台缓冲表面宽度(Pixel)
+	m_D3D9pp.BackBufferHeight = D3D9pp.BackBufferHeight;								// 后台缓冲表面高度(Pixel)
+	m_D3D9pp.BackBufferFormat = D3D9pp.BackBufferFormat;								// 后台缓冲像素格式
+	m_D3D9pp.BackBufferCount = D3D9pp.BackBufferCount;									// 后台缓冲数量(1)
+	m_D3D9pp.MultiSampleType = D3D9pp.MultiSampleType;									// 后台缓冲多重采样类型
+	m_D3D9pp.MultiSampleQuality = D3D9pp.MultiSampleQuality;							// 后台缓冲多重采样质量
+	m_D3D9pp.SwapEffect = D3D9pp.SwapEffect;											// 交换链页面置换方式
+	m_D3D9pp.hDeviceWindow = D3D9pp.hDeviceWindow;										// 设备相关窗口句柄
+	m_D3D9pp.Windowed = D3D9pp.Windowed;												// 窗口模式:true/全屏模式:false
+	m_D3D9pp.EnableAutoDepthStencil = D3D9pp.EnableAutoDepthStencil;					// Direct3D自动创建维护深度缓冲和模板缓冲
+	m_D3D9pp.AutoDepthStencilFormat = D3D9pp.AutoDepthStencilFormat;					// 深度缓冲和模板缓冲像素格式
+	m_D3D9pp.Flags = D3D9pp.Flags;														// 无标记格式
+	m_D3D9pp.FullScreen_RefreshRateInHz = D3D9pp.FullScreen_RefreshRateInHz;			// Direct3D默认刷新频率
+	m_D3D9pp.PresentationInterval = D3D9pp.PresentationInterval;						// Direct3D提交频率(默认提交)
+
+																						// 创建IDirect3DDevice9接口对象指针
+	VERIFY(m_pD3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, D3D9pp.hDeviceWindow, Vp, &m_D3D9pp, &m_pD3D9Device));		// 创建IDirect3DDevice9接口对象指针
+
+	// 读取窗口尺寸
+	m_nWidth = m_D3D9pp.BackBufferWidth;
+	m_nHeight = m_D3D9pp.BackBufferHeight;
+
+	// 读取GPU型号
+	m_pD3D9->GetAdapterIdentifier(0, 0, &D3D9Adapter);		// 读取GPU信息
+	nSize = MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, NULL, 0);
+	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
+
+	// 读取后台缓冲像素格式
+	GetFormat(m_D3D9pp.BackBufferFormat, m_wcD3D9BackFormat);
+
+	// 读取深度缓存和模板缓冲像素格式
+	GetFormat(m_D3D9pp.AutoDepthStencilFormat, m_wcD3D9AutoDepthStencilFormat);
+
+	// 读取屏幕分辨率信息
+	GetScreen(m_nWidth, m_nHeight, m_wcD3D9ScreenInfo);
+
+	return S_OK;//OK
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //------------------------------------------------------------------
 // @Function:	 DirectGraphicsResetDevice(void) const
@@ -412,285 +1061,6 @@ HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsStretchRect(IDir
 	return hr;
 }
 
-//------------------------------------------------------------------
-// @Function:	 DirectGraphicsInit(HWND hWnd)
-// @Purpose: DirectGraphics 初始化
-// @Since: v1.00a
-// @Para: HWND hWnd(窗口句柄)
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsInit(HWND hWnd)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	int nSize;
-	int Vp;
-	D3DADAPTER_IDENTIFIER9 D3D9Adapter;
-
-	//读取Direct3D9接口对象指针
-	m_pD3D9 = Direct3DCreate9(D3D_SDK_VERSION);//创建Direct3D9接口对象
-
-	//读取D3DCAPS9校验硬件顶点运算
-	VERIFY(m_pD3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &m_D3D9Caps));//校验硬件顶点运算能力
-
-	if (m_D3D9Caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT)
-	{
-		Vp = D3DCREATE_HARDWARE_VERTEXPROCESSING;//支持硬件顶点运算(硬件顶点运算)
-	}
-	else
-	{
-		Vp = D3DCREATE_SOFTWARE_VERTEXPROCESSING;//不支持硬件顶点运算(软件顶点运算)
-	}
-
-	//填充D3DPRESENT_PARAMETERS结构
-	m_D3D9pp.BackBufferWidth = USER_SCREENWIDTH;//后台缓冲表面宽度(Pixel)
-	m_D3D9pp.BackBufferHeight = USER_SCREENHEIGHT;//后台缓冲表面高度(Pixel)
-	m_D3D9pp.BackBufferFormat = D3DFMT_A8R8G8B8;//后台缓冲像素格式
-	m_D3D9pp.BackBufferCount = 1;//后台缓冲数量(1)
-	m_D3D9pp.MultiSampleType = D3DMULTISAMPLE_NONE;//后台缓冲多重采样类型
-	m_D3D9pp.MultiSampleQuality = 0;//后台缓冲多重采样质量
-	m_D3D9pp.SwapEffect = D3DSWAPEFFECT_DISCARD;//交换链页面置换方式
-	m_D3D9pp.hDeviceWindow = hWnd;//设备相关窗口句柄
-	m_D3D9pp.Windowed = true;//窗口模式:true/全屏模式:false
-	m_D3D9pp.EnableAutoDepthStencil = true;//Direct3D自动创建维护深度缓冲和模板缓冲
-	m_D3D9pp.AutoDepthStencilFormat = D3DFMT_D24S8;//深度缓冲和模板缓冲像素格式
-	m_D3D9pp.Flags = 0;//无标记格式
-	m_D3D9pp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;//Direct3D默认刷新频率
-	m_D3D9pp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;//Direct3D提交频率(默认提交)
-
-	//创建IDirect3DDevice9接口对象指针
-	VERIFY(m_pD3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, Vp, &m_D3D9pp, &m_pD3D9Device));//创建IDirect3DDevice9接口对象指针
-
-	//读取窗口尺寸
-	m_nWidth = m_D3D9pp.BackBufferWidth;
-	m_nHeight = m_D3D9pp.BackBufferHeight;
-
-	//读取GPU型号
-	m_pD3D9->GetAdapterIdentifier(0, 0, &D3D9Adapter);	//读取GPU信息
-	nSize = MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, NULL, 0);
-	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
-
-	//读取后台缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_D3D9pp.BackBufferFormat, m_wcD3D9BackFormat);
-
-	//读取深度缓存和模板缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_D3D9pp.AutoDepthStencilFormat, m_wcD3D9AutoDepthStencilFormat);
-
-	//读取屏幕分辨率信息
-	DirectGraphicsGetD3D9Screen(m_nWidth, m_nHeight, m_wcD3D9ScreenInfo);
-
-	return S_OK;//OK
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectGraphicsInit(HWND hWnd, bool bIsWindowed)
-// @Purpose: DirectGraphics 初始化
-// @Since: v1.00a
-// @Para: HWND hWnd(窗口句柄)
-// @Para: bool bIsWindowed(是否以窗口模式运行)
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsInit(HWND hWnd, bool bIsWindowed)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	int nSize;
-	int Vp;
-	D3DADAPTER_IDENTIFIER9 D3D9Adapter;
-
-	//读取Direct3D9接口对象指针
-	m_pD3D9 = Direct3DCreate9(D3D_SDK_VERSION);//创建Direct3D9接口对象
-
-	//读取D3DCAPS9校验硬件顶点运算
-	VERIFY(m_pD3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &m_D3D9Caps));//校验硬件顶点运算能力
-
-	if (m_D3D9Caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT)
-	{
-		Vp = D3DCREATE_HARDWARE_VERTEXPROCESSING;//支持硬件顶点运算(硬件顶点运算)
-	}
-	else
-	{
-		Vp = D3DCREATE_SOFTWARE_VERTEXPROCESSING;//不支持硬件顶点运算(软件顶点运算)
-	}
-
-	//填充D3DPRESENT_PARAMETERS结构
-	m_D3D9pp.BackBufferWidth = USER_SCREENWIDTH;//后台缓冲表面宽度(Pixel)
-	m_D3D9pp.BackBufferHeight = USER_SCREENHEIGHT;//后台缓冲表面高度(Pixel)
-	m_D3D9pp.BackBufferFormat = D3DFMT_A8R8G8B8;//后台缓冲像素格式
-	m_D3D9pp.BackBufferCount = 1;//后台缓冲数量(1)
-	m_D3D9pp.MultiSampleType = D3DMULTISAMPLE_NONE;//后台缓冲多重采样类型
-	m_D3D9pp.MultiSampleQuality = 0;//后台缓冲多重采样质量
-	m_D3D9pp.SwapEffect = D3DSWAPEFFECT_DISCARD;//交换链页面置换方式
-	m_D3D9pp.hDeviceWindow = hWnd;//设备相关窗口句柄
-	m_D3D9pp.Windowed = bIsWindowed;//窗口模式:true/全屏模式:false
-	m_D3D9pp.EnableAutoDepthStencil = true;//Direct3D自动创建维护深度缓冲和模板缓冲
-	m_D3D9pp.AutoDepthStencilFormat = D3DFMT_D24S8;//深度缓冲和模板缓冲像素格式
-	m_D3D9pp.Flags = 0;//无标记格式
-	m_D3D9pp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;//Direct3D默认刷新频率
-	m_D3D9pp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;//Direct3D提交频率(默认提交)
-
-	//创建IDirect3DDevice9接口对象指针
-	VERIFY(m_pD3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, Vp, &m_D3D9pp, &m_pD3D9Device));//创建IDirect3DDevice9接口对象指针
-
-	//读取窗口尺寸
-	m_nWidth = m_D3D9pp.BackBufferWidth;
-	m_nHeight = m_D3D9pp.BackBufferHeight;
-
-	//读取GPU型号
-	m_pD3D9->GetAdapterIdentifier(0, 0, &D3D9Adapter);	//读取GPU信息
-	nSize = MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, NULL, 0);
-	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
-
-	//读取后台缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_D3D9pp.BackBufferFormat, m_wcD3D9BackFormat);
-
-	//读取深度缓存和模板缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_D3D9pp.AutoDepthStencilFormat, m_wcD3D9AutoDepthStencilFormat);
-
-	//读取屏幕分辨率信息
-	DirectGraphicsGetD3D9Screen(m_nWidth, m_nHeight, m_wcD3D9ScreenInfo);
-
-	return S_OK;//OK
-}
-
-//---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsInit(HWND hWnd, bool bIsWindowed, int nScreenWidth, int nScreenHeight)
-// @Purpose: DirectGraphics 初始化
-// @Since: v1.00a
-// @Para: HWND hWnd(窗口句柄)
-// @Para: bool bIsWindowed(是否以窗口模式运行)
-// @Para: int nScreenWidth(屏幕宽度)
-// @Para: int nScreenHeight(屏幕高度)
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsInit(HWND hWnd, bool bIsWindowed, int nScreenWidth, int nScreenHeight)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	int nSize;
-	int Vp;
-	D3DADAPTER_IDENTIFIER9 D3D9Adapter;
-
-	//读取Direct3D9接口对象指针
-	m_pD3D9 = Direct3DCreate9(D3D_SDK_VERSION);//创建Direct3D9接口对象
-
-	//读取D3DCAPS9校验硬件顶点运算
-	VERIFY(m_pD3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &m_D3D9Caps));//校验硬件顶点运算能力
-
-	if (m_D3D9Caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT)
-	{
-		Vp = D3DCREATE_HARDWARE_VERTEXPROCESSING;//支持硬件顶点运算(硬件顶点运算)
-	}
-	else
-	{
-		Vp = D3DCREATE_SOFTWARE_VERTEXPROCESSING;//不支持硬件顶点运算(软件顶点运算)
-	}
-
-	//填充D3DPRESENT_PARAMETERS结构
-	m_D3D9pp.BackBufferWidth = nScreenWidth;//后台缓冲表面宽度(Pixel)
-	m_D3D9pp.BackBufferHeight = nScreenHeight;//后台缓冲表面高度(Pixel)
-	m_D3D9pp.BackBufferFormat = D3DFMT_A8R8G8B8;//后台缓冲像素格式
-	m_D3D9pp.BackBufferCount = 1;//后台缓冲数量(1)
-	m_D3D9pp.MultiSampleType = D3DMULTISAMPLE_NONE;//后台缓冲多重采样类型
-	m_D3D9pp.MultiSampleQuality = 0;//后台缓冲多重采样质量
-	m_D3D9pp.SwapEffect = D3DSWAPEFFECT_DISCARD;//交换链页面置换方式
-	m_D3D9pp.hDeviceWindow = hWnd;//设备相关窗口句柄
-	m_D3D9pp.Windowed = bIsWindowed;//窗口模式:true/全屏模式:false
-	m_D3D9pp.EnableAutoDepthStencil = true;//Direct3D自动创建维护深度缓冲和模板缓冲
-	m_D3D9pp.AutoDepthStencilFormat = D3DFMT_D24S8;//深度缓冲和模板缓冲像素格式
-	m_D3D9pp.Flags = 0;//无标记格式
-	m_D3D9pp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;//Direct3D默认刷新频率
-	m_D3D9pp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;//Direct3D提交频率(默认提交)
-
-	//创建IDirect3DDevice9接口对象指针
-	VERIFY(m_pD3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, Vp, &m_D3D9pp, &m_pD3D9Device));//创建IDirect3DDevice9接口对象指针
-
-	//读取窗口尺寸
-	m_nWidth = m_D3D9pp.BackBufferWidth;
-	m_nHeight = m_D3D9pp.BackBufferHeight;
-
-	//读取GPU型号
-	m_pD3D9->GetAdapterIdentifier(0, 0, &D3D9Adapter);	//读取GPU信息
-	nSize = MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, NULL, 0);
-	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
-
-	//读取后台缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_D3D9pp.BackBufferFormat, m_wcD3D9BackFormat);
-
-	//读取深度缓存和模板缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_D3D9pp.AutoDepthStencilFormat, m_wcD3D9AutoDepthStencilFormat);
-
-	//读取屏幕分辨率信息
-	DirectGraphicsGetD3D9Screen(m_nWidth, m_nHeight, m_wcD3D9ScreenInfo);
-
-	return S_OK;//OK
-}
-
-//---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsInit(D3DPRESENT_PARAMETERS D3D9pp)
-// @Purpose: DirectGraphics 初始化
-// @Since: v1.00a
-// @Para: D3DPRESENT_PARAMETERS D3D9pp(D3D9参数)
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsInit(D3DPRESENT_PARAMETERS D3D9pp)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	int nSize;
-	int Vp;
-	D3DADAPTER_IDENTIFIER9 D3D9Adapter;
-
-	//读取Direct3D9接口对象指针
-	m_pD3D9 = Direct3DCreate9(D3D_SDK_VERSION);//创建Direct3D9接口对象
-
-	//读取D3DCAPS9校验硬件顶点运算
-	VERIFY(m_pD3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &m_D3D9Caps));//校验硬件顶点运算能力
-
-	if (m_D3D9Caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT)
-	{
-		Vp = D3DCREATE_HARDWARE_VERTEXPROCESSING;//支持硬件顶点运算(硬件顶点运算)
-	}
-	else
-	{
-		Vp = D3DCREATE_SOFTWARE_VERTEXPROCESSING;//不支持硬件顶点运算(软件顶点运算)
-	}
-
-	//填充D3DPRESENT_PARAMETERS结构
-	m_D3D9pp.BackBufferWidth = D3D9pp.BackBufferWidth;//后台缓冲表面宽度(Pixel)
-	m_D3D9pp.BackBufferHeight = D3D9pp.BackBufferHeight;//后台缓冲表面高度(Pixel)
-	m_D3D9pp.BackBufferFormat = D3D9pp.BackBufferFormat;//后台缓冲像素格式
-	m_D3D9pp.BackBufferCount = D3D9pp.BackBufferCount;//后台缓冲数量(1)
-	m_D3D9pp.MultiSampleType = D3D9pp.MultiSampleType;//后台缓冲多重采样类型
-	m_D3D9pp.MultiSampleQuality = D3D9pp.MultiSampleQuality;//后台缓冲多重采样质量
-	m_D3D9pp.SwapEffect = D3D9pp.SwapEffect;//交换链页面置换方式
-	m_D3D9pp.hDeviceWindow = D3D9pp.hDeviceWindow;//设备相关窗口句柄
-	m_D3D9pp.Windowed = D3D9pp.Windowed;//窗口模式:true/全屏模式:false
-	m_D3D9pp.EnableAutoDepthStencil = D3D9pp.EnableAutoDepthStencil;//Direct3D自动创建维护深度缓冲和模板缓冲
-	m_D3D9pp.AutoDepthStencilFormat = D3D9pp.AutoDepthStencilFormat;//深度缓冲和模板缓冲像素格式
-	m_D3D9pp.Flags = D3D9pp.Flags;//无标记格式
-	m_D3D9pp.FullScreen_RefreshRateInHz = D3D9pp.FullScreen_RefreshRateInHz;//Direct3D默认刷新频率
-	m_D3D9pp.PresentationInterval = D3D9pp.PresentationInterval;//Direct3D提交频率(默认提交)
-
-	//创建IDirect3DDevice9接口对象指针
-	VERIFY(m_pD3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, D3D9pp.hDeviceWindow, Vp, &m_D3D9pp, &m_pD3D9Device));//创建IDirect3DDevice9接口对象指针
-
-	//读取窗口尺寸
-	m_nWidth = m_D3D9pp.BackBufferWidth;
-	m_nHeight = m_D3D9pp.BackBufferHeight;
-
-	//读取GPU型号
-	m_pD3D9->GetAdapterIdentifier(0, 0, &D3D9Adapter);	//读取GPU信息
-	nSize = MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, NULL, 0);
-	MultiByteToWideChar(CP_ACP, 0, D3D9Adapter.Description, -1, m_wcD3D9AdapterType, nSize);
-
-	//读取后台缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_D3D9pp.BackBufferFormat, m_wcD3D9BackFormat);
-
-	//读取深度缓存和模板缓冲像素格式
-	DirectGraphicsGetD3D9Format(m_D3D9pp.AutoDepthStencilFormat, m_wcD3D9AutoDepthStencilFormat);
-
-	//读取屏幕分辨率信息
-	DirectGraphicsGetD3D9Screen(m_nWidth, m_nHeight, m_wcD3D9ScreenInfo);
-
-	return S_OK;//OK
-}
 //---------------------------------------------------------------------------------------------------
 // @Function:	 DirectGraphicsBeginScene(void)
 // @Purpose: DirectGraphics 开始渲染
@@ -988,255 +1358,4 @@ void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawTextFormat(
 void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawTextScreen(LPRECT pRect, DWORD Format, D3DCOLOR Color)
 {
 	DirectGraphicsFontDrawTextW(m_wcD3D9ScreenInfo, -1, pRect, Format, Color);
-}
-
-//-----------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetD3D9Screen(UINT nWidth, UINT nHeight, LPWSTR pString)
-// @Purpose: DirectGraphics 获取后台缓冲型号
-// @Since: v1.01a
-// @Para: UINT nWidth			//屏幕宽度
-// @Para: UINT nHeight			//屏幕高度
-// @Para: LPCSTR pString		//字符数组(Uincode)
-// @Return: None
-//-----------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetD3D9Screen(UINT nWidth, UINT nHeight, LPWSTR pString)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	CHAR chString[MAX_PATH] = { 0 };
-	INT nSize = 0;
-
-	sprintf_s(chString, "D3D9 Vsync on (%dx%d)", nWidth, nHeight);
-
-	nSize = MultiByteToWideChar(CP_ACP, 0, chString, -1, NULL, 0);
-	MultiByteToWideChar(CP_ACP, 0, chString, -1, pString, nSize);
-}
-
-//-----------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetD3D9Format(LPCWSTR pString, UINT nSize)
-// @Purpose: DirectGraphics 获取后台缓冲型号
-// @Since: v1.01a
-// @Para: D3DFORMAT Format		//D3D9格式
-// @Para: LPCSTR pString		//字符数组(Uincode)
-// @Return: None
-//-----------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetD3D9Format(D3DFORMAT Format, LPWSTR pString)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	CHAR chString[MAX_PATH] = { 0 };
-	INT nSize = 0;
-
-	switch (Format)
-	{
-	case D3DFMT_UNKNOWN:
-		strcpy_s(chString, "D3DFMT_UNKNOWN");
-		break;
-	case D3DFMT_R8G8B8:
-		strcpy_s(chString, "D3DFMT_R8G8B8");
-		break;
-	case D3DFMT_A8R8G8B8:
-		strcpy_s(chString, "D3DFMT_A8R8G8B8");
-		break;
-	case D3DFMT_X8R8G8B8:
-		strcpy_s(chString, "D3DFMT_A8R8G8B8");
-		break;
-	case D3DFMT_R5G6B5:
-		strcpy_s(chString, "D3DFMT_R5G6B5");
-		break;
-	case D3DFMT_X1R5G5B5:
-		strcpy_s(chString, "D3DFMT_X1R5G5B5");
-		break;
-	case D3DFMT_A1R5G5B5:
-		strcpy_s(chString, "D3DFMT_A1R5G5B5");
-		break;
-	case D3DFMT_A4R4G4B4:
-		strcpy_s(chString, "D3DFMT_A4R4G4B4");
-		break;
-	case D3DFMT_R3G3B2:
-		strcpy_s(chString, "D3DFMT_R3G3B2");
-		break;
-	case D3DFMT_A8:
-		strcpy_s(chString, "D3DFMT_A8");
-		break;
-	case D3DFMT_A8R3G3B2:
-		strcpy_s(chString, "D3DFMT_A8R3G3B2");
-		break;
-	case D3DFMT_X4R4G4B4:
-		strcpy_s(chString, "D3DFMT_X4R4G4B4");
-		break;
-	case D3DFMT_A2B10G10R10:
-		strcpy_s(chString, "D3DFMT_A2B10G10R10");
-		break;
-	case D3DFMT_A8B8G8R8:
-		strcpy_s(chString, "D3DFMT_A8B8G8R8");
-		break;
-	case D3DFMT_X8B8G8R8:
-		strcpy_s(chString, "D3DFMT_X8B8G8R8");
-		break;
-	case D3DFMT_G16R16:
-		strcpy_s(chString, "D3DFMT_G16R16");
-		break;
-	case D3DFMT_A2R10G10B10:
-		strcpy_s(chString, "D3DFMT_A2R10G10B10");
-		break;
-	case D3DFMT_A16B16G16R16:
-		strcpy_s(chString, "D3DFMT_A16B16G16R16");
-		break;
-	case D3DFMT_A8P8:
-		strcpy_s(chString, "D3DFMT_A8P8");
-		break;
-	case D3DFMT_P8:
-		strcpy_s(chString, "D3DFMT_P8");
-		break;
-	case D3DFMT_L8:
-		strcpy_s(chString, "D3DFMT_L8");
-		break;
-	case D3DFMT_A8L8:
-		strcpy_s(chString, "D3DFMT_A8L8");
-		break;
-	case D3DFMT_A4L4:
-		strcpy_s(chString, "D3DFMT_A4L4");
-		break;
-	case D3DFMT_V8U8:
-		strcpy_s(chString, "D3DFMT_V8U8");
-		break;
-	case D3DFMT_L6V5U5:
-		strcpy_s(chString, "D3DFMT_L6V5U5");
-		break;
-	case D3DFMT_X8L8V8U8:
-		strcpy_s(chString, "D3DFMT_X8L8V8U8");
-		break;
-	case D3DFMT_Q8W8V8U8:
-		strcpy_s(chString, "D3DFMT_Q8W8V8U8");
-		break;
-	case D3DFMT_V16U16:
-		strcpy_s(chString, "D3DFMT_V16U16");
-		break;
-	case D3DFMT_A2W10V10U10:
-		strcpy_s(chString, "D3DFMT_A2W10V10U10");
-		break;
-	case D3DFMT_UYVY:
-		strcpy_s(chString, "D3DFMT_UYVY");
-		break;
-	case D3DFMT_R8G8_B8G8:
-		strcpy_s(chString, "D3DFMT_R8G8_B8G8");
-		break;
-	case D3DFMT_YUY2:
-		strcpy_s(chString, "D3DFMT_YUY2");
-		break;
-	case D3DFMT_G8R8_G8B8:
-		strcpy_s(chString, "D3DFMT_G8R8_G8B8");
-		break;
-	case D3DFMT_DXT1:
-		strcpy_s(chString, "D3DFMT_DXT1");
-		break;
-	case D3DFMT_DXT2:
-		strcpy_s(chString, "D3DFMT_DXT2");
-		break;
-	case D3DFMT_DXT3:
-		strcpy_s(chString, "D3DFMT_DXT3");
-		break;
-	case D3DFMT_DXT4:
-		strcpy_s(chString, "D3DFMT_DXT4");
-		break;
-	case D3DFMT_DXT5:
-		strcpy_s(chString, "D3DFMT_DXT5");
-		break;
-	case D3DFMT_D16_LOCKABLE:
-		strcpy_s(chString, "D3DFMT_D16_LOCKABLE");
-		break;
-	case D3DFMT_D32:
-		strcpy_s(chString, "D3DFMT_D32");
-		break;
-	case D3DFMT_D15S1:
-		strcpy_s(chString, "D3DFMT_D15S1");
-		break;
-	case D3DFMT_D24S8:
-		strcpy_s(chString, "D3DFMT_D24S8");
-		break;
-	case D3DFMT_D24X8:
-		strcpy_s(chString, "D3DFMT_D24X8");
-		break;
-	case D3DFMT_D24X4S4:
-		strcpy_s(chString, "D3DFMT_D24X4S4");
-		break;
-	case D3DFMT_D16:
-		strcpy_s(chString, "D3DFMT_D16");
-		break;
-	case D3DFMT_D32F_LOCKABLE:
-		strcpy_s(chString, "D3DFMT_D32F_LOCKABLE");
-		break;
-	case D3DFMT_D24FS8:
-		strcpy_s(chString, "D3DFMT_D24FS8");
-		break;
-/* D3D9Ex only -- */
-#if !defined(D3D_DISABLE_9EX)
-	case D3DFMT_D32_LOCKABLE:
-		strcpy_s(chString, "D3DFMT_D32_LOCKABLE");
-		break;
-	case D3DFMT_S8_LOCKABLE:
-		strcpy_s(chString, "D3DFMT_S8_LOCKABLE");
-		break;
-#endif // !D3D_DISABLE_9EX
-	case D3DFMT_L16:
-		strcpy_s(chString, "D3DFMT_L16");
-		break;
-	case D3DFMT_VERTEXDATA:
-		strcpy_s(chString, "D3DFMT_VERTEXDATA");
-		break;
-	case D3DFMT_INDEX16:
-		strcpy_s(chString, "D3DFMT_INDEX16");
-		break;
-	case D3DFMT_INDEX32:
-		strcpy_s(chString, "D3DFMT_INDEX32");
-		break;
-	case D3DFMT_Q16W16V16U16:
-		strcpy_s(chString, "D3DFMT_Q16W16V16U16");
-		break;
-	case D3DFMT_MULTI2_ARGB8:
-		strcpy_s(chString, "D3DFMT_MULTI2_ARGB8");
-		break;
-	case D3DFMT_R16F:
-		strcpy_s(chString, "D3DFMT_R16F");
-		break;
-	case D3DFMT_G16R16F:
-		strcpy_s(chString, "D3DFMT_G16R16F");
-		break;
-	case D3DFMT_A16B16G16R16F:
-		strcpy_s(chString, "D3DFMT_A16B16G16R16F");
-		break;
-	case D3DFMT_R32F:
-		strcpy_s(chString, "D3DFMT_R32F");
-		break;
-	case D3DFMT_G32R32F:
-		strcpy_s(chString, "D3DFMT_G32R32F");
-		break;
-	case D3DFMT_A32B32G32R32F:
-		strcpy_s(chString, "D3DFMT_A32B32G32R32F");
-		break;
-	case D3DFMT_CxV8U8:
-		strcpy_s(chString, "D3DFMT_CxV8U8");
-		break;
-		/* D3D9Ex only -- */
-#if !defined(D3D_DISABLE_9EX)
-	case D3DFMT_A1:
-		strcpy_s(chString, "D3DFMT_A1");
-		break;
-	case D3DFMT_A2B10G10R10_XR_BIAS:
-		strcpy_s(chString, "D3DFMT_A2B10G10R10_XR_BIAS");
-		break;
-	case D3DFMT_BINARYBUFFER:
-		strcpy_s(chString, "D3DFMT_BINARYBUFFER");
-		break;
-#endif // !D3D_DISABLE_9EX
-
-	case D3DFMT_FORCE_DWORD:
-		strcpy_s(chString, "D3DFMT_FORCE_DWORD");
-		break;
-	default:
-		strcpy_s(chString, "D3DFMT_UNKNOWN");
-		break;
-	}
-
-	nSize = MultiByteToWideChar(CP_ACP, 0, chString, -1, NULL, 0);
-	MultiByteToWideChar(CP_ACP, 0, chString, -1, pString, nSize);
 }

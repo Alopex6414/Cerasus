@@ -78,6 +78,13 @@ public:
 	DirectGraphics();												// DirectGraphics Construction Function(~DirectGraphics构造函数)
 	~DirectGraphics();												// DirectGraphics Destruction Function(~DirectGraphics析构函数)
 
+	DirectGraphics(bool bSafe);										// DirectGraphics Construction Function(~DirectGraphics构造函数)(Overload + 1)
+	DirectGraphics(const DirectGraphics&);							// DirectGraphics Construction Function(~DirectGraphics拷贝构造函数)
+
+public:
+	const DirectGraphics & operator= (const DirectGraphics&);		// DirectGraphics Operator Overload(~DirectGraphics重载=)
+
+public:
 	IDirect3D9*						DIRECTGRAPHICS_CALLMETHOD	GetD3D9() const;							// DirectGraphics Get D3D9 Object(~DirectGraphics获取D3D9对象)
 	IDirect3DDevice9*				DIRECTGRAPHICS_CALLMETHOD	GetDevice() const;							// DirectGraphics Get Device Object(~DirectGraphics获取D3D9设备对象)
 	ID3DXFont*						DIRECTGRAPHICS_CALLMETHOD	GetFont() const;							// DirectGraphics Get Font(~DirectGraphics获取D3D9字体)
@@ -91,6 +98,16 @@ public:
 
 	UINT							DIRECTGRAPHICS_CALLMETHOD	GetWidth() const;							// DirectGraphics Get Surface Widht(~DirectGraphics获取D3D9设备表面宽度)
 	UINT							DIRECTGRAPHICS_CALLMETHOD	GetHeight() const;							// DirectGraphics Get Surface Height(~DirectGraphics获取D3D9设备表面高度)
+
+protected:
+	void							DIRECTGRAPHICS_CALLMETHOD	GetFormat(D3DFORMAT Format, LPWSTR pString);					// DirectGraphics Get D3D9 Format(~DirectGraphics D3D9格式)
+	void							DIRECTGRAPHICS_CALLMETHOD	GetScreen(UINT nWidth, UINT nHeight, LPWSTR pString);			// DirectGraphics Get D3D9 Screen(~DirectGraphics D3D9分辨率)
+
+public:
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Create(HWND hWnd);																	// DirectGraphics Initialization(W:640 H:480 Windowed)(~DirectGraphics初始化:窗口宽度:640,窗口高度:480)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Create(HWND hWnd, bool bIsWindowed);												// DirectGraphics Initialization(~DirectGraphics初始化 <窗口模式>bIsWindowed = true, <全屏模式>bIsWindowed = false)(Overload + 1)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Create(HWND hWnd, bool bIsWindowed, int nScreenWidth, int nScreenHeight);			// DirectGraphics Initialization(~DirectGraphics初始化 <窗口模式>bIsWindowed = true, <全屏模式>bIsWindowed = false)(Overload + 2)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Create(D3DPRESENT_PARAMETERS D3D9pp);												// DirectGraphics Initialization(~DirectGraphics初始化 D3DPRESENT_PARAMETERS结构体参数传入)(Overload + 3)
 
 	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsResetDevice(void);					//DirectGraphics Reset Direct3D 9 Device(~DirectGraphics重置D3D9设备)
 	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsResetFont(void);					//DirectGraphics Reset Direct3D 9 Font(~DirectGraphics重置D3D9字体)
@@ -110,10 +127,6 @@ public:
 	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect);																						//DirectGraphics StretchRect(~DirectGraphics绘制表面)(重载+3)(默认绘制表面为后台缓冲)(默认不进行纹理滤波)
 	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface);																													//DirectGraphics StretchRect(~DirectGraphics绘制表面)(重载+4)(默认绘制整个表面)(默认绘制表面为后台缓冲)(默认不进行纹理滤波)
 
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsInit(HWND hWnd);					//DirectGraphics Initialization(W:640 H:480 Windowed)(~DirectGraphics初始化:窗口宽度:640,窗口高度:480)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsInit(HWND hWnd, bool bIsWindowed);	//DirectGraphics Initialization(~DirectGraphics初始化 <窗口模式>bIsWindowed = true, <全屏模式>bIsWindowed = false)(重载+1)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsInit(HWND hWnd, bool bIsWindowed, int nScreenWidth, int nScreenHeight);	//DirectGraphics Initialization(~DirectGraphics初始化 <窗口模式>bIsWindowed = true, <全屏模式>bIsWindowed = false)(重载+2)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsInit(D3DPRESENT_PARAMETERS D3D9pp);	//DirectGraphics Initialization(~DirectGraphics初始化 D3DPRESENT_PARAMETERS结构体参数传入)(重载+3)
 	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsBeginScene(void);					//DirectGraphics Begin Render(~DirectGraphics开始渲染:不进行清除屏幕)
 	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsEndScene(void);						//DirectGraphics End Render(~DirectGraphics结束渲染:不进行翻转显示)
 	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsBegin(void);						//DirectGraphics Begin Render(~DirectGraphics开始渲染:清除屏幕->开始渲染)
@@ -135,9 +148,6 @@ public:
 	virtual void DIRECTGRAPHICS_CALLMETHOD DirectGraphicsFontDrawTextAdapterType(LPRECT pRect, DWORD Format, D3DCOLOR Color);
 	virtual void DIRECTGRAPHICS_CALLMETHOD DirectGraphicsFontDrawTextFormat(LPRECT pRect, DWORD Format, D3DCOLOR Color);
 	virtual void DIRECTGRAPHICS_CALLMETHOD DirectGraphicsFontDrawTextScreen(LPRECT pRect, DWORD Format, D3DCOLOR Color);
-
-	virtual void DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetD3D9Screen(UINT nWidth, UINT nHeight, LPWSTR pString);			//DirectGraphics Get D3D9 Screen(~DirectGraphics D3D9分辨率)
-	virtual void DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetD3D9Format(D3DFORMAT Format, LPWSTR pString);					//DirectGraphics Get D3D9 Format(~DirectGraphics D3D9格式)
 };
 
 #endif

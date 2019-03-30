@@ -160,6 +160,7 @@
     <ClInclude Include="DirectSound.h" />
     <ClInclude Include="DirectSprite.h" />
     <ClInclude Include="DirectSurface.h" />
+    <ClInclude Include="DirectTemplate.h" />
     <ClInclude Include="DirectTexture.h" />
     <ClInclude Include="DirectThreadSafe.h" />
     <ClInclude Include="DirectX\Inc\audiodefs.h" />

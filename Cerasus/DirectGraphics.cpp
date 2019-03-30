@@ -1,15 +1,15 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Sakura&Fantasy
 *     All rights reserved.
 *
 * @file		DirectGraphics.cpp
 * @brief	This Program is DirectGraphics DLL Project.
-* @author	Alopex/Helium
-* @version	v1.30a
-* @date		2017-11-2	v1.00a	alopex	Create Project.
-* @date		2017-12-2	v1.01a	alopex	Add D3DXFont.
-* @date		2017-12-8	v1.11a	alopex	Code Do Not Rely On MSVCR Library.
+* @author	Alopex/Alice
+* @version	v1.31a
+* @date		2017-11-02	v1.00a	alopex	Create Project.
+* @date		2017-12-02	v1.01a	alopex	Add D3DXFont.
+* @date		2017-12-08	v1.11a	alopex	Code Do Not Rely On MSVCR Library.
 * @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-01-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
 * @date		2018-02-11	v1.22a	alopex	Add D3D9 Lost Device Function.
@@ -21,10 +21,13 @@
 * @date		2018-06-23	v1.28a	alopex	Repair Bugs.
 * @date		2018-06-23	v1.29a	alopex	Add Draw Function.
 * @date		2018-11-23	v1.30a	alopex	Alter Call Method.
+* @date		2019-03-30	v1.31a	alopex	Add Notes.
 */
 #include "DirectCommon.h"
 #include "DirectGraphics.h"
 #include "DirectThreadSafe.h"
+
+// DirectX9 Graphics Class(DirectX9 绘制类)
 
 //------------------------------------------------------------------
 // @Function:	 DirectGraphics()
@@ -33,23 +36,22 @@
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-DirectGraphics::DirectGraphics()
+DirectGraphics::DirectGraphics() :
+	m_pD3D9(NULL), 
+	m_pD3D9Device(NULL),
+	m_pD3DXFont(NULL),
+	m_nWidth(0),
+	m_nHeight(0)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
+	m_bThreadSafe = true;									// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 
-	m_nWidth = 0;			//IDirect3D9窗口宽度
-	m_nHeight = 0;			//IDirect3D9窗口高度
-
-	m_pD3D9 = NULL;			//IDirect3D9接口指针初始化(NULL)
-	m_pD3D9Device = NULL;	//IDirect3DDevice9接口指针初始化(NULL)
-	m_pD3DXFont = NULL;		//ID3DXFont接口指针初始化(NULL)
-	ZeroMemory(&m_D3D9Caps, sizeof(m_D3D9Caps));	//清空m_D3D9Caps内存区域
-	ZeroMemory(&m_D3D9pp, sizeof(m_D3D9pp));		//清空m_D3D9pp内存区域
-	ZeroMemory(m_wcD3D9AdapterType, sizeof(wchar_t)*ADAPTERTYPESIZE);	//清空m_wcD3D9AdapterType内存区域
-	ZeroMemory(m_wcD3D9BackFormat, sizeof(wchar_t)*D3D9FORMATSIZE);		//清空m_wcD3D9BackFormat内存区域
-	ZeroMemory(m_wcD3D9AutoDepthStencilFormat, sizeof(wchar_t)*D3D9FORMATSIZE);	//清空m_wcD3D9AutoDepthStencilFormat内存区域
-	ZeroMemory(m_wcD3D9ScreenInfo, sizeof(wchar_t)*D3D9FORMATSIZE);	//清空m_wcD3D9ScreenInfo内存区域
+	ZeroMemory(&m_D3D9Caps, sizeof(m_D3D9Caps));
+	ZeroMemory(&m_D3D9pp, sizeof(m_D3D9pp));
+	ZeroMemory(m_wcD3D9AdapterType, sizeof(wchar_t)*DX9_GRAPHICS_ADAPTER_ARRAY_SIZE);
+	ZeroMemory(m_wcD3D9BackFormat, sizeof(wchar_t)*DX9_GRAPHICS_FORMAT_ARRAY_SIZE);
+	ZeroMemory(m_wcD3D9AutoDepthStencilFormat, sizeof(wchar_t)*DX9_GRAPHICS_FORMAT_ARRAY_SIZE);
+	ZeroMemory(m_wcD3D9ScreenInfo, sizeof(wchar_t)*DX9_GRAPHICS_SCREEN_ARRAY_SIZE);
 }
 
 //------------------------------------------------------------------
@@ -61,193 +63,154 @@ DirectGraphics::DirectGraphics()
 //------------------------------------------------------------------
 DirectGraphics::~DirectGraphics()
 {
-	SAFE_RELEASE(m_pD3DXFont);		//ID3DXFont接口释放
-	SAFE_RELEASE(m_pD3D9Device);	//IDirect3D9接口指针释放
-	SAFE_RELEASE(m_pD3D9);			//IDirect3DDevice9接口指针释放
+	SAFE_RELEASE(m_pD3DXFont);								// ID3DXFont Interface Release
+	SAFE_RELEASE(m_pD3D9Device);							// IDirect3D9 Interface Release
+	SAFE_RELEASE(m_pD3D9);									// IDirect3DDevice9 Interface Release
 
-	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);	//删除临界区
+	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);		// Delete Critical Section
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetObject(void) const
+// @Function:	 GetD3D9() const
 // @Purpose: DirectGraphics读取D3D9对象
 // @Since: v1.00a
 // @Para: None
 // @Return: IDirect3D9*(D3D9对象指针)
 //------------------------------------------------------------------
-IDirect3D9* DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetObject(void) const
+IDirect3D9 *DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetD3D9() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetDevice(void) const
+// @Function:	 GetDevice() const
 // @Purpose: DirectGraphics读取D3D9设备对象
 // @Since: v1.00a
 // @Para: None
 // @Return: IDirect3DDevice9*(D3D9设备对象指针)
 //------------------------------------------------------------------
-IDirect3DDevice9* DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetDevice(void) const
+IDirect3DDevice9 *DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetDevice() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Device;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetCaps(void) const
-// @Purpose: DirectGraphics读取D3D9设备型号
-// @Since: v1.00a
-// @Para: None
-// @Return: D3DCAPS9*(D3D9设备型号指针)
-//------------------------------------------------------------------
-const D3DCAPS9* DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetCaps(void) const
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return (&m_D3D9Caps);
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetPresentParameters(void) const
-// @Purpose: DirectGraphics读取D3D9设备参数
-// @Since: v1.00a
-// @Para: None
-// @Return: D3DPRESENT_PARAMETERS*(D3D9设备参数指针)
-//------------------------------------------------------------------
-const D3DPRESENT_PARAMETERS* DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetPresentParameters(void) const
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return (&m_D3D9pp);
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetAdapterType(void) const
-// @Purpose: DirectGraphics读取D3D9 GPU型号
-// @Since: v1.00a
-// @Para: None
-// @Return: wchar_t*(宽字符数组地址)
-//------------------------------------------------------------------
-const wchar_t* DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetAdapterType(void) const
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return m_wcD3D9AdapterType;
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetBackBufferFormat(void) const
-// @Purpose: DirectGraphics读取D3D9 后台缓冲格式
-// @Since: v1.00a
-// @Para: None
-// @Return: wchar_t*(宽字符数组地址)
-//------------------------------------------------------------------
-const wchar_t* DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetBackBufferFormat(void) const
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return m_wcD3D9BackFormat;
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetAutoDepthStencilFormat(void) const
-// @Purpose: DirectGraphics读取D3D9 深度模板缓冲格式
-// @Since: v1.00a
-// @Para: None
-// @Return: wchar_t*(宽字符数组地址)
-//------------------------------------------------------------------
-const wchar_t* DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetAutoDepthStencilFormat(void) const
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return m_wcD3D9AutoDepthStencilFormat;
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetFont(void) const
+// @Function:	 GetFont() const
 // @Purpose: DirectGraphics读取D3D9 GPU字体
 // @Since: v1.00a
 // @Para: None
 // @Return: ID3DXFont*(ID3DXFont类型指针)
 //------------------------------------------------------------------
-const ID3DXFont* DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetFont(void) const
+ID3DXFont *DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetFont() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXFont;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetSufaceWidth(void) const
-// @Purpose: DirectGraphics读取D3D9 设备表面宽度
+// @Function:	 GetCaps() const
+// @Purpose: DirectGraphics读取D3D9设备型号
 // @Since: v1.00a
 // @Para: None
-// @Return: UINT
+// @Return: D3DCAPS9*(D3D9设备型号指针)
 //------------------------------------------------------------------
-const UINT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetSufaceWidth(void) const
+const D3DCAPS9 *DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetCaps() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return m_nWidth;
+	return (&m_D3D9Caps);
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetSufaceHeight(void) const
-// @Purpose: DirectGraphics读取D3D9 设备表面高度
+// @Function:	 GetPP() const
+// @Purpose: DirectGraphics读取D3D9设备参数
 // @Since: v1.00a
 // @Para: None
-// @Return: UINT
+// @Return: D3DPRESENT_PARAMETERS*(D3D9设备参数指针)
 //------------------------------------------------------------------
-const UINT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetSufaceHeight(void) const
+const D3DPRESENT_PARAMETERS *DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetPP() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return m_nHeight;
+	return (&m_D3D9pp);
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetD3D9AdapterType(void) const
-// @Purpose: DirectGraphics读取D3D9 显卡型号字体
+// @Function:	 GetAdapterType() const
+// @Purpose: DirectGraphics读取D3D9 GPU型号
 // @Since: v1.00a
 // @Para: None
-// @Return: UINT
+// @Return: wchar_t*(宽字符数组地址)
 //------------------------------------------------------------------
-const wchar_t* DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetD3D9AdapterType(void) const
+const wchar_t *DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetAdapterType() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_wcD3D9AdapterType;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetD3D9BackFormat(void) const
-// @Purpose: DirectGraphics读取D3D9 后台缓存类型格式
+// @Function:	 GetBackBufferFormat() const
+// @Purpose: DirectGraphics读取D3D9 后台缓冲格式
 // @Since: v1.00a
 // @Para: None
-// @Return: UINT
+// @Return: wchar_t*(宽字符数组地址)
 //------------------------------------------------------------------
-const wchar_t* DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetD3D9BackFormat(void) const
+const wchar_t *DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetBackBufferFormat() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_wcD3D9BackFormat;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetD3D9AutoDepthStencilFormat(void) const
-// @Purpose: DirectGraphics读取D3D9 深度模板缓存类型格式
+// @Function:	 GetAutoDepthStencilFormat() const
+// @Purpose: DirectGraphics读取D3D9 深度模板缓冲格式
 // @Since: v1.00a
 // @Para: None
-// @Return: UINT
+// @Return: wchar_t*(宽字符数组地址)
 //------------------------------------------------------------------
-const wchar_t* DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetD3D9AutoDepthStencilFormat(void) const
+const wchar_t *DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetAutoDepthStencilFormat() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_wcD3D9AutoDepthStencilFormat;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetD3D9ScreenInfo(void) const
+// @Function:	 GetScreenInfo() const
 // @Purpose: DirectGraphics读取D3D9 屏幕分辨率信息
 // @Since: v1.00a
 // @Para: None
 // @Return: UINT
 //------------------------------------------------------------------
-const wchar_t* DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetD3D9ScreenInfo(void) const
+const wchar_t *DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetScreenInfo() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_wcD3D9ScreenInfo;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetWidth() const
+// @Purpose: DirectGraphics读取D3D9 设备表面宽度
+// @Since: v1.00a
+// @Para: None
+// @Return: UINT
+//------------------------------------------------------------------
+UINT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetWidth() const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_nWidth;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetHeight() const
+// @Purpose: DirectGraphics读取D3D9 设备表面高度
+// @Since: v1.00a
+// @Para: None
+// @Return: UINT
+//------------------------------------------------------------------
+UINT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetHeight() const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_nHeight;
 }
 
 //------------------------------------------------------------------

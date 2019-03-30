@@ -1,15 +1,15 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Sakura&Fantasy
 *     All rights reserved.
 *
 * @file		DirectGraphics.h
 * @brief	This Program is DirectGraphics DLL Project.
-* @author	Alopex/Helium
-* @version	v1.30a
-* @date		2017-11-2	v1.00a	alopex	Create Project.
-* @date		2017-12-2	v1.01a	alopex	Add D3DXFont.
-* @date		2017-12-8	v1.11a	alopex	Code Do Not Rely On MSVCR Library.
+* @author	Alopex/Alice
+* @version	v1.31a
+* @date		2017-11-02	v1.00a	alopex	Create Project.
+* @date		2017-12-02	v1.01a	alopex	Add D3DXFont.
+* @date		2017-12-08	v1.11a	alopex	Code Do Not Rely On MSVCR Library.
 * @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-01-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
 * @date		2018-02-11	v1.22a	alopex	Add D3D9 Lost Device Function.
@@ -21,13 +21,14 @@
 * @date		2018-06-23	v1.28a	alopex	Repair Bugs.
 * @date		2018-06-23	v1.29a	alopex	Add Draw Function.
 * @date		2018-11-23	v1.30a	alopex	Alter Call Method.
+* @date		2019-03-30	v1.31a	alopex	Add Notes.
 */
 #pragma once
 
 #ifndef __DIRECTGRAPHICS_H_
 #define __DIRECTGRAPHICS_H_
 
-//Macro Definition
+// Macro Definition
 #ifdef	CERASUS_EXPORTS
 #define DIRECTGRAPHICS_API	__declspec(dllexport)
 #else
@@ -36,63 +37,60 @@
 
 #define DIRECTGRAPHICS_CALLMETHOD	__stdcall
 
+// Macro Const
 #ifndef USER_SCREENWIDTH
-#define USER_SCREENWIDTH	640		//UserScreenWidth(~窗口区域宽度)
+#define USER_SCREENWIDTH	640
 #endif
 
 #ifndef USER_SCREENHEIGHT
-#define USER_SCREENHEIGHT	480		//UserScreenHeight(~窗口区域高度)
+#define USER_SCREENHEIGHT	480
 #endif
 
-#define ADAPTERTYPESIZE		64		//AdapterType Size(~存储显卡型号数组)
-#define D3D9FORMATSIZE		64		//D3D9 Format Size(~存储缓冲类型数组)
-#define D3D9SCREENSIZE		64		//D3D9 Format Size(~存储屏幕分辨率数组)
+#define DX9_GRAPHICS_ADAPTER_ARRAY_SIZE		64
+#define DX9_GRAPHICS_FORMAT_ARRAY_SIZE		64
+#define DX9_GRAPHICS_SCREEN_ARRAY_SIZE		64
 
-//Struct Definition
-
-//CallBack Definition
-
-//Class Definition
+// Class Definition
 class DIRECTGRAPHICS_API DirectGraphics
 {
 private:
-	IDirect3D9* m_pD3D9;				//The Direct3D 9 Main Object(~D3D9对象)
-	IDirect3DDevice9* m_pD3D9Device;	//The Direct3D 9 Render Device(~D3D9设备对象)
-	D3DCAPS9 m_D3D9Caps;				//The Direct3D 9 Caps(~D3D9设备状态)
-	D3DPRESENT_PARAMETERS m_D3D9pp;		//The Direct3D 9 Parameters(~D3D9设备参数)
-	ID3DXFont* m_pD3DXFont;				//The Direct3D 9 Font(~D3D9字体:显卡型号显示)
-	wchar_t m_wcD3D9AdapterType[ADAPTERTYPESIZE];	//The Direct3D 9 AdapterType(eg:NVIDIA GeForce GT750M)
-	wchar_t m_wcD3D9BackFormat[D3D9FORMATSIZE];		//The Direct3D 9 BackBufferFormat(eg:D3DFMT_A8R8G8B8)
-	wchar_t m_wcD3D9AutoDepthStencilFormat[D3D9FORMATSIZE];	//The Direct3D 9 AutoDepthStencilFormat(eg:D3DFMT_D24S8)
-	wchar_t m_wcD3D9ScreenInfo[D3D9SCREENSIZE];		//The Direct3D 9 Screen Information(eg:D3D9 Vsync on (640x480))
+	IDirect3D9*	m_pD3D9;											// Direct3D 9 Object(~D3D9对象)
+	IDirect3DDevice9*	m_pD3D9Device;								// Direct3D 9 Device Object(~D3D9设备对象)
+	D3DCAPS9	m_D3D9Caps;											// Direct3D 9 Caps(~D3D9设备状态)
+	D3DPRESENT_PARAMETERS	m_D3D9pp;								// Direct3D 9 Parameters(~D3D9设备参数)
 
-	CRITICAL_SECTION m_cs;				//Thread Safe(CriticalSection)(~D3D9临界区变量)
-	bool m_bThreadSafe;					//Thread Safe Status(~D3D9线程安全状态)
+private:
+	ID3DXFont*	m_pD3DXFont;														// Direct3D 9 Font(~D3D9字体:显卡型号)
+	wchar_t	m_wcD3D9AdapterType[DX9_GRAPHICS_ADAPTER_ARRAY_SIZE];					// Direct3D 9 AdapterType(eg:NVIDIA GeForce GT750M)
+	wchar_t m_wcD3D9BackFormat[DX9_GRAPHICS_FORMAT_ARRAY_SIZE];						// Direct3D 9 BackBufferFormat(eg:D3DFMT_A8R8G8B8)
+	wchar_t m_wcD3D9AutoDepthStencilFormat[DX9_GRAPHICS_FORMAT_ARRAY_SIZE];			// Direct3D 9 AutoDepthStencilFormat(eg:D3DFMT_D24S8)
+	wchar_t m_wcD3D9ScreenInfo[DX9_GRAPHICS_SCREEN_ARRAY_SIZE];						// Direct3D 9 Screen Information(eg:D3D9 Vsync on (640x480))
 
 protected:
-	UINT m_nWidth;						//The Direct3D 9 Suface Width(~D3D9窗口表面宽度)(窗口模式)
-	UINT m_nHeight;						//The Direct3D 9 Suface Height(~D3D9窗口表面高度)(窗口模式)
+	CRITICAL_SECTION m_cs;											// Direct3D 9 Thread Safe(CriticalSection)(~D3D9临界区变量)
+	bool m_bThreadSafe;												// Direct3D 9 Thread Safe Status(~D3D9线程安全状态)
+
+protected:
+	UINT m_nWidth;													// Direct3D 9 Suface Width(~D3D9窗口表面宽度)(窗口模式)
+	UINT m_nHeight;													// Direct3D 9 Suface Height(~D3D9窗口表面高度)(窗口模式)
 
 public:
-	DirectGraphics();					//DirectGraphics Constructor Function(~DirectGraphics构造函数)
-	~DirectGraphics();					//DirectGraphics Destructor	Function(~DirectGraphics析构函数)
+	DirectGraphics();												// DirectGraphics Construction Function(~DirectGraphics构造函数)
+	~DirectGraphics();												// DirectGraphics Destruction Function(~DirectGraphics析构函数)
 
-	virtual IDirect3D9* DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetObject(void) const;			//DirectGraphics Get Object(~DirectGraphics获取D3D9对象)
-	virtual IDirect3DDevice9* DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetDevice(void) const;	//DirectGraphics Get Device(~DirectGraphics获取D3D9设备对象)
-	virtual const D3DCAPS9* DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetCaps(void) const;		//DirectGraphics Get Caps(~DirectGraphics获取D3D9设备状态)
-	virtual const D3DPRESENT_PARAMETERS* DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetPresentParameters(void) const;	//DirectGraphics Get Present Parameters(~DirectGraphics获取D3D9显卡参数)
-	virtual const wchar_t* DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetAdapterType(void) const;						//DirectGraphics Get Adapter Type(~DirectGraphics获取D3D9显卡型号)
-	virtual const wchar_t* DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetBackBufferFormat(void) const;					//DirectGraphics Get BackBuffer Format(~DirectGraphics获取后台缓冲格式)
-	virtual const wchar_t* DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetAutoDepthStencilFormat(void) const;			//DirectGraphics Get AutoDepthStencil Format(~DirectGraphics深度模板缓冲格式)
-	virtual const ID3DXFont* DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetFont(void) const;							//DirectGraphics Get Font(~DirectGraphics获取D3D9字体)
+	IDirect3D9*						DIRECTGRAPHICS_CALLMETHOD	GetD3D9() const;							// DirectGraphics Get D3D9 Object(~DirectGraphics获取D3D9对象)
+	IDirect3DDevice9*				DIRECTGRAPHICS_CALLMETHOD	GetDevice() const;							// DirectGraphics Get Device Object(~DirectGraphics获取D3D9设备对象)
+	ID3DXFont*						DIRECTGRAPHICS_CALLMETHOD	GetFont() const;							// DirectGraphics Get Font(~DirectGraphics获取D3D9字体)
+	const D3DCAPS9*					DIRECTGRAPHICS_CALLMETHOD	GetCaps() const;							// DirectGraphics Get Caps(~DirectGraphics获取D3D9设备状态)
+	const D3DPRESENT_PARAMETERS*	DIRECTGRAPHICS_CALLMETHOD	GetPP() const;								// DirectGraphics Get Present Parameters(~DirectGraphics获取D3D9显卡参数)
 
-	virtual const UINT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetSufaceWidth(void) const;							//DirectGraphics Get Surface Widht(~DirectGraphics获取D3D9设备表面宽度)
-	virtual const UINT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetSufaceHeight(void) const;							//DirectGraphics Get Surface Height(~DirectGraphics获取D3D9设备表面高度)
+	const wchar_t*					DIRECTGRAPHICS_CALLMETHOD	GetAdapterType() const;						// DirectGraphics Get Adapter Type(~DirectGraphics获取D3D9显卡型号)
+	const wchar_t*					DIRECTGRAPHICS_CALLMETHOD	GetBackBufferFormat() const;				// DirectGraphics Get BackBuffer Format(~DirectGraphics获取后台缓冲格式)
+	const wchar_t*					DIRECTGRAPHICS_CALLMETHOD	GetAutoDepthStencilFormat() const;			// DirectGraphics Get AutoDepthStencil Format(~DirectGraphics深度模板缓冲格式)
+	const wchar_t*					DIRECTGRAPHICS_CALLMETHOD	GetScreenInfo() const;						// DirectGraphics Get Screen Infomation(~DirectGraphics屏幕信息)
 
-	virtual const wchar_t* DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetD3D9AdapterType(void) const;
-	virtual const wchar_t* DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetD3D9BackFormat(void) const;
-	virtual const wchar_t* DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetD3D9AutoDepthStencilFormat(void) const;
-	virtual const wchar_t* DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetD3D9ScreenInfo(void) const;
+	UINT							DIRECTGRAPHICS_CALLMETHOD	GetWidth() const;							// DirectGraphics Get Surface Widht(~DirectGraphics获取D3D9设备表面宽度)
+	UINT							DIRECTGRAPHICS_CALLMETHOD	GetHeight() const;							// DirectGraphics Get Surface Height(~DirectGraphics获取D3D9设备表面高度)
 
 	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsResetDevice(void);					//DirectGraphics Reset Direct3D 9 Device(~DirectGraphics重置D3D9设备)
 	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsResetFont(void);					//DirectGraphics Reset Direct3D 9 Font(~DirectGraphics重置D3D9字体)
@@ -141,9 +139,5 @@ public:
 	virtual void DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetD3D9Screen(UINT nWidth, UINT nHeight, LPWSTR pString);			//DirectGraphics Get D3D9 Screen(~DirectGraphics D3D9分辨率)
 	virtual void DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetD3D9Format(D3DFORMAT Format, LPWSTR pString);					//DirectGraphics Get D3D9 Format(~DirectGraphics D3D9格式)
 };
-
-//Variable Definition
-
-//Function Definition
 
 #endif

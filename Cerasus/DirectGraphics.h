@@ -109,45 +109,49 @@ public:
 	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Create(HWND hWnd, bool bIsWindowed, int nScreenWidth, int nScreenHeight);			// DirectGraphics Initialization(~DirectGraphics初始化 <窗口模式>bIsWindowed = true, <全屏模式>bIsWindowed = false)(Overload + 2)
 	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Create(D3DPRESENT_PARAMETERS D3D9pp);												// DirectGraphics Initialization(~DirectGraphics初始化 D3DPRESENT_PARAMETERS结构体参数传入)(Overload + 3)
 
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsResetDevice(void);					//DirectGraphics Reset Direct3D 9 Device(~DirectGraphics重置D3D9设备)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsResetFont(void);					//DirectGraphics Reset Direct3D 9 Font(~DirectGraphics重置D3D9字体)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsReset(void);						//DirectGraphics Reset Direct3D 9 All(~DirectGraphics重置DirectGraphics类)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Create2();																																											// DirectGraphicsFont Initialization(~DirectGraphics显卡型号字体初始化)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Create2(int Height);																																								// DirectGraphicsFont Initialization(~DirectGraphics显卡型号字体初始化:nFontSize:字体大小)(Overload + 1)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Create2(int Height, LPWSTR lpszFontType);																																			// DirectGraphicsFont Initialization(~DirectGraphics显卡型号字体初始化:<nFontSize>:字体大小 <lpszFontType>:字体样式)(Overload + 2)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Create2(INT Height, UINT Width, UINT Weight, UINT MipLevels, BOOL Italic, DWORD CharSet, DWORD OutputPrecision, DWORD Quality, DWORD PitchAndFamily, LPCWSTR pFaceName);			// DirectGraphicsFont Initialization(~DirectGraphics显卡型号字体初始化)(Overload + 3)
 
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsTestCooperativeLevel(void) const;	//DirectGraphics Get TestCooperativeLevel(~DirectGraphics获取D3D9当前状态)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Begin();														// DirectGraphics Begin Render(~DirectGraphics开始渲染:清除屏幕->开始渲染)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Begin(DWORD dwColor);											// DirectGraphics Begin Render(~DirectGraphics开始渲染:清除屏幕->开始渲染)(Overload + 1)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	End();															// DirectGraphics End Render(~DirectGraphics结束渲染:结束渲染->翻转屏幕)
+
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Reset();														// DirectGraphics Reset Direct3D 9 All(~DirectGraphics重置DirectGraphics类)
+
+	void							DIRECTGRAPHICS_CALLMETHOD	Draw(HWND hWnd);																	// DirectGraphicsFont Draw Text(~DirectGraphics绘制显卡型号)
+	void							DIRECTGRAPHICS_CALLMETHOD	Draw(HWND hWnd, D3DXCOLOR dwColor);													// DirectGraphicsFont Draw Text(~DirectGraphics绘制显卡型号:<dwColor>:字体颜色)(Overload + 1)
+	void							DIRECTGRAPHICS_CALLMETHOD	DrawW(LPCWSTR pString, INT nCount, LPRECT pRect, DWORD format, D3DCOLOR dwColor);	// DirectGraphicsFont Draw Text(~DirectGraphics绘制)
+	void							DIRECTGRAPHICS_CALLMETHOD	DrawA(LPCSTR pString, INT nCount, LPRECT pRect, DWORD format, D3DCOLOR dwColor);	// DirectGraphicsFont Draw Text(~DirectGraphics绘制)
+
+	void							DIRECTGRAPHICS_CALLMETHOD	DrawAdapterType(LPRECT pRect, DWORD format, D3DCOLOR dwColor);	// DirectGraphics Draw Adapter Type(~DirectGraphics绘制GPU类型)
+	void							DIRECTGRAPHICS_CALLMETHOD	DrawFormatInfo(LPRECT pRect, DWORD format, D3DCOLOR dwColor);	// DirectGraphics Draw Format Info(~DirectGraphics绘制格式信息)
+	void							DIRECTGRAPHICS_CALLMETHOD	DrawScreenInfo(LPRECT pRect, DWORD format, D3DCOLOR dwColor);	// DirectGraphics Draw Screen Info(~DirectGraphics绘制屏幕信息)
+
+public:
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	BeginScene();								// DirectGraphics Begin Render(~DirectGraphics开始渲染:不进行清除屏幕)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	EndScene();									// DirectGraphics End Render(~DirectGraphics结束渲染:不进行翻转显示)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Present();									// DirectGraphics Present Render(~DirectGraphics翻转屏幕)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Clear();									// DirectGraphics Clear Screen(~DirectGraphics清除屏幕:黑色填充)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	Clear(DWORD dwColor);						// DirectGraphics Clear Screen(~DirectGraphics清除屏幕:选定颜色填充)(Overload + 1)
+
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	TestCooperativeLevel();						// DirectGraphics Get TestCooperativeLevel(~DirectGraphics获取D3D9当前状态)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	ResetDevice();								// DirectGraphics Reset Direct3D 9 Device(~DirectGraphics重置D3D9设备)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	OnLostDevice();								// DirectGraphics Reset Direct3D 9 Font(~DirectGraphics重置D3D9字体)
 	
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsCreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, D3DFORMAT D3DFormat, D3DPOOL D3DPool, IDirect3DSurface9** ppD3D9Surface);							//DirectGraphics Create Off-Screen Plain Surface(~DirectGraphics创建离屏表面)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsCreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, IDirect3DSurface9** ppD3D9Surface);																	//DirectGraphics Create Off-Screen Plain Surface(~DirectGraphics创建离屏表面)(重载+1)(默认后台缓冲格式D3DFMT_A8R8G8B8)(默认D3D内存池D3DPOOL_DEFAULT)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsCreateOffscreenPlainSurface(IDirect3DSurface9** ppD3D9Surface);																								//DirectGraphics Create Off-Screen Plain Surface(~DirectGraphics创建离屏表面)(重载+2)(默认屏幕尺寸(W:640 H:480 Windowed))(默认后台缓冲格式D3DFMT_A8R8G8B8)(默认D3D内存池D3DPOOL_DEFAULT)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	GetBackBuffer(IDirect3DSurface9** ppD3D9BackBuffer);																													// DirectGraphics Get BackBuffer(~DirectGraphics获取D3D9表面Surface)
 
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsGetBackBuffer(IDirect3DSurface9** ppD3D9BackBuffer);	//DirectGraphics Get BackBuffer(~DirectGraphics获取D3D9表面Surface)
-	
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect, IDirect3DSurface9* pDestSurface, const RECT* pDestRect, D3DTEXTUREFILTERTYPE Filter);	//DirectGraphics StretchRect(~DirectGraphics绘制表面)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect, IDirect3DSurface9* pDestSurface, const RECT* pDestRect);								//DirectGraphics StretchRect(~DirectGraphics绘制表面)(重载+1)(默认不进行纹理滤波)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface, IDirect3DSurface9* pDestSurface);																				//DirectGraphics StretchRect(~DirectGraphics绘制表面)(重载+2)(默认绘制整个表面)(默认不进行纹理滤波)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect);																						//DirectGraphics StretchRect(~DirectGraphics绘制表面)(重载+3)(默认绘制表面为后台缓冲)(默认不进行纹理滤波)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface);																													//DirectGraphics StretchRect(~DirectGraphics绘制表面)(重载+4)(默认绘制整个表面)(默认绘制表面为后台缓冲)(默认不进行纹理滤波)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	CreateOffscreenPlainSurface(IDirect3DSurface9** ppD3D9Surface);																											// DirectGraphics Create Off-Screen Plain Surface(~DirectGraphics创建离屏表面)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	CreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, IDirect3DSurface9** ppD3D9Surface);																				// DirectGraphics Create Off-Screen Plain Surface(~DirectGraphics创建离屏表面)(Overload + 1)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	CreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, D3DFORMAT format, D3DPOOL pool, IDirect3DSurface9** ppD3D9Surface);												// DirectGraphics Create Off-Screen Plain Surface(~DirectGraphics创建离屏表面)(Overload + 2)
 
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsBeginScene(void);					//DirectGraphics Begin Render(~DirectGraphics开始渲染:不进行清除屏幕)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsEndScene(void);						//DirectGraphics End Render(~DirectGraphics结束渲染:不进行翻转显示)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsBegin(void);						//DirectGraphics Begin Render(~DirectGraphics开始渲染:清除屏幕->开始渲染)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsBegin(D3DCOLOR Color);				//DirectGraphics Begin Render(~DirectGraphics开始渲染:清除屏幕->开始渲染)(重载+1)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsEnd(void);							//DirectGraphics End Render(~DirectGraphics结束渲染:结束渲染->翻转屏幕)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsPresent(void);						//DirectGraphics Present Render(~DirectGraphics翻转屏幕)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsClear(void);						//DirectGraphics Clear Screen(~DirectGraphics清除屏幕:黑色填充)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsClear(D3DCOLOR Color);				//DirectGraphics Clear Screen(~DirectGraphics清除屏幕:选定颜色填充)(重载+1)
-	
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsFontInit(void);						//DirectGraphicsFont Initialization(~DirectGraphics显卡型号字体初始化)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsFontInit(int Height);				//DirectGraphicsFont Initialization(~DirectGraphics显卡型号字体初始化:nFontSize:字体大小)(重载+1)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsFontInit(int Height, LPWSTR lpszFontType);	//DirectGraphicsFont Initialization(~DirectGraphics显卡型号字体初始化:<nFontSize>:字体大小 <lpszFontType>:字体样式)(重载+2)
-	virtual HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphicsFontInit(INT Height, UINT Width, UINT Weight, UINT MipLevels, BOOL Italic, DWORD CharSet, DWORD OutputPrecision, DWORD Quality, DWORD PitchAndFamily, LPCWSTR pFaceName);	//DirectGraphicsFont Initialization(~DirectGraphics显卡型号字体初始化)(重载+3)
-	virtual void DIRECTGRAPHICS_CALLMETHOD DirectGraphicsFontDrawText(HWND hWnd);							//DirectGraphicsFont Draw Text(~DirectGraphics绘制显卡型号)
-	virtual void DIRECTGRAPHICS_CALLMETHOD DirectGraphicsFontDrawText(HWND hWnd, D3DXCOLOR dwColor);		//DirectGraphicsFont Draw Text(~DirectGraphics绘制显卡型号:<dwColor>:字体颜色)(重载+1)
-	virtual void DIRECTGRAPHICS_CALLMETHOD DirectGraphicsFontDrawTextW(LPCWSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color);	//DirectGraphicsFont Draw Text(~DirectGraphics绘制)
-	virtual void DIRECTGRAPHICS_CALLMETHOD DirectGraphicsFontDrawTextA(LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color);	//DirectGraphicsFont Draw Text(~DirectGraphics绘制)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	StretchRect(IDirect3DSurface9* pSourceSurface);																															// DirectGraphics StretchRect(~DirectGraphics绘制表面)(默认绘制整个表面)(默认绘制表面为后台缓冲)(默认不进行纹理滤波)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	StretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect);																								// DirectGraphics StretchRect(~DirectGraphics绘制表面)(默认绘制表面为后台缓冲)(默认不进行纹理滤波)(Overload + 1)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	StretchRect(IDirect3DSurface9* pSourceSurface, IDirect3DSurface9* pDestSurface);																						// DirectGraphics StretchRect(~DirectGraphics绘制表面)(默认绘制整个表面)(默认不进行纹理滤波)(Overload + 2)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	StretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect, IDirect3DSurface9* pDestSurface, const RECT* pDestRect);										// DirectGraphics StretchRect(~DirectGraphics绘制表面)(默认不进行纹理滤波)(Overload + 3)
+	HRESULT							DIRECTGRAPHICS_CALLMETHOD	StretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect, IDirect3DSurface9* pDestSurface, const RECT* pDestRect, D3DTEXTUREFILTERTYPE filter);			// DirectGraphics StretchRect(~DirectGraphics绘制表面)(Overload + 4)
 
-	virtual void DIRECTGRAPHICS_CALLMETHOD DirectGraphicsFontDrawTextAdapterType(LPRECT pRect, DWORD Format, D3DCOLOR Color);
-	virtual void DIRECTGRAPHICS_CALLMETHOD DirectGraphicsFontDrawTextFormat(LPRECT pRect, DWORD Format, D3DCOLOR Color);
-	virtual void DIRECTGRAPHICS_CALLMETHOD DirectGraphicsFontDrawTextScreen(LPRECT pRect, DWORD Format, D3DCOLOR Color);
 };
 
 #endif

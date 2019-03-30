@@ -549,21 +549,6 @@ void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetScreen(UINT nWidth, UINT nHeig
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphicsTestCooperativeLevel(void) const
-// @Purpose: DirectGraphics读取D3D9 当前状态
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(当前状态:正常:S_OK,错误:E_FAIL)
-//			D3DERR_DEVICELOST:设备丢失(无法Reset)
-//			D3DERR_DEVICENOTRESET:设备未Reset(可以Reset)
-//------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsTestCooperativeLevel(void) const
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return (m_pD3D9Device->TestCooperativeLevel());
-}
-
-//------------------------------------------------------------------
 // @Function:	 Create(HWND hWnd)
 // @Purpose: DirectGraphics 初始化
 // @Since: v1.00a
@@ -843,347 +828,14 @@ HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Create(D3DPRESENT_PARAMETERS D
 	return S_OK;//OK
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//------------------------------------------------------------------
-// @Function:	 DirectGraphicsResetDevice(void) const
-// @Purpose: DirectGraphics重置D3D9 初始设置
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(当前状态:正常:S_OK,错误:E_FAIL)
-//------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsResetDevice(void)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return (m_pD3D9Device->Reset(&m_D3D9pp));
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectGraphicsGetBackBuffer(IDirect3DSurface9* pD3D9BackBuffer)
-// @Purpose: DirectGraphics获取D3D9 表面
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(当前状态:正常:S_OK,错误:E_FAIL)
-//------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsGetBackBuffer(IDirect3DSurface9** ppD3D9BackBuffer)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return (m_pD3D9Device->GetBackBuffer(NULL, NULL, D3DBACKBUFFER_TYPE_MONO, ppD3D9BackBuffer));
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectGraphicsResetFont(void)
-// @Purpose: DirectGraphics 重置
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(重置状态:成功:S_OK,失败:E_FAIL)
-//------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsResetFont(void)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return (m_pD3DXFont ? m_pD3DXFont->OnLostDevice() : S_OK);
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectGraphicsReset(void)
-// @Purpose: DirectGraphics 重置D3D9 DirectGraphics类
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(重置状态:成功:S_OK,失败:E_FAIL)
-//------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsReset(void)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	IDirect3DSurface9* pD3D9BackBuffer = NULL;
-	if (m_pD3DXFont) VERIFY(m_pD3DXFont->OnLostDevice());
-	VERIFY(m_pD3D9Device->GetBackBuffer(NULL, NULL, D3DBACKBUFFER_TYPE_MONO, &pD3D9BackBuffer));
-	SAFE_RELEASE(pD3D9BackBuffer);
-	VERIFY(m_pD3D9Device->Reset(&m_D3D9pp));
-	return S_OK;
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsCreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, D3DFORMAT D3DFormat, D3DPOOL D3DPool, IDirect3DSurface9**& ppD3D9Surface)
-// @Purpose: DirectGraphics 创建离屏表面
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(状态:成功:S_OK,失败:E_FAIL)
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsCreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, D3DFORMAT D3DFormat, D3DPOOL D3DPool, IDirect3DSurface9** ppD3D9Surface)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return m_pD3D9Device->CreateOffscreenPlainSurface(nWidth, nHeight, D3DFormat, D3DPool, ppD3D9Surface, NULL);
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsCreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, IDirect3DSurface9**& ppD3D9Surface)
-// @Purpose: DirectGraphics 创建离屏表面
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(状态:成功:S_OK,失败:E_FAIL)
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsCreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, IDirect3DSurface9 ** ppD3D9Surface)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return m_pD3D9Device->CreateOffscreenPlainSurface(nWidth, nHeight, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, ppD3D9Surface, NULL);
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsCreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, IDirect3DSurface9**& ppD3D9Surface)
-// @Purpose: DirectGraphics 创建离屏表面
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(状态:成功:S_OK,失败:E_FAIL)
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsCreateOffscreenPlainSurface(IDirect3DSurface9 ** ppD3D9Surface)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return m_pD3D9Device->CreateOffscreenPlainSurface(USER_SCREENWIDTH, USER_SCREENHEIGHT, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, ppD3D9Surface, NULL);
-}
-
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect, IDirect3DSurface9* pDestSurface, const RECT* pDestRect, D3DTEXTUREFILTERTYPE Filter)
-// @Purpose: DirectGraphics 绘制表面
-// @Since: v1.00a
-// @Para: IDirect3DSurface9* pSourceSurface(源表面地址)
-// @Para: const RECT* pSourceRect(源表面区域)
-// @Para: IDirect3DSurface9* pDestSurface(目标表面地址)
-// @Para: const RECT* pDestRect(目标表面区域)
-// @Para: D3DTEXTUREFILTERTYPE Filter(D3D纹理滤波类型)
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect, IDirect3DSurface9* pDestSurface, const RECT* pDestRect, D3DTEXTUREFILTERTYPE Filter)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return m_pD3D9Device->StretchRect(pSourceSurface, pSourceRect, pDestSurface, pDestRect, Filter);
-}
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect, IDirect3DSurface9* pDestSurface, const RECT* pDestRect)
-// @Purpose: DirectGraphics 绘制表面
-// @Since: v1.00a
-// @Para: IDirect3DSurface9* pSourceSurface(源表面地址)
-// @Para: const RECT* pSourceRect(源表面区域)
-// @Para: IDirect3DSurface9* pDestSurface(目标表面地址)
-// @Para: const RECT* pDestRect(目标表面区域)
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//------------------------------------------------------------------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsStretchRect(IDirect3DSurface9 * pSourceSurface, const RECT * pSourceRect, IDirect3DSurface9 * pDestSurface, const RECT * pDestRect)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return m_pD3D9Device->StretchRect(pSourceSurface, pSourceRect, pDestSurface, pDestRect, D3DTEXF_NONE);
-}
-
-//------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface, IDirect3DSurface9* pDestSurface)
-// @Purpose: DirectGraphics 绘制表面
-// @Since: v1.00a
-// @Para: IDirect3DSurface9* pSourceSurface(源表面地址)
-// @Para: IDirect3DSurface9* pDestSurface(目标表面地址)
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//------------------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsStretchRect(IDirect3DSurface9 * pSourceSurface, IDirect3DSurface9 * pDestSurface)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return m_pD3D9Device->StretchRect(pSourceSurface, NULL, pDestSurface, NULL, D3DTEXF_NONE);
-}
-
-//----------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect)
-// @Purpose: DirectGraphics 绘制表面
-// @Since: v1.00a
-// @Para: IDirect3DSurface9* pSourceSurface(源表面地址)
-// @Para: const RECT* pSourceRect(源表面区域)
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsStretchRect(IDirect3DSurface9 * pSourceSurface, const RECT * pSourceRect)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	IDirect3DSurface9* pD3D9BackBuffer = NULL;
-	HRESULT hr;
-
-	m_pD3D9Device->GetBackBuffer(NULL, NULL, D3DBACKBUFFER_TYPE_MONO, &pD3D9BackBuffer);
-	hr = m_pD3D9Device->StretchRect(pSourceSurface, pSourceRect, pD3D9BackBuffer, NULL, D3DTEXF_NONE);
-	SAFE_RELEASE(pD3D9BackBuffer);
-
-	return hr;
-}
-
-//---------------------------------------------------------------------------
-// @Function:	 DirectGraphicsStretchRect(IDirect3DSurface9* pSourceSurface)
-// @Purpose: DirectGraphics 绘制表面
-// @Since: v1.00a
-// @Para: IDirect3DSurface9* pSourceSurface(源表面地址)
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//---------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsStretchRect(IDirect3DSurface9 * pSourceSurface)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	IDirect3DSurface9* pD3D9BackBuffer = NULL;
-	HRESULT hr;
-
-	m_pD3D9Device->GetBackBuffer(NULL, NULL, D3DBACKBUFFER_TYPE_MONO, &pD3D9BackBuffer);
-	hr = m_pD3D9Device->StretchRect(pSourceSurface, NULL, pD3D9BackBuffer, NULL, D3DTEXF_NONE);
-	SAFE_RELEASE(pD3D9BackBuffer);
-
-	return hr;
-}
-
-//---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsBeginScene(void)
-// @Purpose: DirectGraphics 开始渲染
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsBeginScene(void)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	VERIFY(m_pD3D9Device->BeginScene());	//开始渲染
-	return S_OK;//OK
-}
-
-//---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsEndScene(void)
-// @Purpose: DirectGraphics 结束渲染
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsEndScene(void)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	VERIFY(m_pD3D9Device->EndScene());		//结束渲染
-	return S_OK;//OK
-}
-
-//---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsBegin(void)
-// @Purpose: DirectGraphics 开始渲染
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsBegin(void)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	VERIFY(m_pD3D9Device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0));		//清空图像
-	VERIFY(m_pD3D9Device->BeginScene());	//开始渲染
-	return S_OK;//OK
-}
-
-//---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsBegin(void)
-// @Purpose: DirectGraphics 开始渲染
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsBegin(D3DCOLOR Color)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	VERIFY(m_pD3D9Device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, Color, 1.0f, 0));		//清空图像
-	VERIFY(m_pD3D9Device->BeginScene());	//开始渲染
-	return S_OK;//OK
-}
-
-//---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsEnd(void)
-// @Purpose: DirectGraphics 结束渲染
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsEnd(void)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	VERIFY(m_pD3D9Device->EndScene());		//结束渲染
-	VERIFY(m_pD3D9Device->Present(NULL, NULL, NULL, NULL));		//提交渲染(显示)
-	return S_OK;//OK
-}
-
-//---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsPresent(void)
-// @Purpose: DirectGraphics 提交渲染(显示)
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsPresent(void)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	VERIFY(m_pD3D9Device->Present(NULL,NULL,NULL,NULL));		//提交渲染(显示)
-	return S_OK;//OK
-}
-
-//---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsClear(void)
-// @Purpose: DirectGraphics 清空图像
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsClear(void)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	VERIFY(m_pD3D9Device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0));		//清空图像
-	return S_OK;//OK
-}
-
-//---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsClear(DWORD dwColor)
-// @Purpose: DirectGraphics 清空图像
-// @Since: v1.00a
-// @Para: D3DCOLOR Color(背景颜色)
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsClear(D3DCOLOR Color)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	VERIFY(m_pD3D9Device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, Color, 1.0f, 0));		//清空图像
-	return S_OK;//OK
-}
-
-//---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsFontInit(void)
+// @Function:	 Create2()
 // @Purpose: DirectGraphics 字体初始化
 // @Since: v1.01a
 // @Para: None
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontInit(void)
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Create2()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	VERIFY(D3DXCreateFont(m_pD3D9Device, 20, 0, 0, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, 0, _T("Consolas"), &m_pD3DXFont));
@@ -1191,13 +843,13 @@ HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontInit(void)
 }
 
 //---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsFontInit(int nFontSize)
+// @Function:	 Create2(int Height)
 // @Purpose: DirectGraphics 字体初始化
 // @Since: v1.01a
 // @Para: int nFontSize		//字体大小
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontInit(int Height)
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Create2(int Height)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	VERIFY(D3DXCreateFont(m_pD3D9Device, Height, 0, 0, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, 0, _T("Consolas"), &m_pD3DXFont));
@@ -1205,14 +857,14 @@ HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontInit(int Hei
 }
 
 //---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsFontInit(int nFontSize, LPWSTR lpszFontType)
+// @Function:	 Create2(int Height, LPWSTR lpszFontType)
 // @Purpose: DirectGraphics 字体初始化
 // @Since: v1.01a
 // @Para: int nFontSize			//字体大小
 // @Para: LPWSTR lpszFontType	//字体类型
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontInit(int Height, LPWSTR lpszFontType)
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Create2(int Height, LPWSTR lpszFontType)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	VERIFY(D3DXCreateFont(m_pD3D9Device, Height, 0, 0, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, 0, lpszFontType, &m_pD3DXFont));
@@ -1220,7 +872,7 @@ HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontInit(int Hei
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsFontInit(INT Height, UINT Width, UINT Weight, UINT MipLevels, BOOL Italic, DWORD CharSet, DWORD OutputPrecision, DWORD Quality, DWORD PitchAndFamily, LPCWSTR pFaceName)
+// @Function:	 Create2(INT Height, UINT Width, UINT Weight, UINT MipLevels, BOOL Italic, DWORD CharSet, DWORD OutputPrecision, DWORD Quality, DWORD PitchAndFamily, LPCWSTR pFaceName)
 // @Purpose: DirectGraphics 字体初始化
 // @Since: v1.01a
 // @Para: INT Height
@@ -1235,7 +887,7 @@ HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontInit(int Hei
 // @Para: LPCWSTR pFaceName
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontInit(INT Height, UINT Width, UINT Weight, UINT MipLevels, BOOL Italic, DWORD CharSet, DWORD OutputPrecision, DWORD Quality, DWORD PitchAndFamily, LPCWSTR pFaceName)
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Create2(INT Height, UINT Width, UINT Weight, UINT MipLevels, BOOL Italic, DWORD CharSet, DWORD OutputPrecision, DWORD Quality, DWORD PitchAndFamily, LPCWSTR pFaceName)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	VERIFY(D3DXCreateFont(m_pD3D9Device, Height, Width, Weight, MipLevels, Italic, CharSet, OutputPrecision, Quality, PitchAndFamily, pFaceName, &m_pD3DXFont));
@@ -1243,13 +895,76 @@ HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontInit(INT Hei
 }
 
 //---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsFontDrawText(HWND hWnd)
+// @Function:	 Begin()
+// @Purpose: DirectGraphics 开始渲染
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Begin()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	VERIFY(m_pD3D9Device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0));		// 清空图像
+	VERIFY(m_pD3D9Device->BeginScene());	// 开始渲染
+	return S_OK;//OK
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 Begin(DWORD dwColor)
+// @Purpose: DirectGraphics 开始渲染
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Begin(DWORD dwColor)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	VERIFY(m_pD3D9Device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, dwColor, 1.0f, 0));		// 清空图像
+	VERIFY(m_pD3D9Device->BeginScene());	// 开始渲染
+	return S_OK;//OK
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 End()
+// @Purpose: DirectGraphics 结束渲染
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::End()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	VERIFY(m_pD3D9Device->EndScene());		// 结束渲染
+	VERIFY(m_pD3D9Device->Present(NULL, NULL, NULL, NULL));		// 提交渲染(显示)
+	return S_OK;//OK
+}
+
+//------------------------------------------------------------------
+// @Function:	 Reset()
+// @Purpose: DirectGraphics 重置D3D9 DirectGraphics类
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(重置状态:成功:S_OK,失败:E_FAIL)
+//------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Reset()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	IDirect3DSurface9* pD3D9BackBuffer = NULL;
+	if (m_pD3DXFont) VERIFY(m_pD3DXFont->OnLostDevice());
+	VERIFY(m_pD3D9Device->GetBackBuffer(NULL, NULL, D3DBACKBUFFER_TYPE_MONO, &pD3D9BackBuffer));
+	SAFE_RELEASE(pD3D9BackBuffer);
+	VERIFY(m_pD3D9Device->Reset(&m_D3D9pp));
+	return S_OK;
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 Draw(HWND hWnd)
 // @Purpose: DirectGraphics 绘制HAL信息
 // @Since: v1.01a
 // @Para: HWND hWnd		//窗口句柄
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawText(HWND hWnd)
+void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Draw(HWND hWnd)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	RECT Rect;
@@ -1259,14 +974,14 @@ void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawText(HWND h
 }
 
 //---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsFontDrawText(D3DXCOLOR dwColor)
+// @Function:	 Draw(D3DXCOLOR dwColor)
 // @Purpose: DirectGraphics 绘制HAL信息
 // @Since: v1.01a
 // @Para: HWND hWnd				//窗口句柄
 // @Para: D3DXCOLOR dwColor		//字体颜色
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawText(HWND hWnd, D3DXCOLOR dwColor)
+void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Draw(HWND hWnd, D3DXCOLOR dwColor)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	RECT Rect;
@@ -1276,7 +991,7 @@ void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawText(HWND h
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsFontDrawTextW(LPCWSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
+// @Function:	 DrawW(LPCWSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
 // @Purpose: DirectGraphics 绘制HAL信息
 // @Since: v1.01a
 // @Para: LPCWSTR pString		//字符数组(Unicode)
@@ -1286,14 +1001,14 @@ void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawText(HWND h
 // @Para: D3DCOLOR Color		//绘制颜色
 // @Return: None
 //-----------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawTextW(LPCWSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
+void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DrawW(LPCWSTR pString, INT nCount, LPRECT pRect, DWORD format, D3DCOLOR dwColor)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3DXFont->DrawTextW(NULL, pString, Count, pRect, Format, Color);
+	m_pD3DXFont->DrawTextW(NULL, pString, nCount, pRect, format, dwColor);
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsFontDrawTextA(LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
+// @Function:	 DrawA(LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
 // @Purpose: DirectGraphics 绘制HAL信息
 // @Since: v1.01a
 // @Para: LPCSTR pString		//字符数组(ASCII)
@@ -1303,14 +1018,14 @@ void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawTextW(LPCWS
 // @Para: D3DCOLOR Color		//绘制颜色
 // @Return: None
 //-----------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawTextA(LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
+void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DrawA(LPCSTR pString, INT nCount, LPRECT pRect, DWORD format, D3DCOLOR dwColor)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3DXFont->DrawTextA(NULL, pString, Count, pRect, Format, Color);
+	m_pD3DXFont->DrawTextA(NULL, pString, nCount, pRect, format, dwColor);
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsFontDrawTextA(LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
+// @Function:	 DrawAdapterType(LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
 // @Purpose: DirectGraphics 绘制HAL信息
 // @Since: v1.01a
 // @Para: LPCSTR pString		//字符数组(ASCII)
@@ -1320,13 +1035,13 @@ void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawTextA(LPCST
 // @Para: D3DCOLOR Color		//绘制颜色
 // @Return: None
 //-----------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawTextAdapterType(LPRECT pRect, DWORD Format, D3DCOLOR Color)
+void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DrawAdapterType(LPRECT pRect, DWORD format, D3DCOLOR dwColor)
 {
-	DirectGraphicsFontDrawTextW(m_wcD3D9AdapterType, -1, pRect, Format, Color);
+	DrawW(m_wcD3D9AdapterType, -1, pRect, format, dwColor);
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsFontDrawTextA(LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
+// @Function:	 DrawFormatInfo(LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
 // @Purpose: DirectGraphics 绘制HAL信息
 // @Since: v1.01a
 // @Para: LPCSTR pString		//字符数组(ASCII)
@@ -1336,16 +1051,16 @@ void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawTextAdapter
 // @Para: D3DCOLOR Color		//绘制颜色
 // @Return: None
 //-----------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawTextFormat(LPRECT pRect, DWORD Format, D3DCOLOR Color)
+void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DrawFormatInfo(LPRECT pRect, DWORD format, D3DCOLOR dwColor)
 {
 	wchar_t wcFormatArray[MAX_PATH] = { 0 };
 
 	swprintf_s(wcFormatArray, L"%s (%s)", m_wcD3D9BackFormat, m_wcD3D9AutoDepthStencilFormat);
-	DirectGraphicsFontDrawTextW(wcFormatArray, -1, pRect, Format, Color);
+	DrawW(wcFormatArray, -1, pRect, format, dwColor);
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphicsFontDrawTextA(LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
+// @Function:	 DrawScreenInfo(LPCSTR pString, INT Count, LPRECT pRect, DWORD Format, D3DCOLOR Color)
 // @Purpose: DirectGraphics 绘制HAL信息
 // @Since: v1.01a
 // @Para: LPCSTR pString		//字符数组(ASCII)
@@ -1355,7 +1070,258 @@ void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawTextFormat(
 // @Para: D3DCOLOR Color		//绘制颜色
 // @Return: None
 //-----------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DirectGraphicsFontDrawTextScreen(LPRECT pRect, DWORD Format, D3DCOLOR Color)
+void DIRECTGRAPHICS_CALLMETHOD DirectGraphics::DrawScreenInfo(LPRECT pRect, DWORD format, D3DCOLOR dwColor)
 {
-	DirectGraphicsFontDrawTextW(m_wcD3D9ScreenInfo, -1, pRect, Format, Color);
+	DrawW(m_wcD3D9ScreenInfo, -1, pRect, format, dwColor);
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 BeginScene()
+// @Purpose: DirectGraphics 开始渲染
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::BeginScene()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	VERIFY(m_pD3D9Device->BeginScene());	// 开始渲染
+	return S_OK;//OK
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 EndScene()
+// @Purpose: DirectGraphics 结束渲染
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::EndScene()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	VERIFY(m_pD3D9Device->EndScene());		// 结束渲染
+	return S_OK;//OK
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 Present()
+// @Purpose: DirectGraphics 提交渲染(显示)
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Present()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	VERIFY(m_pD3D9Device->Present(NULL, NULL, NULL, NULL));		// 提交渲染(显示)
+	return S_OK;//OK
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 Clear()
+// @Purpose: DirectGraphics 清空图像
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Clear()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	VERIFY(m_pD3D9Device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0));		// 清空图像
+	return S_OK;//OK
+}
+
+//---------------------------------------------------------------------------------------------------
+// @Function:	 Clear(DWORD dwColor)
+// @Purpose: DirectGraphics 清空图像
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::Clear(DWORD dwColor)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	VERIFY(m_pD3D9Device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, dwColor, 1.0f, 0));		// 清空图像
+	return S_OK;//OK
+}
+
+//------------------------------------------------------------------
+// @Function:	 TestCooperativeLevel()
+// @Purpose: DirectGraphics读取D3D9 当前状态
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(当前状态:正常:S_OK,错误:E_FAIL)
+//			D3DERR_DEVICELOST:设备丢失(无法Reset)
+//			D3DERR_DEVICENOTRESET:设备未Reset(可以Reset)
+//------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::TestCooperativeLevel()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return (m_pD3D9Device->TestCooperativeLevel());
+}
+
+//------------------------------------------------------------------
+// @Function:	 ResetDevice()
+// @Purpose: DirectGraphics重置D3D9 初始设置
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(当前状态:正常:S_OK,错误:E_FAIL)
+//------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::ResetDevice()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return (m_pD3D9Device->Reset(&m_D3D9pp));
+}
+
+//------------------------------------------------------------------
+// @Function:	 OnLostDevice()
+// @Purpose: DirectGraphics 重置
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(重置状态:成功:S_OK,失败:E_FAIL)
+//------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::OnLostDevice()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return (m_pD3DXFont ? m_pD3DXFont->OnLostDevice() : S_OK);
+}
+
+//------------------------------------------------------------------------------
+// @Function:	 GetBackBuffer(IDirect3DSurface9* pD3D9BackBuffer)
+// @Purpose: DirectGraphics获取D3D9 表面
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(当前状态:正常:S_OK,错误:E_FAIL)
+//------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::GetBackBuffer(IDirect3DSurface9 ** ppD3D9BackBuffer)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return (m_pD3D9Device->GetBackBuffer(NULL, NULL, D3DBACKBUFFER_TYPE_MONO, ppD3D9BackBuffer));
+}
+
+//-------------------------------------------------------------------------------
+// @Function:	 CreateOffscreenPlainSurface(IDirect3DSurface9**& ppD3D9Surface)
+// @Purpose: DirectGraphics 创建离屏表面
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(状态:成功:S_OK,失败:E_FAIL)
+//-------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::CreateOffscreenPlainSurface(IDirect3DSurface9 ** ppD3D9Surface)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pD3D9Device->CreateOffscreenPlainSurface(USER_SCREENWIDTH, USER_SCREENHEIGHT, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, ppD3D9Surface, NULL);
+}
+
+//---------------------------------------------------------------------------------------------------------
+// @Function:	 CreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, IDirect3DSurface9 ** ppD3D9Surface)
+// @Purpose: DirectGraphics 创建离屏表面
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(状态:成功:S_OK,失败:E_FAIL)
+//----------------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::CreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, IDirect3DSurface9 ** ppD3D9Surface)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pD3D9Device->CreateOffscreenPlainSurface(nWidth, nHeight, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, ppD3D9Surface, NULL);
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+// @Function:	 CreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, D3DFORMAT format, D3DPOOL pool, IDirect3DSurface9 ** ppD3D9Surface)
+// @Purpose: DirectGraphics 创建离屏表面
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(状态:成功:S_OK,失败:E_FAIL)
+//-----------------------------------------------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::CreateOffscreenPlainSurface(UINT nWidth, UINT nHeight, D3DFORMAT format, D3DPOOL pool, IDirect3DSurface9 ** ppD3D9Surface)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pD3D9Device->CreateOffscreenPlainSurface(nWidth, nHeight, format, pool, ppD3D9Surface, NULL);
+}
+
+//---------------------------------------------------------------------------
+// @Function:	 StretchRect(IDirect3DSurface9* pSourceSurface)
+// @Purpose: DirectGraphics 绘制表面
+// @Since: v1.00a
+// @Para: IDirect3DSurface9* pSourceSurface(源表面地址)
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//---------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::StretchRect(IDirect3DSurface9 * pSourceSurface)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	IDirect3DSurface9* pD3D9BackBuffer = NULL;
+	HRESULT hr;
+
+	m_pD3D9Device->GetBackBuffer(NULL, NULL, D3DBACKBUFFER_TYPE_MONO, &pD3D9BackBuffer);
+	hr = m_pD3D9Device->StretchRect(pSourceSurface, NULL, pD3D9BackBuffer, NULL, D3DTEXF_NONE);
+	SAFE_RELEASE(pD3D9BackBuffer);
+
+	return hr;
+}
+
+//----------------------------------------------------------------------------------------------------
+// @Function:	 StretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect)
+// @Purpose: DirectGraphics 绘制表面
+// @Since: v1.00a
+// @Para: IDirect3DSurface9* pSourceSurface(源表面地址)
+// @Para: const RECT* pSourceRect(源表面区域)
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//---------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::StretchRect(IDirect3DSurface9 * pSourceSurface, const RECT * pSourceRect)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	IDirect3DSurface9* pD3D9BackBuffer = NULL;
+	HRESULT hr;
+
+	m_pD3D9Device->GetBackBuffer(NULL, NULL, D3DBACKBUFFER_TYPE_MONO, &pD3D9BackBuffer);
+	hr = m_pD3D9Device->StretchRect(pSourceSurface, pSourceRect, pD3D9BackBuffer, NULL, D3DTEXF_NONE);
+	SAFE_RELEASE(pD3D9BackBuffer);
+
+	return hr;
+}
+
+//------------------------------------------------------------------------------------------------------------
+// @Function:	 StretchRect(IDirect3DSurface9* pSourceSurface, IDirect3DSurface9* pDestSurface)
+// @Purpose: DirectGraphics 绘制表面
+// @Since: v1.00a
+// @Para: IDirect3DSurface9* pSourceSurface(源表面地址)
+// @Para: IDirect3DSurface9* pDestSurface(目标表面地址)
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//------------------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::StretchRect(IDirect3DSurface9 * pSourceSurface, IDirect3DSurface9 * pDestSurface)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pD3D9Device->StretchRect(pSourceSurface, NULL, pDestSurface, NULL, D3DTEXF_NONE);
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+// @Function:	 StretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect, IDirect3DSurface9* pDestSurface, const RECT* pDestRect)
+// @Purpose: DirectGraphics 绘制表面
+// @Since: v1.00a
+// @Para: IDirect3DSurface9* pSourceSurface(源表面地址)
+// @Para: const RECT* pSourceRect(源表面区域)
+// @Para: IDirect3DSurface9* pDestSurface(目标表面地址)
+// @Para: const RECT* pDestRect(目标表面区域)
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::StretchRect(IDirect3DSurface9 * pSourceSurface, const RECT * pSourceRect, IDirect3DSurface9 * pDestSurface, const RECT * pDestRect)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pD3D9Device->StretchRect(pSourceSurface, pSourceRect, pDestSurface, pDestRect, D3DTEXF_NONE);
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// @Function:	 StretchRect(IDirect3DSurface9* pSourceSurface, const RECT* pSourceRect, IDirect3DSurface9* pDestSurface, const RECT* pDestRect, D3DTEXTUREFILTERTYPE Filter)
+// @Purpose: DirectGraphics 绘制表面
+// @Since: v1.00a
+// @Para: IDirect3DSurface9* pSourceSurface(源表面地址)
+// @Para: const RECT* pSourceRect(源表面区域)
+// @Para: IDirect3DSurface9* pDestSurface(目标表面地址)
+// @Para: const RECT* pDestRect(目标表面区域)
+// @Para: D3DTEXTUREFILTERTYPE Filter(D3D纹理滤波类型)
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HRESULT DIRECTGRAPHICS_CALLMETHOD DirectGraphics::StretchRect(IDirect3DSurface9 * pSourceSurface, const RECT * pSourceRect, IDirect3DSurface9 * pDestSurface, const RECT * pDestRect, D3DTEXTUREFILTERTYPE filter)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pD3D9Device->StretchRect(pSourceSurface, pSourceRect, pDestSurface, pDestRect, filter);
 }

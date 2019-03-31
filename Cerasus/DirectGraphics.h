@@ -28,6 +28,9 @@
 #ifndef __DIRECTGRAPHICS_H_
 #define __DIRECTGRAPHICS_H_
 
+// Include DirectX Common Header File
+#include "DirectCommon.h"
+
 // Macro Definition
 #ifdef	CERASUS_EXPORTS
 #define DIRECTGRAPHICS_API	__declspec(dllexport)

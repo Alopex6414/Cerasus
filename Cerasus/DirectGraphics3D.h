@@ -1,12 +1,12 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Sakura&Fantasy
 *     All rights reserved.
 *
 * @file		DirectGraphics3D.h
 * @brief	This File is DirectGraphics3D DLL Project.
-* @author	Alopex/Helium
-* @version	v1.31a
+* @author	Alopex/Alice
+* @version	v1.32a
 * @date		2017-11-29	v1.00a	alopex	Create Project.
 * @date		2017-12-3	v1.01a	alopex	Modify Bug.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
@@ -19,16 +19,18 @@
 * @date		2018-06-24	v1.29a	alopex	Repair Bugs.
 * @date		2018-06-24	v1.30a	alopex	Repair Texture Alpha Channel.
 * @date		2018-11-23	v1.31a	alopex	Alter Call Method.
+* @date		2019-03-31	v1.32a	alopex	Add Notes.
 */
 #pragma once
 
 #ifndef __DIRECTGRAPHICS3D_H_
 #define __DIRECTGRAPHICS3D_H_
 
-//Include Windows Header File
+// Include DirectX Common Header File
 #include "DirectCommon.h"
+#include "DirectTypes.h"
 
-//Macro Definition
+// Macro Definition
 #ifdef	CERASUS_EXPORTS
 #define DIRECTGRAPHICS3D_API	__declspec(dllexport)
 #else
@@ -37,215 +39,84 @@
 
 #define DIRECTGRAPHICS3D_CALLMETHOD	__stdcall
 
-//Struct Definition
-//Vertex 3D Base(3D基本顶点格式)
-struct Vertex3DBase
-{
-	float X, Y, Z;
-	DWORD COLOR;
-	Vertex3DBase(float x, float y, float z, DWORD Color) :X(x), Y(y), Z(z), COLOR(Color) {}
-};
-
-#define D3DFVF_VERTEX3D_BASE	(D3DFVF_XYZ | D3DFVF_DIFFUSE)				//基本顶点格式模式(3D坐标/漫反射光线)
-
-//Vertex 3D Texture(3D纹理顶点格式)
-struct Vertex3DTexture
-{
-	float X, Y, Z;
-	DWORD COLOR;
-	float U, V;
-	Vertex3DTexture(float x, float y, float z, DWORD Color, float u, float v) :X(x), Y(y), Z(z), COLOR(Color), U(u), V(v) {}
-};
-
-#define D3DFVF_VERTEX3D_TEXTURE	(D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1)	//纹理顶点格式模式(3D坐标/漫反射光线/纹理图样)
-
-//Vertex 3D Normal(3D法线顶点格式)
-struct Vertex3DNormal
-{
-	float X, Y, Z;
-	float nX, nY, nZ;
-	DWORD COLOR;
-	Vertex3DNormal(float x, float y, float z, float nx, float ny, float nz, DWORD Color) :X(x), Y(y), Z(z), nX(nx), nY(ny), nZ(nz), COLOR(Color) {}
-};
-
-#define D3DFVF_VERTEX3D_NORMAL	(D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE)	//法线顶点格式模式(3D坐标/法线坐标/漫反射光线)
-
-//Vertex 3D Normal Texture(3D法线纹理顶点格式)(光照栅格)
-struct Vertex3DNormalTexture
-{
-	float X, Y, Z;
-	float nX, nY, nZ;
-	DWORD COLOR;
-	float U, V;
-	Vertex3DNormalTexture(float x, float y, float z, float nx, float ny, float nz, DWORD Color, float u, float v) :X(x), Y(y), Z(z), nX(nx), nY(ny), nZ(nz), COLOR(Color), U(u), V(v) {}
-};
-
-#define D3DFVF_VERTEX3D_NORMAL_TEXTURE	(D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1)	//法线纹理顶点格式模式(3D坐标/法线坐标/漫反射光线/纹理图样)
-
-//Vertex 3D Normal Specular Texture(3D法线镜面反射纹理顶点格式)(镜面反射光、光照栅格)
-struct Vertex3DNormalSpecularTexture
-{
-	float X, Y, Z;
-	float nX, nY, nZ;
-	DWORD DIFFUSE;
-	DWORD SPECULAR;
-	float U, V;
-	Vertex3DNormalSpecularTexture(float x, float y, float z, float nx, float ny, float nz, DWORD Diffuse, DWORD Specular, float u, float v) :X(x), Y(y), Z(z), nX(nx), nY(ny), nZ(nz), DIFFUSE(Diffuse), SPECULAR(Specular), U(u), V(v) {}
-};
-
-#define D3DFVF_VERTEX3D_NORMAL_SPECULAR_TEXTURE	(D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1)	//法线镜面反射纹理顶点格式模式(3D坐标/法线坐标/漫反射光线/纹理图样)
-
-//World Space Scale Transform(~世界变换拉伸变换)
-typedef struct
-{
-	float fScaleX;		//X轴比例
-	float fScaleY;		//Y轴比例
-	float fScaleZ;		//Z轴比例
-} DG3D_ScalePara, *LPDG3D_ScalePara;
-
-//World Space Rotate Transform(~世界变换旋转变换)
-typedef struct
-{
-	float fRotateX;		//X轴旋转
-	float fRotateY;		//Y轴旋转
-	float fRotateZ;		//Z轴旋转
-} DG3D_RotatePara, *LPDG3D_RotatePara;
-
-//World Space Translate Transform(~世界变换位移变换)
-typedef struct
-{
-	float fTranslateX;	//X轴平移
-	float fTranslateY;	//Y轴平移
-	float fTranslateZ;	//Z轴平移
-} DG3D_TranslatePara, *LPDG3D_TranslatePara;
-
-//World Space Transform(~世界变换)
-typedef struct
-{
-	DG3D_ScalePara sScalePara;			//比例系数
-	DG3D_RotatePara sRotatePara;		//旋转系数
-	DG3D_TranslatePara sTranslatePara;	//平移系数
-} DG3D_WorldTransformPara, *LPDG3D_WorldTransformPara;
-
-//View Space Transform(~取景变换)
-typedef struct
-{
-	D3DXVECTOR3 vEye;	//摄像机位置
-	D3DXVECTOR3 vAt;	//物体位置
-	D3DXVECTOR3 vUp;	//向上向量
-} DG3D_ViewTransformPara, *LPDG3D_ViewTransformPara;
-
-//Perspective Transform(~投影变换)
-typedef struct
-{
-	float fovy;			//Y轴视域角度(弧度) eg:D3DX_PI * 0.5f
-	float fAspect;		//视口屏幕比例(宽度/高度)
-	float fZn;			//视截体近裁剪面距离
-	float fZf;			//视截体远裁剪面距离
-} DG3D_PrespectiveTransformPara, *LPDG3D_PrespectiveTransformPara;
-
-//ViewPort Transform(~视口变换)
-typedef struct
-{
-	int nUserWidth;		//窗口视口宽度
-	int nUserHeight;	//窗口视口高度
-} DG3D_ViewPortTransformPara, *LPDG3D_ViewPortTransformPara;
-
-//Coords Transform(~坐标变换)
-typedef struct
-{
-	DG3D_WorldTransformPara sWorldTransformPara;				//世界变换系数
-	DG3D_ViewTransformPara sViewTransformPara;					//取景变换系数
-	DG3D_PrespectiveTransformPara sPrespectiveTransformPara;	//投影变换系数
-	DG3D_ViewPortTransformPara sViewPortTransformPara;			//视口变换系数
-} DG3D_CoordsTransformPara, *LPDG3D_CoordsTransformPara;
-
-//Enum Definition(Vertex顶点类型)
-enum Vertex3DType
-{
-	Vertex3D_Type_Base = 0,							//Base类型
-	Vertex3D_Type_Texture = 1,						//Texture类型
-	Vertex3D_Type_Normal = 2,						//Normal类型
-	Vertex3D_Type_Normal_Texture = 3,				//NormalTexture类型
-	Vertex3D_Type_Normal_Specular_Texture = 4,		//NormalSpecularTexture类型
-};
-
-//Enum Definition(Light光源类型)
-enum LightType
-{
-	LightType_Point = 0,							//Point点光源
-	LightType_Direction = 1,						//Direction平行光源
-	LightType_Spot = 2,								//Spot聚光灯光源
-};
-
-//Class Definition
+// Class Definition
 class DIRECTGRAPHICS3D_API DirectGraphics3D
 {
-protected:
-	LPDIRECT3DDEVICE9 m_pD3D9Device;						//The Direct3D 9 Render Device(~DirectGraphics3D d3d9设备)
-	LPDIRECT3DVERTEXBUFFER9 m_pD3D9VertexBuffer;			//The Direct3D 9 Vertex Buffer(~DirectGraphics3D d3d9顶点缓存)
-	LPDIRECT3DINDEXBUFFER9 m_pD3D9IndexBuffer;				//The Direct3D 9 Index  Buffer(~DirectGraphics3D d3d9索引缓存)
-
 private:
-	LPDIRECT3DTEXTURE9 m_pD3D9Texture;						//The Direct3D 9 Texture(~DirectGraphics3D d3d9纹理)
+	IDirect3DDevice9*		m_pD3D9Device;					// Direct3D 9 Device Object(~D3D9设备对象)
+	IDirect3DVertexBuffer9* m_pD3D9VertexBuffer;			// Direct3D 9 Vertex Buffer(~D3D9顶点缓存)
+	IDirect3DIndexBuffer9*	m_pD3D9IndexBuffer;				// Direct3D 9 Index  Buffer(~D3D9索引缓存)
+	IDirect3DTexture9*		m_pD3D9Texture;					// Direct3D 9 Texture(~D3D9纹理)
 
-	CRITICAL_SECTION m_cs;									//Thread Safe(CriticalSection)
-	bool m_bThreadSafe;										//Thread Safe Status
+protected:
+	CRITICAL_SECTION m_cs;									// Direct3D 9 Thread Safe(CriticalSection)
+	bool m_bThreadSafe;										// Direct3D 9 Thread Safe Status
 
 public:
-	DirectGraphics3D();				//DirectGraphics3D Constructor Function
-	virtual ~DirectGraphics3D();	//DirectGraphics3D Destructor  Function
+	DirectGraphics3D();										// DirectGraphics3D Construction Function(~DirectGraphics3D构造函数)
+	~DirectGraphics3D();									// DirectGraphics3D Destruction Function(~DirectGraphics3D析构函数)
 
-	//构造
-	DirectGraphics3D(const DirectGraphics3D& Object);	//DirectGraphics3D Constructor Function(D3D9拷贝构造函数)
-	DirectGraphics3D(IDirect3DDevice9* pD3D9Device);	//DirectGraphics3D Constructor Function(D3D9设备传入)(重载+1)
+	DirectGraphics3D(IDirect3DDevice9* pD3D9Device, bool bSafe = true);			// DirectGraphics3D Construction Function(~DirectGraphics3D构造函数)(Overload + 1)
+	DirectGraphics3D(const DirectGraphics3D&);									// DirectGraphics3D Construction Function(~DirectGraphics3D拷贝构造函数)
 
-	//运算符
-	DirectGraphics3D& operator=(const DirectGraphics3D& Object);	//DirectGraphics3D Operator=(D3D9运算符重载)
+public:
+	const DirectGraphics3D & operator=(const DirectGraphics3D&);				// DirectGraphics3D Operator Overload(~DirectGraphics3D重载=)
 
-	//访问
-	virtual IDirect3DDevice9* DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DGetDevice(void) const;					//DirectGraphics3D Get D3D9 Device 获取D3D9设备
-	virtual IDirect3DVertexBuffer9* DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DGetVertexBuffer(void) const;		//DirectGraphics3D Get D3D9 Vertex Buffer 获取D3D9顶点缓存
-	virtual IDirect3DIndexBuffer9* DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DGetIndexBuffer(void) const;			//DirectGraphics3D Get D3D9 Index Buffer 获取D3D9索引缓存
-	virtual IDirect3DTexture9* DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DGetTexture(void) const;					//DirectGraphics3D Get D3D9 Texture 获取D3D9纹理
+public:
+	IDirect3DDevice9*			DIRECTGRAPHICS3D_CALLMETHOD		GetDevice() const;					// DirectGraphics Get Device Object(~DirectGraphics获取D3D9设备对象)
+	IDirect3DVertexBuffer9*		DIRECTGRAPHICS3D_CALLMETHOD		GetVertexBuffer() const;			// DirectGraphics3D Get D3D9 Vertex Buffer(~DirectGraphics3D获取D3D9顶点缓存)
+	IDirect3DIndexBuffer9*		DIRECTGRAPHICS3D_CALLMETHOD		GetIndexBuffer() const;				// DirectGraphics3D Get D3D9 Index Buffer(~DirectGraphics3D获取D3D9索引缓存)
+	IDirect3DTexture9*			DIRECTGRAPHICS3D_CALLMETHOD		GetTexture() const;					// DirectGraphics3D Get D3D9 Texture(~DirectGraphics3D获取D3D9纹理)
 
-	//控制
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DSetDevice(IDirect3DDevice9* pD3D9Device);							//DirectGraphics3D Set D3D9 Device 设置D3D9设备
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DSetVertexBuffer(IDirect3DVertexBuffer9* pD3D9VertexBuffer);		//DirectGraphics3D Set D3D9 Vertex Buffer 设置D3D9顶点缓存
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DSetIndexBuffer(IDirect3DIndexBuffer9* pD3D9IndexBuffer);			//DirectGraphics3D Set D3D9 Index Buffer 设置D3D9索引缓存
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DSetTexture(IDirect3DTexture9* pD3D9Texture);						//DirectGraphics3D Set D3D9 Texture 设置D3D9纹理
+public:
+	HRESULT						DIRECTGRAPHICS3D_CALLMETHOD		Create(int nPlane);																									// DirectGraphics3D Initialization(~DirectGraphics3D初始化)(3D基本顶点格式)(平面数)
+	HRESULT						DIRECTGRAPHICS3D_CALLMETHOD		Create(int nPlane, LPCWSTR lpszStrTexture);																			// DirectGraphics3D Initialization(~DirectGraphics3D初始化)(3D纹理顶点格式)(平面数)(纹理路径)(Overload + 1)
+	HRESULT						DIRECTGRAPHICS3D_CALLMETHOD		Create(E_DX_VERTEX3D_TYPE eVertex3DType, int nPlane);																// DirectGraphics3D Initialization(~DirectGraphics3D初始化)(Overload + 2)
+	HRESULT						DIRECTGRAPHICS3D_CALLMETHOD		Create(E_DX_VERTEX3D_TYPE eVertex3DType, int nPlane, LPCWSTR lpszStrTexture);										// DirectGraphics3D Initialization(~DirectGraphics3D初始化)(Overload + 3)
+	HRESULT						DIRECTGRAPHICS3D_CALLMETHOD		Create(D3DPOOL ePool, DWORD Usage, E_DX_VERTEX3D_TYPE eVertex3DType, int nPlane);									// DirectGraphics3D Initialization(~DirectGraphics3D初始化)(Overload + 4)
+	HRESULT						DIRECTGRAPHICS3D_CALLMETHOD		Create(D3DPOOL ePool, DWORD Usage, E_DX_VERTEX3D_TYPE eVertex3DType, int nPlane, LPCWSTR lpszStrTexture);			// DirectGraphics3D Initialization(~DirectGraphics3D初始化)(Overload + 5)
 
-	//重置(丢失设备)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DReset(void);										//DirectGraphics3D Reset D3D9重置(Reset之后需要调用Init函数重新初始化)
+	HRESULT						DIRECTGRAPHICS3D_CALLMETHOD		CreateBase(UINT nCount);																							// DirectGraphics3D Initialization(~DirectGraphics3D初始化)(3D基本顶点格式)
+	HRESULT						DIRECTGRAPHICS3D_CALLMETHOD		CreateTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight);												// DirectGraphics3D Initialization(~DirectGraphics3D初始化)(3D纹理顶点格式)
+	HRESULT						DIRECTGRAPHICS3D_CALLMETHOD		CreateTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight);									// DirectGraphics3D Initialization(~DirectGraphics3D初始化)(3D纹理顶点格式)(从内存读取纹理)
+	HRESULT						DIRECTGRAPHICS3D_CALLMETHOD		CreateNormal(UINT nCount);																							// DirectGraphics3D Initialization(~DirectGraphics3D初始化)(3D法线顶点格式)
+	HRESULT						DIRECTGRAPHICS3D_CALLMETHOD		CreateNormalTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight);											// DirectGraphics3D Initialization(~DirectGraphics3D初始化)(3D法线纹理顶点格式)
+	HRESULT						DIRECTGRAPHICS3D_CALLMETHOD		CreateNormalTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight);								// DirectGraphics3D Initialization(~DirectGraphics3D初始化)(3D法线纹理顶点格式)(从内存读取纹理)
+	HRESULT						DIRECTGRAPHICS3D_CALLMETHOD		CreateNormalSpecularTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight);									// DirectGraphics3D Initialization(~DirectGraphics3D初始化)(3D法线镜面反射纹理顶点格式)
+	HRESULT						DIRECTGRAPHICS3D_CALLMETHOD		CreateNormalSpecularTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight);						// DirectGraphics3D Initialization(~DirectGraphics3D初始化)(3D法线镜面反射纹理顶点格式)(从内存读取纹理)
 
-	//初始化
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DInit(int nPlane);									//DirectGraphics3D Initialization(初始化)(3D基本顶点格式)(平面数)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DInit(int nPlane, LPCWSTR lpszStrTexture);			//DirectGraphics3D Initialization(初始化)(3D纹理顶点格式)(平面数)(纹理路径)(重载+1)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DInit(Vertex3DType eVertex3DType, int nPlane);		//DirectGraphics3D Initialization(初始化)(重载+2)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DInit(Vertex3DType eVertex3DType, int nPlane, LPCWSTR lpszStrTexture);								//DirectGraphics3D Initialization(初始化)(重载+3)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DInit(D3DPOOL ePool, DWORD Usage, Vertex3DType eVertex3DType, int nPlane);							//DirectGraphics3D Initialization(初始化)(重载+4)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DInit(D3DPOOL ePool, DWORD Usage, Vertex3DType eVertex3DType, int nPlane, LPCWSTR lpszStrTexture);	//DirectGraphics3D Initialization(初始化)(重载+5)
-	
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DInitVertex3DBase(UINT nCount);																//DirectGraphics3D Initialization(初始化)(3D基本顶点格式)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DInitVertex3DTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight);					//DirectGraphics3D Initialization(初始化)(3D纹理顶点格式)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DInitVertex3DNormal(UINT nCount);															//DirectGraphics3D Initialization(初始化)(3D法线顶点格式)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DInitVertex3DNormalTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight);			//DirectGraphics3D Initialization(初始化)(3D法线纹理顶点格式)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DInitVertex3DNormalSpecularTexture(UINT nCount, LPCWSTR pStr, UINT nWidth, UINT nHeight);	//DirectGraphics3D Initialization(初始化)(3D法线镜面反射纹理顶点格式)
+	HRESULT						DIRECTGRAPHICS3D_CALLMETHOD		Reset();																											// DirectGraphics3D Reset(Reset之后需要调用Create函数重新初始化)
 
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DInitVertex3DTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight);					//DirectGraphics3D Initialization(初始化)(3D纹理顶点格式)(从内存读取纹理)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DInitVertex3DNormalTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight);			//DirectGraphics3D Initialization(初始化)(3D法线纹理顶点格式)(从内存读取纹理)
-	virtual HRESULT DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DInitVertex3DNormalSpecularTexture(UINT nCount, LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight);	//DirectGraphics3D Initialization(初始化)(3D法线镜面反射纹理顶点格式)(从内存读取纹理)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		WorldSpaceTransform(S_DX_SCALE_PARA sScalePara);																	// DirectGraphics3D WorldSpaceTransform(Scale)(世界变换)(拉伸变换)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		WorldSpaceTransform(S_DX_ROTATE_PARA sRotatePara);																	// DirectGraphics3D WorldSpaceTransform(Rotate)(世界变换)(旋转变换)(Overload + 1)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		WorldSpaceTransform(S_DX_TRANSLATE_PARA sTranslatePara);															// DirectGraphics3D WorldSpaceTransform(Translate)(世界变换)(位移变换)(Overload + 2)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		WorldSpaceTransform(S_DX_SCALE_PARA sScalePara, S_DX_ROTATE_PARA sRotatePara);										// DirectGraphics3D WorldSpaceTransform(世界变换)(拉伸、旋转变换)(Overload + 3)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		WorldSpaceTransform(S_DX_SCALE_PARA sScalePara, S_DX_TRANSLATE_PARA sTranslatePara);								// DirectGraphics3D WorldSpaceTransform(世界变换)(拉伸、位移变换)(Overload + 4)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		WorldSpaceTransform(S_DX_ROTATE_PARA sRotatePara, S_DX_TRANSLATE_PARA sTranslatePara);								// DirectGraphics3D WorldSpaceTransform(世界变换)(Overload + 5)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		WorldSpaceTransform(S_DX_SCALE_PARA sScalePara, S_DX_ROTATE_PARA sRotatePara, S_DX_TRANSLATE_PARA sTranslatePara);	// DirectGraphics3D WorldSpaceTransform(世界变换)(Overload + 6)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		WorldSpaceTransform(S_DX_WORLD_TRANSFORM_PARA sWorldTransformPara);													// DirectGraphics3D WorldSpaceTransform(世界变换)(Overload + 7)
+
+	void						DIRECTGRAPHICS3D_CALLMETHOD		ViewSpaceTransform(D3DXVECTOR3* pvEye);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	//坐标(T)(矩阵变换)
-	//世界变换
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DWorldSpaceTransform(DG3D_ScalePara sScalePara);																//DirectGraphics3D WorldSpaceTransform(Scale)(世界变换)(拉伸变换)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DWorldSpaceTransform(DG3D_RotatePara sRotatePara);																//DirectGraphics3D WorldSpaceTransform(Rotate)(世界变换)(旋转变换)(重载+1)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DWorldSpaceTransform(DG3D_TranslatePara sTranslatePara);														//DirectGraphics3D WorldSpaceTransform(Translate)(世界变换)(位移变换)(重载+2)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DWorldSpaceTransform(DG3D_ScalePara sScalePara, DG3D_RotatePara sRotatePara);									//DirectGraphics3D WorldSpaceTransform(世界变换)(拉伸、旋转变换)(重载+3)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DWorldSpaceTransform(DG3D_ScalePara sScalePara, DG3D_TranslatePara sTranslatePara);								//DirectGraphics3D WorldSpaceTransform(世界变换)(拉伸、位移变换)(重载+4)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DWorldSpaceTransform(DG3D_RotatePara sRotatePara, DG3D_TranslatePara sTranslatePara);							//DirectGraphics3D WorldSpaceTransform(世界变换)(重载+5)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DWorldSpaceTransform(DG3D_ScalePara sScalePara, DG3D_RotatePara sRotatePara, DG3D_TranslatePara sTranslatePara);//DirectGraphics3D WorldSpaceTransform(世界变换)(重载+6)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DWorldSpaceTransform(DG3D_WorldTransformPara sWorldTransformPara);												//DirectGraphics3D WorldSpaceTransform(世界变换)(重载+7)
 	
 	//取景变换
 	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye);																		//DirectGraphics3D ViewSpaceTransform(取景变换)

@@ -366,6 +366,9 @@
     <ClInclude Include="DirectTemplate.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="DirectTypes.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectFont.cpp">

@@ -14,9 +14,8 @@
 #ifndef __DIRECTTEMPLATE_H_
 #define __DIRECTTEMPLATE_H_
 
-// Include C/C++ Running Header File
-#include <iostream>
-#include <fstream>
+// Include DirectX Common Header File
+#include "DirectCommon.h"
 
 // Template Definition
 template <typename T>

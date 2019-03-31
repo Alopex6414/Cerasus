@@ -33,6 +33,15 @@
 #include <time.h>
 #include <mmsystem.h>
 
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <string>
+#include <vector>
+#include <queue>
+#include <list>
+#include <map>
+
 // Include Assert Header File
 #include <assert.h>
 

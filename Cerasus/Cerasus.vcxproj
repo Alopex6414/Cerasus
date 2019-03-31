@@ -163,6 +163,7 @@
     <ClInclude Include="DirectTemplate.h" />
     <ClInclude Include="DirectTexture.h" />
     <ClInclude Include="DirectThreadSafe.h" />
+    <ClInclude Include="DirectTypes.h" />
     <ClInclude Include="DirectX\Inc\audiodefs.h" />
     <ClInclude Include="DirectX\Inc\comdecl.h" />
     <ClInclude Include="DirectX\Inc\D2D1.h" />

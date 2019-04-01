@@ -1260,96 +1260,18 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::SetMaterial(D3DXCOLOR cAmbien
 	m_pD3D9Device->SetMaterial(&D3D9Material);				// ÉèÖÃÒ»ÏÂ²ÄÖÊ
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DPaddingVertex(Vertex3DBase* VertexArray, int nSize)
+// @Function:	 PaddingVertex(S_DX_VERTEX3D_BASE * VertexArray, int nSize)
 // @Purpose: DirectGraphics3DÌî³ä¶¥µã
 // @Since: v1.00a
 // @Para: Vertex3DBase* VertexArray
 // @Para: int nSize
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DBase* VertexArray, int nSize)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PaddingVertex(S_DX_VERTEX3D_BASE * VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	Vertex3DBase* pVertices = NULL;
+	S_DX_VERTEX3D_BASE* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -1362,17 +1284,17 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DPaddingVertex(Vertex3DTexture* VertexArray, int nSize)
+// @Function:	 PaddingVertex(S_DX_VERTEX3D_TEXTURE * VertexArray, int nSize)
 // @Purpose: DirectGraphics3DÌî³ä¶¥µã
 // @Since: v1.00a
 // @Para: Vertex3DTexture* VertexArray
 // @Para: int nSize
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DTexture* VertexArray, int nSize)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PaddingVertex(S_DX_VERTEX3D_TEXTURE * VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	Vertex3DTexture* pVertices = NULL;
+	S_DX_VERTEX3D_TEXTURE* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -1385,17 +1307,17 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DPaddingVertex(Vertex3DNormal* VertexArray, int nSize)
+// @Function:	 PaddingVertex(S_DX_VERTEX3D_NORMAL * VertexArray, int nSize)
 // @Purpose: DirectGraphics3DÌî³ä¶¥µã
 // @Since: v1.00a
 // @Para: Vertex3DNormal* VertexArray
 // @Para: int nSize
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DNormal* VertexArray, int nSize)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PaddingVertex(S_DX_VERTEX3D_NORMAL * VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	Vertex3DNormal* pVertices = NULL;
+	S_DX_VERTEX3D_NORMAL* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -1408,17 +1330,17 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DPaddingVertex(Vertex3DNormalTexture* VertexArray, int nSize)
+// @Function:	 PaddingVertex(S_DX_VERTEX3D_NORMAL_TEXTURE * VertexArray, int nSize)
 // @Purpose: DirectGraphics3DÌî³ä¶¥µã
 // @Since: v1.00a
 // @Para: Vertex3DNormalTexture* VertexArray
 // @Para: int nSize
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DNormalTexture* VertexArray, int nSize)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PaddingVertex(S_DX_VERTEX3D_NORMAL_TEXTURE * VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	Vertex3DNormalTexture* pVertices = NULL;
+	S_DX_VERTEX3D_NORMAL_TEXTURE* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -1431,17 +1353,17 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DPaddingVertex(Vertex3DNormalSpecularTexture* VertexArray, int nSize)
+// @Function:	 PaddingVertex(S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE * VertexArray, int nSize)
 // @Purpose: DirectGraphics3DÌî³ä¶¥µã
 // @Since: v1.00a
 // @Para: Vertex3DNormalSpecularTexture* VertexArray
 // @Para: int nSize
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DNormalSpecularTexture* VertexArray, int nSize)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PaddingVertex(S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE * VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	Vertex3DNormalSpecularTexture* pVertices = NULL;
+	S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -1454,7 +1376,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DPaddingVertex(Vertex3DType eVertex3DType, LPVOID VertexArray, int nSize)
+// @Function:	 PaddingVertex(E_DX_VERTEX3D_TYPE eVertex3DType, LPVOID VertexArray, int nSize)
 // @Purpose: DirectGraphics3DÌî³ä¶¥µã
 // @Since: v1.00a
 // @Para: Vertex3DType eVertex3DType
@@ -1462,14 +1384,14 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 // @Para: int nSize
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex(Vertex3DType eVertex3DType, LPVOID VertexArray, int nSize)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PaddingVertex(E_DX_VERTEX3D_TYPE eVertex3DType, LPVOID VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	Vertex3DBase* pVertices3DBase = NULL;
-	Vertex3DTexture* pVertices3DTexture = NULL;
-	Vertex3DNormal* pVertices3DNormal = NULL;
-	Vertex3DNormalTexture* pVertices3DNormalTexture = NULL;
-	Vertex3DNormalSpecularTexture* pVertices3DNormalSpecularTexture = NULL;
+	S_DX_VERTEX3D_BASE* pVertices3DBase = NULL;
+	S_DX_VERTEX3D_TEXTURE* pVertices3DTexture = NULL;
+	S_DX_VERTEX3D_NORMAL* pVertices3DNormal = NULL;
+	S_DX_VERTEX3D_NORMAL_TEXTURE* pVertices3DNormalTexture = NULL;
+	S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE* pVertices3DNormalSpecularTexture = NULL;
 
 	switch (eVertex3DType)
 	{
@@ -1478,7 +1400,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 
 		for (int i = 0; i < nSize; ++i)
 		{
-			*(pVertices3DBase + i) = *((Vertex3DBase*)VertexArray + i);
+			*(pVertices3DBase + i) = *((S_DX_VERTEX3D_BASE*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -1487,7 +1409,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 
 		for (int i = 0; i < nSize; ++i)
 		{
-			*(pVertices3DTexture + i) = *((Vertex3DTexture*)VertexArray + i);
+			*(pVertices3DTexture + i) = *((S_DX_VERTEX3D_TEXTURE*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -1496,7 +1418,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 
 		for (int i = 0; i < nSize; ++i)
 		{
-			*(pVertices3DNormal + i) = *((Vertex3DNormal*)VertexArray + i);
+			*(pVertices3DNormal + i) = *((S_DX_VERTEX3D_NORMAL*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -1505,7 +1427,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 
 		for (int i = 0; i < nSize; ++i)
 		{
-			*(pVertices3DNormalTexture + i) = *((Vertex3DNormalTexture*)VertexArray + i);
+			*(pVertices3DNormalTexture + i) = *((S_DX_VERTEX3D_NORMAL_TEXTURE*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -1514,7 +1436,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 
 		for (int i = 0; i < nSize; ++i)
 		{
-			*(pVertices3DNormalSpecularTexture + i) = *((Vertex3DNormalSpecularTexture*)VertexArray + i);
+			*(pVertices3DNormalSpecularTexture + i) = *((S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -1522,16 +1444,17 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 		return;
 		break;
 	}
+
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DPaddingIndex(int nPlane)
+// @Function:	 PaddingIndex(int nPlane)
 // @Purpose: DirectGraphics3DÌî³äË÷Òý
 // @Since: v1.00a
 // @Para: int nPlane	//Æ½ÃæÊý
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingIndex(int nPlane)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PaddingIndex(int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	WORD* pIndices = NULL;
@@ -1552,18 +1475,18 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingIndex(
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DPaddingVertexAndIndex(Vertex3DBase* VertexArray, int nPlane)
+// @Function:	 PaddingVertexAndIndex(S_DX_VERTEX3D_BASE * VertexArray, int nSize)
 // @Purpose: DirectGraphics3DÌî³ä¶¥µãºÍË÷Òý
 // @Since: v1.00a
 // @Para: int nPlane	//Æ½ÃæÊý
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DBase* VertexArray, int nPlane)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PaddingVertexAndIndex(S_DX_VERTEX3D_BASE * VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//Ìî³ä¶¥µã»º´æ
-	Vertex3DBase* pVertices = NULL;
+	// Ìî³ä¶¥µã»º´æ
+	S_DX_VERTEX3D_BASE* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -1574,7 +1497,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 
 	m_pD3D9VertexBuffer->Unlock();
 
-	//Ìî³äË÷Òý»º´æ
+	// Ìî³äË÷Òý»º´æ
 	WORD* pIndices = NULL;
 	m_pD3D9IndexBuffer->Lock(0, 0, (void**)&pIndices, 0);
 
@@ -1593,18 +1516,18 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DPaddingVertexAndIndex(Vertex3DBase* VertexArray, int nPlane)
+// @Function:	 PaddingVertexAndIndex(S_DX_VERTEX3D_TEXTURE * VertexArray, int nSize)
 // @Purpose: DirectGraphics3DÌî³ä¶¥µãºÍË÷Òý
 // @Since: v1.00a
 // @Para: int nPlane	//Æ½ÃæÊý
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DTexture* VertexArray, int nPlane)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PaddingVertexAndIndex(S_DX_VERTEX3D_TEXTURE * VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//Ìî³ä¶¥µã»º´æ
-	Vertex3DTexture* pVertices = NULL;
+	// Ìî³ä¶¥µã»º´æ
+	S_DX_VERTEX3D_TEXTURE* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -1615,7 +1538,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 
 	m_pD3D9VertexBuffer->Unlock();
 
-	//Ìî³äË÷Òý»º´æ
+	// Ìî³äË÷Òý»º´æ
 	WORD* pIndices = NULL;
 	m_pD3D9IndexBuffer->Lock(0, 0, (void**)&pIndices, 0);
 
@@ -1634,18 +1557,18 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DPaddingVertexAndIndex(Vertex3DBase* VertexArray, int nPlane)
+// @Function:	 PaddingVertexAndIndex(S_DX_VERTEX3D_NORMAL * VertexArray, int nSize)
 // @Purpose: DirectGraphics3DÌî³ä¶¥µãºÍË÷Òý
 // @Since: v1.00a
 // @Para: int nPlane	//Æ½ÃæÊý
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DNormal* VertexArray, int nPlane)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PaddingVertexAndIndex(S_DX_VERTEX3D_NORMAL * VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//Ìî³ä¶¥µã»º´æ
-	Vertex3DNormal* pVertices = NULL;
+	// Ìî³ä¶¥µã»º´æ
+	S_DX_VERTEX3D_NORMAL* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -1656,7 +1579,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 
 	m_pD3D9VertexBuffer->Unlock();
 
-	//Ìî³äË÷Òý»º´æ
+	// Ìî³äË÷Òý»º´æ
 	WORD* pIndices = NULL;
 	m_pD3D9IndexBuffer->Lock(0, 0, (void**)&pIndices, 0);
 
@@ -1675,18 +1598,18 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DPaddingVertexAndIndex(Vertex3DBase* VertexArray, int nPlane)
+// @Function:	 PaddingVertexAndIndex(S_DX_VERTEX3D_NORMAL_TEXTURE * VertexArray, int nSize)
 // @Purpose: DirectGraphics3DÌî³ä¶¥µãºÍË÷Òý
 // @Since: v1.00a
 // @Para: int nPlane	//Æ½ÃæÊý
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DNormalTexture* VertexArray, int nPlane)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PaddingVertexAndIndex(S_DX_VERTEX3D_NORMAL_TEXTURE * VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//Ìî³ä¶¥µã»º´æ
-	Vertex3DNormalTexture* pVertices = NULL;
+	// Ìî³ä¶¥µã»º´æ
+	S_DX_VERTEX3D_NORMAL_TEXTURE* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -1697,7 +1620,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 
 	m_pD3D9VertexBuffer->Unlock();
 
-	//Ìî³äË÷Òý»º´æ
+	// Ìî³äË÷Òý»º´æ
 	WORD* pIndices = NULL;
 	m_pD3D9IndexBuffer->Lock(0, 0, (void**)&pIndices, 0);
 
@@ -1716,18 +1639,18 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DPaddingVertexAndIndex(Vertex3DBase* VertexArray, int nPlane)
+// @Function:	 PaddingVertexAndIndex(S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE * VertexArray, int nSize)
 // @Purpose: DirectGraphics3DÌî³ä¶¥µãºÍË÷Òý
 // @Since: v1.00a
 // @Para: int nPlane	//Æ½ÃæÊý
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DNormalSpecularTexture* VertexArray, int nPlane)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PaddingVertexAndIndex(S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE * VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//Ìî³ä¶¥µã»º´æ
-	Vertex3DNormalSpecularTexture* pVertices = NULL;
+	// Ìî³ä¶¥µã»º´æ
+	S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -1738,7 +1661,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 
 	m_pD3D9VertexBuffer->Unlock();
 
-	//Ìî³äË÷Òý»º´æ
+	// Ìî³äË÷Òý»º´æ
 	WORD* pIndices = NULL;
 	m_pD3D9IndexBuffer->Lock(0, 0, (void**)&pIndices, 0);
 
@@ -1757,22 +1680,22 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DPaddingVertexAndIndex(Vertex3DBase* VertexArray, int nPlane)
+// @Function:	 PaddingVertexAndIndex(E_DX_VERTEX3D_TYPE eVertex3DType, LPVOID VertexArray, int nSize)
 // @Purpose: DirectGraphics3DÌî³ä¶¥µãºÍË÷Òý
 // @Since: v1.00a
 // @Para: int nPlane	//Æ½ÃæÊý
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertexAndIndex(Vertex3DType eVertex3DType, LPVOID VertexArray, int nPlane)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PaddingVertexAndIndex(E_DX_VERTEX3D_TYPE eVertex3DType, LPVOID VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//Ìî³ä¶¥µã»º´æ
-	Vertex3DBase* pVertices3DBase = NULL;
-	Vertex3DTexture* pVertices3DTexture = NULL;
-	Vertex3DNormal* pVertices3DNormal = NULL;
-	Vertex3DNormalTexture* pVertices3DNormalTexture = NULL;
-	Vertex3DNormalSpecularTexture* pVertices3DNormalSpecularTexture = NULL;
+	// Ìî³ä¶¥µã»º´æ
+	S_DX_VERTEX3D_BASE* pVertices3DBase = NULL;
+	S_DX_VERTEX3D_TEXTURE* pVertices3DTexture = NULL;
+	S_DX_VERTEX3D_NORMAL* pVertices3DNormal = NULL;
+	S_DX_VERTEX3D_NORMAL_TEXTURE* pVertices3DNormalTexture = NULL;
+	S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE* pVertices3DNormalSpecularTexture = NULL;
 
 	switch (eVertex3DType)
 	{
@@ -1781,7 +1704,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 
 		for (int i = 0; i < 4 * nPlane; ++i)
 		{
-			*(pVertices3DBase + i) = *((Vertex3DBase*)VertexArray + i);
+			*(pVertices3DBase + i) = *((S_DX_VERTEX3D_BASE*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -1790,7 +1713,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 
 		for (int i = 0; i < 4 * nPlane; ++i)
 		{
-			*(pVertices3DTexture + i) = *((Vertex3DTexture*)VertexArray + i);
+			*(pVertices3DTexture + i) = *((S_DX_VERTEX3D_TEXTURE*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -1799,7 +1722,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 
 		for (int i = 0; i < 4 * nPlane; ++i)
 		{
-			*(pVertices3DNormal + i) = *((Vertex3DNormal*)VertexArray + i);
+			*(pVertices3DNormal + i) = *((S_DX_VERTEX3D_NORMAL*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -1808,7 +1731,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 
 		for (int i = 0; i < 4 * nPlane; ++i)
 		{
-			*(pVertices3DNormalTexture + i) = *((Vertex3DNormalTexture*)VertexArray + i);
+			*(pVertices3DNormalTexture + i) = *((S_DX_VERTEX3D_NORMAL_TEXTURE*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -1817,7 +1740,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 
 		for (int i = 0; i < 4 * nPlane; ++i)
 		{
-			*(pVertices3DNormalSpecularTexture + i) = *((Vertex3DNormalSpecularTexture*)VertexArray + i);
+			*(pVertices3DNormalSpecularTexture + i) = *((S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -1826,7 +1749,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 		break;
 	}
 
-	//Ìî³äË÷Òý»º´æ
+	// Ìî³äË÷Òý»º´æ
 	WORD* pIndices = NULL;
 	m_pD3D9IndexBuffer->Lock(0, 0, (void**)&pIndices, 0);
 
@@ -1845,84 +1768,84 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DRenderStateAlphaEnable()
+// @Function:	 StateAlphaEnable()
 // @Purpose: DirectGraphics3D¿ªÆôAlpha»ìºÏ
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRenderStateAlphaEnable()
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::StateAlphaEnable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);					//Alpha»ìºÏ¿ªÆô
+	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);					// Alpha»ìºÏ¿ªÆô
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DRenderStateAlphaDisable()
+// @Function:	 StateAlphaDisable()
 // @Purpose: DirectGraphics3D¹Ø±ÕAlpha»ìºÏ
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRenderStateAlphaDisable()
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::StateAlphaDisable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);					//Alpha»ìºÏ¹Ø±Õ
+	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);					// Alpha»ìºÏ¹Ø±Õ
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DRenderStateLightEnable()
+// @Function:	 StateLightEnable()
 // @Purpose: DirectGraphics3D¿ªÆôLight¹âÕÕ
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRenderStateLightEnable()
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::StateLightEnable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3D9Device->SetRenderState(D3DRS_LIGHTING, TRUE);							//Light¿ªÆô¹âÕÕ
+	m_pD3D9Device->SetRenderState(D3DRS_LIGHTING, TRUE);							// Light¿ªÆô¹âÕÕ
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DRenderStateLightDisable()
+// @Function:	 StateLightDisable()
 // @Purpose: DirectGraphics3D¹Ø±ÕLight¹âÕÕ
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRenderStateLightDisable()
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::StateLightDisable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3D9Device->SetRenderState(D3DRS_LIGHTING, FALSE);							//Light¹Ø±Õ¹âÕÕ
+	m_pD3D9Device->SetRenderState(D3DRS_LIGHTING, FALSE);							// Light¹Ø±Õ¹âÕÕ
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DRenderStateSetting()
+// @Function:	 StateSetting()
 // @Purpose: DirectGraphics3DÉèÖÃäÖÈ¾Ä£Ê½
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRenderStateSetting()
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::StateSetting()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//äÖÈ¾Ä£Ê½:Alpha»ìºÏÉèÖÃ
-	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);					//Alpha»ìºÏ¿ªÆô
-	m_pD3D9Device->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);					//Alpha»ìºÏÄ£Ê½:ADD
+	// äÖÈ¾Ä£Ê½:Alpha»ìºÏÉèÖÃ
+	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);					// Alpha»ìºÏ¿ªÆô
+	m_pD3D9Device->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);					// Alpha»ìºÏÄ£Ê½:ADD
 	m_pD3D9Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	m_pD3D9Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
-	//äÖÈ¾Ä£Ê½:ÎÆÀí»ìºÏÉèÖÃ
+	// äÖÈ¾Ä£Ê½:ÎÆÀí»ìºÏÉèÖÃ
 	m_pD3D9Device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-	m_pD3D9Device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);//D3DTA_DIFFUSE//D3DTA_TEXTURE
+	m_pD3D9Device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);		// D3DTA_DIFFUSE//D3DTA_TEXTURE
 	m_pD3D9Device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
 	m_pD3D9Device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	m_pD3D9Device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DRender(Vertex3DType eVertex3DType, int nPlane, bool bIsTexture)
+// @Function:	 Render(E_DX_VERTEX3D_TYPE eVertex3DType, int nPlane, bool bIsTexture)
 // @Purpose: DirectGraphics3DäÖÈ¾
 // @Since: v1.00a
 // @Para: Vertex3DType eVertex3DType	//¶¥µãÀàÐÍ
@@ -1930,42 +1853,42 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRenderStateSe
 // @Para: bool bIsTexture				//ÊÇ·ñÆôÓÃÎÆÀí
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRender(Vertex3DType eVertex3DType, int nPlane, bool bIsTexture)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::Render(E_DX_VERTEX3D_TYPE eVertex3DType, int nPlane, bool bIsTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
 	switch (eVertex3DType)
 	{
 	case Vertex3D_Type_Base:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex3DBase));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX3D_BASE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX3D_BASE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex3D_Type_Texture:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex3DTexture));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX3D_TEXTURE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX3D_TEXTURE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex3D_Type_Normal:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex3DNormal));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX3D_NORMAL));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX3D_NORMAL);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex3D_Type_Normal_Texture:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex3DNormalTexture));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX3D_NORMAL_TEXTURE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX3D_NORMAL_TEXTURE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex3D_Type_Normal_Specular_Texture:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex3DNormalSpecularTexture));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX3D_NORMAL_SPECULAR_TEXTURE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
@@ -1979,7 +1902,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRender(Vertex
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DRender(Vertex3DType eVertex3DType, int nStartIndex, int nPlane, bool bIsTexture)
+// @Function:	 Render(E_DX_VERTEX3D_TYPE eVertex3DType, int nStartIndex, int nPlane, bool bIsTexture)
 // @Purpose: DirectGraphics3DäÖÈ¾
 // @Since: v1.00a
 // @Para: Vertex3DType eVertex3DType	//¶¥µãÀàÐÍ
@@ -1988,42 +1911,42 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRender(Vertex
 // @Para: bool bIsTexture				//ÊÇ·ñÆôÓÃÎÆÀí
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRender(Vertex3DType eVertex3DType, int nStartIndex, int nPlane, bool bIsTexture)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::Render(E_DX_VERTEX3D_TYPE eVertex3DType, int nStartIndex, int nPlane, bool bIsTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
 	switch (eVertex3DType)
 	{
 	case Vertex3D_Type_Base:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex3DBase));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX3D_BASE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX3D_BASE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, nStartIndex, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex3D_Type_Texture:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex3DTexture));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX3D_TEXTURE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX3D_TEXTURE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, nStartIndex, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex3D_Type_Normal:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex3DNormal));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX3D_NORMAL));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX3D_NORMAL);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, nStartIndex, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex3D_Type_Normal_Texture:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex3DNormalTexture));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX3D_NORMAL_TEXTURE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX3D_NORMAL_TEXTURE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, nStartIndex, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex3D_Type_Normal_Specular_Texture:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex3DNormalSpecularTexture));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX3D_NORMAL_SPECULAR_TEXTURE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
@@ -2033,10 +1956,11 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRender(Vertex
 		return;
 		break;
 	}
+
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DRender(Vertex3DType eVertex3DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture)
+// @Function:	 Render(E_DX_VERTEX3D_TYPE eVertex3DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture)
 // @Purpose: DirectGraphics3DäÖÈ¾
 // @Since: v1.00a
 // @Para: Vertex3DType eVertex3DType			//¶¥µãÀàÐÍ
@@ -2045,42 +1969,42 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRender(Vertex
 // @Para: LPDIRECT3DTEXTURE9 pRenderTexture		//µ¼ÈëäÖÈ¾ÎÆÀí
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRender(Vertex3DType eVertex3DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::Render(E_DX_VERTEX3D_TYPE eVertex3DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
 	switch (eVertex3DType)
 	{
 	case Vertex3D_Type_Base:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex3DBase));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX3D_BASE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX3D_BASE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		m_pD3D9Device->SetTexture(0, pRenderTexture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, nStartIndex, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex3D_Type_Texture:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex3DTexture));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX3D_TEXTURE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX3D_TEXTURE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		m_pD3D9Device->SetTexture(0, pRenderTexture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, nStartIndex, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex3D_Type_Normal:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex3DNormal));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX3D_NORMAL));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX3D_NORMAL);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		m_pD3D9Device->SetTexture(0, pRenderTexture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, nStartIndex, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex3D_Type_Normal_Texture:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex3DNormalTexture));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX3D_NORMAL_TEXTURE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX3D_NORMAL_TEXTURE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		m_pD3D9Device->SetTexture(0, pRenderTexture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, nStartIndex, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex3D_Type_Normal_Specular_Texture:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex3DNormalSpecularTexture));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX3D_NORMAL_SPECULAR_TEXTURE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		m_pD3D9Device->SetTexture(0, pRenderTexture);
@@ -2090,4 +2014,5 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DRender(Vertex
 		return;
 		break;
 	}
+
 }

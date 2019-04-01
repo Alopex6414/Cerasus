@@ -120,43 +120,34 @@ public:
 	void						DIRECTGRAPHICS3D_CALLMETHOD		SetMaterial(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive);
 	void						DIRECTGRAPHICS3D_CALLMETHOD		SetMaterial(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive, float fPower);
 
+	void						DIRECTGRAPHICS3D_CALLMETHOD		PaddingVertex(S_DX_VERTEX3D_BASE* VertexArray, int nSize);															// DirectGraphics3D Padding Vertex(填充顶点数据)(3D基本顶点格式)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		PaddingVertex(S_DX_VERTEX3D_TEXTURE* VertexArray, int nSize);														// DirectGraphics3D Padding Vertex(填充顶点数据)(3D纹理顶点格式)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		PaddingVertex(S_DX_VERTEX3D_NORMAL* VertexArray, int nSize);														// DirectGraphics3D Padding Vertex(填充顶点数据)(3D法线顶点格式)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		PaddingVertex(S_DX_VERTEX3D_NORMAL_TEXTURE* VertexArray, int nSize);												// DirectGraphics3D Padding Vertex(填充顶点数据)(3D法线纹理顶点格式)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		PaddingVertex(S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE* VertexArray, int nSize);										// DirectGraphics3D Padding Vertex(填充顶点数据)(3D法线镜面反射纹理顶点格式)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		PaddingVertex(E_DX_VERTEX3D_TYPE eVertex3DType, LPVOID VertexArray, int nSize);										// DirectGraphics3D Padding Vertex(填充顶点数据)
 
+	void						DIRECTGRAPHICS3D_CALLMETHOD		PaddingIndex(int nPlane);																							// DirectGraphics3D Padding Index(填充索引数据)
 
+	void						DIRECTGRAPHICS3D_CALLMETHOD		PaddingVertexAndIndex(S_DX_VERTEX3D_BASE* VertexArray, int nPlane);													// DirectGraphics3D Padding Vertex and Index(填充顶点和索引数据)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		PaddingVertexAndIndex(S_DX_VERTEX3D_TEXTURE* VertexArray, int nPlane);												// DirectGraphics3D Padding Vertex and Index(填充顶点和索引数据)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		PaddingVertexAndIndex(S_DX_VERTEX3D_NORMAL* VertexArray, int nPlane);												// DirectGraphics3D Padding Vertex and Index(填充顶点和索引数据)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		PaddingVertexAndIndex(S_DX_VERTEX3D_NORMAL_TEXTURE* VertexArray, int nPlane);										// DirectGraphics3D Padding Vertex and Index(填充顶点和索引数据)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		PaddingVertexAndIndex(S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE* VertexArray, int nPlane);								// DirectGraphics3D Padding Vertex and Index(填充顶点和索引数据)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		PaddingVertexAndIndex(E_DX_VERTEX3D_TYPE eVertex3DType, LPVOID VertexArray, int nPlane);							// DirectGraphics3D Padding Vertex and Index(填充顶点和索引数据)
 
+	void						DIRECTGRAPHICS3D_CALLMETHOD		StateAlphaEnable();																									// DirectGraphics3D Render State Setting(开启Alpha混合)//渲染完毕关闭Alpha混合
+	void						DIRECTGRAPHICS3D_CALLMETHOD		StateAlphaDisable();																								// DirectGraphics3D Render State Setting(关闭Alpha混合)
 
+	void						DIRECTGRAPHICS3D_CALLMETHOD		StateLightEnable();																									// DirectGraphics3D Render State Setting(开启Light光照)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		StateLightDisable();																								// DirectGraphics3D Render State Setting(关闭Light光照)
 
-	//填充
-	//顶点
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DPaddingVertex(Vertex3DBase* VertexArray, int nSize);						//DirectGraphics3D Padding Vertex(填充顶点数据)(3D基本顶点格式)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DPaddingVertex(Vertex3DTexture* VertexArray, int nSize);					//DirectGraphics3D Padding Vertex(填充顶点数据)(3D纹理顶点格式)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DPaddingVertex(Vertex3DNormal* VertexArray, int nSize);						//DirectGraphics3D Padding Vertex(填充顶点数据)(3D法线顶点格式)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DPaddingVertex(Vertex3DNormalTexture* VertexArray, int nSize);				//DirectGraphics3D Padding Vertex(填充顶点数据)(3D法线纹理顶点格式)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DPaddingVertex(Vertex3DNormalSpecularTexture* VertexArray, int nSize);		//DirectGraphics3D Padding Vertex(填充顶点数据)(3D法线镜面反射纹理顶点格式)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DPaddingVertex(Vertex3DType eVertex3DType, LPVOID VertexArray, int nSize);	//DirectGraphics3D Padding Vertex(填充顶点数据)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		StateSetting();																										// DirectGraphics3D Render State Setting(设置渲染模式)
 
-	//索引
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DPaddingIndex(int nPlane);													//DirectGraphics3D Padding Index(填充索引数据)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		Render(E_DX_VERTEX3D_TYPE eVertex3DType, int nPlane, bool bIsTexture = false);										// DirectGraphics3D Render(渲染)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		Render(E_DX_VERTEX3D_TYPE eVertex3DType, int nStartIndex, int nPlane, bool bIsTexture = false);						// DirectGraphics3D Render(渲染)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		Render(E_DX_VERTEX3D_TYPE eVertex3DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture);			// DirectGraphics3D Render(渲染)
 
-	//All
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DPaddingVertexAndIndex(Vertex3DBase* VertexArray, int nPlane);							//DirectGraphics3D Padding Vertex and Index(填充顶点和索引数据)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DPaddingVertexAndIndex(Vertex3DTexture* VertexArray, int nPlane);						//DirectGraphics3D Padding Vertex and Index(填充顶点和索引数据)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DPaddingVertexAndIndex(Vertex3DNormal* VertexArray, int nPlane);						//DirectGraphics3D Padding Vertex and Index(填充顶点和索引数据)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DPaddingVertexAndIndex(Vertex3DNormalTexture* VertexArray, int nPlane);					//DirectGraphics3D Padding Vertex and Index(填充顶点和索引数据)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DPaddingVertexAndIndex(Vertex3DNormalSpecularTexture* VertexArray, int nPlane);			//DirectGraphics3D Padding Vertex and Index(填充顶点和索引数据)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DPaddingVertexAndIndex(Vertex3DType eVertex3DType, LPVOID VertexArray, int nPlane);		//DirectGraphics3D Padding Vertex and Index(填充顶点和索引数据)
-
-	//渲染
-	//渲染模式
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DRenderStateAlphaEnable();																//DirectGraphics3D Render State Setting(开启Alpha混合)//渲染完毕关闭Alpha混合
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DRenderStateAlphaDisable();																//DirectGraphics3D Render State Setting(关闭Alpha混合)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DRenderStateLightEnable();																//DirectGraphics3D Render State Setting(开启Light光照)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DRenderStateLightDisable();																//DirectGraphics3D Render State Setting(关闭Light光照)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DRenderStateSetting();																	//DirectGraphics3D Render State Setting(设置渲染模式)
-
-	//渲染
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DRender(Vertex3DType eVertex3DType, int nPlane, bool bIsTexture = false);											//DirectGraphics3D Render(渲染)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DRender(Vertex3DType eVertex3DType, int nStartIndex, int nPlane, bool bIsTexture = false);							//DirectGraphics3D Render(渲染)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DRender(Vertex3DType eVertex3DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture);				//DirectGraphics3D Render(渲染)
 };
 
 

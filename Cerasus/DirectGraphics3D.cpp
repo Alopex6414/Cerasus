@@ -814,90 +814,14 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::WorldSpaceTransform(S_DX_WORL
 	m_pD3D9Device->SetTransform(D3DTS_WORLD, &MatrixWorld);							// 设置世界变换
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye)
+// @Function:	 ViewSpaceTransform(D3DXVECTOR3* pvEye)
 // @Purpose: DirectGraphics3D视口变换
 // @Since: v1.00a
 // @Para: D3DXVECTOR3* pvEye		//摄像机位置(观察者位置)
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::ViewSpaceTransform(D3DXVECTOR3 * pvEye)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixView;
@@ -908,14 +832,14 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewSpaceTran
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye, D3DXVECTOR3* pvAt)
+// @Function:	 ViewSpaceTransform(D3DXVECTOR3 * pvEye, D3DXVECTOR3 * pvAt)
 // @Purpose: DirectGraphics3D视口变换
 // @Since: v1.00a
 // @Para: D3DXVECTOR3* pvEye		//摄像机位置(观察者位置)
 // @Para: D3DXVECTOR3* pvAt			//物体位置
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye, D3DXVECTOR3* pvAt)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::ViewSpaceTransform(D3DXVECTOR3 * pvEye, D3DXVECTOR3 * pvAt)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixView;
@@ -925,7 +849,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewSpaceTran
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye, D3DXVECTOR3* pvAt, D3DXVECTOR3* pvUp)
+// @Function:	 ViewSpaceTransform(D3DXVECTOR3 * pvEye, D3DXVECTOR3 * pvAt, D3DXVECTOR3 * pvUp)
 // @Purpose: DirectGraphics3D视口变换
 // @Since: v1.00a
 // @Para: D3DXVECTOR3* pvEye		//摄像机位置(观察者位置)
@@ -933,7 +857,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewSpaceTran
 // @Para: D3DXVECTOR3* pvUp			//向上向量
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye, D3DXVECTOR3* pvAt, D3DXVECTOR3* pvUp)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::ViewSpaceTransform(D3DXVECTOR3 * pvEye, D3DXVECTOR3 * pvAt, D3DXVECTOR3 * pvUp)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixView;
@@ -942,7 +866,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewSpaceTran
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DViewSpaceTransform(DG3D_ViewTransformPara sViewTransformPara)
+// @Function:	 ViewSpaceTransform(S_DX_VIEW_TRANSFORM_PARA sViewTransformPara)
 // @Purpose: DirectGraphics3D视口变换
 // @Since: v1.00a
 // @Para: D3DXVECTOR3* pvEye		//摄像机位置(观察者位置)
@@ -950,7 +874,7 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewSpaceTran
 // @Para: D3DXVECTOR3* pvUp			//向上向量
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewSpaceTransform(DG3D_ViewTransformPara sViewTransformPara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::ViewSpaceTransform(S_DX_VIEW_TRANSFORM_PARA sViewTransformPara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixView;
@@ -959,28 +883,13 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewSpaceTran
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DPerspectiveTransform(DG3D_PrespectiveTransformPara sPrespectiveTransformPara)
+// @Function:	 PerspectiveTransform(float fovy, float fAspect, float fZn, float fZf)
 // @Purpose: DirectGraphics3D视口变换
 // @Since: v1.00a
 // @Para: DG3D_PrespectiveTransformPara sPrespectiveTransformPara		//投影变换结构体参数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPerspectiveTransform(DG3D_PrespectiveTransformPara sPrespectiveTransformPara)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	D3DXMATRIX MatrixProject;
-	D3DXMatrixPerspectiveFovLH(&MatrixProject, sPrespectiveTransformPara.fovy, sPrespectiveTransformPara.fAspect, sPrespectiveTransformPara.fZn, sPrespectiveTransformPara.fZf);
-	m_pD3D9Device->SetTransform(D3DTS_PROJECTION, &MatrixProject);
-}
-
-//---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DPerspectiveTransform(float fovy, float fAspect, float fZn, float fZf)
-// @Purpose: DirectGraphics3D视口变换
-// @Since: v1.00a
-// @Para: DG3D_PrespectiveTransformPara sPrespectiveTransformPara		//投影变换结构体参数
-// @Return: None
-//---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPerspectiveTransform(float fovy, float fAspect, float fZn, float fZf)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PerspectiveTransform(float fovy, float fAspect, float fZn, float fZf)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX MatrixProject;
@@ -989,33 +898,28 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DPerspectiveTr
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DViewPortTransform(DG3D_ViewPortTransformPara sViewPortTransformPara)
+// @Function:	 PerspectiveTransform(S_DX_PRESPECTIVE_TRANSFORM_PARA sPrespectiveTransformPara)
 // @Purpose: DirectGraphics3D视口变换
 // @Since: v1.00a
-// @Para: DG3D_ViewPortTransformPara sViewPortTransformPara				//视口变换结构体参数
+// @Para: DG3D_PrespectiveTransformPara sPrespectiveTransformPara		//投影变换结构体参数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewPortTransform(DG3D_ViewPortTransformPara sViewPortTransformPara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PerspectiveTransform(S_DX_PRESPECTIVE_TRANSFORM_PARA sPrespectiveTransformPara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	D3DVIEWPORT9 ViewPort;
-	ViewPort.X = 0;
-	ViewPort.Y = 0;
-	ViewPort.Width = sViewPortTransformPara.nUserWidth;
-	ViewPort.Height = sViewPortTransformPara.nUserHeight;
-	ViewPort.MinZ = 0.0f;
-	ViewPort.MaxZ = 1.0f;
-	m_pD3D9Device->SetViewport(&ViewPort);
+	D3DXMATRIX MatrixProject;
+	D3DXMatrixPerspectiveFovLH(&MatrixProject, sPrespectiveTransformPara.fovy, sPrespectiveTransformPara.fAspect, sPrespectiveTransformPara.fZn, sPrespectiveTransformPara.fZf);
+	m_pD3D9Device->SetTransform(D3DTS_PROJECTION, &MatrixProject);
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DViewPortTransform(int nUserWidth, int nUserHeight)
+// @Function:	 ViewPortTransform(int nUserWidth, int nUserHeight)
 // @Purpose: DirectGraphics3D视口变换
 // @Since: v1.00a
 // @Para: DG3D_ViewPortTransformPara sViewPortTransformPara				//视口变换结构体参数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewPortTransform(int nUserWidth, int nUserHeight)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::ViewPortTransform(int nUserWidth, int nUserHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DVIEWPORT9 ViewPort;
@@ -1028,29 +932,49 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DViewPortTrans
 	m_pD3D9Device->SetViewport(&ViewPort);
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------------
+// @Function:	 ViewPortTransform(S_DX_VIEWPORT_TRANSFORM_PARA sViewPortTransformPara)
+// @Purpose: DirectGraphics3D视口变换
+// @Since: v1.00a
+// @Para: DG3D_ViewPortTransformPara sViewPortTransformPara				//视口变换结构体参数
+// @Return: None
+//---------------------------------------------------------------------------------------------------------------------------------------------
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::ViewPortTransform(S_DX_VIEWPORT_TRANSFORM_PARA sViewPortTransformPara)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	D3DVIEWPORT9 ViewPort;
+	ViewPort.X = 0;
+	ViewPort.Y = 0;
+	ViewPort.Width = sViewPortTransformPara.nUserWidth;
+	ViewPort.Height = sViewPortTransformPara.nUserHeight;
+	ViewPort.MinZ = 0.0f;
+	ViewPort.MaxZ = 1.0f;
+	m_pD3D9Device->SetViewport(&ViewPort);
+}
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DMatrixTransform(DG3D_WorldTransformPara sWorldTransformPara, DG3D_ViewTransformPara sViewTransformPara, DG3D_PrespectiveTransformPara sPrespectiveTransformPara, DG3D_ViewPortTransformPara sViewPortTransformPara)
+// @Function:	 MatrixTransform(S_DX_WORLD_TRANSFORM_PARA sWorldTransformPara, S_DX_VIEW_TRANSFORM_PARA sViewTransformPara, S_DX_PRESPECTIVE_TRANSFORM_PARA sPrespectiveTransformPara, S_DX_VIEWPORT_TRANSFORM_PARA sViewPortTransformPara)
 // @Purpose: DirectGraphics3D矩阵变换
 // @Since: v1.00a
 // @Para: DG3D_ViewPortTransformPara sViewPortTransformPara				
 // @Return: None
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DMatrixTransform(DG3D_WorldTransformPara sWorldTransformPara, DG3D_ViewTransformPara sViewTransformPara, DG3D_PrespectiveTransformPara sPrespectiveTransformPara, DG3D_ViewPortTransformPara sViewPortTransformPara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::MatrixTransform(S_DX_WORLD_TRANSFORM_PARA sWorldTransformPara, S_DX_VIEW_TRANSFORM_PARA sViewTransformPara, S_DX_PRESPECTIVE_TRANSFORM_PARA sPrespectiveTransformPara, S_DX_VIEWPORT_TRANSFORM_PARA sViewPortTransformPara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	D3DXMATRIX MatrixWorld;									//世界变换矩阵
-	D3DXMATRIX MatrixScale;									//缩放变换矩阵
-	D3DXMATRIX MatrixRotateX, MatrixRotateY, MatrixRotateZ;	//旋转变换矩阵
-	D3DXMATRIX MatrixTranslate;								//平移变换矩阵
+	D3DXMATRIX MatrixWorld;															// 世界变换矩阵
+	D3DXMATRIX MatrixScale;															// 缩放变换矩阵
+	D3DXMATRIX MatrixRotateX, MatrixRotateY, MatrixRotateZ;							// 旋转变换矩阵
+	D3DXMATRIX MatrixTranslate;														// 平移变换矩阵
 
-	D3DXMatrixIdentity(&MatrixWorld);	//单位化矩阵
-	D3DXMatrixScaling(&MatrixScale, sWorldTransformPara.sScalePara.fScaleX, sWorldTransformPara.sScalePara.fScaleY, sWorldTransformPara.sScalePara.fScaleZ);	//设置缩放矩阵
-	D3DXMatrixRotationX(&MatrixRotateX, sWorldTransformPara.sRotatePara.fRotateX);	//设置旋转矩阵X
-	D3DXMatrixRotationY(&MatrixRotateY, sWorldTransformPara.sRotatePara.fRotateY);	//设置旋转矩阵Y
-	D3DXMatrixRotationZ(&MatrixRotateZ, sWorldTransformPara.sRotatePara.fRotateZ);	//设置旋转矩阵Z
-	D3DXMatrixTranslation(&MatrixTranslate, sWorldTransformPara.sTranslatePara.fTranslateX, sWorldTransformPara.sTranslatePara.fTranslateY, sWorldTransformPara.sTranslatePara.fTranslateZ);	//设置平移矩阵
+	D3DXMatrixIdentity(&MatrixWorld);												// 单位化矩阵
+	D3DXMatrixScaling(&MatrixScale, sWorldTransformPara.sScalePara.fScaleX, sWorldTransformPara.sScalePara.fScaleY, sWorldTransformPara.sScalePara.fScaleZ);	// 设置缩放矩阵
+	D3DXMatrixRotationX(&MatrixRotateX, sWorldTransformPara.sRotatePara.fRotateX);	// 设置旋转矩阵X
+	D3DXMatrixRotationY(&MatrixRotateY, sWorldTransformPara.sRotatePara.fRotateY);	// 设置旋转矩阵Y
+	D3DXMatrixRotationZ(&MatrixRotateZ, sWorldTransformPara.sRotatePara.fRotateZ);	// 设置旋转矩阵Z
+	D3DXMatrixTranslation(&MatrixTranslate, sWorldTransformPara.sTranslatePara.fTranslateX, sWorldTransformPara.sTranslatePara.fTranslateY, sWorldTransformPara.sTranslatePara.fTranslateZ);	// 设置平移矩阵
 	MatrixWorld = MatrixWorld * MatrixScale * MatrixRotateX * MatrixRotateY * MatrixRotateZ * MatrixTranslate;
-	m_pD3D9Device->SetTransform(D3DTS_WORLD, &MatrixWorld);		//设置世界变换
+	m_pD3D9Device->SetTransform(D3DTS_WORLD, &MatrixWorld);							// 设置世界变换
 
 	D3DXMATRIX MatrixView;
 	D3DXMatrixLookAtLH(&MatrixView, &(sViewTransformPara.vEye), &(sViewTransformPara.vAt), &(sViewTransformPara.vUp));
@@ -1071,28 +995,28 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DMatrixTransfo
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DMatrixTransform(DG3D_CoordsTransformPara sCoordsTransformPara)
+// @Function:	 MatrixTransform(S_DX_COORDS_TRANSFORM_PARA sCoordsTransformPara)
 // @Purpose: DirectGraphics3D矩阵变换
 // @Since: v1.00a
 // @Para: DG3D_CoordsTransformPara sCoordsTransformPara		//矩阵变换系数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DMatrixTransform(DG3D_CoordsTransformPara sCoordsTransformPara)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::MatrixTransform(S_DX_COORDS_TRANSFORM_PARA sCoordsTransformPara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	D3DXMATRIX MatrixWorld;									//世界变换矩阵
-	D3DXMATRIX MatrixScale;									//缩放变换矩阵
-	D3DXMATRIX MatrixRotateX, MatrixRotateY, MatrixRotateZ;	//旋转变换矩阵
-	D3DXMATRIX MatrixTranslate;								//平移变换矩阵
+	D3DXMATRIX MatrixWorld;																				// 世界变换矩阵
+	D3DXMATRIX MatrixScale;																				// 缩放变换矩阵
+	D3DXMATRIX MatrixRotateX, MatrixRotateY, MatrixRotateZ;												// 旋转变换矩阵
+	D3DXMATRIX MatrixTranslate;																			// 平移变换矩阵
 
-	D3DXMatrixIdentity(&MatrixWorld);	//单位化矩阵
-	D3DXMatrixScaling(&MatrixScale, sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleX, sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleY, sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleZ);	//设置缩放矩阵
-	D3DXMatrixRotationX(&MatrixRotateX, sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateX);	//设置旋转矩阵X
-	D3DXMatrixRotationY(&MatrixRotateY, sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateY);	//设置旋转矩阵Y
-	D3DXMatrixRotationZ(&MatrixRotateZ, sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateZ);	//设置旋转矩阵Z
-	D3DXMatrixTranslation(&MatrixTranslate, sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateX, sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateY, sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateZ);	//设置平移矩阵
+	D3DXMatrixIdentity(&MatrixWorld);																	// 单位化矩阵
+	D3DXMatrixScaling(&MatrixScale, sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleX, sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleY, sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleZ);	// 设置缩放矩阵
+	D3DXMatrixRotationX(&MatrixRotateX, sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateX);	// 设置旋转矩阵X
+	D3DXMatrixRotationY(&MatrixRotateY, sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateY);	// 设置旋转矩阵Y
+	D3DXMatrixRotationZ(&MatrixRotateZ, sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateZ);	// 设置旋转矩阵Z
+	D3DXMatrixTranslation(&MatrixTranslate, sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateX, sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateY, sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateZ);	// 设置平移矩阵
 	MatrixWorld = MatrixWorld * MatrixScale * MatrixRotateX * MatrixRotateY * MatrixRotateZ * MatrixTranslate;
-	m_pD3D9Device->SetTransform(D3DTS_WORLD, &MatrixWorld);		//设置世界变换
+	m_pD3D9Device->SetTransform(D3DTS_WORLD, &MatrixWorld);												// 设置世界变换
 
 	D3DXMATRIX MatrixView;
 	D3DXMatrixLookAtLH(&MatrixView, &(sCoordsTransformPara.sViewTransformPara.vEye), &(sCoordsTransformPara.sViewTransformPara.vAt), &(sCoordsTransformPara.sViewTransformPara.vUp));
@@ -1113,158 +1037,158 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DMatrixTransfo
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DLightSetting(D3DLIGHT9* pD3D9Light, D3DCOLOR dwAmbientLight)
+// @Function:	 SetLightPoint(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, float fRange, D3DCOLOR dwAmbientLight)
 // @Purpose: DirectGraphics3D光照设置
 // @Since: v1.00a
 // @Para: D3DLIGHT9* pD3D9Light						//D3D9光照
 // @Para: D3DCOLOR dwAmbientLight					//环境光
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DLightSettingPoint(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, float fRange, D3DCOLOR dwAmbientLight)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::SetLightPoint(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, float fRange, D3DCOLOR dwAmbientLight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DLIGHT9 D3D9Light;
+	
+	ZeroMemory(&D3D9Light, sizeof(D3DLIGHT9));		// 清除内存
 
-	ZeroMemory(&D3D9Light, sizeof(D3DLIGHT9));		//清除内存
+	D3D9Light.Type = D3DLIGHT_POINT;				// 光源类型(点光源)
+	D3D9Light.Ambient = cAmbient;					// 环境光
+	D3D9Light.Diffuse = cDiffuse;					// 漫反射光
+	D3D9Light.Specular = cSpecular;					// 镜面反射光
+	D3D9Light.Position = vPosition;					// 点光源位置
+	D3D9Light.Attenuation0 = 1.0f;					// 光源衰减系数0
+	D3D9Light.Attenuation1 = 0.0f;					// 光源衰减系数1
+	D3D9Light.Attenuation2 = 0.0f;					// 光源衰减系数2
+	D3D9Light.Range = fRange;						// 光源范围
 
-	D3D9Light.Type = D3DLIGHT_POINT;				//光源类型(点光源)
-	D3D9Light.Ambient = cAmbient;					//环境光
-	D3D9Light.Diffuse = cDiffuse;					//漫反射光
-	D3D9Light.Specular = cSpecular;					//镜面反射光
-	D3D9Light.Position = vPosition;					//点光源位置
-	D3D9Light.Attenuation0 = 1.0f;					//光源衰减系数0
-	D3D9Light.Attenuation1 = 0.0f;					//光源衰减系数1
-	D3D9Light.Attenuation2 = 0.0f;					//光源衰减系数2
-	D3D9Light.Range = fRange;						//光源范围
-
-	m_pD3D9Device->SetLight(0, &D3D9Light);										//设置光源  
-	m_pD3D9Device->LightEnable(0, true);										//启用光照  
-	m_pD3D9Device->SetRenderState(D3DRS_AMBIENT, dwAmbientLight);				//设置一下环境光
+	m_pD3D9Device->SetLight(0, &D3D9Light);										// 设置光源  
+	m_pD3D9Device->LightEnable(0, true);										// 启用光照  
+	m_pD3D9Device->SetRenderState(D3DRS_AMBIENT, dwAmbientLight);				// 设置一下环境光
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DLightSettingDirectional(D3DLIGHT9* pD3D9Light, D3DCOLOR dwAmbientLight)
+// @Function:	 SetLightDirectional(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vDirectional, D3DCOLOR dwAmbientLight)
 // @Purpose: DirectGraphics3D光照设置
 // @Since: v1.00a
 // @Para: D3DLIGHT9* pD3D9Light						//D3D9光照
 // @Para: D3DCOLOR dwAmbientLight					//环境光
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DLightSettingDirectional(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vDirectional, D3DCOLOR dwAmbientLight)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::SetLightDirectional(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vDirectional, D3DCOLOR dwAmbientLight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DLIGHT9 D3D9Light;
 
-	ZeroMemory(&D3D9Light, sizeof(D3DLIGHT9));		//清除内存
+	ZeroMemory(&D3D9Light, sizeof(D3DLIGHT9));		// 清除内存
 
-	D3D9Light.Type = D3DLIGHT_DIRECTIONAL;			//光源类型(平行光源)
-	D3D9Light.Ambient = cAmbient;					//环境光
-	D3D9Light.Diffuse = cDiffuse;					//漫反射光
-	D3D9Light.Specular = cSpecular;					//镜面反射光
-	D3D9Light.Direction = vDirectional;				//平行光方向
+	D3D9Light.Type = D3DLIGHT_DIRECTIONAL;			// 光源类型(平行光源)
+	D3D9Light.Ambient = cAmbient;					// 环境光
+	D3D9Light.Diffuse = cDiffuse;					// 漫反射光
+	D3D9Light.Specular = cSpecular;					// 镜面反射光
+	D3D9Light.Direction = vDirectional;				// 平行光方向
 
-	m_pD3D9Device->SetLight(0, &D3D9Light);										//设置光源  
-	m_pD3D9Device->LightEnable(0, true);										//启用光照  
-	m_pD3D9Device->SetRenderState(D3DRS_AMBIENT, dwAmbientLight);				//设置一下环境光
+	m_pD3D9Device->SetLight(0, &D3D9Light);										// 设置光源  
+	m_pD3D9Device->LightEnable(0, true);										// 启用光照  
+	m_pD3D9Device->SetRenderState(D3DRS_AMBIENT, dwAmbientLight);				// 设置一下环境光
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DLightSettingSpot(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, D3DXVECTOR3 vDirectional, float fFallOff, float fPhi, float fTheta, D3DCOLOR dwAmbientLight)
+// @Function:	 SetLightSpot(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, D3DXVECTOR3 vDirectional, float fRange, float fFallOff, float fPhi, float fTheta, D3DCOLOR dwAmbientLight)
 // @Purpose: DirectGraphics3D光照设置
 // @Since: v1.00a
 // @Para: D3DLIGHT9* pD3D9Light						//D3D9光照
 // @Para: D3DCOLOR dwAmbientLight					//环境光
 // @Return: None
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DLightSettingSpot(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, D3DXVECTOR3 vDirectional, float fRange, float fFallOff, float fPhi, float fTheta, D3DCOLOR dwAmbientLight)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::SetLightSpot(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, D3DXVECTOR3 vDirectional, float fRange, float fFallOff, float fPhi, float fTheta, D3DCOLOR dwAmbientLight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DLIGHT9 D3D9Light;
 
-	ZeroMemory(&D3D9Light, sizeof(D3DLIGHT9));		//清除内存
+	ZeroMemory(&D3D9Light, sizeof(D3DLIGHT9));		// 清除内存
 
-	D3D9Light.Type = D3DLIGHT_SPOT;					//光源类型(聚光灯光源)
-	D3D9Light.Ambient = cAmbient;					//环境光
-	D3D9Light.Diffuse = cDiffuse;					//漫反射光
-	D3D9Light.Specular = cSpecular;					//镜面反射光
-	D3D9Light.Position = vPosition;					//聚光灯光源位置
-	D3D9Light.Direction = vDirectional;				//平行光方向
-	D3D9Light.Attenuation0 = 1.0f;					//光源衰减系数0
-	D3D9Light.Attenuation1 = 0.0f;					//光源衰减系数1
-	D3D9Light.Attenuation2 = 0.0f;					//光源衰减系数2
-	D3D9Light.Range = fRange;						//光源范围
-	D3D9Light.Falloff = fFallOff;					//聚光灯衰减
+	D3D9Light.Type = D3DLIGHT_SPOT;					// 光源类型(聚光灯光源)
+	D3D9Light.Ambient = cAmbient;					// 环境光
+	D3D9Light.Diffuse = cDiffuse;					// 漫反射光
+	D3D9Light.Specular = cSpecular;					// 镜面反射光
+	D3D9Light.Position = vPosition;					// 聚光灯光源位置
+	D3D9Light.Direction = vDirectional;				// 平行光方向
+	D3D9Light.Attenuation0 = 1.0f;					// 光源衰减系数0
+	D3D9Light.Attenuation1 = 0.0f;					// 光源衰减系数1
+	D3D9Light.Attenuation2 = 0.0f;					// 光源衰减系数2
+	D3D9Light.Range = fRange;						// 光源范围
+	D3D9Light.Falloff = fFallOff;					// 聚光灯衰减
 	D3D9Light.Phi = fPhi;
 	D3D9Light.Theta = fTheta;
 
-	m_pD3D9Device->SetLight(0, &D3D9Light);										//设置光源  
-	m_pD3D9Device->LightEnable(0, true);										//启用光照  
-	m_pD3D9Device->SetRenderState(D3DRS_AMBIENT, dwAmbientLight);				//设置一下环境光
+	m_pD3D9Device->SetLight(0, &D3D9Light);										// 设置光源  
+	m_pD3D9Device->LightEnable(0, true);										// 启用光照  
+	m_pD3D9Device->SetRenderState(D3DRS_AMBIENT, dwAmbientLight);				// 设置一下环境光
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DLightSetting(D3DLIGHT9* pD3D9Light, D3DCOLOR dwAmbientLight)
+// @Function:	 SetLight(D3DLIGHT9 * pD3D9Light, D3DCOLOR dwAmbientLight)
 // @Purpose: DirectGraphics3D光照设置
 // @Since: v1.00a
 // @Para: D3DLIGHT9* pD3D9Light						//D3D9光照
 // @Para: D3DCOLOR dwAmbientLight					//环境光
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DLightSetting(D3DLIGHT9* pD3D9Light, D3DCOLOR dwAmbientLight)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::SetLight(D3DLIGHT9 * pD3D9Light, D3DCOLOR dwAmbientLight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3D9Device->SetLight(0, pD3D9Light);										//设置光源  
-	m_pD3D9Device->LightEnable(0, true);										//启用光照  
-	m_pD3D9Device->SetRenderState(D3DRS_AMBIENT, dwAmbientLight);				//设置一下环境光
+	m_pD3D9Device->SetLight(0, pD3D9Light);										// 设置光源  
+	m_pD3D9Device->LightEnable(0, true);										// 启用光照  
+	m_pD3D9Device->SetRenderState(D3DRS_AMBIENT, dwAmbientLight);				// 设置一下环境光
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DLightSetting(D3DLIGHT9* pD3D9Light, D3DCOLOR dwAmbientLight)
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// @Function:	 SetLight(E_DX_LIGHT_TYPE eLightType, D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, D3DXVECTOR3 vDirectional, float fRange, float fFallOff, float fPhi, float fTheta, D3DCOLOR dwAmbientLight)
 // @Purpose: DirectGraphics3D光照设置
 // @Since: v1.00a
 // @Para: D3DLIGHT9* pD3D9Light						//D3D9光照
 // @Para: D3DCOLOR dwAmbientLight					//环境光
 // @Return: None
-//---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DLightSetting(LightType eLightType, D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, D3DXVECTOR3 vDirectional, float fRange, float fFallOff, float fPhi, float fTheta, D3DCOLOR dwAmbientLight)
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::SetLight(E_DX_LIGHT_TYPE eLightType, D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, D3DXVECTOR3 vDirectional, float fRange, float fFallOff, float fPhi, float fTheta, D3DCOLOR dwAmbientLight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DLIGHT9 D3D9Light;
 
-	ZeroMemory(&D3D9Light, sizeof(D3DLIGHT9));		//清除内存
+	ZeroMemory(&D3D9Light, sizeof(D3DLIGHT9));			// 清除内存
 
 	switch (eLightType)
 	{
-	case LightType_Point://(点光源)
-		D3D9Light.Type = D3DLIGHT_POINT;				//光源类型(点光源)
-		D3D9Light.Ambient = cAmbient;					//环境光
-		D3D9Light.Diffuse = cDiffuse;					//漫反射光
-		D3D9Light.Specular = cSpecular;					//镜面反射光
-		D3D9Light.Position = vPosition;					//点光源位置
-		D3D9Light.Attenuation0 = 1.0f;					//光源衰减系数0
-		D3D9Light.Attenuation1 = 0.0f;					//光源衰减系数1
-		D3D9Light.Attenuation2 = 0.0f;					//光源衰减系数2
-		D3D9Light.Range = fRange;						//光源范围
+	case Light_Type_Point:								// (点光源)
+		D3D9Light.Type = D3DLIGHT_POINT;				// 光源类型(点光源)
+		D3D9Light.Ambient = cAmbient;					// 环境光
+		D3D9Light.Diffuse = cDiffuse;					// 漫反射光
+		D3D9Light.Specular = cSpecular;					// 镜面反射光
+		D3D9Light.Position = vPosition;					// 点光源位置
+		D3D9Light.Attenuation0 = 1.0f;					// 光源衰减系数0
+		D3D9Light.Attenuation1 = 0.0f;					// 光源衰减系数1
+		D3D9Light.Attenuation2 = 0.0f;					// 光源衰减系数2
+		D3D9Light.Range = fRange;						// 光源范围
 		break;
-	case LightType_Direction://(平行光源)
-		D3D9Light.Type = D3DLIGHT_DIRECTIONAL;			//光源类型(平行光源)
-		D3D9Light.Ambient = cAmbient;					//环境光
-		D3D9Light.Diffuse = cDiffuse;					//漫反射光
-		D3D9Light.Specular = cSpecular;					//镜面反射光
-		D3D9Light.Direction = vDirectional;				//平行光方向
+	case Light_Type_Direction:							// (平行光源)
+		D3D9Light.Type = D3DLIGHT_DIRECTIONAL;			// 光源类型(平行光源)
+		D3D9Light.Ambient = cAmbient;					// 环境光
+		D3D9Light.Diffuse = cDiffuse;					// 漫反射光
+		D3D9Light.Specular = cSpecular;					// 镜面反射光
+		D3D9Light.Direction = vDirectional;				// 平行光方向
 		break;
-	case LightType_Spot://(聚光灯光源)
-		D3D9Light.Type = D3DLIGHT_SPOT;					//光源类型(聚光灯光源)
-		D3D9Light.Ambient = cAmbient;					//环境光
-		D3D9Light.Diffuse = cDiffuse;					//漫反射光
-		D3D9Light.Specular = cSpecular;					//镜面反射光
-		D3D9Light.Position = vPosition;					//聚光灯光源位置
-		D3D9Light.Direction = vDirectional;				//平行光方向
-		D3D9Light.Attenuation0 = 1.0f;					//光源衰减系数0
-		D3D9Light.Attenuation1 = 0.0f;					//光源衰减系数1
-		D3D9Light.Attenuation2 = 0.0f;					//光源衰减系数2
-		D3D9Light.Range = fRange;						//光源范围
-		D3D9Light.Falloff = fFallOff;					//聚光灯衰减
+	case Light_Type_Spot:								// (聚光灯光源)
+		D3D9Light.Type = D3DLIGHT_SPOT;					// 光源类型(聚光灯光源)
+		D3D9Light.Ambient = cAmbient;					// 环境光
+		D3D9Light.Diffuse = cDiffuse;					// 漫反射光
+		D3D9Light.Specular = cSpecular;					// 镜面反射光
+		D3D9Light.Position = vPosition;					// 聚光灯光源位置
+		D3D9Light.Direction = vDirectional;				// 平行光方向
+		D3D9Light.Attenuation0 = 1.0f;					// 光源衰减系数0
+		D3D9Light.Attenuation1 = 0.0f;					// 光源衰减系数1
+		D3D9Light.Attenuation2 = 0.0f;					// 光源衰减系数2
+		D3D9Light.Range = fRange;						// 光源范围
+		D3D9Light.Falloff = fFallOff;					// 聚光灯衰减
 		D3D9Light.Phi = fPhi;
 		D3D9Light.Theta = fTheta;
 		break;
@@ -1273,68 +1197,146 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DLightSetting(
 		break;
 	}
 
-	m_pD3D9Device->SetLight(0, &D3D9Light);										//设置光源  
-	m_pD3D9Device->LightEnable(0, true);										//启用光照  
-	m_pD3D9Device->SetRenderState(D3DRS_AMBIENT, dwAmbientLight);				//设置一下环境光
+	m_pD3D9Device->SetLight(0, &D3D9Light);										// 设置光源  
+	m_pD3D9Device->LightEnable(0, true);										// 启用光照  
+	m_pD3D9Device->SetRenderState(D3DRS_AMBIENT, dwAmbientLight);				// 设置一下环境光
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DMaterialSetting(D3DMATERIAL9* pD3D9Material)
+// @Function:	 SetMaterial(D3DMATERIAL9 * pD3D9Material)
 // @Purpose: DirectGraphics3D材质设置
 // @Since: v1.00a
 // @Para: D3DMATERIAL9* pD3D9Material				//D3D9材质
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DMaterialSetting(D3DMATERIAL9* pD3D9Material)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::SetMaterial(D3DMATERIAL9 * pD3D9Material)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3D9Device->SetMaterial(pD3D9Material);				//设置一下材质
+	m_pD3D9Device->SetMaterial(pD3D9Material);				// 设置一下材质
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DMaterialSetting(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive)
+// @Function:	 SetMaterial(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive)
 // @Purpose: DirectGraphics3D材质设置
 // @Since: v1.00a
 // @Para: D3DMATERIAL9* pD3D9Material				//D3D9材质
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DMaterialSetting(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	D3DMATERIAL9 D3D9Material;
-
-	ZeroMemory(&D3D9Material, sizeof(D3DMATERIAL9));		//清除内存
-
-	D3D9Material.Ambient = cAmbient;						//环境光
-	D3D9Material.Diffuse = cDiffuse;						//漫反射光
-	D3D9Material.Specular = cSpecular;						//镜面反射光
-	D3D9Material.Emissive = cEmissive;						//物体自发光
-
-	m_pD3D9Device->SetMaterial(&D3D9Material);				//设置一下材质
-}
-
-//---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics3DMaterialSetting(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive)
-// @Purpose: DirectGraphics3D材质设置
-// @Since: v1.00a
-// @Para: D3DMATERIAL9* pD3D9Material				//D3D9材质
-// @Return: None
-//---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::DirectGraphics3DMaterialSetting(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive, float fPower)
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::SetMaterial(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DMATERIAL9 D3D9Material;
 
-	ZeroMemory(&D3D9Material, sizeof(D3DMATERIAL9));		//清除内存
+	ZeroMemory(&D3D9Material, sizeof(D3DMATERIAL9));		// 清除内存
 
-	D3D9Material.Ambient = cAmbient;						//环境光
-	D3D9Material.Diffuse = cDiffuse;						//漫反射光
-	D3D9Material.Specular = cSpecular;						//镜面反射光
-	D3D9Material.Emissive = cEmissive;						//物体自发光
-	D3D9Material.Power = fPower;							//镜面反射强度
+	D3D9Material.Ambient = cAmbient;						// 环境光
+	D3D9Material.Diffuse = cDiffuse;						// 漫反射光
+	D3D9Material.Specular = cSpecular;						// 镜面反射光
+	D3D9Material.Emissive = cEmissive;						// 物体自发光
 
-	m_pD3D9Device->SetMaterial(&D3D9Material);				//设置一下材质
+	m_pD3D9Device->SetMaterial(&D3D9Material);				// 设置一下材质
 }
+
+//---------------------------------------------------------------------------------------------------------------------------------------------
+// @Function:	 SetMaterial(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive, float fPower)
+// @Purpose: DirectGraphics3D材质设置
+// @Since: v1.00a
+// @Para: D3DMATERIAL9* pD3D9Material				//D3D9材质
+// @Return: None
+//---------------------------------------------------------------------------------------------------------------------------------------------
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::SetMaterial(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive, float fPower)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	D3DMATERIAL9 D3D9Material;
+
+	ZeroMemory(&D3D9Material, sizeof(D3DMATERIAL9));		// 清除内存
+
+	D3D9Material.Ambient = cAmbient;						// 环境光
+	D3D9Material.Diffuse = cDiffuse;						// 漫反射光
+	D3D9Material.Specular = cSpecular;						// 镜面反射光
+	D3D9Material.Emissive = cEmissive;						// 物体自发光
+	D3D9Material.Power = fPower;							// 镜面反射强度
+
+	m_pD3D9Device->SetMaterial(&D3D9Material);				// 设置一下材质
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
 // @Function:	 DirectGraphics3DPaddingVertex(Vertex3DBase* VertexArray, int nSize)

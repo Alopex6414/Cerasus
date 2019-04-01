@@ -96,57 +96,34 @@ public:
 	void						DIRECTGRAPHICS3D_CALLMETHOD		WorldSpaceTransform(S_DX_SCALE_PARA sScalePara, S_DX_ROTATE_PARA sRotatePara, S_DX_TRANSLATE_PARA sTranslatePara);	// DirectGraphics3D WorldSpaceTransform(世界变换)(Overload + 6)
 	void						DIRECTGRAPHICS3D_CALLMETHOD		WorldSpaceTransform(S_DX_WORLD_TRANSFORM_PARA sWorldTransformPara);													// DirectGraphics3D WorldSpaceTransform(世界变换)(Overload + 7)
 
-	void						DIRECTGRAPHICS3D_CALLMETHOD		ViewSpaceTransform(D3DXVECTOR3* pvEye);
+	void						DIRECTGRAPHICS3D_CALLMETHOD		ViewSpaceTransform(D3DXVECTOR3* pvEye);																				// DirectGraphics3D ViewSpaceTransform(取景变换)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		ViewSpaceTransform(D3DXVECTOR3* pvEye, D3DXVECTOR3* pvAt);															// DirectGraphics3D ViewSpaceTransform(取景变换)(Overload + 1)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		ViewSpaceTransform(D3DXVECTOR3* pvEye, D3DXVECTOR3* pvAt, D3DXVECTOR3* pvUp);										// DirectGraphics3D ViewSpaceTransform(取景变换)(Overload + 2)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		ViewSpaceTransform(S_DX_VIEW_TRANSFORM_PARA sViewTransformPara);													// DirectGraphics3D ViewSpaceTransform(取景变换)(Overload + 3)
+
+	void						DIRECTGRAPHICS3D_CALLMETHOD		PerspectiveTransform(float fovy, float fAspect, float fZn, float fZf);												// DirectGraphics3D PerspectiveTransform(透视/投影变换)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		PerspectiveTransform(S_DX_PRESPECTIVE_TRANSFORM_PARA sPrespectiveTransformPara);									// DirectGraphics3D PerspectiveTransform(透视/投影变换)(Overload + 1)
+
+	void						DIRECTGRAPHICS3D_CALLMETHOD		ViewPortTransform(int nUserWidth, int nUserHeight);																	// DirectGraphics3D ViewPortTransform(视口变换)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		ViewPortTransform(S_DX_VIEWPORT_TRANSFORM_PARA sViewPortTransformPara);												// DirectGraphics3D ViewPortTransform(视口变换)(Overload + 1)
+
+	void						DIRECTGRAPHICS3D_CALLMETHOD		MatrixTransform(S_DX_WORLD_TRANSFORM_PARA sWorldTransformPara, S_DX_VIEW_TRANSFORM_PARA sViewTransformPara, S_DX_PRESPECTIVE_TRANSFORM_PARA sPrespectiveTransformPara, S_DX_VIEWPORT_TRANSFORM_PARA sViewPortTransformPara);			// DirectGraphics3D MatrixTransform(坐标变换)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		MatrixTransform(S_DX_COORDS_TRANSFORM_PARA sCoordsTransformPara);																																										// DirectGraphics3D MatrixTransform(坐标变换)(Overload + 1)
+
+	void						DIRECTGRAPHICS3D_CALLMETHOD		SetLightPoint(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, float fRange, D3DCOLOR dwAmbientLight);																								// DirectGraphics3D Light Setting(光源设置)(点光源)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		SetLightDirectional(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vDirectional, D3DCOLOR dwAmbientLight);																									// DirectGraphics3D Light Setting(光源设置)(平行光源)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		SetLightSpot(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, D3DXVECTOR3 vDirectional, float fRange, float fFallOff, float fPhi, float fTheta, D3DCOLOR dwAmbientLight);							// DirectGraphics3D Light Setting(光源设置)(聚光灯光源)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		SetLight(D3DLIGHT9* pD3D9Light, D3DCOLOR dwAmbientLight);																																												// DirectGraphics3D Light Setting(光源设置)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		SetLight(E_DX_LIGHT_TYPE eLightType, D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, D3DXVECTOR3 vDirectional, float fRange, float fFallOff, float fPhi, float fTheta, D3DCOLOR dwAmbientLight);	// DirectGraphics3D Light Setting(光源设置)
+
+	void						DIRECTGRAPHICS3D_CALLMETHOD		SetMaterial(D3DMATERIAL9* pD3D9Material);
+	void						DIRECTGRAPHICS3D_CALLMETHOD		SetMaterial(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive);
+	void						DIRECTGRAPHICS3D_CALLMETHOD		SetMaterial(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive, float fPower);
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	//坐标(T)(矩阵变换)
-	
-	//取景变换
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye);																		//DirectGraphics3D ViewSpaceTransform(取景变换)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye, D3DXVECTOR3* pvAt);														//DirectGraphics3D ViewSpaceTransform(取景变换)(重载+1)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DViewSpaceTransform(D3DXVECTOR3* pvEye, D3DXVECTOR3* pvAt, D3DXVECTOR3* pvUp);									//DirectGraphics3D ViewSpaceTransform(取景变换)(重载+2)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DViewSpaceTransform(DG3D_ViewTransformPara sViewTransformPara);													//DirectGraphics3D ViewSpaceTransform(取景变换)(重载+3)
-	
-	//投影变换
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DPerspectiveTransform(DG3D_PrespectiveTransformPara sPrespectiveTransformPara);									//DirectGraphics3D PerspectiveTransform(透视/投影变换)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DPerspectiveTransform(float fovy, float fAspect, float fZn, float fZf);											//DirectGraphics3D PerspectiveTransform(透视/投影变换)(重载+1)
-	
-	//视口变换
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DViewPortTransform(DG3D_ViewPortTransformPara sViewPortTransformPara);											//DirectGraphics3D ViewPortTransform(视口变换)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DViewPortTransform(int nUserWidth, int nUserHeight);															//DirectGraphics3D ViewPortTransform(视口变换)(重载+1)
-	
-	//坐标变换
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DMatrixTransform(DG3D_WorldTransformPara sWorldTransformPara, DG3D_ViewTransformPara sViewTransformPara, DG3D_PrespectiveTransformPara sPrespectiveTransformPara, DG3D_ViewPortTransformPara sViewPortTransformPara);					//DirectGraphics3D MatrixTransform(坐标变换)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DMatrixTransform(DG3D_CoordsTransformPara sCoordsTransformPara);																																										//DirectGraphics3D MatrixTransform(坐标变换)(重载+1)
-
-	//光照(L)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DLightSettingPoint(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, float fRange, D3DCOLOR dwAmbientLight);																							//DirectGraphics3D Light Setting(光源设置)(点光源)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DLightSettingDirectional(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vDirectional, D3DCOLOR dwAmbientLight);																								//DirectGraphics3D Light Setting(光源设置)(平行光源)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DLightSettingSpot(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, D3DXVECTOR3 vDirectional, float fRange, float fFallOff, float fPhi, float fTheta, D3DCOLOR dwAmbientLight);						//DirectGraphics3D Light Setting(光源设置)(聚光灯光源)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DLightSetting(D3DLIGHT9* pD3D9Light, D3DCOLOR dwAmbientLight);																																											//DirectGraphics3D Light Setting(光源设置)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DLightSetting(LightType eLightType, D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXVECTOR3 vPosition, D3DXVECTOR3 vDirectional, float fRange, float fFallOff, float fPhi, float fTheta, D3DCOLOR dwAmbientLight);		//DirectGraphics3D Light Setting(光源设置)
-
-	//材质(M)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DMaterialSetting(D3DMATERIAL9* pD3D9Material);																					//DirectGraphics3D Material Setting(材质设置)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DMaterialSetting(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive);								//DirectGraphics3D Material Setting(材质设置)
-	virtual void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3DMaterialSetting(D3DXCOLOR cAmbient, D3DXCOLOR cDiffuse, D3DXCOLOR cSpecular, D3DXCOLOR cEmissive, float fPower);				//DirectGraphics3D Material Setting(材质设置)
 
 	//填充
 	//顶点

@@ -26,7 +26,7 @@
 #include "DirectCommon.h"
 #include "DirectTypes.h"
 
-//Macro Definition
+// Macro Definition
 #ifdef	CERASUS_EXPORTS
 #define DIRECTGRAPHICS2D_API	__declspec(dllexport)
 #else
@@ -35,61 +35,18 @@
 
 #define DIRECTGRAPHICS2D_CALLMETHOD	__stdcall
 
-//Struct Definition
-//Vertex 2D Base(2D基本顶点格式)
-struct Vertex2DBase
-{
-	float X, Y, Z, RHW;
-	DWORD COLOR;
-	Vertex2DBase(float x, float y, float z, float rhw, DWORD Color) :X(x), Y(y), Z(z), RHW(rhw), COLOR(Color) {}
-};
-
-#define D3DFVF_VERTEX2D_BASE	(D3DFVF_XYZRHW | D3DFVF_DIFFUSE)				//基本顶点格式模式(2D坐标/漫反射光线)
-
-//Vertex 2D Texture(2D纹理顶点格式)
-struct Vertex2DTexture
-{
-	float X, Y, Z, RHW;
-	DWORD COLOR;
-	float U, V;
-	Vertex2DTexture(float x, float y, float z, float rhw, DWORD Color, float u, float v) :X(x), Y(y), Z(z), RHW(rhw), COLOR(Color), U(u), V(v) {}
-};
-
-#define D3DFVF_VERTEX2D_TEXTURE	(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)	//纹理顶点格式模式(2D坐标/漫反射光线/纹理图样)
-
-//Vertex 2D Diffuse Specular Texture(2D镜面反射纹理顶点格式)
-struct Vertex2DSpecularTexture
-{
-	float X, Y, Z, RHW;
-	DWORD DIFFUSE;
-	DWORD SPECULAR;
-	float U, V;
-	Vertex2DSpecularTexture(float x, float y, float z, float rhw, DWORD Diffuse, DWORD Specular, float u, float v) :X(x), Y(y), Z(z), RHW(rhw), DIFFUSE(Diffuse), SPECULAR(Specular), U(u), V(v) {}
-};
-
-#define D3DFVF_VERTEX2D_SPECULAR_TEXTURE	(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1)	//镜面纹理顶点格式模式(2D坐标/漫反射光线/镜面反射光线/纹理图样)
-
-//Enum Definition
-enum Vertex2DType
-{
-	Vertex2D_Type_Base = 0,				//Base类型
-	Vertex2D_Type_Texture = 1,			//Texture类型
-	Vertex2D_Type_Specular_Texture = 2,	//SpecularTexture类型
-};
-
-//Class Definition
+// Class Definition
 class DIRECTGRAPHICS2D_API DirectGraphics2D
 {
-protected:
-	LPDIRECT3DDEVICE9 m_pD3D9Device;						//The Direct3D 9 Render Device 
-	LPDIRECT3DVERTEXBUFFER9 m_pD3D9VertexBuffer;			//The Direct3D 9 Vertex Buffer
-	LPDIRECT3DINDEXBUFFER9 m_pD3D9IndexBuffer;				//The Direct3D 9 Index  Buffer
-
 private:
-	LPDIRECT3DTEXTURE9 m_pD3D9Texture;						//The Direct3D 9 Texture
+	IDirect3DDevice9*		m_pD3D9Device;					// Direct3D 9 Device Object(~D3D9设备对象)
+	IDirect3DVertexBuffer9* m_pD3D9VertexBuffer;			// Direct3D 9 Vertex Buffer(~D3D9顶点缓存)
+	IDirect3DIndexBuffer9*	m_pD3D9IndexBuffer;				// Direct3D 9 Index  Buffer(~D3D9索引缓存)
+	IDirect3DTexture9*		m_pD3D9Texture;					// Direct3D 9 Texture(~D3D9纹理)
 
-	CRITICAL_SECTION m_cs;									//Thread Safe(CriticalSection)
-	bool m_bThreadSafe;										//Thread Safe Status
+protected:
+	CRITICAL_SECTION m_cs;									// Direct3D 9 Thread Safe(CriticalSection)
+	bool m_bThreadSafe;										// Direct3D 9 Thread Safe Status
 
 public:
 	DirectGraphics2D();										//DirectGraphics2D Constructor Function(构造函数)

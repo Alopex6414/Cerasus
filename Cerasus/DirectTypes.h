@@ -18,6 +18,14 @@
 #include "DirectCommon.h"
 
 // Enum Definition
+// Vertex 2D Type(2D顶点类型)
+enum E_DX_VERTEX2D_TYPE
+{
+	Vertex2D_Type_Base = 0,							// Base类型
+	Vertex2D_Type_Texture = 1,						// Texture类型
+	Vertex2D_Type_Specular_Texture = 2,				// SpecularTexture类型
+};
+
 // Vertex 3D Type(3D顶点类型)
 enum E_DX_VERTEX3D_TYPE
 {
@@ -37,6 +45,39 @@ enum E_DX_LIGHT_TYPE
 };
 
 // Struct Definition
+// Vertex 2D Base(2D基本顶点格式)
+struct S_DX_VERTEX2D_BASE
+{
+	float X, Y, Z, RHW;
+	DWORD COLOR;
+	S_DX_VERTEX2D_BASE(float x, float y, float z, float rhw, DWORD Color) :X(x), Y(y), Z(z), RHW(rhw), COLOR(Color) {}
+};
+
+#define D3DFVF_VERTEX2D_BASE	(D3DFVF_XYZRHW | D3DFVF_DIFFUSE)					// 基本顶点格式模式(2D坐标/漫反射光线)
+
+// Vertex 2D Texture(2D纹理顶点格式)
+struct S_DX_VERTEX2D_TEXTURE
+{
+	float X, Y, Z, RHW;
+	DWORD COLOR;
+	float U, V;
+	S_DX_VERTEX2D_TEXTURE(float x, float y, float z, float rhw, DWORD Color, float u, float v) :X(x), Y(y), Z(z), RHW(rhw), COLOR(Color), U(u), V(v) {}
+};
+
+#define D3DFVF_VERTEX2D_TEXTURE	(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)		// 纹理顶点格式模式(2D坐标/漫反射光线/纹理图样)
+
+// Vertex 2D Diffuse Specular Texture(2D镜面反射纹理顶点格式)
+struct S_DX_VERTEX2D_SPECULAR_TEXTURE
+{
+	float X, Y, Z, RHW;
+	DWORD DIFFUSE;
+	DWORD SPECULAR;
+	float U, V;
+	S_DX_VERTEX2D_SPECULAR_TEXTURE(float x, float y, float z, float rhw, DWORD Diffuse, DWORD Specular, float u, float v) :X(x), Y(y), Z(z), RHW(rhw), DIFFUSE(Diffuse), SPECULAR(Specular), U(u), V(v) {}
+};
+
+#define D3DFVF_VERTEX2D_SPECULAR_TEXTURE	(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1)							// 镜面纹理顶点格式模式(2D坐标/漫反射光线/镜面反射光线/纹理图样)
+
 // Vertex 3D Base(3D基本顶点格式)
 struct S_DX_VERTEX3D_BASE
 {

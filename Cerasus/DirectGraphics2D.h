@@ -49,11 +49,30 @@ protected:
 	bool m_bThreadSafe;										// Direct3D 9 Thread Safe Status
 
 public:
-	DirectGraphics2D();										//DirectGraphics2D Constructor Function(构造函数)
-	~DirectGraphics2D();									//DirectGraphics2D Destructor  Function(析构函数)
+	DirectGraphics2D();										// DirectGraphics2D Construction Function(~DirectGraphics2D构造函数)
+	~DirectGraphics2D();									// DirectGraphics2D Destruction  Function(~DirectGraphics2D析构函数)
 
-	//构造
-	DirectGraphics2D(LPDIRECT3DDEVICE9 pD3D9Device);		//DirectGraphics2D Constructor Function(构造函数)(传入D3D9 Device)(重载+1)
+	DirectGraphics2D(IDirect3DDevice9* pD3D9Device, bool bSafe = true);			// DirectGraphics2D Construction Function(~DirectGraphics2D构造函数)(Overload + 1)
+	DirectGraphics2D(const DirectGraphics2D&);									// DirectGraphics2D Construction Function(~DirectGraphics2D拷贝构造函数)
+
+public:
+	const DirectGraphics2D & operator=(const DirectGraphics2D&);				// DirectGraphics2D Operator Overload(~DirectGraphics2D重载=)
+
+public:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	//访问
 	virtual LPDIRECT3DDEVICE9 DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DGetD3D9Device(void) const;			//DirectGraphics2D D3D9 Get Device Pointer

@@ -21,6 +21,8 @@
 #include "DirectGraphics2D.h"
 #include "DirectThreadSafe.h"
 
+// DirectX9 Graphics Class(DirectX9 2D绘制类)
+
 //------------------------------------------------------------------
 // @Function:	 DirectGraphics2D()
 // @Purpose: DirectGraphics2D构造函数
@@ -28,15 +30,14 @@
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-DirectGraphics2D::DirectGraphics2D()
+DirectGraphics2D::DirectGraphics2D() :
+	m_pD3D9Device(NULL),
+	m_pD3D9VertexBuffer(NULL),
+	m_pD3D9IndexBuffer(NULL),
+	m_pD3D9Texture(NULL)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
-
-	m_pD3D9Device = NULL;					//IDirect3DDevice9接口指针初始化(NULL)
-	m_pD3D9VertexBuffer = NULL;				//IDirect3DVertexBuffer9接口指针初始化(NULL)
-	m_pD3D9IndexBuffer = NULL;				//IDirect3DIndexBuffer9接口指针初始化(NULL)
-	m_pD3D9Texture = NULL;					//IDirect3DTexture9接口指针初始化(NULL)
+	m_bThreadSafe = true;									// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 }
 
 //------------------------------------------------------------------
@@ -48,29 +49,69 @@ DirectGraphics2D::DirectGraphics2D()
 //------------------------------------------------------------------
 DirectGraphics2D::~DirectGraphics2D()
 {
-	SAFE_RELEASE(m_pD3D9VertexBuffer);		//IDirect3DVertexBuffer9接口指针释放
-	SAFE_RELEASE(m_pD3D9IndexBuffer);		//IDirect3DIndexBuffer9接口指针释放
-	SAFE_RELEASE(m_pD3D9Texture);			//IDirect3DTexture9接口指针释放
+	SAFE_RELEASE(m_pD3D9VertexBuffer);
+	SAFE_RELEASE(m_pD3D9IndexBuffer);
+	SAFE_RELEASE(m_pD3D9Texture);
 
-	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);	//删除临界区
+	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);		// Delete Critical Section
 }
 
-//-----------------------------------------------------------------------
-// @Function:	 DirectGraphics2D(IDirect3DDevice9* pD3D9Device)
+//--------------------------------------------------------------------------
+// @Function:	 DirectGraphics2D(IDirect3DDevice9* pD3D9Device, bool bSafe)
 // @Purpose: DirectGraphics2D构造函数
 // @Since: v1.00a
 // @Para: IDirect3DDevice9* pD3D9Device		//Direct3D 9 Device (绘制设备)
 // @Return: None
-//-----------------------------------------------------------------------
-DirectGraphics2D::DirectGraphics2D(LPDIRECT3DDEVICE9 pD3D9Device)
+//--------------------------------------------------------------------------
+DirectGraphics2D::DirectGraphics2D(IDirect3DDevice9 * pD3D9Device, bool bSafe) :
+	m_pD3D9Device(NULL),
+	m_pD3D9VertexBuffer(NULL),
+	m_pD3D9IndexBuffer(NULL),
+	m_pD3D9Texture(NULL)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
+	m_bThreadSafe = bSafe;									// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
+}
 
-	m_pD3D9Device = pD3D9Device;			//IDirect3DDevice9接口指针初始化
-	m_pD3D9VertexBuffer = NULL;				//IDirect3DVertexBuffer9接口指针初始化(NULL)
-	m_pD3D9IndexBuffer = NULL;				//IDirect3DIndexBuffer9接口指针初始化(NULL)
-	m_pD3D9Texture = NULL;					//IDirect3DTexture9接口指针初始化(NULL)
+//--------------------------------------------------------------------------
+// @Function:	 DirectGraphics2D(const DirectGraphics2D & Object)
+// @Purpose: DirectGraphics2D拷贝构造函数
+// @Since: v1.00a
+// @Para: IDirect3DDevice9* pD3D9Device		//Direct3D 9 Device (绘制设备)
+// @Return: None
+//--------------------------------------------------------------------------
+DirectGraphics2D::DirectGraphics2D(const DirectGraphics2D & Object)
+{
+	m_bThreadSafe = Object.m_bThreadSafe;					// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
+
+	m_pD3D9Device = Object.m_pD3D9Device;					// IDirect3DDevice9接口指针初始化
+	m_pD3D9VertexBuffer = Object.m_pD3D9VertexBuffer;		// IDirect3DVertexBuffer9接口指针初始化(NULL)
+	m_pD3D9IndexBuffer = Object.m_pD3D9IndexBuffer;			// IDirect3DIndexBuffer9接口指针初始化(NULL)
+	m_pD3D9Texture = Object.m_pD3D9Texture;					// IDirect3DTexture9接口指针初始化(NULL)
+}
+
+//--------------------------------------------------------------------------
+// @Function:	 operator=(const DirectGraphics2D & Object)
+// @Purpose: DirectGraphics2D拷贝构造函数
+// @Since: v1.00a
+// @Para: IDirect3DDevice9* pD3D9Device		//Direct3D 9 Device (绘制设备)
+// @Return: None
+//--------------------------------------------------------------------------
+const DirectGraphics2D & DirectGraphics2D::operator=(const DirectGraphics2D & Object)
+{
+	if (&Object != this)
+	{
+		m_bThreadSafe = Object.m_bThreadSafe;					// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+		if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
+
+		m_pD3D9Device = Object.m_pD3D9Device;					// IDirect3DDevice9接口指针初始化
+		m_pD3D9VertexBuffer = Object.m_pD3D9VertexBuffer;		// IDirect3DVertexBuffer9接口指针初始化(NULL)
+		m_pD3D9IndexBuffer = Object.m_pD3D9IndexBuffer;			// IDirect3DIndexBuffer9接口指针初始化(NULL)
+		m_pD3D9Texture = Object.m_pD3D9Texture;					// IDirect3DTexture9接口指针初始化(NULL)
+	}
+
+	return *this;
 }
 
 //-----------------------------------------------------------------------

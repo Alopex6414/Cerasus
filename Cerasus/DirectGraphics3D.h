@@ -136,13 +136,13 @@ public:
 	void						DIRECTGRAPHICS3D_CALLMETHOD		PaddingVertexAndIndex(S_DX_VERTEX3D_NORMAL_SPECULAR_TEXTURE* VertexArray, int nPlane);								// DirectGraphics3D Padding Vertex and Index(填充顶点和索引数据)
 	void						DIRECTGRAPHICS3D_CALLMETHOD		PaddingVertexAndIndex(E_DX_VERTEX3D_TYPE eVertex3DType, LPVOID VertexArray, int nPlane);							// DirectGraphics3D Padding Vertex and Index(填充顶点和索引数据)
 
-	void						DIRECTGRAPHICS3D_CALLMETHOD		StateAlphaEnable();																									// DirectGraphics3D Render State Setting(开启Alpha混合)//渲染完毕关闭Alpha混合
-	void						DIRECTGRAPHICS3D_CALLMETHOD		StateAlphaDisable();																								// DirectGraphics3D Render State Setting(关闭Alpha混合)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		AlphaEnable();																									// DirectGraphics3D Render State Setting(开启Alpha混合)//渲染完毕关闭Alpha混合
+	void						DIRECTGRAPHICS3D_CALLMETHOD		AlphaDisable();																								// DirectGraphics3D Render State Setting(关闭Alpha混合)
 
-	void						DIRECTGRAPHICS3D_CALLMETHOD		StateLightEnable();																									// DirectGraphics3D Render State Setting(开启Light光照)
-	void						DIRECTGRAPHICS3D_CALLMETHOD		StateLightDisable();																								// DirectGraphics3D Render State Setting(关闭Light光照)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		LightEnable();																									// DirectGraphics3D Render State Setting(开启Light光照)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		LightDisable();																								// DirectGraphics3D Render State Setting(关闭Light光照)
 
-	void						DIRECTGRAPHICS3D_CALLMETHOD		StateSetting();																										// DirectGraphics3D Render State Setting(设置渲染模式)
+	void						DIRECTGRAPHICS3D_CALLMETHOD		Setting();																										// DirectGraphics3D Render State Setting(设置渲染模式)
 
 	void						DIRECTGRAPHICS3D_CALLMETHOD		Render(E_DX_VERTEX3D_TYPE eVertex3DType, int nPlane, bool bIsTexture = false);										// DirectGraphics3D Render(渲染)
 	void						DIRECTGRAPHICS3D_CALLMETHOD		Render(E_DX_VERTEX3D_TYPE eVertex3DType, int nStartIndex, int nPlane, bool bIsTexture = false);						// DirectGraphics3D Render(渲染)

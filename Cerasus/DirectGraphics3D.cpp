@@ -1768,65 +1768,65 @@ void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::PaddingVertexAndIndex(E_DX_VE
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 StateAlphaEnable()
+// @Function:	 AlphaEnable()
 // @Purpose: DirectGraphics3D开启Alpha混合
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::StateAlphaEnable()
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::AlphaEnable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);					// Alpha混合开启
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 StateAlphaDisable()
+// @Function:	 AlphaDisable()
 // @Purpose: DirectGraphics3D关闭Alpha混合
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::StateAlphaDisable()
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::AlphaDisable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);					// Alpha混合关闭
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 StateLightEnable()
+// @Function:	 LightEnable()
 // @Purpose: DirectGraphics3D开启Light光照
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::StateLightEnable()
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::LightEnable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device->SetRenderState(D3DRS_LIGHTING, TRUE);							// Light开启光照
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 StateLightDisable()
+// @Function:	 LightDisable()
 // @Purpose: DirectGraphics3D关闭Light光照
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::StateLightDisable()
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::LightDisable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device->SetRenderState(D3DRS_LIGHTING, FALSE);							// Light关闭光照
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 StateSetting()
+// @Function:	 Setting()
 // @Purpose: DirectGraphics3D设置渲染模式
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::StateSetting()
+void DIRECTGRAPHICS3D_CALLMETHOD DirectGraphics3D::Setting()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 

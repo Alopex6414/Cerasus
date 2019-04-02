@@ -63,7 +63,7 @@ public:
 	const DirectGraphics3D & operator=(const DirectGraphics3D&);				// DirectGraphics3D Operator Overload(~DirectGraphics3D重载=)
 
 public:
-	IDirect3DDevice9*			DIRECTGRAPHICS3D_CALLMETHOD		GetDevice() const;					// DirectGraphics Get Device Object(~DirectGraphics获取D3D9设备对象)
+	IDirect3DDevice9*			DIRECTGRAPHICS3D_CALLMETHOD		GetDevice() const;					// DirectGraphics3D Get Device Object(~DirectGraphics获取D3D9设备对象)
 	IDirect3DVertexBuffer9*		DIRECTGRAPHICS3D_CALLMETHOD		GetVertexBuffer() const;			// DirectGraphics3D Get D3D9 Vertex Buffer(~DirectGraphics3D获取D3D9顶点缓存)
 	IDirect3DIndexBuffer9*		DIRECTGRAPHICS3D_CALLMETHOD		GetIndexBuffer() const;				// DirectGraphics3D Get D3D9 Index Buffer(~DirectGraphics3D获取D3D9索引缓存)
 	IDirect3DTexture9*			DIRECTGRAPHICS3D_CALLMETHOD		GetTexture() const;					// DirectGraphics3D Get D3D9 Texture(~DirectGraphics3D获取D3D9纹理)

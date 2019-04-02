@@ -59,45 +59,23 @@ public:
 	const DirectGraphics2D & operator=(const DirectGraphics2D&);				// DirectGraphics2D Operator Overload(~DirectGraphics2D重载=)
 
 public:
+	IDirect3DDevice9*			DIRECTGRAPHICS2D_CALLMETHOD		GetDevice() const;					// DirectGraphics2D Get Device Object(~DirectGraphics获取D3D9设备对象)
+	IDirect3DVertexBuffer9*		DIRECTGRAPHICS2D_CALLMETHOD		GetVertexBuffer() const;			// DirectGraphics2D Get D3D9 Vertex Buffer(~DirectGraphics3D获取D3D9顶点缓存)
+	IDirect3DIndexBuffer9*		DIRECTGRAPHICS2D_CALLMETHOD		GetIndexBuffer() const;				// DirectGraphics2D Get D3D9 Index Buffer(~DirectGraphics3D获取D3D9索引缓存)
+	IDirect3DTexture9*			DIRECTGRAPHICS2D_CALLMETHOD		GetTexture() const;					// DirectGraphics2D Get D3D9 Texture(~DirectGraphics3D获取D3D9纹理)
 
+public:
+	HRESULT						DIRECTGRAPHICS2D_CALLMETHOD		Create(int nPlane);																		// DirectGraphics2D Initialization(初始化)(平面数)
+	HRESULT						DIRECTGRAPHICS2D_CALLMETHOD		Create(int nPlane, LPCWSTR lpszStrTexture);												// DirectGraphics2D Initialization(初始化)(平面数/纹理)(Overload + 1)
+	HRESULT						DIRECTGRAPHICS2D_CALLMETHOD		Create(E_DX_VERTEX2D_TYPE eVertex2DType, int nPlane);									// DirectGraphics2D Initialization(初始化)(顶点类型/平面数)(Overload + 2)
+	HRESULT						DIRECTGRAPHICS2D_CALLMETHOD		Create(E_DX_VERTEX2D_TYPE eVertex2DType, int nPlane, LPCWSTR lpszStrTexture);			// DirectGraphics2D Initialization(初始化)(顶点类型/平面数/纹理)(Overload + 3)
 
+	HRESULT						DIRECTGRAPHICS2D_CALLMETHOD		CreateBase(UINT nCount);																// DirectGraphics2D Initialization(初始化)(2D基本顶点格式)
+	HRESULT						DIRECTGRAPHICS2D_CALLMETHOD		CreateTexture(UINT nCount, LPCWSTR pString);											// DirectGraphics2D Initialization(初始化)(2D纹理顶点格式)
+	HRESULT						DIRECTGRAPHICS2D_CALLMETHOD		CreateSpecularTexture(UINT nCount, LPCWSTR pString);									// DirectGraphics2D Initialization(初始化)(2D镜面纹理顶点格式模式)
 
+	HRESULT						DIRECTGRAPHICS2D_CALLMETHOD		Reset();																				// DirectGraphics2D D3D9 Reset(重置)(Reset后需要调用Init函数重新初始化)
 
-
-
-
-
-
-
-
-
-
-
-
-	//访问
-	virtual LPDIRECT3DDEVICE9 DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DGetD3D9Device(void) const;			//DirectGraphics2D D3D9 Get Device Pointer
-	virtual LPDIRECT3DVERTEXBUFFER9 DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DGetVertexBuffer(void) const;	//DirectGraphics2D D3D9 Get Vertex Buffer
-	virtual LPDIRECT3DINDEXBUFFER9 DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DGetIndexBuffer(void) const;		//DirectGraphics2D D3D9 Get Index Buffer
-	virtual LPDIRECT3DTEXTURE9 DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DGetTexture(void) const;				//DirectGraphics2D D3D9 Get Texture
-
-	//控制
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DSetD3D9Device(LPDIRECT3DDEVICE9 pD3D9Device);					//DirectGraphics2D D3D9 Set Device Pointer
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DSetVertexBuffer(LPDIRECT3DVERTEXBUFFER9 pD3D9VertexBuffer);	//DirectGraphics2D D3D9 Set Vertex Buffer
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DSetIndexBuffer(LPDIRECT3DINDEXBUFFER9 pD3D9IndexBuffer);		//DirectGraphics2D D3D9 Set Index Buffer
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DSetTexture(LPDIRECT3DTEXTURE9 pD3D9Texture);					//DirectGraphics2D D3D9 Set Texture
-
-	//重置(丢失设备)
-	virtual HRESULT DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DReset(void);												//DirectGraphics2D D3D9 Reset(重置)(Reset后需要调用Init函数重新初始化)
-
-	//初始化
-	virtual HRESULT DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DInit(int nPlane);														//DirectGraphics2D Initialization(初始化)(平面数)
-	virtual HRESULT DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DInit(int nPlane, LPCWSTR lpszStrTexture);								//DirectGraphics2D Initialization(初始化)(平面数/纹理)(重载+1)
-	virtual HRESULT DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DInit(Vertex2DType eVertex2DType, int nPlane);							//DirectGraphics2D Initialization(初始化)(顶点类型/平面数)(重载+2)
-	virtual HRESULT DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DInit(Vertex2DType eVertex2DType, int nPlane, LPCWSTR lpszStrTexture);	//DirectGraphics2D Initialization(初始化)(顶点类型/平面数/纹理)(重载+3)
-
-	virtual HRESULT DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DInitVertex2DBase(UINT nCount);										//DirectGraphics2D Initialization(初始化)(2D基本顶点格式)
-	virtual HRESULT DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DInitVertex2DTexture(UINT nCount, LPCWSTR pString);					//DirectGraphics2D Initialization(初始化)(2D纹理顶点格式)
-	virtual HRESULT DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DInitVertex2DSpecularTexture(UINT nCount, LPCWSTR pString);			//DirectGraphics2D Initialization(初始化)(2D镜面纹理顶点格式模式)
 
 	//填充
 	//顶点

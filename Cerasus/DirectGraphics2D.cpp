@@ -1,12 +1,12 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Sakura&Fantasy
 *     All rights reserved.
 *
 * @file		DirectGraphics2D.cpp
 * @brief	This Program is DirectGraphics2D DLL Project.
-* @author	Alopex/Helium
-* @version	v1.25a
+* @author	Alopex/Alice
+* @version	v1.26a
 * @date		2017-11-2	v1.00a	alopex	Create Project.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
 * @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
@@ -15,6 +15,7 @@
 * @date		2018-04-12	v1.23a	alopex	Add Macro Call Mode.
 * @date		2018-06-22	v1.24a	alopex	Add Init Function.
 * @date		2018-11-23	v1.25a	alopex	Alter Call Method.
+* @date		2019-04-02	v1.26a	alopex	Add Notes.
 */
 #include "DirectCommon.h"
 #include "DirectGraphics2D.h"

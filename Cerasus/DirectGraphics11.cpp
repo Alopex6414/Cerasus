@@ -1,18 +1,21 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017~2019, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Sakura&Fantasy
 *     All rights reserved.
 *
 * @file		DirectGraphics11.cpp
 * @brief	This Program is DirectGraphics11 DLL Project.
 * @author	Alopex/Helium
-* @version	v1.01a
+* @version	v1.02a
 * @date		2019-03-12	v1.00a	alopex	Create Project.
 * @date		2019-03-13	v1.01a	alopex	Add Method.
+* @date		2019-04-03	v1.02a	alopex	Add Notes.
 */
 #include "DirectCommon.h"
 #include "DirectGraphics11.h"
 #include "DirectThreadSafe.h"
+
+// DirectX11 Graphics Class(DirectX11 绘制类)
 
 //------------------------------------------------------------------
 // @Function:	 DirectGraphics11()
@@ -51,65 +54,129 @@ DirectGraphics11::~DirectGraphics11()
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphics11GetDevice()
+// @Function:	 DirectGraphics11()
+// @Purpose: DirectGraphics11 构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+DirectGraphics11::DirectGraphics11(bool bSafe) :
+	m_pD3D11Device(NULL),
+	m_pD3D11Context(NULL),
+	m_pD3D11SwapChain(NULL),
+	m_pD3D11BackBufferTarget(NULL),
+	m_DriverType(D3D_DRIVER_TYPE_NULL),
+	m_FeatureLevel(D3D_FEATURE_LEVEL_11_0)
+{
+	m_bThreadSafe = bSafe;									// DirectGraphics11 线程安全
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// DirectGraphics11 初始化临界区
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectGraphics11()
+// @Purpose: DirectGraphics11 拷贝构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+DirectGraphics11::DirectGraphics11(const DirectGraphics11 & Object)
+{
+	m_bThreadSafe = Object.m_bThreadSafe;					// DirectGraphics11 线程安全
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// DirectGraphics11 初始化临界区
+
+	m_pD3D11Device = Object.m_pD3D11Device;
+	m_pD3D11Context = Object.m_pD3D11Context;
+	m_pD3D11SwapChain = Object.m_pD3D11SwapChain;
+	m_pD3D11BackBufferTarget = Object.m_pD3D11BackBufferTarget;
+	m_DriverType = Object.m_DriverType;
+	m_FeatureLevel = Object.m_FeatureLevel;
+}
+
+//------------------------------------------------------------------
+// @Function:	 operator=()
+// @Purpose: DirectGraphics11 重载运算符
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+const DirectGraphics11 & DirectGraphics11::operator=(const DirectGraphics11 & Object)
+{
+	if (&Object == this)
+	{
+		m_bThreadSafe = Object.m_bThreadSafe;					// DirectGraphics11 线程安全
+		if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// DirectGraphics11 初始化临界区
+
+		m_pD3D11Device = Object.m_pD3D11Device;
+		m_pD3D11Context = Object.m_pD3D11Context;
+		m_pD3D11SwapChain = Object.m_pD3D11SwapChain;
+		m_pD3D11BackBufferTarget = Object.m_pD3D11BackBufferTarget;
+		m_DriverType = Object.m_DriverType;
+		m_FeatureLevel = Object.m_FeatureLevel;
+	}
+
+	return *this;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetDevice()
 // @Purpose: DirectGraphics11 获取D3D11设备对象
 // @Since: v1.00a
 // @Para: None
 // @Return: ID3D11Device*(D3D11设备对象指针)
 //------------------------------------------------------------------
-ID3D11Device *DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11GetDevice() const
+ID3D11Device *DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::GetDevice() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D11Device;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphics11GetContext()
+// @Function:	 GetContext()
 // @Purpose: DirectGraphics11 获取D3D11设备上下文
 // @Since: v1.00a
 // @Para: None
 // @Return: ID3D11DeviceContext*(D3D11设备上下文指针)
 //------------------------------------------------------------------
-ID3D11DeviceContext *DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11GetContext() const
+ID3D11DeviceContext *DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::GetContext() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D11Context;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphics11GetSwapChain()
+// @Function:	 GetSwapChain()
 // @Purpose: DirectGraphics11 获取D3D11交换链
 // @Since: v1.00a
 // @Para: None
 // @Return: IDXGISwapChain*(D3D11交换链指针)
 //------------------------------------------------------------------
-IDXGISwapChain *DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11GetSwapChain() const
+IDXGISwapChain *DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::GetSwapChain() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D11SwapChain;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphics11GetRenderTargetView()
+// @Function:	 GetRenderTargetView()
 // @Purpose: DirectGraphics11 获取D3D11渲染视口目标
 // @Since: v1.00a
 // @Para: None
 // @Return: ID3D11RenderTargetView*(D3D11渲染视口目标)
 //------------------------------------------------------------------
-ID3D11RenderTargetView *DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11GetRenderTargetView() const
+ID3D11RenderTargetView *DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::GetRenderTargetView() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D11BackBufferTarget;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphics11Init()
+// @Function:	 Create(HWND hWnd)
 // @Purpose: DirectGraphics11 初始化
 // @Since: v1.00a
 // @Para: HWND hWnd(窗口句柄)
 // @Return: bool(false:失败/true:成功)
 //------------------------------------------------------------------
-bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWnd)
+bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::Create(HWND hWnd)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	RECT Rect = { 0 };
@@ -133,9 +200,9 @@ bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWn
 	// D3D11 特征等级枚举
 	D3D_FEATURE_LEVEL featureLevels[] =
 	{
-	   D3D_FEATURE_LEVEL_11_0,
-	   D3D_FEATURE_LEVEL_10_1,
-	   D3D_FEATURE_LEVEL_10_0
+		D3D_FEATURE_LEVEL_11_0,
+		D3D_FEATURE_LEVEL_10_1,
+		D3D_FEATURE_LEVEL_10_0
 	};
 
 	UINT totalDriverTypes = ARRAYSIZE(driverTypes);
@@ -217,16 +284,16 @@ bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWn
 	return true;
 }
 
-//------------------------------------------------------------------
-// @Function:	 DirectGraphics11Init()
+//-----------------------------------------------------------------------
+// @Function:	 Create(HWND hWnd, UINT nScreenWidth, UINT nScreenHeight)
 // @Purpose: DirectGraphics11 初始化
 // @Since: v1.00a
 // @Para: HWND hWnd(窗口句柄)
 // @Para: UINT nScreenWidth(窗口宽度)
 // @Para: UINT nScreenHeight(窗口高度)
 // @Return: bool(false:失败/true:成功)
-//------------------------------------------------------------------
-bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWnd, UINT nScreenWidth, UINT nScreenHeight)
+//------------------------------------------------------------------------
+bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::Create(HWND hWnd, UINT nScreenWidth, UINT nScreenHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	UINT nWidth = nScreenWidth;
@@ -244,9 +311,9 @@ bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWn
 	// D3D11 特征等级枚举
 	D3D_FEATURE_LEVEL featureLevels[] =
 	{
-	   D3D_FEATURE_LEVEL_11_0,
-	   D3D_FEATURE_LEVEL_10_1,
-	   D3D_FEATURE_LEVEL_10_0
+		D3D_FEATURE_LEVEL_11_0,
+		D3D_FEATURE_LEVEL_10_1,
+		D3D_FEATURE_LEVEL_10_0
 	};
 
 	UINT totalDriverTypes = ARRAYSIZE(driverTypes);
@@ -328,15 +395,15 @@ bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWn
 	return true;
 }
 
-//------------------------------------------------------------------
-// @Function:	 DirectGraphics11Init()
+//---------------------------------------------------------------------
+// @Function:	 Create(HWND hWnd, DXGI_SWAP_CHAIN_DESC swapChainDesc)
 // @Purpose: DirectGraphics11 初始化
 // @Since: v1.00a
 // @Para: HWND hWnd(窗口句柄)
 // @Para: DXGI_SWAP_CHAIN_DESC swapChainDesc(交换链结构)
 // @Return: bool(false:失败/true:成功)
-//------------------------------------------------------------------
-bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWnd, DXGI_SWAP_CHAIN_DESC swapChainDesc)
+//---------------------------------------------------------------------
+bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::Create(HWND hWnd, DXGI_SWAP_CHAIN_DESC swapChainDesc)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	RECT Rect = { 0 };
@@ -360,9 +427,9 @@ bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWn
 	// D3D11 特征等级枚举
 	D3D_FEATURE_LEVEL featureLevels[] =
 	{
-	   D3D_FEATURE_LEVEL_11_0,
-	   D3D_FEATURE_LEVEL_10_1,
-	   D3D_FEATURE_LEVEL_10_0
+		D3D_FEATURE_LEVEL_11_0,
+		D3D_FEATURE_LEVEL_10_1,
+		D3D_FEATURE_LEVEL_10_0
 	};
 
 	UINT totalDriverTypes = ARRAYSIZE(driverTypes);
@@ -444,13 +511,13 @@ bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Init(HWND hWn
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphics11Render()
+// @Function:	 Render()
 // @Purpose: DirectGraphics11 渲染
 // @Since: v1.00a
 // @Para: None
 // @Return: bool(false:失败/true:成功)
 //------------------------------------------------------------------
-bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Render()
+bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::Render()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
@@ -467,13 +534,13 @@ bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Render()
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectGraphics11Render()
+// @Function:	 Render(const float ClearColor[4])
 // @Purpose: DirectGraphics11 渲染
 // @Since: v1.00a
 // @Para: const float ClearColor[4](清屏背景色RGBA)
 // @Return: bool(false:失败/true:成功)
 //------------------------------------------------------------------
-bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::DirectGraphics11Render(const float ClearColor[4])
+bool DIRECTGRAPHICS11_CALLMETHOD DirectGraphics11::Render(const float ClearColor[4])
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 

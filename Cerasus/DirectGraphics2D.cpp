@@ -378,35 +378,18 @@ HRESULT DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::Reset()
 	return S_OK;
 }
 
-//-----------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DReset(void)
-// @Purpose: DirectGraphics2D重置(丢失设备)
-// @Since: v1.00a
-// @Para: None
-// @Return: HRESULT(成功:S_OK, 失败:E_FAIL)
-//-----------------------------------------------------------------------------------------
-HRESULT DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DReset(void)
-{
-	SAFE_RELEASE(m_pD3D9VertexBuffer);		//IDirect3DVertexBuffer9接口指针释放
-	SAFE_RELEASE(m_pD3D9IndexBuffer);		//IDirect3DIndexBuffer9接口指针释放
-	SAFE_RELEASE(m_pD3D9Texture);			//IDirect3DTexture9接口指针释放
-	return S_OK;
-}
-
-
-
 //---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DPaddingVertex(Vertex2DBase* VertexArray, int nSize)
+// @Function:	 PaddingVertex(S_DX_VERTEX2D_BASE * VertexArray, int nSize)
 // @Purpose: DirectGraphics2D填充顶点(Base类型)
 // @Since: v1.00a
 // @Para: Vertex2DBase* VertexArray		//填充顶点数组地址
 // @Para: int nSize						//填充顶点数组长度
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex(Vertex2DBase* VertexArray, int nSize)
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::PaddingVertex(S_DX_VERTEX2D_BASE * VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	Vertex2DBase* pVertices = NULL;
+	S_DX_VERTEX2D_BASE* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -419,17 +402,17 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DPaddingVertex(Vertex2DTexture* VertexArray, int nSize)
+// @Function:	 PaddingVertex(S_DX_VERTEX2D_TEXTURE * VertexArray, int nSize)
 // @Purpose: DirectGraphics2D填充顶点(Texture类型)
 // @Since: v1.00a
 // @Para: Vertex2DTexture* VertexArray	//填充顶点数组地址
 // @Para: int nSize						//填充顶点数组长度
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex(Vertex2DTexture* VertexArray, int nSize)
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::PaddingVertex(S_DX_VERTEX2D_TEXTURE * VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	Vertex2DTexture* pVertices = NULL;
+	S_DX_VERTEX2D_TEXTURE* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -442,17 +425,17 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DPaddingVertex(Vertex2DSpecularTexture* VertexArray, int nSize)
+// @Function:	 PaddingVertex(S_DX_VERTEX2D_SPECULAR_TEXTURE * VertexArray, int nSize)
 // @Purpose: DirectGraphics2D填充顶点(Specular类型)
 // @Since: v1.00a
 // @Para: Vertex2DSpecularTexture* VertexArray		//填充顶点数组地址
 // @Para: int nSize									//填充顶点数组长度
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex(Vertex2DSpecularTexture* VertexArray, int nSize)
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::PaddingVertex(S_DX_VERTEX2D_SPECULAR_TEXTURE * VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	Vertex2DSpecularTexture* pVertices = NULL;
+	S_DX_VERTEX2D_SPECULAR_TEXTURE* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -465,7 +448,7 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 }
 
 //--------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DPaddingVertex(Vertex2DType eVertex2DType, LPVOID VertexArray, int nPlane)
+// @Function:	 PaddingVertex(E_DX_VERTEX2D_TYPE eVertex2DType, LPVOID VertexArray, int nPlane)
 // @Purpose: DirectGraphics2D填充顶点(枚举类型)
 // @Since: v1.00a
 // @Para: Vertex2DType eVertex2DType						//顶点类型
@@ -473,12 +456,12 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 // @Para: int nPlane										//填充平面个数
 // @Return: None
 //--------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex(Vertex2DType eVertex2DType, LPVOID VertexArray, int nPlane)
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::PaddingVertex(E_DX_VERTEX2D_TYPE eVertex2DType, LPVOID VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	Vertex2DBase* pVertices2DBase = NULL;
-	Vertex2DTexture* pVertices2DTexture = NULL;
-	Vertex2DSpecularTexture* pVertices2DSpecularTexture = NULL;
+	S_DX_VERTEX2D_BASE* pVertices2DBase = NULL;
+	S_DX_VERTEX2D_TEXTURE* pVertices2DTexture = NULL;
+	S_DX_VERTEX2D_SPECULAR_TEXTURE* pVertices2DSpecularTexture = NULL;
 
 	//填充顶点缓存
 	switch (eVertex2DType)
@@ -488,7 +471,7 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 
 		for (int i = 0; i < 4 * nPlane; ++i)
 		{
-			*(pVertices2DBase + i) = *((Vertex2DBase*)VertexArray + i);
+			*(pVertices2DBase + i) = *((S_DX_VERTEX2D_BASE*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -497,7 +480,7 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 
 		for (int i = 0; i < 4 * nPlane; ++i)
 		{
-			*(pVertices2DTexture + i) = *((Vertex2DTexture*)VertexArray + i);
+			*(pVertices2DTexture + i) = *((S_DX_VERTEX2D_TEXTURE*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -506,7 +489,7 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 
 		for (int i = 0; i < 4 * nPlane; ++i)
 		{
-			*(pVertices2DSpecularTexture + i) = *((Vertex2DSpecularTexture*)VertexArray + i);
+			*(pVertices2DSpecularTexture + i) = *((S_DX_VERTEX2D_SPECULAR_TEXTURE*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -518,17 +501,17 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DPaddingIndex(int nPlane)
+// @Function:	 PaddingIndex(int nPlane)
 // @Purpose: DirectGraphics2D填充索引
 // @Since: v1.00a
 // @Para: int nPlane	//平面数
 // @Return: None
 //--------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingIndex(int nPlane)
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::PaddingIndex(int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//填充索引缓存
+	// 填充索引缓存
 	WORD* pIndices = NULL;
 	m_pD3D9IndexBuffer->Lock(0, 0, (void**)&pIndices, 0);
 
@@ -547,19 +530,19 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingIndex(
 }
 
 //---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DPaddingVertexAndIndex(Vertex2DBase* VertexArray, int nPlane)
+// @Function:	 PaddingVertexAndIndex(S_DX_VERTEX2D_BASE * VertexArray, int nSize)
 // @Purpose: DirectGraphics2D填充顶点索引
 // @Since: v1.00a
 // @Para: Vertex2DBase* VertexArray					//填充顶点数组地址
 // @Para: int nPlane								//填充平面个数
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DBase* VertexArray, int nPlane)
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::PaddingVertexAndIndex(S_DX_VERTEX2D_BASE * VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//填充顶点缓存
-	Vertex2DBase* pVertices = NULL;
+	// 填充顶点缓存
+	S_DX_VERTEX2D_BASE* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -570,7 +553,7 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 
 	m_pD3D9VertexBuffer->Unlock();
 
-	//填充索引缓存
+	// 填充索引缓存
 	WORD* pIndices = NULL;
 	m_pD3D9IndexBuffer->Lock(0, 0, (void**)&pIndices, 0);
 
@@ -589,19 +572,19 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DPaddingVertexAndIndex(Vertex2DTexture* VertexArray, int nPlane)
+// @Function:	 PaddingVertexAndIndex(S_DX_VERTEX2D_TEXTURE * VertexArray, int nPlane)
 // @Purpose: DirectGraphics2D填充顶点索引
 // @Since: v1.00a
 // @Para: Vertex2DTexture* VertexArray				//填充顶点数组地址
 // @Para: int nPlane								//填充平面个数
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DTexture* VertexArray, int nPlane)
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::PaddingVertexAndIndex(S_DX_VERTEX2D_TEXTURE * VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//填充顶点缓存
-	Vertex2DTexture* pVertices = NULL;
+	// 填充顶点缓存
+	S_DX_VERTEX2D_TEXTURE* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -612,7 +595,7 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 
 	m_pD3D9VertexBuffer->Unlock();
 
-	//填充索引缓存
+	// 填充索引缓存
 	WORD* pIndices = NULL;
 	m_pD3D9IndexBuffer->Lock(0, 0, (void**)&pIndices, 0);
 
@@ -631,19 +614,19 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 }
 
 //------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DPaddingVertexAndIndex(Vertex2DSpecularTexture* VertexArray, int nPlane)
+// @Function:	 PaddingVertexAndIndex(S_DX_VERTEX2D_SPECULAR_TEXTURE * VertexArray, int nPlane)
 // @Purpose: DirectGraphics2D填充顶点索引
 // @Since: v1.00a
 // @Para: Vertex2DSpecularTexture* VertexArray				//填充顶点数组地址
 // @Para: int nPlane										//填充平面个数
 // @Return: None
 //------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DSpecularTexture* VertexArray, int nPlane)
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::PaddingVertexAndIndex(S_DX_VERTEX2D_SPECULAR_TEXTURE * VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//填充顶点缓存
-	Vertex2DSpecularTexture* pVertices = NULL;
+	// 填充顶点缓存
+	S_DX_VERTEX2D_SPECULAR_TEXTURE* pVertices = NULL;
 
 	m_pD3D9VertexBuffer->Lock(0, 0, (void**)&pVertices, 0);
 
@@ -654,7 +637,7 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 
 	m_pD3D9VertexBuffer->Unlock();
 
-	//填充索引缓存
+	// 填充索引缓存
 	WORD* pIndices = NULL;
 	m_pD3D9IndexBuffer->Lock(0, 0, (void**)&pIndices, 0);
 
@@ -673,7 +656,7 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 }
 
 //---------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DPaddingVertexAndIndex(Vertex2DType eVertex2DType, LPVOID VertexArray, int nPlane)
+// @Function:	 PaddingVertexAndIndex(E_DX_VERTEX2D_TYPE eVertex2DType, LPVOID VertexArray, int nPlane)
 // @Purpose: DirectGraphics2D填充顶点索引
 // @Since: v1.00a
 // @Para: Vertex2DType eVertex2DType						//顶点类型
@@ -681,14 +664,14 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 // @Para: int nPlane										//填充平面个数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DType eVertex2DType, LPVOID VertexArray, int nPlane)
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::PaddingVertexAndIndex(E_DX_VERTEX2D_TYPE eVertex2DType, LPVOID VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	Vertex2DBase* pVertices2DBase = NULL;
-	Vertex2DTexture* pVertices2DTexture = NULL;
-	Vertex2DSpecularTexture* pVertices2DSpecularTexture = NULL;
+	S_DX_VERTEX2D_BASE* pVertices2DBase = NULL;
+	S_DX_VERTEX2D_TEXTURE* pVertices2DTexture = NULL;
+	S_DX_VERTEX2D_SPECULAR_TEXTURE* pVertices2DSpecularTexture = NULL;
 
-	//填充顶点缓存
+	// 填充顶点缓存
 	switch (eVertex2DType)
 	{
 	case Vertex2D_Type_Base:
@@ -696,7 +679,7 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 
 		for (int i = 0; i < 4 * nPlane; ++i)
 		{
-			*(pVertices2DBase + i) = *((Vertex2DBase*)VertexArray + i);
+			*(pVertices2DBase + i) = *((S_DX_VERTEX2D_BASE*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -705,7 +688,7 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 
 		for (int i = 0; i < 4 * nPlane; ++i)
 		{
-			*(pVertices2DTexture + i) = *((Vertex2DTexture*)VertexArray + i);
+			*(pVertices2DTexture + i) = *((S_DX_VERTEX2D_TEXTURE*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -714,7 +697,7 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 
 		for (int i = 0; i < 4 * nPlane; ++i)
 		{
-			*(pVertices2DSpecularTexture + i) = *((Vertex2DSpecularTexture*)VertexArray + i);
+			*(pVertices2DSpecularTexture + i) = *((S_DX_VERTEX2D_SPECULAR_TEXTURE*)VertexArray + i);
 		}
 		m_pD3D9VertexBuffer->Unlock();
 		break;
@@ -723,7 +706,7 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 		break;
 	}
 
-	//填充索引缓存
+	// 填充索引缓存
 	WORD* pIndices = NULL;
 	m_pD3D9IndexBuffer->Lock(0, 0, (void**)&pIndices, 0);
 
@@ -741,116 +724,116 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DPaddingVertex
 	m_pD3D9IndexBuffer->Unlock();
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DRenderStateAlphaEnable()
+//---------------------------------------------------------------
+// @Function:	 AlphaEnable()
 // @Purpose: DirectGraphics2D开启Alpha混合
 // @Since: v1.00a
 // @Para: None
 // @Return: None
-//---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DRenderStateAlphaEnable(void)
+//---------------------------------------------------------------
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::AlphaEnable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);					//Alpha混合开启
+	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);					// Alpha混合开启
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DRenderStateAlphaDisable()
+//---------------------------------------------------------------
+// @Function:	 AlphaDisable()
 // @Purpose: DirectGraphics2D关闭Alpha混合
 // @Since: v1.00a
 // @Para: None
 // @Return: None
-//---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DRenderStateAlphaDisable(void)
+//---------------------------------------------------------------
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::AlphaDisable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);					//Alpha混合关闭
+	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);					// Alpha混合关闭
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DRenderStateSetting()
-// @Purpose: DirectGraphics2D设置渲染状态
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DRenderStateSetting(void)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-
-	//渲染模式:Alpha混合设置
-	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);					//Alpha混合开启
-	m_pD3D9Device->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);					//Alpha混合模式:ADD
-	m_pD3D9Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	m_pD3D9Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-
-	//渲染模式:纹理混合设置
-	m_pD3D9Device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-	m_pD3D9Device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);//D3DTA_DIFFUSE//D3DTA_TEXTURE
-	m_pD3D9Device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
-	m_pD3D9Device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
-	m_pD3D9Device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-}
-
-//---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DRenderStateAlphaMix()
+//---------------------------------------------------------------
+// @Function:	 AlphaMix()
 // @Purpose: DirectGraphics2D设置渲染状态(Alpha融合)
 // @Since: v1.00a
 // @Para: None
 // @Return: None
-//---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DRenderStateAlphaMix(void)
+//---------------------------------------------------------------
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::AlphaMix()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//渲染模式:Alpha混合设置
-	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);					//Alpha混合开启
-	m_pD3D9Device->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);					//Alpha混合模式:ADD
+	// 渲染模式:Alpha混合设置
+	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);					// Alpha混合开启
+	m_pD3D9Device->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);					// Alpha混合模式:ADD
 	m_pD3D9Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	m_pD3D9Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	
-	//渲染模式:纹理混合设置
+
+	// 渲染模式:纹理混合设置
 	m_pD3D9Device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-	m_pD3D9Device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);//D3DTA_DIFFUSE//D3DTA_TEXTURE
+	m_pD3D9Device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);		// D3DTA_DIFFUSE//D3DTA_TEXTURE
 	m_pD3D9Device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DRenderStateColorMix()
+//---------------------------------------------------------------
+// @Function:	 ColorMix()
 // @Purpose: DirectGraphics2D设置渲染状态(Color融合)
 // @Since: v1.00a
 // @Para: None
 // @Return: None
-//---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DRenderStateColorMix(void)
+//---------------------------------------------------------------
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::ColorMix()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//渲染模式:纹理混合设置
+	// 渲染模式:纹理混合设置
 	m_pD3D9Device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	m_pD3D9Device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DRenderStateColorMix()
+//---------------------------------------------------------------
+// @Function:	 ColorMix(D3DXCOLOR MixColor)
 // @Purpose: DirectGraphics2D设置渲染状态(Color融合)
 // @Since: v1.00a
 // @Para: None
 // @Return: None
-//---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DRenderStateColorMix(D3DXCOLOR MixColor)
+//---------------------------------------------------------------
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::ColorMix(D3DXCOLOR MixColor)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//渲染模式:纹理混合设置
+	// 渲染模式:纹理混合设置
 	m_pD3D9Device->SetRenderState(D3DRS_TEXTUREFACTOR, MixColor);
 	m_pD3D9Device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 	m_pD3D9Device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 	m_pD3D9Device->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
 }
 
+//-----------------------------------------------------------
+// @Function:	 Setting()
+// @Purpose: DirectGraphics2D设置渲染状态
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//-----------------------------------------------------------
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::Setting()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	// 渲染模式:Alpha混合设置
+	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);					// Alpha混合开启
+	m_pD3D9Device->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);					// Alpha混合模式:ADD
+	m_pD3D9Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	m_pD3D9Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+	// 渲染模式:纹理混合设置
+	m_pD3D9Device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	m_pD3D9Device->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);		// D3DTA_DIFFUSE//D3DTA_TEXTURE
+	m_pD3D9Device->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
+	m_pD3D9Device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+	m_pD3D9Device->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+}
+
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DRender(Vertex2DType eVertex3DType, int nPlane, bool bIsTexture = false)
+// @Function:	 Render(E_DX_VERTEX2D_TYPE eVertex2DType, int nPlane, bool bIsTexture)
 // @Purpose: DirectGraphics2D渲染绘制
 // @Since: v1.00a
 // @Para: Vertex2DType eVertex3DType	//顶点枚举类型
@@ -858,28 +841,28 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DRenderStateCo
 // @Para: bool bIsTexture				//是否渲染纹理
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DRender(Vertex2DType eVertex2DType, int nPlane, bool bIsTexture)
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::Render(E_DX_VERTEX2D_TYPE eVertex2DType, int nPlane, bool bIsTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
 	switch (eVertex2DType)
 	{
 	case Vertex2D_Type_Base:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex2DBase));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX2D_BASE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX2D_BASE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex2D_Type_Texture:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex2DTexture));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX2D_TEXTURE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX2D_TEXTURE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex2D_Type_Specular_Texture:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex2DSpecularTexture));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX2D_SPECULAR_TEXTURE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX2D_SPECULAR_TEXTURE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
@@ -889,10 +872,11 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DRender(Vertex
 		return;
 		break;
 	}
+
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DRender(Vertex2DType eVertex3DType, int nStartIndex, int nPlane, bool bIsTexture = false)
+// @Function:	 Render(E_DX_VERTEX2D_TYPE eVertex2DType, int nStartIndex, int nPlane, bool bIsTexture)
 // @Purpose: DirectGraphics2D渲染绘制
 // @Since: v1.00a
 // @Para: Vertex2DType eVertex3DType	//顶点枚举类型
@@ -901,28 +885,28 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DRender(Vertex
 // @Para: bool bIsTexture				//是否渲染纹理
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DRender(Vertex2DType eVertex2DType, int nStartIndex, int nPlane, bool bIsTexture)
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::Render(E_DX_VERTEX2D_TYPE eVertex2DType, int nStartIndex, int nPlane, bool bIsTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
 	switch (eVertex2DType)
 	{
 	case Vertex2D_Type_Base:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex2DBase));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX2D_BASE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX2D_BASE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, nStartIndex, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex2D_Type_Texture:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex2DTexture));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX2D_TEXTURE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX2D_TEXTURE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, nStartIndex, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex2D_Type_Specular_Texture:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex2DSpecularTexture));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX2D_SPECULAR_TEXTURE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX2D_SPECULAR_TEXTURE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		if (bIsTexture) m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
@@ -932,10 +916,11 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DRender(Vertex
 		return;
 		break;
 	}
+
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectGraphics2DRender(Vertex2DType eVertex2DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture)
+// @Function:	 Render(E_DX_VERTEX2D_TYPE eVertex2DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture)
 // @Purpose: DirectGraphics2D渲染绘制
 // @Since: v1.00a
 // @Para: Vertex2DType eVertex3DType	//顶点枚举类型
@@ -944,28 +929,28 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DRender(Vertex
 // @Para: bool bIsTexture				//是否渲染纹理
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DRender(Vertex2DType eVertex2DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture)
+void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::Render(E_DX_VERTEX2D_TYPE eVertex2DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
 	switch (eVertex2DType)
 	{
 	case Vertex2D_Type_Base:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex2DBase));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX2D_BASE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX2D_BASE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		m_pD3D9Device->SetTexture(0, pRenderTexture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, nStartIndex, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex2D_Type_Texture:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex2DTexture));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX2D_TEXTURE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX2D_TEXTURE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		m_pD3D9Device->SetTexture(0, pRenderTexture);
 		m_pD3D9Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, nStartIndex, 0, 4 * nPlane, 0, 2 * nPlane);
 		break;
 	case Vertex2D_Type_Specular_Texture:
-		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(Vertex2DSpecularTexture));
+		m_pD3D9Device->SetStreamSource(0, m_pD3D9VertexBuffer, 0, sizeof(S_DX_VERTEX2D_SPECULAR_TEXTURE));
 		m_pD3D9Device->SetFVF(D3DFVF_VERTEX2D_SPECULAR_TEXTURE);
 		m_pD3D9Device->SetIndices(m_pD3D9IndexBuffer);
 		m_pD3D9Device->SetTexture(0, pRenderTexture);
@@ -975,4 +960,5 @@ void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2D::DirectGraphics2DRender(Vertex
 		return;
 		break;
 	}
+
 }

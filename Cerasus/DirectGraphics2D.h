@@ -76,49 +76,31 @@ public:
 
 	HRESULT						DIRECTGRAPHICS2D_CALLMETHOD		Reset();																				// DirectGraphics2D D3D9 Reset(重置)(Reset后需要调用Init函数重新初始化)
 
-	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertex(S_DX_VERTEX2D_BASE* VertexArray, int nSize);
-	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertex(S_DX_VERTEX2D_TEXTURE* VertexArray, int nSize);
-	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertex(S_DX_VERTEX2D_SPECULAR_TEXTURE* VertexArray, int nSize);
-	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertex(E_DX_VERTEX2D_TYPE eVertex2DType, LPVOID VertexArray, int nPlane);
+	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertex(S_DX_VERTEX2D_BASE* VertexArray, int nSize);								// DirectGraphics2D Padding Vertex(填充顶点数据)(2D基本顶点格式)
+	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertex(S_DX_VERTEX2D_TEXTURE* VertexArray, int nSize);							// DirectGraphics2D Padding Vertex(填充顶点数据)(2D顶点纹理格式)(Overload + 1)
+	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertex(S_DX_VERTEX2D_SPECULAR_TEXTURE* VertexArray, int nSize);					// DirectGraphics2D Padding Vertex(填充顶点数据)(2D顶点镜面纹理格式)(Overload + 2)
+	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertex(E_DX_VERTEX2D_TYPE eVertex2DType, LPVOID VertexArray, int nPlane);		// DirectGraphics2D Padding Vertex(填充顶点数据)(2D顶点格式枚举)(Overload + 3)
 
-	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingIndex(int nPlane);
+	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingIndex(int nPlane);																// DirectGraphics2D Padding Index(填充索引数据)
 
-	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertexAndIndex(S_DX_VERTEX2D_BASE* VertexArray, int nSize);
-	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertexAndIndex(S_DX_VERTEX2D_TEXTURE* VertexArray, int nSize);
-	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertexAndIndex(S_DX_VERTEX2D_SPECULAR_TEXTURE* VertexArray, int nSize);
-	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertexAndIndex(E_DX_VERTEX2D_TYPE eVertex2DType, LPVOID VertexArray, int nPlane);
+	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertexAndIndex(S_DX_VERTEX2D_BASE* VertexArray, int nPlane);						// DirectGraphics2D Padding Vertex and Index(填充顶点和索引数据)
+	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertexAndIndex(S_DX_VERTEX2D_TEXTURE* VertexArray, int nPlane);					// DirectGraphics2D Padding Vertex and Index(填充顶点和索引数据)(Overload + 1)
+	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertexAndIndex(S_DX_VERTEX2D_SPECULAR_TEXTURE* VertexArray, int nPlane);			// DirectGraphics2D Padding Vertex and Index(填充顶点和索引数据)(Overload + 2)
+	void						DIRECTGRAPHICS2D_CALLMETHOD		PaddingVertexAndIndex(E_DX_VERTEX2D_TYPE eVertex2DType, LPVOID VertexArray, int nPlane);// DirectGraphics2D Padding Vertex and Index(填充顶点和索引数据)(Overload + 3)
 
-	void						DIRECTGRAPHICS2D_CALLMETHOD		
+	void						DIRECTGRAPHICS2D_CALLMETHOD		AlphaEnable();																			// DirectGraphics2D Render State Setting(开启Alpha混合)//渲染完毕关闭Alpha混合
+	void						DIRECTGRAPHICS2D_CALLMETHOD		AlphaDisable();																			// DirectGraphics2D Render State Setting(关闭Alpha混合)
 
-	//填充
-	//顶点
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DPaddingVertex(Vertex2DBase* VertexArray, int nSize);								//DirectGraphics2D Padding Vertex(填充顶点数据)(2D基本顶点格式)
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DPaddingVertex(Vertex2DTexture* VertexArray, int nSize);							//DirectGraphics2D Padding Vertex(填充顶点数据)(2D顶点纹理格式)(重载+1)
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DPaddingVertex(Vertex2DSpecularTexture* VertexArray, int nSize);					//DirectGraphics2D Padding Vertex(填充顶点数据)(2D顶点镜面纹理格式)(重载+2)
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DPaddingVertex(Vertex2DType eVertex2DType, LPVOID VertexArray, int nPlane);			//DirectGraphics2D Padding Vertex(填充顶点数据)(2D顶点格式枚举)(重载+3)
+	void						DIRECTGRAPHICS2D_CALLMETHOD		AlphaMix();																				// DirectGraphics2D Render State Setting(Alpha融合类型)
+	void						DIRECTGRAPHICS2D_CALLMETHOD		ColorMix();																				// DirectGraphics2D Render State Setting(Color融合类型)(选择)
+	void						DIRECTGRAPHICS2D_CALLMETHOD		ColorMix(D3DXCOLOR MixColor);															// DirectGraphics2D Render State Setting(Color融合类型)(混合)
 
-	//索引
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DPaddingIndex(int nPlane);															//DirectGraphics2D Padding Index(填充索引数据)
+	void						DIRECTGRAPHICS2D_CALLMETHOD		Setting();																				// DirectGraphics2D Render State Setting
 
-	//All
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DPaddingVertexAndIndex(Vertex2DBase* VertexArray, int nPlane);						//DirectGraphics2D Padding Vertex and Index(填充顶点和索引数据)
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DPaddingVertexAndIndex(Vertex2DTexture* VertexArray, int nPlane);					//DirectGraphics2D Padding Vertex and Index(填充顶点和索引数据)
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DPaddingVertexAndIndex(Vertex2DSpecularTexture* VertexArray, int nPlane);			//DirectGraphics2D Padding Vertex and Index(填充顶点和索引数据)
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DPaddingVertexAndIndex(Vertex2DType eVertex2DType, LPVOID VertexArray, int nPlane);	//DirectGraphics2D Padding Vertex and Index(填充顶点和索引数据)
+	void						DIRECTGRAPHICS2D_CALLMETHOD		Render(E_DX_VERTEX2D_TYPE eVertex2DType, int nPlane, bool bIsTexture = false);										// DirectGraphics2D Render(渲染)
+	void						DIRECTGRAPHICS2D_CALLMETHOD		Render(E_DX_VERTEX2D_TYPE eVertex2DType, int nStartIndex, int nPlane, bool bIsTexture = false);						// DirectGraphics2D Render(渲染)(Overload + 1)
+	void						DIRECTGRAPHICS2D_CALLMETHOD		Render(E_DX_VERTEX2D_TYPE eVertex2DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture);			// DirectGraphics2D Render(渲染)(Overload + 2)
 
-	//渲染
-	//渲染模式
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DRenderStateAlphaEnable(void);														//DirectGraphics2D Render State Setting(开启Alpha混合)//渲染完毕关闭Alpha混合
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DRenderStateAlphaDisable(void);														//DirectGraphics2D Render State Setting(关闭Alpha混合)
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DRenderStateSetting(void);															//DirectGraphics2D Render State Setting
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DRenderStateAlphaMix(void);															//DirectGraphics2D Render State Setting(Alpha融合类型)
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DRenderStateColorMix(void);															//DirectGraphics2D Render State Setting(Color融合类型)(选择)
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DRenderStateColorMix(D3DXCOLOR MixColor);											//DirectGraphics2D Render State Setting(Color融合类型)(混合)
-
-	//绘制
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DRender(Vertex2DType eVertex2DType, int nPlane, bool bIsTexture = false);										//DirectGraphics2D Render(渲染)
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DRender(Vertex2DType eVertex2DType, int nStartIndex, int nPlane, bool bIsTexture = false);						//DirectGraphics2D Render(渲染)
-	virtual void DIRECTGRAPHICS2D_CALLMETHOD DirectGraphics2DRender(Vertex2DType eVertex2DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture);			//DirectGraphics2D Render(渲染)
 };
 
 #endif

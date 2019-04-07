@@ -5,7 +5,7 @@
 *
 * @file		DirectGraphics11.h
 * @brief	This Program is DirectGraphics11 DLL Project.
-* @author	Alopex/Helium
+* @author	Alopex/Alice
 * @version	v1.02a
 * @date		2019-03-12	v1.00a	alopex	Create Project.
 * @date		2019-03-13	v1.01a	alopex	Add Method.
@@ -15,6 +15,9 @@
 
 #ifndef __DIRECTGRAPHICS11_H_
 #define __DIRECTGRAPHICS11_H_
+
+// Include DirectX Common Header File
+#include "DirectCommon.h"
 
 // Macro Definition
 #ifdef	CERASUS_EXPORTS
@@ -42,11 +45,11 @@ protected:
 	bool m_bThreadSafe;									// Direct3D 11 Thread Safe Status(~D3D11线程安全状态)
 
 public:
-	DirectGraphics11();									// DirectGraphics11 Constructor Function(~DirectGraphics11构造函数)
-	~DirectGraphics11();								// DirectGraphics11 Destructor Function(~DirectGraphics11析构函数)
+	DirectGraphics11();									// DirectGraphics11 Construction Function(~DirectGraphics11构造函数)
+	~DirectGraphics11();								// DirectGraphics11 Destruction Function(~DirectGraphics11析构函数)
 
-	DirectGraphics11(bool bSafe);						// DirectGraphics11 Constructor Function(~DirectGraphics11构造函数)(线程安全)(Overload + 1)
-	DirectGraphics11(const DirectGraphics11&);			// DirectGraphics11 Constructor Function(~DirectGraphics11拷贝构造函数)
+	DirectGraphics11(bool bSafe);						// DirectGraphics11 Construction Function(~DirectGraphics11构造函数)(线程安全)(Overload + 1)
+	DirectGraphics11(const DirectGraphics11&);			// DirectGraphics11 Construction Function(~DirectGraphics11拷贝构造函数)
 
 public:
 	const DirectGraphics11& operator=(const DirectGraphics11&);																			// DirectGraphics11 Overload(~DirectGraphics11重载运算符'=')

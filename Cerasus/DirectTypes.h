@@ -17,7 +17,7 @@
 // Include DirectX Common Header File
 #include "DirectCommon.h"
 
-// Enum Definition
+/// Enum Definition
 // Vertex 2D Type(2D顶点类型)
 enum E_DX_VERTEX2D_TYPE
 {
@@ -44,7 +44,39 @@ enum E_DX_LIGHT_TYPE
 	Light_Type_Spot = 2,							// Spot聚光灯光源
 };
 
-// Struct Definition
+// Input Device Type(Input输入设备类型)
+enum E_DX_INPUT_DEVICE_TYPE
+{
+	InputDevice_KeyBoard = 0,						// KeyBoard Device(键盘)
+	InputDevice_Mouse = 1,							// Mouse Device(鼠标)
+	InputDevice_JoyStick = 2,						// JoyStick Device(游戏杆)
+};
+
+// Input Multiply Device Type(Input多输入设备类型)
+enum E_DX_INPUT_DEVICE_MUL_TYPE
+{
+	InputDevice_KeyBoard_Mouse = 0,					// KeyBoard&Mouse(键盘&鼠标)
+	InputDevice_KeyBoard_JoyStick = 1,				// KeyBoard&JoyStick(键盘&游戏杆)
+	InputDevice_Mouse_JoyStick = 2,					// Mouse&JoyStick(鼠标&游戏杆)
+};
+
+// Input Coop Flags Type(Input设备协作级别)
+enum E_DX_INPUT_DEVICE_COOPFLAGS_TYPE
+{
+	InputCoopFlags_ForeGround_Exclusive = 0,		// ForeGround_Exclusive(前台独占模式)
+	InputCoopFlags_ForeGround_NoExclusive = 1,		// ForeGround_NoExclusive(前台非独占模式)
+	InputCoopFlags_BackGround_NoExclusive = 2,		// BackGround_NoExclusive(后台非独占模式)
+};
+
+// Input Mouse Key Value(Input鼠标键值状态)
+enum E_DX_INPUT_MOUSE_STATE_TYPE
+{
+	InputMouse_LeftButton = 0,						// MouseButton:Left(左键)
+	InputMouse_RightButton = 1,						// MouseButton:Right(右键)
+	InputMouse_MiddleButton = 2,					// MouseButton:Middle(中键)
+};
+
+/// Struct Definition
 // Vertex 2D Base(2D基本顶点格式)
 struct S_DX_VERTEX2D_BASE
 {
@@ -199,6 +231,10 @@ typedef struct
 	S_DX_PRESPECTIVE_TRANSFORM_PARA	sPrespectiveTransformPara;			// 投影变换系数
 	S_DX_VIEWPORT_TRANSFORM_PARA	sViewPortTransformPara;				// 视口变换系数
 } S_DX_COORDS_TRANSFORM_PARA, *LPS_DX_COORDS_TRANSFORM_PARA;
+
+/// Callback Function Definition
+typedef	void (__stdcall*LPCALLBACKKEYDOWNPROCFUNC)();
+typedef	void (__stdcall*LPCALLBACKMOUSEDOWNPROCFUNC)();
 
 #endif // !__DIRECTTYPES_H_
 

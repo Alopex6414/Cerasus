@@ -5,7 +5,7 @@
 *
 * @file		DirectGraphics11.cpp
 * @brief	This Program is DirectGraphics11 DLL Project.
-* @author	Alopex/Helium
+* @author	Alopex/Alice
 * @version	v1.02a
 * @date		2019-03-12	v1.00a	alopex	Create Project.
 * @date		2019-03-13	v1.01a	alopex	Add Method.
@@ -101,7 +101,7 @@ DirectGraphics11::DirectGraphics11(const DirectGraphics11 & Object)
 //------------------------------------------------------------------
 const DirectGraphics11 & DirectGraphics11::operator=(const DirectGraphics11 & Object)
 {
-	if (&Object == this)
+	if (&Object != this)
 	{
 		m_bThreadSafe = Object.m_bThreadSafe;					// DirectGraphics11 线程安全
 		if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// DirectGraphics11 初始化临界区

@@ -8,8 +8,8 @@
 * @author	Alopex/Alice
 * @version	v1.24a
 * @date		2017-10-27	v1.00a	alopex	Create This File.
-* @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
-* @date		2018-01-2	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2017-12-08	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
+* @date		2018-01-02	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-01-18	v1.21a	alopex	Code Add assert Header File.
 * @date		2019-03-12	v1.22a	alopex	Code Add D3D11 Header File & Libraries.
 * @date		2019-03-30	v1.24a	alopex	Add Notes.

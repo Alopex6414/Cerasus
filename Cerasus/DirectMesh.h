@@ -48,8 +48,14 @@ protected:
 	bool m_bThreadSafe;									// Direct3D 9 Thread Safe Status(~D3D9线程安全状态)
 
 public:
-	DirectMesh();	//DirectMesh Constructor Function(~构造函数)
-	~DirectMesh();	//DirectMesh Destructor Function(~析构函数)
+	DirectMesh();															// DirectMesh Construction Function(~DirectMesh构造函数)
+	~DirectMesh();															// DirectMesh Destruction Function(~DirectMesh析构函数)
+
+	DirectMesh(IDirect3DDevice9* pD3D9Device, bool bSafe = true);			// DirectMesh Construction Function(~DirectMesh构造函数)(Overload + 1)
+	DirectMesh(const DirectMesh&);											// DirectMesh Construction Function(~DirectMesh拷贝构造函数)
+
+public:
+	const DirectMesh & operator=(const DirectMesh&);						// DirectMesh Operator Overload(~DirectMesh重载=)
 
 	DirectMesh(LPDIRECT3DDEVICE9 pD3D9Device);	//DirectMesh Constructor Function(~构造函数)(重载+1)
 

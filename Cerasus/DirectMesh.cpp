@@ -17,6 +17,8 @@
 #include "DirectMesh.h"
 #include "DirectThreadSafe.h"
 
+// DirectX9 Mesh Class(DirectX 几何体绘制)
+
 //------------------------------------------------------------------
 // @Function:	 DirectMesh()
 // @Purpose: DirectMesh构造函数
@@ -24,18 +26,17 @@
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-DirectMesh::DirectMesh()
+DirectMesh::DirectMesh() :
+	m_pD3D9Device(NULL),
+	m_pD3DXMeshCube(NULL),
+	m_pD3DXMeshSphere(NULL),
+	m_pD3DXMeshCylinder(NULL),
+	m_pD3DXMeshTorus(NULL),
+	m_pD3DXMeshPolygon(NULL),
+	m_pD3DXMeshTeapot(NULL)
 {
 	m_bThreadSafe = true;									//线程安全
 	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
-
-	m_pD3D9Device = NULL;
-	m_pD3DXMeshCube = NULL;
-	m_pD3DXMeshSphere = NULL;
-	m_pD3DXMeshCylinder = NULL;
-	m_pD3DXMeshTorus = NULL;
-	m_pD3DXMeshPolygon = NULL;
-	m_pD3DXMeshTeapot = NULL;
 }
 
 //------------------------------------------------------------------

@@ -24,6 +24,8 @@
 GUID g_JoyStickGUID;											// DirectInput JoyStick GUID
 char g_cJoyStickName[DX9_INPUT_JOYSTICK_ARRAY_SIZE];			// DirectInput JoyStick Name Array
 
+// DirectX Input Class(DirectX 键盘、鼠标、游戏杆输入)
+
 //------------------------------------------------------------------
 // @Function:	 DirectInput()
 // @Purpose: DirectInput构造函数

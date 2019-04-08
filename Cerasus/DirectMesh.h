@@ -76,15 +76,14 @@ public:
 
 	void								DIRECTMESH_CALLMETHOD		Reset();																									// DirectMesh Reset(~D3DXMesh重置设备)
 
+	HRESULT								DIRECTMESH_CALLMETHOD		DrawSubsetCube();																							// DirectMesh Draw Subset(~D3DXMesh绘制立方体)
+	HRESULT								DIRECTMESH_CALLMETHOD		DrawSubsetCylinder();																						// DirectMesh Draw Subset(~D3DXMesh绘制柱体)
+	HRESULT								DIRECTMESH_CALLMETHOD		DrawSubsetSphere();																							// DirectMesh Draw Subset(~D3DXMesh绘制球体)
+	HRESULT								DIRECTMESH_CALLMETHOD		DrawSubsetTorus();																							// DirectMesh Draw Subset(~D3DXMesh绘制圆环体)
+	HRESULT								DIRECTMESH_CALLMETHOD		DrawSubsetPolygon();																						// DirectMesh Draw Subset(~D3DXMesh绘制多面体)
+	HRESULT								DIRECTMESH_CALLMETHOD		DrawSubsetTeapot();																							// DirectMesh Draw Subset(~D3DXMesh绘制茶壶)
+	HRESULT								DIRECTMESH_CALLMETHOD		DrawSubset(E_DX_MESH_GEOMETRY_TYPE eGeometry);																// DirectMesh Draw Subset(~D3DXMesh绘制)
 
-	//绘制
-	virtual HRESULT DIRECTMESH_CALLMETHOD DirectMeshDrawSubsetCube();					//DirectMesh Draw Subset(D3DXMesh绘制立方体)
-	virtual HRESULT DIRECTMESH_CALLMETHOD DirectMeshDrawSubsetCylinder();				//DirectMesh Draw Subset(D3DXMesh绘制柱体)
-	virtual HRESULT DIRECTMESH_CALLMETHOD DirectMeshDrawSubsetSphere();					//DirectMesh Draw Subset(D3DXMesh绘制球体)
-	virtual HRESULT DIRECTMESH_CALLMETHOD DirectMeshDrawSubsetTorus();					//DirectMesh Draw Subset(D3DXMesh绘制圆环体)
-	virtual HRESULT DIRECTMESH_CALLMETHOD DirectMeshDrawSubsetPolygon();				//DirectMesh Draw Subset(D3DXMesh绘制多面体)
-	virtual HRESULT DIRECTMESH_CALLMETHOD DirectMeshDrawSubsetTeapot();					//DirectMesh Draw Subset(D3DXMesh绘制茶壶)
-	virtual HRESULT DIRECTMESH_CALLMETHOD DirectMeshDrawSubset(DM_GEOMETRY eGeometry);	//DirectMesh Draw Subset(D3DXMesh绘制)
 };
 
 #endif

@@ -324,101 +324,92 @@ void DIRECTMESH_CALLMETHOD DirectMesh::Reset()
 	SAFE_RELEASE(m_pD3DXMeshTeapot);
 }
 
-
-
-
-
-
-
-
-
-
 //------------------------------------------------------------------
-// @Function:	 DirectMeshDrawSubsetCube()
+// @Function:	 DrawSubsetCube()
 // @Purpose: DirectMesh绘制
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshDrawSubsetCube()
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DrawSubsetCube()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshCube->DrawSubset(0);
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectMeshDrawSubsetCylinder()
+// @Function:	 DrawSubsetCylinder()
 // @Purpose: DirectMesh绘制
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshDrawSubsetCylinder()
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DrawSubsetCylinder()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshCylinder->DrawSubset(0);
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectMeshDrawSubsetSphere()
+// @Function:	 DrawSubsetSphere()
 // @Purpose: DirectMesh绘制
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshDrawSubsetSphere()
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DrawSubsetSphere()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshSphere->DrawSubset(0);
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectMeshDrawSubsetTorus()
+// @Function:	 DrawSubsetTorus()
 // @Purpose: DirectMesh绘制
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshDrawSubsetTorus()
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DrawSubsetTorus()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshTorus->DrawSubset(0);
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectMeshDrawSubsetPolygon()
+// @Function:	 DrawSubsetPolygon()
 // @Purpose: DirectMesh绘制
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshDrawSubsetPolygon()
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DrawSubsetPolygon()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshPolygon->DrawSubset(0);
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectMeshDrawSubsetTeaport()
+// @Function:	 DrawSubsetTeapot()
 // @Purpose: DirectMesh绘制
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshDrawSubsetTeapot()
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DrawSubsetTeapot()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshTeapot->DrawSubset(0);
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectMeshDrawSubset()
+// @Function:	 DrawSubset()
 // @Purpose: DirectMesh绘制
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshDrawSubset(DM_GEOMETRY eGeometry)
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DrawSubset(E_DX_MESH_GEOMETRY_TYPE eGeometry)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	HRESULT hr;

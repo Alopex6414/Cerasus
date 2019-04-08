@@ -78,25 +78,51 @@ DirectMesh::DirectMesh(IDirect3DDevice9 * pD3D9Device, bool bSafe) :
 	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 }
 
-//------------------------------------------------------------------
-// @Function:	 DirectMesh()
+//---------------------------------------------------------------------
+// @Function:	 DirectMesh(const DirectMesh & Object)
 // @Purpose: DirectMesh构造函数
 // @Since: v1.00a
 // @Para: None
 // @Return: None
-//------------------------------------------------------------------
-DirectMesh::DirectMesh(LPDIRECT3DDEVICE9 pD3D9Device)
+//---------------------------------------------------------------------
+DirectMesh::DirectMesh(const DirectMesh & Object)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
+	m_bThreadSafe = Object.m_bThreadSafe;					// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 
-	m_pD3D9Device = pD3D9Device;
-	m_pD3DXMeshCube = NULL;
-	m_pD3DXMeshSphere = NULL;
-	m_pD3DXMeshCylinder = NULL;
-	m_pD3DXMeshTorus = NULL;
-	m_pD3DXMeshPolygon = NULL;
-	m_pD3DXMeshTeapot = NULL;
+	m_pD3D9Device = Object.m_pD3D9Device;
+	m_pD3DXMeshCube = Object.m_pD3DXMeshCube;
+	m_pD3DXMeshSphere = Object.m_pD3DXMeshSphere;
+	m_pD3DXMeshCylinder = Object.m_pD3DXMeshCylinder;
+	m_pD3DXMeshTorus = Object.m_pD3DXMeshTorus;
+	m_pD3DXMeshPolygon = Object.m_pD3DXMeshPolygon;
+	m_pD3DXMeshTeapot = Object.m_pD3DXMeshTeapot;
+}
+
+//---------------------------------------------------------------------
+// @Function:	 operator=(const DirectMesh & Object)
+// @Purpose: DirectMesh构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//---------------------------------------------------------------------
+const DirectMesh & DirectMesh::operator=(const DirectMesh & Object)
+{
+	if (&Object != this)
+	{
+		m_bThreadSafe = Object.m_bThreadSafe;					// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+		if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
+
+		m_pD3D9Device = Object.m_pD3D9Device;
+		m_pD3DXMeshCube = Object.m_pD3DXMeshCube;
+		m_pD3DXMeshSphere = Object.m_pD3DXMeshSphere;
+		m_pD3DXMeshCylinder = Object.m_pD3DXMeshCylinder;
+		m_pD3DXMeshTorus = Object.m_pD3DXMeshTorus;
+		m_pD3DXMeshPolygon = Object.m_pD3DXMeshPolygon;
+		m_pD3DXMeshTeapot = Object.m_pD3DXMeshTeapot;
+	}
+
+	return *this;
 }
 
 //------------------------------------------------------------------

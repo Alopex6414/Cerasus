@@ -57,8 +57,6 @@ public:
 public:
 	const DirectMesh & operator=(const DirectMesh&);						// DirectMesh Operator Overload(~DirectMesh重载=)
 
-	DirectMesh(LPDIRECT3DDEVICE9 pD3D9Device);	//DirectMesh Constructor Function(~构造函数)(重载+1)
-
 	//访问
 	virtual LPDIRECT3DDEVICE9 DIRECTMESH_CALLMETHOD DirectMeshGetDevice() const;			//DirectMesh Get D3D9 Device(D3DXMesh获取D3D9设备)
 	virtual LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMeshGetCube() const;						//DirectMesh Get D3D9 Cube(D3DXMesh获取立方体)

@@ -57,23 +57,16 @@ public:
 public:
 	const DirectMesh & operator=(const DirectMesh&);						// DirectMesh Operator Overload(~DirectMesh重载=)
 
-	//访问
-	virtual LPDIRECT3DDEVICE9 DIRECTMESH_CALLMETHOD DirectMeshGetDevice() const;			//DirectMesh Get D3D9 Device(D3DXMesh获取D3D9设备)
-	virtual LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMeshGetCube() const;						//DirectMesh Get D3D9 Cube(D3DXMesh获取立方体)
-	virtual LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMeshGetSphere() const;					//DirectMesh Get D3D9 Sphere(D3DXMesh获取球体)
-	virtual LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMeshGetCylinder() const;					//DirectMesh Get D3D9 Cylinder(D3DXMesh获取柱体)
-	virtual LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMeshGetTorus() const;					//DirectMesh Get D3D9 Torus(D3DXMesh获取圆环)
-	virtual LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMeshGetPolygon() const;					//DirectMesh Get D3D9 Polygon(D3DXMesh获取多边形)
-	virtual LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMeshGetTeapot() const;					//DirectMesh Get D3D9 Teapot(D3DXMesh获取茶壶)
+public:
+	IDirect3DDevice9*					DIRECTMESH_CALLMETHOD		GetDevice() const;					// DirectMesh Get D3D9 Device(~D3DXMesh获取D3D9设备)
+	ID3DXMesh*							DIRECTMESH_CALLMETHOD		GetCube() const;					// DirectMesh Get D3D9 Cube(D3DXMesh获取立方体)
+	ID3DXMesh*							DIRECTMESH_CALLMETHOD		GetSphere() const;					// DirectMesh Get D3D9 Sphere(D3DXMesh获取球体)
+	ID3DXMesh*							DIRECTMESH_CALLMETHOD		GetCylinder() const;				// DirectMesh Get D3D9 Cylinder(D3DXMesh获取柱体)
+	ID3DXMesh*							DIRECTMESH_CALLMETHOD		GetTorus() const;					// DirectMesh Get D3D9 Torus(D3DXMesh获取圆环)
+	ID3DXMesh*							DIRECTMESH_CALLMETHOD		GetPolygon() const;					// DirectMesh Get D3D9 Polygon(D3DXMesh获取多边形)
+	ID3DXMesh*							DIRECTMESH_CALLMETHOD		GetTeapot() const;					// DirectMesh Get D3D9 Teapot(D3DXMesh获取茶壶)
 
-	//控制
-	virtual void DIRECTMESH_CALLMETHOD DirectMeshSetDevice(LPDIRECT3DDEVICE9 pD3D9Device);	//DirectMesh Set D3D9 Device(D3DXMesh设置D3D9设备)
-	virtual void DIRECTMESH_CALLMETHOD DirectMeshSetCube(LPD3DXMESH pD3DXMeshCube);			//DirectMesh Set D3D9 Cube(D3DXMesh设置D3D9立方体)
-	virtual void DIRECTMESH_CALLMETHOD DirectMeshSetSphere(LPD3DXMESH pD3DXMeshSphere);		//DirectMesh Set D3D9 Sphere(D3DXMesh设置D3D9球体)
-	virtual void DIRECTMESH_CALLMETHOD DirectMeshSetCylinder(LPD3DXMESH pD3DXMeshCylinder);	//DirectMesh Set D3D9 Cylinder(D3DXMesh设置D3D9柱体)
-	virtual void DIRECTMESH_CALLMETHOD DirectMeshSetTorus(LPD3DXMESH pD3DXMeshTorus);		//DirectMesh Set D3D9 Torus(D3DXMesh设置D3D9圆环)
-	virtual void DIRECTMESH_CALLMETHOD DirectMeshSetPolygon(LPD3DXMESH pD3DXMeshPolygon);	//DirectMesh Set D3D9 Polygon(D3DXMesh设置D3D9多边形)
-	virtual void DIRECTMESH_CALLMETHOD DirectMeshSetTeapot(LPD3DXMESH pD3DXMeshTeapot);		//DirectMesh Set D3D9 Teapot(D3DXMesh设置D3D9茶壶)
+public:
 
 	//重置
 	virtual void DIRECTMESH_CALLMETHOD DirectMeshReset();									//DirectMesh Reset(D3DXMesh重置设备) 

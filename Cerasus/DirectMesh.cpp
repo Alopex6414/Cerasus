@@ -126,78 +126,78 @@ const DirectMesh & DirectMesh::operator=(const DirectMesh & Object)
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectMeshGetDevice()
+// @Function:	 GetDevice()
 // @Purpose: DirectMesh获取D3D9设备
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPDIRECT3DDEVICE9 DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshGetDevice() const
+IDirect3DDevice9 *DIRECTMESH_CALLMETHOD DirectMesh::GetDevice() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Device;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectMeshGetCube()
+// @Function:	 GetCube()
 // @Purpose: DirectMesh获取D3DXMesh
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshGetCube() const
+ID3DXMesh *DIRECTMESH_CALLMETHOD DirectMesh::GetCube() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshCube;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectMeshGetSphere()
+// @Function:	 GetSphere()
 // @Purpose: DirectMesh获取D3DXMesh
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshGetSphere() const
+ID3DXMesh *DIRECTMESH_CALLMETHOD DirectMesh::GetSphere() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshSphere;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectMeshGetCylinder()
+// @Function:	 GetCylinder()
 // @Purpose: DirectMesh获取D3DXMesh
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshGetCylinder() const
+ID3DXMesh *DIRECTMESH_CALLMETHOD DirectMesh::GetCylinder() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshCylinder;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectMeshGetTorus()
+// @Function:	 GetTorus()
 // @Purpose: DirectMesh获取D3DXMesh
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshGetTorus() const
+ID3DXMesh *DIRECTMESH_CALLMETHOD DirectMesh::GetTorus() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshTorus;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectMeshGetPolygon()
+// @Function:	 GetPolygon()
 // @Purpose: DirectMesh获取D3DXMesh
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshGetPolygon() const
+ID3DXMesh *DIRECTMESH_CALLMETHOD DirectMesh::GetPolygon() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshPolygon;
@@ -210,102 +210,17 @@ LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshGetPolygon() const
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPD3DXMESH DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshGetTeapot() const
+ID3DXMesh *DIRECTMESH_CALLMETHOD DirectMesh::GetTeapot() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3DXMeshTeapot;
 }
 
-//------------------------------------------------------------------
-// @Function:	 DirectMeshSetDevice()
-// @Purpose: DirectMesh设置D3D9设备
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshSetDevice(LPDIRECT3DDEVICE9 pD3D9Device)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3D9Device = pD3D9Device;
-}
 
-//------------------------------------------------------------------
-// @Function:	 DirectMeshSetCube()
-// @Purpose: DirectMesh设置D3D9立方体
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshSetCube(LPD3DXMESH pD3DXMeshCube)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3DXMeshCube = pD3DXMeshCube;
-}
 
-//------------------------------------------------------------------
-// @Function:	 DirectMeshSetSphere()
-// @Purpose: DirectMesh设置D3D9球体
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshSetSphere(LPD3DXMESH pD3DXMeshSphere)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3DXMeshSphere = pD3DXMeshSphere;
-}
 
-//------------------------------------------------------------------
-// @Function:	 DirectMeshSetCylinder()
-// @Purpose: DirectMesh设置D3D9球体
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshSetCylinder(LPD3DXMESH pD3DXMeshCylinder)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3DXMeshCylinder = pD3DXMeshCylinder;
-}
 
-//------------------------------------------------------------------
-// @Function:	 DirectMeshSetTorus()
-// @Purpose: DirectMesh设置D3D9圆环
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshSetTorus(LPD3DXMESH pD3DXMeshTorus)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3DXMeshTorus = pD3DXMeshTorus;
-}
 
-//------------------------------------------------------------------
-// @Function:	 DirectMeshSetPolygon()
-// @Purpose: DirectMesh设置D3D9多边形
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshSetPolygon(LPD3DXMESH pD3DXMeshPolygon)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3DXMeshPolygon = pD3DXMeshPolygon;
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectMeshSetTeapot()
-// @Purpose: DirectMesh设置D3D9茶壶
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshSetTeapot(LPD3DXMESH pD3DXMeshTeapot)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3DXMeshTeapot = pD3DXMeshTeapot;
-}
 
 //------------------------------------------------------------------
 // @Function:	 DirectMeshReset()

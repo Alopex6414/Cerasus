@@ -67,17 +67,15 @@ public:
 	ID3DXMesh*							DIRECTMESH_CALLMETHOD		GetTeapot() const;					// DirectMesh Get D3D9 Teapot(D3DXMesh获取茶壶)
 
 public:
+	HRESULT								DIRECTMESH_CALLMETHOD		CreateCube(FLOAT fWidth, FLOAT fHeight, FLOAT fDepth);														// DirectMesh Initialization Cube(~D3DXMesh初始化立方体)
+	HRESULT								DIRECTMESH_CALLMETHOD		CreateCylinder(FLOAT fRadius1, FLOAT fRadius2, FLOAT fLength, UINT nSlices, UINT nStacks);					// DirectMesh Initialization Cylinder(~D3DXMesh初始化柱体)
+	HRESULT								DIRECTMESH_CALLMETHOD		CreateSphere(FLOAT fRadius, UINT nSlices, UINT nStacks);													// DirectMesh Initialization Sphere(~D3DXMesh初始化球面体)
+	HRESULT								DIRECTMESH_CALLMETHOD		CreateTorus(FLOAT fInnerRadius, FLOAT fOuterRadius, UINT nSides, UINT nRings);								// DirectMesh Initialization Torus(~D3DXMesh初始化圆环体)
+	HRESULT								DIRECTMESH_CALLMETHOD		CreatePolygon(FLOAT fLength, UINT nSides);																	// DirectMesh Initialization Polygon(~D3DXMesh初始化多面体)
+	HRESULT								DIRECTMESH_CALLMETHOD		CreateTeapot();																								// DirectMesh Initialization Teapot(~D3DXMesh初始化茶壶)
 
-	//重置
-	virtual void DIRECTMESH_CALLMETHOD DirectMeshReset();									//DirectMesh Reset(D3DXMesh重置设备) 
+	void								DIRECTMESH_CALLMETHOD		Reset();																									// DirectMesh Reset(~D3DXMesh重置设备)
 
-	//初始化
-	virtual HRESULT DIRECTMESH_CALLMETHOD DirectMeshInitCube(FLOAT fWidth, FLOAT fHeight, FLOAT fDepth);												//DirectMesh Initialization Cube(D3DXMesh初始化立方体)
-	virtual HRESULT DIRECTMESH_CALLMETHOD DirectMeshInitCylinder(FLOAT fRadius1, FLOAT fRadius2, FLOAT fLength, UINT nSlices, UINT nStacks);			//DirectMesh Initialization Cylinder(D3DXMesh初始化柱体)
-	virtual HRESULT DIRECTMESH_CALLMETHOD DirectMeshInitSphere(FLOAT fRadius, UINT nSlices, UINT nStacks);												//DirectMesh Initialization Cylinder(D3DXMesh初始化球面体)
-	virtual HRESULT DIRECTMESH_CALLMETHOD DirectMeshInitTorus(FLOAT fInnerRadius, FLOAT fOuterRadius, UINT nSides, UINT nRings);						//DirectMesh Initialization Cylinder(D3DXMesh初始化圆环体)
-	virtual HRESULT DIRECTMESH_CALLMETHOD DirectMeshInitPolygon(FLOAT fLength, UINT nSides);															//DirectMesh Initialization Cylinder(D3DXMesh初始化多面体)
-	virtual HRESULT DIRECTMESH_CALLMETHOD DirectMeshInitTeapot();																						//DirectMesh Initialization Cylinder(D3DXMesh初始化茶壶)
 
 	//绘制
 	virtual HRESULT DIRECTMESH_CALLMETHOD DirectMeshDrawSubsetCube();					//DirectMesh Draw Subset(D3DXMesh绘制立方体)

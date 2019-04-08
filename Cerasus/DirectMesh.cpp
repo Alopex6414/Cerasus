@@ -216,20 +216,104 @@ ID3DXMesh *DIRECTMESH_CALLMETHOD DirectMesh::GetTeapot() const
 	return m_pD3DXMeshTeapot;
 }
 
-
-
-
-
-
+//------------------------------------------------------------------
+// @Function:	 CreateCube()
+// @Purpose: DirectMesh初始化立方体
+// @Since: v1.00a
+// @Para: FLOAT fWidth(Cube立方体X轴向宽度)
+// @Para: FLOAT fHeight(Cube立方体Y轴向高度)
+// @Para: FLOAT fDepth(Cube立方体Z轴向深度)
+// @Return: None
+//------------------------------------------------------------------
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::CreateCube(FLOAT fWidth, FLOAT fHeight, FLOAT fDepth)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return D3DXCreateBox(m_pD3D9Device, fWidth, fHeight, fDepth, &m_pD3DXMeshCube, NULL);
+}
 
 //------------------------------------------------------------------
-// @Function:	 DirectMeshReset()
+// @Function:	 CreateCylinder()
+// @Purpose: DirectMesh初始化柱体
+// @Since: v1.00a
+// @Para: FLOAT fRadius1(Cylinder柱体沿Z轴负方向的半径大小)
+// @Para: FLOAT fRadius2(Cylinder柱体沿Z正方向的半径大小)
+// @Para: FLOAT fLength(Cylinder柱体沿Z轴的长度)
+// @Para: UINT nSlices(Cylinder柱体的外围有几个面)
+// @Para: UINT nStacks(Cylinder柱体的两端间共有几段)
+// @Return: None
+//------------------------------------------------------------------
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::CreateCylinder(FLOAT fRadius1, FLOAT fRadius2, FLOAT fLength, UINT nSlices, UINT nStacks)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return D3DXCreateCylinder(m_pD3D9Device, fRadius1, fRadius2, fLength, nSlices, nStacks, &m_pD3DXMeshCylinder, NULL);
+}
+
+//------------------------------------------------------------------
+// @Function:	 CreateSphere()
+// @Purpose: DirectMesh初始化球面体
+// @Since: v1.00a
+// @Para: FLOAT fRadius(Sphere球面体沿Z轴直径大小)
+// @Para: UINT nSlices(Sphere球面体绕主轴线切片数)
+// @Para: UINT nStacks(Sphere球面体绕主轴线的纬线数)
+// @Return: None
+//------------------------------------------------------------------
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::CreateSphere(FLOAT fRadius, UINT nSlices, UINT nStacks)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return D3DXCreateSphere(m_pD3D9Device, fRadius, nSlices, nStacks, &m_pD3DXMeshSphere, NULL);
+}
+
+//------------------------------------------------------------------
+// @Function:	 CreateTorus()
+// @Purpose: DirectMesh初始化圆环体
+// @Since: v1.00a
+// @Para: FLOAT fInnerRadius(Torus圆环体内直径)
+// @Para: FLOAT fOuterRadius(Torus圆环体外直径)
+// @Para: UINT nSides(Torus圆环的外圈有几个面)
+// @Para: UINT nRings(Torus圆环的内圈有几个面)
+// @Return: None
+//------------------------------------------------------------------
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::CreateTorus(FLOAT fInnerRadius, FLOAT fOuterRadius, UINT nSides, UINT nRings)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return D3DXCreateTorus(m_pD3D9Device, fInnerRadius, fOuterRadius, nSides, nRings, &m_pD3DXMeshTorus, NULL);
+}
+
+//------------------------------------------------------------------
+// @Function:	 CreatePolygon()
+// @Purpose: DirectMesh初始化多面体
+// @Since: v1.00a
+// @Para: FLOAT fLength(多面体边长)
+// @Para: UINT nSides(多面体边数)
+// @Return: None
+//------------------------------------------------------------------
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::CreatePolygon(FLOAT fLength, UINT nSides)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return D3DXCreatePolygon(m_pD3D9Device, fLength, nSides, &m_pD3DXMeshPolygon, NULL);
+}
+
+//------------------------------------------------------------------
+// @Function:	 CreateTeapot()
+// @Purpose: DirectMesh绘制
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT DIRECTMESH_CALLMETHOD DirectMesh::CreateTeapot()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return D3DXCreateTeapot(m_pD3D9Device, &m_pD3DXMeshTeapot, NULL);
+}
+
+//------------------------------------------------------------------
+// @Function:	 Reset()
 // @Purpose: DirectMesh重置
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshReset()
+void DIRECTMESH_CALLMETHOD DirectMesh::Reset()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	SAFE_RELEASE(m_pD3DXMeshCube);
@@ -240,95 +324,14 @@ void DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshReset()
 	SAFE_RELEASE(m_pD3DXMeshTeapot);
 }
 
-//------------------------------------------------------------------
-// @Function:	 DirectMeshInitCube()
-// @Purpose: DirectMesh初始化立方体
-// @Since: v1.00a
-// @Para: FLOAT fWidth(Cube立方体X轴向宽度)
-// @Para: FLOAT fHeight(Cube立方体Y轴向高度)
-// @Para: FLOAT fDepth(Cube立方体Z轴向深度)
-// @Return: None
-//------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshInitCube(FLOAT fWidth, FLOAT fHeight, FLOAT fDepth)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return D3DXCreateBox(m_pD3D9Device, fWidth, fHeight, fDepth, &m_pD3DXMeshCube, NULL);
-}
 
-//------------------------------------------------------------------
-// @Function:	 DirectMeshInitCylinder()
-// @Purpose: DirectMesh初始化柱体
-// @Since: v1.00a
-// @Para: FLOAT fRadius1(Cylinder柱体沿Z轴负方向的半径大小)
-// @Para: FLOAT fRadius2(Cylinder柱体沿Z正方向的半径大小)
-// @Para: FLOAT fLength(Cylinder柱体沿Z轴的长度)
-// @Para: UINT nSlices(Cylinder柱体的外围有几个面)
-// @Para: UINT nStacks(Cylinder柱体的两端间共有几段)
-// @Return: None
-//------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshInitCylinder(FLOAT fRadius1, FLOAT fRadius2, FLOAT fLength, UINT nSlices, UINT nStacks)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return D3DXCreateCylinder(m_pD3D9Device, fRadius1, fRadius2, fLength, nSlices, nStacks, &m_pD3DXMeshCylinder, NULL);
-}
 
-//------------------------------------------------------------------
-// @Function:	 DirectMeshInitSphere()
-// @Purpose: DirectMesh初始化球面体
-// @Since: v1.00a
-// @Para: FLOAT fRadius(Sphere球面体沿Z轴直径大小)
-// @Para: UINT nSlices(Sphere球面体绕主轴线切片数)
-// @Para: UINT nStacks(Sphere球面体绕主轴线的纬线数)
-// @Return: None
-//------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshInitSphere(FLOAT fRadius, UINT nSlices, UINT nStacks)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return D3DXCreateSphere(m_pD3D9Device, fRadius, nSlices, nStacks, &m_pD3DXMeshSphere, NULL);
-}
 
-//------------------------------------------------------------------
-// @Function:	 DirectMeshInitTorus()
-// @Purpose: DirectMesh初始化圆环体
-// @Since: v1.00a
-// @Para: FLOAT fInnerRadius(Torus圆环体内直径)
-// @Para: FLOAT fOuterRadius(Torus圆环体外直径)
-// @Para: UINT nSides(Torus圆环的外圈有几个面)
-// @Para: UINT nRings(Torus圆环的内圈有几个面)
-// @Return: None
-//------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshInitTorus(FLOAT fInnerRadius, FLOAT fOuterRadius, UINT nSides, UINT nRings)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return D3DXCreateTorus(m_pD3D9Device, fInnerRadius, fOuterRadius, nSides, nRings, &m_pD3DXMeshTorus, NULL);
-}
 
-//------------------------------------------------------------------
-// @Function:	 DirectMeshInitPolygon()
-// @Purpose: DirectMesh初始化多面体
-// @Since: v1.00a
-// @Para: FLOAT fLength(多面体边长)
-// @Para: UINT nSides(多面体边数)
-// @Return: None
-//------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshInitPolygon(FLOAT fLength, UINT nSides)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return D3DXCreatePolygon(m_pD3D9Device, fLength, nSides, &m_pD3DXMeshPolygon, NULL);
-}
 
-//------------------------------------------------------------------
-// @Function:	 DirectMeshInitTeaport()
-// @Purpose: DirectMesh初始化茶壶
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-HRESULT DIRECTMESH_CALLMETHOD DirectMesh::DirectMeshInitTeapot()
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return D3DXCreateTeapot(m_pD3D9Device, &m_pD3DXMeshTeapot, NULL);
-}
+
+
+
 
 //------------------------------------------------------------------
 // @Function:	 DirectMeshDrawSubsetCube()

@@ -76,6 +76,17 @@ enum E_DX_INPUT_MOUSE_STATE_TYPE
 	InputMouse_MiddleButton = 2,					// MouseButton:Middle(中键)
 };
 
+// Mesh Geometry(Mesh几何体)
+enum E_DX_MESH_GEOMETRY_TYPE
+{
+	DM_CUBE = 0,									// Mesh Geometry(立方体)
+	DM_SPHERE = 1,									// Mesh Geometry(球体)
+	DM_CYLINDER = 2,								// Mesh Geometry(柱体)
+	DM_TORUS = 3,									// Mesh Geometry(圆环)
+	DM_POLYGON = 4,									// Mesh Geometry(多边形)
+	DM_TEAPOT = 5,									// Mesh Geometry(茶壶)
+};
+
 /// Struct Definition
 // Vertex 2D Base(2D基本顶点格式)
 struct S_DX_VERTEX2D_BASE

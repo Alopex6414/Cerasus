@@ -1,26 +1,28 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Sakura&Fantasy
 *     All rights reserved.
 *
 * @file		DirectMesh.h
 * @brief	This File is DirectX Library Common Header.
-* @author	Alopex/Helium
-* @version	v1.03a
+* @author	Alopex/Alice
+* @version	v1.04a
 * @date		2018-06-25	v1.00a	alopex	Create This File.
 * @date		2018-06-26	v1.01a	alopex	Add Get&Set Function.
 * @date		2018-06-26	v1.02a	alopex	Add Reset Function.
 * @date		2018-11-23	v1.03a	alopex	Alter Call Method.
+* @date		2019-04-08	v1.04a	alopex	Add Notes.
 */
 #pragma once
 
 #ifndef __DIRECTMESH_H_
 #define __DIRECTMESH_H_
 
-//Include Windows Header File
+// Include DirectX Common Header File
 #include "DirectCommon.h"
+#include "DirectTypes.h"
 
-//Macro Definition
+// Macro Definition
 #ifdef	CERASUS_EXPORTS
 #define DIRECTMESH_API	__declspec(dllexport)
 #else
@@ -29,32 +31,21 @@
 
 #define DIRECTMESH_CALLMETHOD	__stdcall
 
-//Enum Definition
-enum DM_GEOMETRY
-{
-	DM_CUBE = 0,			//立方体
-	DM_SPHERE = 1,			//球体
-	DM_CYLINDER = 2,		//柱体
-	DM_TORUS = 3,			//圆环
-	DM_POLYGON = 4,			//多边形
-	DM_TEAPOT = 5,			//茶壶
-};
-
-//Class Definition
+// Class Definition
 class DIRECTMESH_API DirectMesh
 {
-protected:
-	LPDIRECT3DDEVICE9 m_pD3D9Device;		//The Direct3D 9 Render Device(D3D9绘制设备)
-	LPD3DXMESH m_pD3DXMeshCube;				//The Direct3D 9 Mesh(D3DX几何体绘制网格)(立方体)
-	LPD3DXMESH m_pD3DXMeshSphere;			//The Direct3D 9 Mesh(D3DX几何体绘制网格)(球面体)
-	LPD3DXMESH m_pD3DXMeshCylinder;			//The Direct3D 9 Mesh(D3DX几何体绘制网格)(柱体)
-	LPD3DXMESH m_pD3DXMeshTorus;			//The Direct3D 9 Mesh(D3DX几何体绘制网格)(圆环体)
-	LPD3DXMESH m_pD3DXMeshPolygon;			//The Direct3D 9 Mesh(D3DX几何体绘制网格)(多边形)
-	LPD3DXMESH m_pD3DXMeshTeapot;			//The Direct3D 9 Mesh(D3DX几何体绘制网格)(茶壶)
-
 private:
-	CRITICAL_SECTION m_cs;					//Thread Safe(CriticalSection)
-	bool m_bThreadSafe;						//Thread Safe Status
+	IDirect3DDevice9*	m_pD3D9Device;					// Direct3D 9 Device Object(~D3D9设备对象)
+	ID3DXMesh*			m_pD3DXMeshCube;				// Direct3D 9 Device Mesh(~D3DX几何体绘制网格)(立方体)
+	ID3DXMesh*			m_pD3DXMeshSphere;				// Direct3D 9 Device Mesh(~D3DX几何体绘制网格)(球面体)
+	ID3DXMesh*			m_pD3DXMeshCylinder;			// Direct3D 9 Device Mesh(~D3DX几何体绘制网格)(柱体)
+	ID3DXMesh*			m_pD3DXMeshTorus;				// Direct3D 9 Device Mesh(~D3DX几何体绘制网格)(圆环体)
+	ID3DXMesh*			m_pD3DXMeshPolygon;				// Direct3D 9 Device Mesh(~D3DX几何体绘制网格)(多边形)
+	ID3DXMesh*			m_pD3DXMeshTeapot;				// Direct3D 9 Device Mesh(~D3DX几何体绘制网格)(茶壶)
+
+protected:
+	CRITICAL_SECTION m_cs;								// Direct3D 9 Thread Safe(CriticalSection)(~D3D9临界区变量)
+	bool m_bThreadSafe;									// Direct3D 9 Thread Safe Status(~D3D9线程安全状态)
 
 public:
 	DirectMesh();	//DirectMesh Constructor Function(~构造函数)

@@ -1,16 +1,17 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Sakura&Fantasy
 *     All rights reserved.
 *
 * @file		DirectMesh.cpp
 * @brief	This File is DirectX Library Common Header.
-* @author	Alopex/Helium
-* @version	v1.03a
+* @author	Alopex/Alice
+* @version	v1.04a
 * @date		2018-06-25	v1.00a	alopex	Create This File.
 * @date		2018-06-26	v1.01a	alopex	Add Get&Set Function.
 * @date		2018-06-26	v1.02a	alopex	Add Reset Function.
 * @date		2018-11-23	v1.03a	alopex	Alter Call Method.
+* @date		2019-04-08	v1.04a	alopex	Add Notes.
 */
 #include "DirectCommon.h"
 #include "DirectMesh.h"

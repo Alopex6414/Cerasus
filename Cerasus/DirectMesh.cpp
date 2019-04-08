@@ -35,8 +35,8 @@ DirectMesh::DirectMesh() :
 	m_pD3DXMeshPolygon(NULL),
 	m_pD3DXMeshTeapot(NULL)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
+	m_bThreadSafe = true;									// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 }
 
 //------------------------------------------------------------------
@@ -55,7 +55,27 @@ DirectMesh::~DirectMesh()
 	SAFE_RELEASE(m_pD3DXMeshPolygon);
 	SAFE_RELEASE(m_pD3DXMeshTeapot);
 
-	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);	//删除临界区
+	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);		// Delete Critical Section
+}
+
+//---------------------------------------------------------------------
+// @Function:	 DirectMesh(IDirect3DDevice9 * pD3D9Device, bool bSafe)
+// @Purpose: DirectMesh构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//---------------------------------------------------------------------
+DirectMesh::DirectMesh(IDirect3DDevice9 * pD3D9Device, bool bSafe) :
+	m_pD3D9Device(pD3D9Device),
+	m_pD3DXMeshCube(NULL),
+	m_pD3DXMeshSphere(NULL),
+	m_pD3DXMeshCylinder(NULL),
+	m_pD3DXMeshTorus(NULL),
+	m_pD3DXMeshPolygon(NULL),
+	m_pD3DXMeshTeapot(NULL)
+{
+	m_bThreadSafe = bSafe;									// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 }
 
 //------------------------------------------------------------------

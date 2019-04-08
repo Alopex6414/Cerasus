@@ -64,7 +64,7 @@ DirectGraphics2D::~DirectGraphics2D()
 // @Return: None
 //--------------------------------------------------------------------------
 DirectGraphics2D::DirectGraphics2D(IDirect3DDevice9 * pD3D9Device, bool bSafe) :
-	m_pD3D9Device(NULL),
+	m_pD3D9Device(pD3D9Device),
 	m_pD3D9VertexBuffer(NULL),
 	m_pD3D9IndexBuffer(NULL),
 	m_pD3D9Texture(NULL)

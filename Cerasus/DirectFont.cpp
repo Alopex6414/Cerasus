@@ -1,12 +1,12 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Sakura&Fantasy
 *     All rights reserved.
 *
 * @file		DirectFont.cpp
 * @brief	This File is DirectFont DLL Project.
-* @author	Alopex/Helium
-* @version	v1.14a
+* @author	Alopex/Alice
+* @version	v1.15a
 * @date		2017-12-16	v1.00a	alopex	Create This File.
 * @date		2018-01-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-01-10	v1.10a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
@@ -14,12 +14,13 @@
 * @date		2018-04-12	v1.12a	alopex	Add Macro Call Mode.
 * @date		2018-06-22	v1.13a	alopex	Add Version Information.
 * @date		2018-11-23	v1.14a	alopex	Alter Call Method.
+* @date		2019-04-09	v1.15a	alopex	Add Notes.
 */
 #include "DirectCommon.h"
 #include "DirectFont.h"
 #include "DirectThreadSafe.h"
 
-//DirectFont主要用于2D/3D文字绘制
+// DirectX9 Font Class(DirectX9 3D/2D文字绘制)
 
 //------------------------------------------------------------------
 // @Function:	 DirectFont()
@@ -28,13 +29,12 @@
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-DirectFont::DirectFont()
+DirectFont::DirectFont() :
+	m_pD3D9Device(NULL),
+	m_pD3D9Font(NULL)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
-
-	m_pD3D9Device = NULL;			//IDirect3DDevice9接口指针初始化(NULL)
-	m_pD3D9Font = NULL;				//IDirect3DFont9接口指针初始化(NULL)
+	m_bThreadSafe = true;									// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 }
 
 //------------------------------------------------------------------
@@ -46,9 +46,24 @@ DirectFont::DirectFont()
 //------------------------------------------------------------------
 DirectFont::~DirectFont()
 {
-	SAFE_RELEASE(m_pD3D9Font);		//IDirect3DFont9接口指针释放
+	SAFE_RELEASE(m_pD3D9Font);
 
-	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);	//删除临界区
+	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);		// Delete Critical Section
+}
+
+//---------------------------------------------------------------------
+// @Function:	 DirectFont(IDirect3DDevice9 * pD3D9Device, bool bSafe)
+// @Purpose: DirectFont构造函数
+// @Since: v1.00a
+// @Para: IDirect3DDevice9* pD3D9Device	//D3D9绘制设备
+// @Return: None
+//---------------------------------------------------------------------
+DirectFont::DirectFont(IDirect3DDevice9 * pD3D9Device, bool bSafe) :
+	m_pD3D9Device(pD3D9Device),
+	m_pD3D9Font(NULL)
+{
+	m_bThreadSafe = bSafe;									// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 }
 
 //------------------------------------------------------------------
@@ -60,27 +75,32 @@ DirectFont::~DirectFont()
 //------------------------------------------------------------------
 DirectFont::DirectFont(const DirectFont & Object)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
+	m_bThreadSafe = Object.m_bThreadSafe;					// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 
 	m_pD3D9Device = Object.m_pD3D9Device;
 	m_pD3D9Font = Object.m_pD3D9Font;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectFont(IDirect3DDevice9* pD3D9Device)
-// @Purpose: DirectFont构造函数
+// @Function:	 operator=(const DirectFont & Object)
+// @Purpose: DirectFont拷贝构造函数
 // @Since: v1.00a
-// @Para: IDirect3DDevice9* pD3D9Device	//D3D9绘制设备
+// @Para: None
 // @Return: None
 //------------------------------------------------------------------
-DirectFont::DirectFont(IDirect3DDevice9* pD3D9Device)
+const DirectFont & DirectFont::operator=(const DirectFont & Object)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
+	if (&Object != this)
+	{
+		m_bThreadSafe = Object.m_bThreadSafe;					// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+		if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 
-	m_pD3D9Device = pD3D9Device;	//IDirect3DDevice9接口指针初始化(NULL)
-	m_pD3D9Font = NULL;				//IDirect3DFont9接口指针初始化(NULL)
+		m_pD3D9Device = Object.m_pD3D9Device;
+		m_pD3D9Font = Object.m_pD3D9Font;
+	}
+
+	return *this;
 }
 
 //------------------------------------------------------------------

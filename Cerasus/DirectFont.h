@@ -1,12 +1,12 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Sakura&Fantasy
 *     All rights reserved.
 *
 * @file		DirectFont.h
 * @brief	This File is DirectFont DLL Project.
-* @author	Alopex/Helium
-* @version	v1.14a
+* @author	Alopex/Alice
+* @version	v1.15a
 * @date		2017-12-16	v1.00a	alopex	Create This File.
 * @date		2018-01-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-01-10	v1.10a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
@@ -14,16 +14,18 @@
 * @date		2018-04-12	v1.12a	alopex	Add Macro Call Mode.
 * @date		2018-06-22	v1.13a	alopex	Add Version Information.
 * @date		2018-11-23	v1.14a	alopex	Alter Call Method.
+* @date		2019-04-09	v1.15a	alopex	Add Notes.
 */
 #pragma once
 
 #ifndef __DIRECTFONT_H_
 #define __DIRECTFONT_H_
 
-//Include DirectX Common Header File
+// Include DirectX Common Header File
 #include "DirectCommon.h"
+#include "DirectTypes.h"
 
-//Macro Definition
+// Macro Definition
 #ifdef	CERASUS_EXPORTS
 #define DIRECTFONT_API	__declspec(dllexport)
 #else
@@ -31,6 +33,18 @@
 #endif
 
 #define DIRECTFONT_CALLMETHOD	__stdcall
+
+#define	DX_FONT_FORMAT_CENTER			(DT_CENTER)
+#define DX_FONT_FORMAT_TOPLEFT			(DT_TOP | DT_LEFT)
+#define DX_FONT_FORMAT_TOPRIGHT			(DT_TOP | DT_RIGHT)
+#define DX_FONT_FORMAT_BOTTOMLEFT		(DT_BOTTOM | DT_LEFT)
+#define DX_FONT_FORMAT_BOTTOMRIGHT		(DT_BOTTOM | DT_RIGHT)
+
+#define DX_FONT_D3DXCOLOR_WHITE			(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f))
+#define DX_FONT_D3DXCOLOR_RED			(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f))
+#define DX_FONT_D3DXCOLOR_GREEN			(D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f))
+#define DX_FONT_D3DXCOLOR_BLUE			(D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f))
+#define DX_FONT_D3DXCOLOR_YELLOW		(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f))
 
 #define DIRECTFONT_FORMAT_CENTER		(DT_CENTER)
 #define DIRECTFONT_FORMAT_TOPLEFT		(DT_TOP | DT_LEFT)
@@ -44,23 +58,26 @@
 #define DIRECTFONT_D3DXCOLOR_BLUE		(D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f))
 #define DIRECTFONT_D3DXCOLOR_YELLOW		(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f))
 
-//Class Definition
+// Class Definition
 class DIRECTFONT_API DirectFont
 {
 private:
-	IDirect3DDevice9* m_pD3D9Device;			//The Direct3D 9 Device(D3D9绘制设备)
-	ID3DXFont* m_pD3D9Font;						//The Direct3D 9 Font(D3D9绘制字体)
+	IDirect3DDevice9* m_pD3D9Device;			// Direct3D 9 Device Object(~D3D9设备对象)
+	ID3DXFont* m_pD3D9Font;						// Direct3D 9 Font Object(~D3D9字体对象)
 
-	CRITICAL_SECTION m_cs;						//Thread Safe(CriticalSection)
-	bool m_bThreadSafe;							//Thread Safe Status
+protected:
+	CRITICAL_SECTION m_cs;						// Direct3D 9 Thread Safe(CriticalSection)(~D3D9临界区变量)
+	bool m_bThreadSafe;							// Direct3D 9 Thread Safe Status(~D3D9线程安全状态)
 
 public:
-	DirectFont();								//DirectFont Constructor Function(构造函数)
-	~DirectFont();								//DirectFont Destructor  Function(析构函数)
+	DirectFont();															// DirectFont Construction Function(~DirectFont构造函数)
+	~DirectFont();															// DirectFont Destruction  Function(~DirectFont析构函数)
 
-	//构造
-	DirectFont(const DirectFont& Object);		//DirectFont Constructor Function(构造函数)
-	DirectFont(IDirect3DDevice9* pD3D9Device);	//DirectFont Constructor Function(构造函数)
+	DirectFont(IDirect3DDevice9* pD3D9Device, bool bSafe = true);			// DirectFont Construction Function(~DirectFont构造函数)(Overload + 1)
+	DirectFont(const DirectFont&);											// DirectFont Construction Function(~DirectFont拷贝构造函数)
+
+public:
+	const DirectFont& operator=(const DirectFont&);							// DirectFont Operator= Function(~DirectFont拷贝构造函数)
 
 	//访问
 	virtual IDirect3DDevice9* DIRECTFONT_CALLMETHOD DirectFontGetDevice(void) const;		//DirectFont Get D3D9 Device(获取D3D9设备)

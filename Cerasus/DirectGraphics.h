@@ -58,9 +58,9 @@ class DIRECTGRAPHICS_API DirectGraphics
 {
 private:
 	IDirect3D9*	m_pD3D9;											// Direct3D 9 Object(~D3D9对象)
-	IDirect3DDevice9*	m_pD3D9Device;								// Direct3D 9 Device Object(~D3D9设备对象)
-	D3DCAPS9	m_D3D9Caps;											// Direct3D 9 Caps(~D3D9设备状态)
-	D3DPRESENT_PARAMETERS	m_D3D9pp;								// Direct3D 9 Parameters(~D3D9设备参数)
+	IDirect3DDevice9* m_pD3D9Device;								// Direct3D 9 Device Object(~D3D9设备对象)
+	D3DCAPS9 m_D3D9Caps;											// Direct3D 9 Caps(~D3D9设备状态)
+	D3DPRESENT_PARAMETERS m_D3D9pp;									// Direct3D 9 Parameters(~D3D9设备参数)
 
 private:
 	ID3DXFont*	m_pD3DXFont;														// Direct3D 9 Font(~D3D9字体:显卡型号)

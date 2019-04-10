@@ -1,26 +1,29 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Sakura&Fantasy
 *     All rights reserved.
 *
 * @file		DirectShow.cpp
 * @brief	This Program is DirectShow DLL Project.
-* @author	Alopex/Helium
-* @version	v1.27a
-* @date		2017-11-1	v1.00a	alopex	Create This Project.
-* @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
-* @date		2018-01-2	v1.11a	alopex	Make Demo And Add Video Play In Window Mode.
-* @date		2018-01-2	v1.21a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
-* @date		2018-01-3	v1.22a	alopex	Add Thread Safe Variable Makesure Thread Safe(DirectSafe).
-* @date		2018-01-4	v1.23a	alopex	Cancel Thread Safe Variable(DirectSafe).
+* @author	Alopex/Alice
+* @version	v1.28a
+* @date		2017-11-01	v1.00a	alopex	Create This Project.
+* @date		2017-12-08	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
+* @date		2018-01-02	v1.11a	alopex	Make Demo And Add Video Play In Window Mode.
+* @date		2018-01-02	v1.21a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-01-03	v1.22a	alopex	Add Thread Safe Variable Makesure Thread Safe(DirectSafe).
+* @date		2018-01-04	v1.23a	alopex	Cancel Thread Safe Variable(DirectSafe).
 * @date		2018-01-10	v1.24a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
 * @date		2018-04-12	v1.25a	alopex	Add Macro Call Mode.
 * @date		2018-06-22	v1.26a	alopex	Add Version Infomation.
 * @date		2018-11-23	v1.27a	alopex	Alter Call Method.
+* @date		2019-04-10	v1.28a	alopex	Add Notes.
 */
 #include "DirectCommon.h"
 #include "DirectShow.h"
 #include "DirectThreadSafe.h"
+
+// DirectShow Class(DirectShow 视频、音频类)
 
 //------------------------------------------------------------------
 // @Function:	 DirectShow()
@@ -29,23 +32,22 @@
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-DirectShow::DirectShow()
+DirectShow::DirectShow() :
+	m_pDirectShowGraphBuilder(NULL),
+	m_pDirectShowMediaControl(NULL),
+	m_pDirectShowMediaPosition(NULL),
+	m_pDirectShowMediaEvent(NULL),
+	m_pDirectShowBasicAudio(NULL),
+	m_pDirectShowBasicVideo(NULL),
+	m_pDirectShowVideoWindow(NULL),
+	m_lVideoWidth(0),
+	m_lVideoHeight(0),
+	m_fVideofps(0.0f)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
+	m_bThreadSafe = true;									// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 
-	CoInitialize(NULL);					//COM初始化
-	m_pDirectShowGraphBuilder = NULL;	//IGraphBuilder接口对象指针初始化(NULL)
-	m_pDirectShowMediaControl = NULL;	//IMediaControl接口对象指针初始化(NULL)
-	m_pDirectShowMediaPosition = NULL;	//IMediaPosition接口对象指针初始化(NULL)
-	m_pDirectShowMediaEvent = NULL;		//IMediaEvent接口对象指针初始化(NULL)
-	m_pDirectShowBasicAudio = NULL;		//IBasicAudio接口对象指针初始化(NULL)
-	m_pDirectShowBasicVideo = NULL;		//IBasicVideo接口对象指针初始化(NULL)
-	m_pDirectShowVideoWindow = NULL;	//IVideoWindow接口对象指针初始化(NULL)
-
-	m_lVideoWidth = 0;					//Video Origin Width(视频源宽度)
-	m_lVideoHeight = 0;					//Video Origin Height(视频源高度)
-	m_fVideofps = 0.0f;					//Video Origin Frame Per Second(fps)(~视频源场频)
+	CoInitialize(NULL);										// Initialize COM
 }
 
 //------------------------------------------------------------------
@@ -57,16 +59,98 @@ DirectShow::DirectShow()
 //------------------------------------------------------------------
 DirectShow::~DirectShow()
 {
-	SAFE_RELEASE(m_pDirectShowVideoWindow);		//IVideoWindow释放
-	SAFE_RELEASE(m_pDirectShowBasicVideo);		//IBasicVideo释放
-	SAFE_RELEASE(m_pDirectShowBasicAudio);		//IBasicAudio释放
-	SAFE_RELEASE(m_pDirectShowMediaEvent);		//IMediaEvent释放
-	SAFE_RELEASE(m_pDirectShowMediaPosition);	//IMediaPosition释放
-	SAFE_RELEASE(m_pDirectShowMediaControl);	//IMediaControl释放
-	SAFE_RELEASE(m_pDirectShowGraphBuilder);	//IGraphBuilder释放
-	CoUninitialize();							//COM释放
+	SAFE_RELEASE(m_pDirectShowVideoWindow);
+	SAFE_RELEASE(m_pDirectShowBasicVideo);
+	SAFE_RELEASE(m_pDirectShowBasicAudio);
+	SAFE_RELEASE(m_pDirectShowMediaEvent);
+	SAFE_RELEASE(m_pDirectShowMediaPosition);
+	SAFE_RELEASE(m_pDirectShowMediaControl);
+	SAFE_RELEASE(m_pDirectShowGraphBuilder);
+	CoUninitialize();										// Release COM
 
-	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);	//删除临界区
+	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);		// Delete Critical Section
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectShow(bool bSafe)
+// @Purpose: DirectShow构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+DirectShow::DirectShow(bool bSafe) :
+	m_pDirectShowGraphBuilder(NULL),
+	m_pDirectShowMediaControl(NULL),
+	m_pDirectShowMediaPosition(NULL),
+	m_pDirectShowMediaEvent(NULL),
+	m_pDirectShowBasicAudio(NULL),
+	m_pDirectShowBasicVideo(NULL),
+	m_pDirectShowVideoWindow(NULL),
+	m_lVideoWidth(0),
+	m_lVideoHeight(0),
+	m_fVideofps(0.0f)
+{
+	m_bThreadSafe = bSafe;									// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
+
+	CoInitialize(NULL);										// Initialize COM
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectShow(const DirectShow & Object)
+// @Purpose: DirectShow构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+DirectShow::DirectShow(const DirectShow & Object)
+{
+	m_bThreadSafe = Object.m_bThreadSafe;					// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
+
+	CoInitialize(NULL);										// Initialize COM
+
+	m_pDirectShowGraphBuilder = Object.m_pDirectShowGraphBuilder;
+	m_pDirectShowMediaControl = Object.m_pDirectShowMediaControl;
+	m_pDirectShowMediaPosition = Object.m_pDirectShowMediaPosition;
+	m_pDirectShowMediaEvent = Object.m_pDirectShowMediaEvent;
+	m_pDirectShowBasicAudio = Object.m_pDirectShowBasicAudio;
+	m_pDirectShowBasicVideo = Object.m_pDirectShowBasicVideo;
+	m_pDirectShowVideoWindow = Object.m_pDirectShowVideoWindow;
+	m_lVideoWidth = Object.m_lVideoWidth;
+	m_lVideoHeight = Object.m_lVideoHeight;
+	m_fVideofps = Object.m_fVideofps;
+}
+
+//------------------------------------------------------------------
+// @Function:	 operator=(const DirectShow & Object)
+// @Purpose: DirectShow构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+const DirectShow & DirectShow::operator=(const DirectShow & Object)
+{
+	if (&Object != this)
+	{
+		m_bThreadSafe = Object.m_bThreadSafe;					// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+		if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
+
+		CoInitialize(NULL);										// Initialize COM
+
+		m_pDirectShowGraphBuilder = Object.m_pDirectShowGraphBuilder;
+		m_pDirectShowMediaControl = Object.m_pDirectShowMediaControl;
+		m_pDirectShowMediaPosition = Object.m_pDirectShowMediaPosition;
+		m_pDirectShowMediaEvent = Object.m_pDirectShowMediaEvent;
+		m_pDirectShowBasicAudio = Object.m_pDirectShowBasicAudio;
+		m_pDirectShowBasicVideo = Object.m_pDirectShowBasicVideo;
+		m_pDirectShowVideoWindow = Object.m_pDirectShowVideoWindow;
+		m_lVideoWidth = Object.m_lVideoWidth;
+		m_lVideoHeight = Object.m_lVideoHeight;
+		m_fVideofps = Object.m_fVideofps;
+	}
+
+	return *this;
 }
 
 //------------------------------------------------------------------

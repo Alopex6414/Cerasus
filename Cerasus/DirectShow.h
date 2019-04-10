@@ -1,35 +1,40 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Sakura&Fantasy
 *     All rights reserved.
 *
 * @file		DirectShow.h
 * @brief	This Program is DirectShow DLL Project.
-* @author	Alopex/Helium
-* @version	v1.27a
-* @date		2017-11-1	v1.00a	alopex	Create This Project.
-* @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
-* @date		2018-01-2	v1.11a	alopex	Make Demo And Add Video Play In Window Mode.
-* @date		2018-01-2	v1.21a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
-* @date		2018-01-3	v1.22a	alopex	Add Thread Safe Variable Makesure Thread Safe(DirectSafe).
-* @date		2018-01-4	v1.23a	alopex	Cancel Thread Safe Variable(DirectSafe).
+* @author	Alopex/Alice
+* @version	v1.28a
+* @date		2017-11-01	v1.00a	alopex	Create This Project.
+* @date		2017-12-08	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
+* @date		2018-01-02	v1.11a	alopex	Make Demo And Add Video Play In Window Mode.
+* @date		2018-01-02	v1.21a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-01-03	v1.22a	alopex	Add Thread Safe Variable Makesure Thread Safe(DirectSafe).
+* @date		2018-01-04	v1.23a	alopex	Cancel Thread Safe Variable(DirectSafe).
 * @date		2018-01-10	v1.24a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
 * @date		2018-04-12	v1.25a	alopex	Add Macro Call Mode.
 * @date		2018-06-22	v1.26a	alopex	Add Version Infomation.
 * @date		2018-11-23	v1.27a	alopex	Alter Call Method.
+* @date		2019-04-10	v1.28a	alopex	Add Notes.
 */
 #pragma once
 
 #ifndef __DIRECTSHOW_H_
 #define __DIRECTSHOW_H_
 
-//Include DirectShow Header File
+// Include DirectX Common Header File
+#include "DirectCommon.h"
+#include "DirectTypes.h"
+
+// Include DirectShow Header File
 #include <dshow.h>
 
-//Include Static Library File
+// Include Static Library File
 #pragma comment(lib,"Strmiids.lib") 
 
-//Macro Definition
+// Macro Definition
 #ifdef  CERASUS_EXPORTS
 #define DIRECTSHOW_API	__declspec(dllexport)
 #else
@@ -38,31 +43,51 @@
 
 #define DIRECTSHOW_CALLMETHOD	__stdcall
 
-//Class Definition
-
-//Class
+// Class Definition
 class DIRECTSHOW_API DirectShow
 {
 private:
-	IGraphBuilder* m_pDirectShowGraphBuilder;	//IGraphBuilder Interface Pointer
-	IMediaControl* m_pDirectShowMediaControl;	//IMediaControl Interface Pointer
-	IMediaPosition* m_pDirectShowMediaPosition;	//IMediaPosition Interface Pointer
-	IMediaEvent* m_pDirectShowMediaEvent;		//IMediaEvent Interface Pointer
+	IGraphBuilder* m_pDirectShowGraphBuilder;				// DirectShow IGraphBuilder Interface Pointer(~DirectShow IGraphBuilder接口指针)
+	IMediaControl* m_pDirectShowMediaControl;				// DirectShow IMediaControl Interface Pointer(~DirectShow IMediaControl接口指针)
+	IMediaPosition* m_pDirectShowMediaPosition;				// DirectShow IMediaPosition Interface Pointer(~DirectShow IMediaPosition接口指针)
+	IMediaEvent* m_pDirectShowMediaEvent;					// DirectShow IMediaEvent Interface Pointer(~DirectShow IMediaEvent接口指针)
 
-	IBasicAudio* m_pDirectShowBasicAudio;		//IBasicAudio Interface Pointer
-	IBasicVideo* m_pDirectShowBasicVideo;		//IBasicVideo Interface Pointer
-	IVideoWindow* m_pDirectShowVideoWindow;		//IVideoWindow Interface Pointer
+	IBasicAudio* m_pDirectShowBasicAudio;					// DirectShow IBasicAudio Interface Pointer(~DirectShow IBasicAudio接口指针)
+	IBasicVideo* m_pDirectShowBasicVideo;					// DirectShow IBasicVideo Interface Pointer(~DirectShow IBasicVideo接口指针)
+	IVideoWindow* m_pDirectShowVideoWindow;					// DirectShow IVideoWindow Interface Pointer(~DirectShow IVideoWindow接口指针)
 
-	long m_lVideoWidth;							//Video Origin Width
-	long m_lVideoHeight;						//Video Origin Height
-	float m_fVideofps;							//Video Origin Frame Per Second(fps)
+private:
+	long m_lVideoWidth;										// DirectShow Video Origin Width(~DirectShow 视频宽度)
+	long m_lVideoHeight;									// DirectShow Video Origin Height(~DirectShow 视频宽度)
+	float m_fVideofps;										// DirectShow Video Origin Frame Per Second(fps)(~DirectShow 视频fps)
 
-	CRITICAL_SECTION m_cs;						//Thread Safe(CriticalSection)
-	bool m_bThreadSafe;							//Thread Safe Status
+protected:
+	CRITICAL_SECTION m_cs;									// Direct3D 9 Thread Safe(CriticalSection)(~D3D9临界区变量)
+	bool m_bThreadSafe;										// Direct3D 9 Thread Safe Status(~D3D9线程安全状态)
 
 public:
-	DirectShow();	//DirectShow Constructor Function(DirectShow构造函数)
-	~DirectShow();	//DirectShow Destructor Function(DirectShow析构函数)
+	DirectShow();											// DirectShow Construction Function(DirectShow构造函数)
+	~DirectShow();											// DirectShow Destruction Function(DirectShow析构函数)
+
+	DirectShow(bool bSafe);									// DirectShow Construction Function(DirectShow构造函数)(Overload + 1)
+	DirectShow(const DirectShow&);							// DirectShow Construction Function(DirectShow拷贝构造函数)
+
+public:
+	const DirectShow& operator=(const DirectShow&);			// DirectShow Overload= Function(DirectShow运算符重载函数)
+
+public:
+	IGraphBuilder*					DIRECTSHOW_CALLMETHOD		GetGraphBuilder() const;
+	IMediaControl*					DIRECTSHOW_CALLMETHOD		GetMediaControl() const;
+	IMediaPosition*					DIRECTSHOW_CALLMETHOD		GetMediaPosition() const;
+	IMediaEvent*					DIRECTSHOW_CALLMETHOD		GetMediaEvent() const;
+
+	IBasicAudio*					DIRECTSHOW_CALLMETHOD		GetBasicAudio() const;
+	IBasicVideo*					DIRECTSHOW_CALLMETHOD		GetBasicVideo() const;
+	IVideoWindow*					DIRECTSHOW_CALLMETHOD		GetVideoWindow() const;
+
+	long							DIRECTSHOW_CALLMETHOD		GetVideoWidth() const;
+	long							DIRECTSHOW_CALLMETHOD		GetVideoHeight() const;
+	float							DIRECTSHOW_CALLMETHOD		GetVideofps() const;
 
 	//DirectShow访问
 	long DIRECTSHOW_CALLMETHOD DirectShowGetVideoWidth(void) const;				//DirectShow Get Video Width(获取视频宽度)

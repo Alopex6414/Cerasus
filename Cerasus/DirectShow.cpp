@@ -486,7 +486,8 @@ void DIRECTSHOW_CALLMETHOD DirectShow::AudioPause()
 //------------------------------------------------------------------
 void DIRECTSHOW_CALLMETHOD DirectShow::AudioStop()
 {
-	return void DIRECTSHOW_CALLMETHOD();
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectShowMediaControl->Stop();
 }
 
 //---------------------------------------------------------------------------
@@ -528,16 +529,14 @@ void DIRECTSHOW_CALLMETHOD DirectShow::AudioSetCurrentPosition(REFTIME RefPositi
 	m_pDirectShowMediaPosition->put_CurrentPosition(RefPosition);
 }
 
-
-
 //------------------------------------------------------------------
-// @Function:	 DirectShowGetVideoInfo(void)
+// @Function:	 GetVideoInfo()
 // @Purpose: DirectShow 获取视频格式信息
 // @Since: v1.00a
 // @Para: HWND hWnd(窗口句柄)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowGetVideoInfo(void)
+HRESULT DIRECTSHOW_CALLMETHOD DirectShow::GetVideoInfo()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	long VideoWidth;
@@ -545,27 +544,27 @@ HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowGetVideoInfo(void)
 	REFTIME AvgTimePerFrame;
 	float VideoFramePerSecond;
 
-	//视频Video
-	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IBasicVideo, (void **)&m_pDirectShowBasicVideo));//创建IBasicVideo接口
-	VERIFY(m_pDirectShowBasicVideo->get_VideoWidth(&VideoWidth));	//读取视频宽度
-	VERIFY(m_pDirectShowBasicVideo->get_VideoHeight(&VideoHeight));	//读取视频高度
-	VERIFY(m_pDirectShowBasicVideo->get_AvgTimePerFrame(&AvgTimePerFrame));	//读取视频帧率
-	VideoFramePerSecond = (float)(1 / AvgTimePerFrame);	//计算视频场频
-	m_lVideoWidth = VideoWidth;	//视频宽度
-	m_lVideoHeight = VideoHeight;	//视频高度
-	m_fVideofps = VideoFramePerSecond;	//视频场频
+	// 视频Video
+	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IBasicVideo, (void **)&m_pDirectShowBasicVideo));			// 创建IBasicVideo接口
+	VERIFY(m_pDirectShowBasicVideo->get_VideoWidth(&VideoWidth));													// 读取视频宽度
+	VERIFY(m_pDirectShowBasicVideo->get_VideoHeight(&VideoHeight));													// 读取视频高度
+	VERIFY(m_pDirectShowBasicVideo->get_AvgTimePerFrame(&AvgTimePerFrame));											// 读取视频帧率
+	VideoFramePerSecond = (float)(1 / AvgTimePerFrame);																// 计算视频场频
+	m_lVideoWidth = VideoWidth;																						// 视频宽度
+	m_lVideoHeight = VideoHeight;																					// 视频高度
+	m_fVideofps = VideoFramePerSecond;																				// 视频场频
 
 	return S_OK;//OK
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectShowSetVideoPlayInWindow(HWND hWnd)
-// @Purpose: DirectShow 设置视频在指定窗口内播放
+// @Function:	 SetVideoPlayInWindow(HWND hWnd)
+// @Purpose: DirectShow 获取视频格式信息
 // @Since: v1.00a
 // @Para: HWND hWnd(窗口句柄)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowSetVideoPlayInWindow(HWND hWnd)
+HRESULT DIRECTSHOW_CALLMETHOD DirectShow::SetVideoPlayInWindow(HWND hWnd)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	RECT WindowRect;
@@ -574,44 +573,44 @@ HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowSetVideoPlayInWindow(HWND hW
 	REFTIME AvgTimePerFrame;
 	float VideoFramePerSecond;
 
-	//视频Video
-	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IBasicVideo, (void **)&m_pDirectShowBasicVideo));//创建IBasicVideo接口
-	VERIFY(m_pDirectShowBasicVideo->get_VideoWidth(&VideoWidth));	//读取视频宽度
-	VERIFY(m_pDirectShowBasicVideo->get_VideoHeight(&VideoHeight));	//读取视频高度
-	VERIFY(m_pDirectShowBasicVideo->get_AvgTimePerFrame(&AvgTimePerFrame));	//读取视频帧率
-	VideoFramePerSecond = (float)(1 / AvgTimePerFrame);	//计算视频场频
-	m_lVideoWidth = VideoWidth;	//视频宽度
-	m_lVideoHeight = VideoHeight;	//视频高度
-	m_fVideofps = VideoFramePerSecond;	//视频场频
+	// 视频Video
+	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IBasicVideo, (void **)&m_pDirectShowBasicVideo));			// 创建IBasicVideo接口
+	VERIFY(m_pDirectShowBasicVideo->get_VideoWidth(&VideoWidth));													// 读取视频宽度
+	VERIFY(m_pDirectShowBasicVideo->get_VideoHeight(&VideoHeight));													// 读取视频高度
+	VERIFY(m_pDirectShowBasicVideo->get_AvgTimePerFrame(&AvgTimePerFrame));											// 读取视频帧率
+	VideoFramePerSecond = (float)(1 / AvgTimePerFrame);																// 计算视频场频
+	m_lVideoWidth = VideoWidth;																						// 视频宽度
+	m_lVideoHeight = VideoHeight;																					// 视频高度
+	m_fVideofps = VideoFramePerSecond;																				// 视频场频
 
-	//音频Audio
-	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IBasicAudio, (void**)&m_pDirectShowBasicAudio));//创建IBasicAudio接口
+	// 音频Audio
+	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IBasicAudio, (void**)&m_pDirectShowBasicAudio));			// 创建IBasicAudio接口
 
-	//窗口Window
-	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IVideoWindow, (void**)&m_pDirectShowVideoWindow));//创建IVideoWindow接口
-	GetClientRect(hWnd, &WindowRect);	//读取当前窗口区域
+	// 窗口Window
+	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IVideoWindow, (void**)&m_pDirectShowVideoWindow));			// 创建IVideoWindow接口
+	GetClientRect(hWnd, &WindowRect);																				// 读取当前窗口区域
 	m_pDirectShowVideoWindow->put_Visible(OAFALSE);
-	m_pDirectShowVideoWindow->put_Owner((OAHWND)hWnd);	//设置视频窗口句柄
-	m_pDirectShowVideoWindow->put_Left(0);	//视频原点X坐标
-	m_pDirectShowVideoWindow->put_Top(0);	//视频原点Y坐标
-	m_pDirectShowVideoWindow->put_Width(WindowRect.right - WindowRect.left);	//视频宽度
-	m_pDirectShowVideoWindow->put_Height(WindowRect.bottom - WindowRect.top);	//视频高度
-	m_pDirectShowVideoWindow->put_WindowStyle(WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS);	//窗口模式
-	m_pDirectShowVideoWindow->put_MessageDrain((OAHWND)hWnd);//设置接受窗口信息句柄  
+	m_pDirectShowVideoWindow->put_Owner((OAHWND)hWnd);																// 设置视频窗口句柄
+	m_pDirectShowVideoWindow->put_Left(0);																			// 视频原点X坐标
+	m_pDirectShowVideoWindow->put_Top(0);																			// 视频原点Y坐标
+	m_pDirectShowVideoWindow->put_Width(WindowRect.right - WindowRect.left);										// 视频宽度
+	m_pDirectShowVideoWindow->put_Height(WindowRect.bottom - WindowRect.top);										// 视频高度
+	m_pDirectShowVideoWindow->put_WindowStyle(WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS);						// 窗口模式
+	m_pDirectShowVideoWindow->put_MessageDrain((OAHWND)hWnd);														// 设置接受窗口信息句柄  
 	m_pDirectShowVideoWindow->put_Visible(OATRUE);
 
 	return S_OK;//OK
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectShowSetVideoPlayInWindow(HWND hWnd, RECT sRect)
+// @Function:	 SetVideoPlayInWindow(HWND hWnd, RECT sRect)
 // @Purpose: DirectShow 设置视频在指定窗口内播放
 // @Since: v1.00a
 // @Para: HWND hWnd(窗口句柄)
 // @Para: RECT sRect(视频播放区域)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowSetVideoPlayInWindow(HWND hWnd, RECT sRect)
+HRESULT DIRECTSHOW_CALLMETHOD DirectShow::SetVideoPlayInWindow(HWND hWnd, RECT sRect)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	long VideoWidth;
@@ -619,42 +618,42 @@ HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowSetVideoPlayInWindow(HWND hW
 	REFTIME AvgTimePerFrame;
 	float VideoFramePerSecond;
 
-	//视频Video
-	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IBasicVideo, (void **)&m_pDirectShowBasicVideo));//创建IBasicVideo接口
-	VERIFY(m_pDirectShowBasicVideo->get_VideoWidth(&VideoWidth));	//读取视频宽度
-	VERIFY(m_pDirectShowBasicVideo->get_VideoHeight(&VideoHeight));	//读取视频高度
-	VERIFY(m_pDirectShowBasicVideo->get_AvgTimePerFrame(&AvgTimePerFrame));	//读取视频帧率
-	VideoFramePerSecond = (float)(1 / AvgTimePerFrame);	//计算视频场频
-	m_lVideoWidth = VideoWidth;	//视频宽度
-	m_lVideoHeight = VideoHeight;	//视频高度
-	m_fVideofps = VideoFramePerSecond;	//视频场频
+	// 视频Video
+	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IBasicVideo, (void **)&m_pDirectShowBasicVideo));			// 创建IBasicVideo接口
+	VERIFY(m_pDirectShowBasicVideo->get_VideoWidth(&VideoWidth));													// 读取视频宽度
+	VERIFY(m_pDirectShowBasicVideo->get_VideoHeight(&VideoHeight));													// 读取视频高度
+	VERIFY(m_pDirectShowBasicVideo->get_AvgTimePerFrame(&AvgTimePerFrame));											// 读取视频帧率
+	VideoFramePerSecond = (float)(1 / AvgTimePerFrame);																// 计算视频场频
+	m_lVideoWidth = VideoWidth;																						// 视频宽度
+	m_lVideoHeight = VideoHeight;																					// 视频高度
+	m_fVideofps = VideoFramePerSecond;																				// 视频场频
 
-	//音频Audio
-	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IBasicAudio, (void**)&m_pDirectShowBasicAudio));//创建IBasicAudio接口
+	// 音频Audio
+	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IBasicAudio, (void**)&m_pDirectShowBasicAudio));			// 创建IBasicAudio接口
 
-	//窗口Window
-	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IVideoWindow, (void**)&m_pDirectShowVideoWindow));//创建IVideoWindow接口
+	// 窗口Window
+	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IVideoWindow, (void**)&m_pDirectShowVideoWindow));			// 创建IVideoWindow接口
 	m_pDirectShowVideoWindow->put_Visible(OAFALSE);
-	m_pDirectShowVideoWindow->put_Owner((OAHWND)hWnd);	//设置视频窗口句柄
-	m_pDirectShowVideoWindow->put_Left(sRect.left);	//视频原点X坐标
-	m_pDirectShowVideoWindow->put_Top(sRect.top);	//视频原点Y坐标
-	m_pDirectShowVideoWindow->put_Width(sRect.right - sRect.left);	//视频宽度
-	m_pDirectShowVideoWindow->put_Height(sRect.bottom - sRect.top);	//视频高度
-	m_pDirectShowVideoWindow->put_WindowStyle(WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS);	//窗口模式
-	m_pDirectShowVideoWindow->put_MessageDrain((OAHWND)hWnd);//设置接受窗口信息句柄  
+	m_pDirectShowVideoWindow->put_Owner((OAHWND)hWnd);																// 设置视频窗口句柄
+	m_pDirectShowVideoWindow->put_Left(sRect.left);																	// 视频原点X坐标
+	m_pDirectShowVideoWindow->put_Top(sRect.top);																	// 视频原点Y坐标
+	m_pDirectShowVideoWindow->put_Width(sRect.right - sRect.left);													// 视频宽度
+	m_pDirectShowVideoWindow->put_Height(sRect.bottom - sRect.top);													// 视频高度
+	m_pDirectShowVideoWindow->put_WindowStyle(WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS);						// 窗口模式
+	m_pDirectShowVideoWindow->put_MessageDrain((OAHWND)hWnd);														// 设置接受窗口信息句柄  
 	m_pDirectShowVideoWindow->put_Visible(OATRUE);
 
 	return S_OK;//OK
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectShowVideoPlayWait(void)
+// @Function:	 VideoPlayWait()
 // @Purpose: DirectShow 播放视频文件(等待)
 // @Since: v1.00a
 // @Para: None
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowVideoPlayWait(void)
+HRESULT DIRECTSHOW_CALLMETHOD DirectShow::VideoPlayWait()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	long evCode = 0;
@@ -669,13 +668,13 @@ HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowVideoPlayWait(void)
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectShowVideoPlay(void)
+// @Function:	 VideoPlay()
 // @Purpose: DirectShow 播放视频文件
 // @Since: v1.00a
 // @Para: None
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowVideoPlay(void)
+HRESULT DIRECTSHOW_CALLMETHOD DirectShow::VideoPlay()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -685,13 +684,13 @@ HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowVideoPlay(void)
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectShowVideoPause(void)
+// @Function:	 VideoPause()
 // @Purpose: DirectShow 暂停视频文件
 // @Since: v1.00a
 // @Para: None
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowVideoPause(void)
+HRESULT DIRECTSHOW_CALLMETHOD DirectShow::VideoPause()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -700,14 +699,15 @@ HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowVideoPause(void)
 	return S_OK;//OK
 }
 
+
 //------------------------------------------------------------------
-// @Function:	 DirectShowVideoStop(void)
+// @Function:	 VideoStop()
 // @Purpose: DirectShow 停止视频文件
 // @Since: v1.00a
 // @Para: None
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowVideoStop(void)
+HRESULT DIRECTSHOW_CALLMETHOD DirectShow::VideoStop()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -717,13 +717,13 @@ HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowVideoStop(void)
 }
 
 //---------------------------------------------------------------------------
-// @Function:	 DirectShowVideoGetDuration(REFTIME* pRefDuration) const
+// @Function:	 VideoGetDuration(REFTIME* pRefDuration) const
 // @Purpose: DirectShow 读取视频文件总长度
 // @Since: v1.00a
 // @Para: REFTIME* pRefDuration(文件总长度)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------
-HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowVideoGetDuration(REFTIME* pRefDuration) const
+HRESULT DIRECTSHOW_CALLMETHOD DirectShow::VideoGetDuration(REFTIME * pRefDuration) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -733,13 +733,13 @@ HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowVideoGetDuration(REFTIME* pR
 }
 
 //---------------------------------------------------------------------------
-// @Function:	 DirectShowVideoGetCurrentPosition(REFTIME* pRefPosition) const
+// @Function:	 VideoGetCurrentPosition(REFTIME* pRefPosition) const
 // @Purpose: DirectShow 读取视频文件总长度
 // @Since: v1.00a
 // @Para: REFTIME* pRefPosition(当前播放位置)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------
-HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowVideoGetCurrentPosition(REFTIME* pRefPosition) const
+HRESULT DIRECTSHOW_CALLMETHOD DirectShow::VideoGetCurrentPosition(REFTIME * pRefPosition) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -749,13 +749,13 @@ HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowVideoGetCurrentPosition(REFT
 }
 
 //---------------------------------------------------------------------------
-// @Function:	 DirectShowVideoSetCurrentPosition(REFTIME RefPosition)
+// @Function:	 VideoSetCurrentPosition(REFTIME RefPosition)
 // @Purpose: DirectShow 设置视频文件当前播放位置
 // @Since: v1.00a
 // @Para: REFTIME RefPosition(播放位置)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------
-HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowVideoSetCurrentPosition(REFTIME RefPosition)
+HRESULT DIRECTSHOW_CALLMETHOD DirectShow::VideoSetCurrentPosition(REFTIME RefPosition)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 

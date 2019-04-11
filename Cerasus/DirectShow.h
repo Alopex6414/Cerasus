@@ -111,17 +111,17 @@ public:
 	void							DIRECTSHOW_CALLMETHOD		AudioGetCurrentPosition(REFTIME* pRefPosition) const;					// DirectShow Audio GetCurrentPosition(~DirectShow 获取当前进度)
 	void							DIRECTSHOW_CALLMETHOD		AudioSetCurrentPosition(REFTIME RefPosition);							// DirectShow Audio SetCurrentPosition(~DirectShow 设置当前进度)
 
-	//DirectShow播放视频文件格式
-	HRESULT DIRECTSHOW_CALLMETHOD DirectShowGetVideoInfo(void);									//DirectShow Get Video Information(DirectShow获取视频格式)
-	HRESULT DIRECTSHOW_CALLMETHOD DirectShowSetVideoPlayInWindow(HWND hWnd);					//DirectShow Set Video Play In Window(DirectShow设置视频在指定窗口内播放)(~窗口)
-	HRESULT DIRECTSHOW_CALLMETHOD DirectShowSetVideoPlayInWindow(HWND hWnd, RECT sRect);		//DirectShow Set Video Play In Window(DirectShow设置视频在指定窗口内播放)(~指定矩形区域)
-	HRESULT DIRECTSHOW_CALLMETHOD DirectShowVideoPlayWait(void);								//DirectShow Video Play Wait(DirectShow播放)(等待)
-	HRESULT DIRECTSHOW_CALLMETHOD DirectShowVideoPlay(void);									//DirectShow Video Play(DirectShow播放)
-	HRESULT DIRECTSHOW_CALLMETHOD DirectShowVideoPause(void);									//DirectShow Video Pause(DirectShow暂停)
-	HRESULT DIRECTSHOW_CALLMETHOD DirectShowVideoStop(void);									//DirectShow Video Stop(DirectShow停止)
-	HRESULT DIRECTSHOW_CALLMETHOD DirectShowVideoGetDuration(REFTIME* pRefDuration) const;		//DirectShow Video GetDuration(DirectShow获取时间总长度)
-	HRESULT DIRECTSHOW_CALLMETHOD DirectShowVideoGetCurrentPosition(REFTIME* pRefPosition) const;	//DirectShow Video GetCurrentPosition(DirectShow获取当前进度)
-	HRESULT DIRECTSHOW_CALLMETHOD DirectShowVideoSetCurrentPosition(REFTIME RefPosition);		//DirectShow Video SetCurrentPosition(DirectShow设置当前进度)
+	HRESULT							DIRECTSHOW_CALLMETHOD		GetVideoInfo();															// DirectShow Get Video Information(~DirectShow 获取视频格式)
+	HRESULT							DIRECTSHOW_CALLMETHOD		SetVideoPlayInWindow(HWND hWnd);										// DirectShow Set Video Play In Window(~DirectShow 设置视频在指定窗口内播放)
+	HRESULT							DIRECTSHOW_CALLMETHOD		SetVideoPlayInWindow(HWND hWnd, RECT sRect);							// DirectShow Set Video Play In Window(~DirectShow 设置视频在指定窗口内播放)(~指定矩形区域)(Overload + 1)
+	HRESULT							DIRECTSHOW_CALLMETHOD		VideoPlayWait();														// DirectShow Video Play Wait(~DirectShow 播放)(等待)
+	HRESULT							DIRECTSHOW_CALLMETHOD		VideoPlay();															// DirectShow Video Play(~DirectShow 播放)
+	HRESULT							DIRECTSHOW_CALLMETHOD		VideoPause();															// DirectShow Video Pause(~DirectShow 暂停)
+	HRESULT							DIRECTSHOW_CALLMETHOD		VideoStop();															// DirectShow Video Stop(~DirectShow 停止)
+	HRESULT							DIRECTSHOW_CALLMETHOD		VideoGetDuration(REFTIME* pRefDuration) const;							// DirectShow Video GetDuration(~DirectShow 获取时间总长度)
+	HRESULT							DIRECTSHOW_CALLMETHOD		VideoGetCurrentPosition(REFTIME* pRefPosition) const;					// DirectShow Video GetCurrentPosition(~DirectShow 获取当前进度)
+	HRESULT							DIRECTSHOW_CALLMETHOD		VideoSetCurrentPosition(REFTIME RefPosition);							// DirectShow Video SetCurrentPosition(~DirectShow 设置当前进度)
+
 };
 
 #endif

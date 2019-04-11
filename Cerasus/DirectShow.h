@@ -76,32 +76,31 @@ public:
 	const DirectShow& operator=(const DirectShow&);			// DirectShow Overload= Function(DirectShow运算符重载函数)
 
 public:
-	IGraphBuilder*					DIRECTSHOW_CALLMETHOD		GetGraphBuilder() const;
-	IMediaControl*					DIRECTSHOW_CALLMETHOD		GetMediaControl() const;
-	IMediaPosition*					DIRECTSHOW_CALLMETHOD		GetMediaPosition() const;
-	IMediaEvent*					DIRECTSHOW_CALLMETHOD		GetMediaEvent() const;
+	IGraphBuilder*					DIRECTSHOW_CALLMETHOD		GetGraphBuilder() const;					// DirectShow Get Graph Builder(~DirectShow 获取图形构造器)
+	IMediaControl*					DIRECTSHOW_CALLMETHOD		GetMediaControl() const;					// DirectShow Get Media Control(~DirectShow 媒体控制器)
+	IMediaPosition*					DIRECTSHOW_CALLMETHOD		GetMediaPosition() const;					// DirectShow Get Media Position(~DirectShow 媒体位置器)
+	IMediaEvent*					DIRECTSHOW_CALLMETHOD		GetMediaEvent() const;						// DirectShow Get Media Event(~DirectShow 媒体事件器)
 
-	IBasicAudio*					DIRECTSHOW_CALLMETHOD		GetBasicAudio() const;
-	IBasicVideo*					DIRECTSHOW_CALLMETHOD		GetBasicVideo() const;
-	IVideoWindow*					DIRECTSHOW_CALLMETHOD		GetVideoWindow() const;
+	IBasicAudio*					DIRECTSHOW_CALLMETHOD		GetBasicAudio() const;						// DirectShow Get Basic Audio(~DirectShow 获取基础音频)
+	IBasicVideo*					DIRECTSHOW_CALLMETHOD		GetBasicVideo() const;						// DirectShow Get Basic Video(~DirectShow 获取基础视频)
+	IVideoWindow*					DIRECTSHOW_CALLMETHOD		GetVideoWindow() const;						// DirectShow Get Video Window(~DirectShow 获取视频窗口)
 
-	long							DIRECTSHOW_CALLMETHOD		GetVideoWidth() const;
-	long							DIRECTSHOW_CALLMETHOD		GetVideoHeight() const;
-	float							DIRECTSHOW_CALLMETHOD		GetVideofps() const;
+	long							DIRECTSHOW_CALLMETHOD		GetVideoWidth() const;						// DirectShow Get Video Width(~DirectShow 获取基础音频)
+	long							DIRECTSHOW_CALLMETHOD		GetVideoHeight() const;						// DirectShow Get Video Height(~DirectShow 获取基础音频)
+	float							DIRECTSHOW_CALLMETHOD		GetVideofps() const;						// DirectShow Get Video fps(~DirectShow 获取基础音频)
 
-	//DirectShow访问
-	long DIRECTSHOW_CALLMETHOD DirectShowGetVideoWidth(void) const;				//DirectShow Get Video Width(获取视频宽度)
-	long DIRECTSHOW_CALLMETHOD DirectShowGetVideoHeight(void) const;			//DirectShow Get Video Height(获取视频高度)
-	float DIRECTSHOW_CALLMETHOD DirectShowGetVideoFramePerSecond(void) const;	//DirectShow Get Video fps(获取视频场频)
+public:
+	HRESULT							DIRECTSHOW_CALLMETHOD		Create();									// DirectShow Initialize(~DirectShow 初始化)
 
-	//DirectShow初始化
-	HRESULT DIRECTSHOW_CALLMETHOD DirectShowInit(void);							//DirectShow Initialize(DirectShow初始化)
+	HRESULT							DIRECTSHOW_CALLMETHOD		LoadFile(LPWSTR lpszFileName);				// DirectShow Load Audio/Video File(~DirectShow 加载文件)
+	HRESULT							DIRECTSHOW_CALLMETHOD		LoadMP3(LPWSTR lpszFileName);				// DirectShow Load MP3 File(~DirectShow 加载MP3文件)
+	HRESULT							DIRECTSHOW_CALLMETHOD		LoadAudio(LPWSTR lpszFileName);				// DirectShow Load Audio File(~DirectShow 加载音频文件)
+	HRESULT							DIRECTSHOW_CALLMETHOD		LoadVideo(LPWSTR lpszFileName);				// DirectShow Load Audio File(~DirectShow 加载视频文件)
 
-	//DirectShow加载文件(路径)
-	HRESULT DIRECTSHOW_CALLMETHOD DirectShowLoadFile(LPWSTR lpszFileName);		//DirectShow Load Audio/Video File(DirectShow加载文件)
-	HRESULT DIRECTSHOW_CALLMETHOD DirectShowLoadMP3(LPWSTR lpszFileName);		//DirectShow Load MP3 File(DirectShow加载MP3文件)
-	HRESULT DIRECTSHOW_CALLMETHOD DirectShowLoadAudio(LPWSTR lpszFileName);		//DirectShow Load Audio File(DirectShow加载音频文件)
-	HRESULT DIRECTSHOW_CALLMETHOD DirectShowLoadVideo(LPWSTR lpszFileName);		//DirectShow Load Video File(DirectShow加载视频文件)
+
+
+
+
 
 	//DirectShow播放MP3文件格式
 	void DIRECTSHOW_CALLMETHOD DirectShowMP3Play(void);							//DirectShow MP3 Play(DirectShow播放)

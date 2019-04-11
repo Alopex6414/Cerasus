@@ -154,112 +154,220 @@ const DirectShow & DirectShow::operator=(const DirectShow & Object)
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectShowGetVideoWidth(void) const
+// @Function:	 GetGraphBuilder()
+// @Purpose: DirectShow获取图形构造器
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+IGraphBuilder *DIRECTSHOW_CALLMETHOD DirectShow::GetGraphBuilder() const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectShowGraphBuilder;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetMediaControl()
+// @Purpose: DirectShow获取媒体控制器
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+IMediaControl *DIRECTSHOW_CALLMETHOD DirectShow::GetMediaControl() const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectShowMediaControl;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetMediaPosition()
+// @Purpose: DirectShow获取媒体位置
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+IMediaPosition *DIRECTSHOW_CALLMETHOD DirectShow::GetMediaPosition() const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectShowMediaPosition;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetMediaEvent()
+// @Purpose: DirectShow获取媒体事件
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+IMediaEvent *DIRECTSHOW_CALLMETHOD DirectShow::GetMediaEvent() const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectShowMediaEvent;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetBasicAudio()
+// @Purpose: DirectShow获取音频基础
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+IBasicAudio *DIRECTSHOW_CALLMETHOD DirectShow::GetBasicAudio() const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectShowBasicAudio;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetBasicVideo()
+// @Purpose: DirectShow获取视频基础
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+IBasicVideo *DIRECTSHOW_CALLMETHOD DirectShow::GetBasicVideo() const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectShowBasicVideo;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetVideoWindow()
+// @Purpose: DirectShow获取视频窗口
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+IVideoWindow *DIRECTSHOW_CALLMETHOD DirectShow::GetVideoWindow() const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectShowVideoWindow;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetVideoWidth() const
 // @Purpose: DirectShow 获取视频宽度
 // @Since: v1.00a
 // @Para: None
 // @Return: long
 //------------------------------------------------------------------
-long DIRECTSHOW_CALLMETHOD DirectShow::DirectShowGetVideoWidth(void) const
+long DIRECTSHOW_CALLMETHOD DirectShow::GetVideoWidth() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_lVideoWidth;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectShowGetVideoHeight(void) const
+// @Function:	 GetVideoHeight() const
 // @Purpose: DirectShow 获取视频高度
 // @Since: v1.00a
 // @Para: None
 // @Return: long
 //------------------------------------------------------------------
-long DIRECTSHOW_CALLMETHOD DirectShow::DirectShowGetVideoHeight(void) const
+long DIRECTSHOW_CALLMETHOD DirectShow::GetVideoHeight() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_lVideoHeight;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectShowGetVideoFramePerSecond(void) const
+// @Function:	 GetVideofps() const
 // @Purpose: DirectShow 获取视频场频
 // @Since: v1.00a
 // @Para: None
 // @Return: long
 //------------------------------------------------------------------
-float DIRECTSHOW_CALLMETHOD DirectShow::DirectShowGetVideoFramePerSecond(void) const
+float DIRECTSHOW_CALLMETHOD DirectShow::GetVideofps() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_fVideofps;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectShowInit(void)
+// @Function:	 Create()
 // @Purpose: DirectShow 初始化
 // @Since: v1.00a
 // @Para: None
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowInit(void)
+HRESULT DIRECTSHOW_CALLMETHOD DirectShow::Create()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//创建IGraphBuilder接口对象
+	// 创建IGraphBuilder接口对象
 	VERIFY(CoCreateInstance(CLSID_FilterGraph, NULL, CLSCTX_INPROC_SERVER, IID_IGraphBuilder, (void**)&m_pDirectShowGraphBuilder));
 
-	//创建IMediaControl和IMediaPosition接口对象
-	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IMediaControl, (void**)&m_pDirectShowMediaControl));//IMediaControl接口对象
-	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IMediaPosition, (void**)&m_pDirectShowMediaPosition));//IMediaPosition接口对象
-	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IMediaEvent, (void **)&m_pDirectShowMediaEvent));//m_pDirectShowMediaEvent接口对象
+	// 创建IMediaControl和IMediaPosition接口对象
+	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IMediaControl, (void**)&m_pDirectShowMediaControl));				// IMediaControl接口对象
+	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IMediaPosition, (void**)&m_pDirectShowMediaPosition));				// IMediaPosition接口对象
+	VERIFY(m_pDirectShowGraphBuilder->QueryInterface(IID_IMediaEvent, (void **)&m_pDirectShowMediaEvent));					// IMediaEvent接口对象
 
 	return S_OK;//OK
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectShowLoadFile(LPWSTR lpszFileName)
+// @Function:	 LoadFile(LPWSTR lpszFileName)
 // @Purpose: DirectShow 加载音频视频文件
 // @Since: v1.00a
 // @Para: LPWSTR lpszFileName(文件相对地址)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowLoadFile(LPWSTR lpszFileName)
+HRESULT DIRECTSHOW_CALLMETHOD DirectShow::LoadFile(LPWSTR lpszFileName)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//加载音频视频文件数据
+	// 加载音频视频文件数据
 	VERIFY(m_pDirectShowGraphBuilder->RenderFile(lpszFileName, NULL));
 
 	return S_OK;//OK
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectShowLoadAudio(LPWSTR lpszFileName)
+// @Function:	 LoadMP3(LPWSTR lpszFileName)
+// @Purpose: DirectShow 加载MP3音源文件(.mp3)
+// @Since: v1.00a
+// @Para: LPWSTR lpszFileName(MP3音源文件相对地址)
+// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
+//------------------------------------------------------------------
+HRESULT DIRECTSHOW_CALLMETHOD DirectShow::LoadMP3(LPWSTR lpszFileName)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	// 加载MP3音源文件数据
+	VERIFY(m_pDirectShowGraphBuilder->RenderFile(lpszFileName, NULL));
+
+	return S_OK;//OK
+}
+
+//------------------------------------------------------------------
+// @Function:	 LoadAudio(LPWSTR lpszFileName)
 // @Purpose: DirectShow 加载音频文件
 // @Since: v1.00a
 // @Para: LPWSTR lpszFileName(文件相对地址)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowLoadAudio(LPWSTR lpszFileName)
+HRESULT DIRECTSHOW_CALLMETHOD DirectShow::LoadAudio(LPWSTR lpszFileName)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//加载音频文件数据
+	// 加载音频文件数据
 	VERIFY(m_pDirectShowGraphBuilder->RenderFile(lpszFileName, NULL));
 
 	return S_OK;//OK
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectShowLoadVideo(LPWSTR lpszFileName)
+// @Function:	 LoadVideo(LPWSTR lpszFileName)
 // @Purpose: DirectShow 加载视频文件
 // @Since: v1.00a
 // @Para: LPWSTR lpszFileName(文件相对地址)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowLoadVideo(LPWSTR lpszFileName)
+HRESULT DIRECTSHOW_CALLMETHOD DirectShow::LoadVideo(LPWSTR lpszFileName)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//加载视频文件数据
+	// 加载视频文件数据
 	VERIFY(m_pDirectShowGraphBuilder->RenderFile(lpszFileName, NULL));
 
 	return S_OK;//OK

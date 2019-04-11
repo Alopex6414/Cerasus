@@ -97,26 +97,19 @@ public:
 	HRESULT							DIRECTSHOW_CALLMETHOD		LoadAudio(LPWSTR lpszFileName);				// DirectShow Load Audio File(~DirectShow 加载音频文件)
 	HRESULT							DIRECTSHOW_CALLMETHOD		LoadVideo(LPWSTR lpszFileName);				// DirectShow Load Audio File(~DirectShow 加载视频文件)
 
+	void							DIRECTSHOW_CALLMETHOD		MP3Play();																// DirectShow MP3 Play(~DirectShow 播放)
+	void							DIRECTSHOW_CALLMETHOD		MP3Pause();																// DirectShow MP3 Pause(~DirectShow 暂停)
+	void							DIRECTSHOW_CALLMETHOD		MP3Stop();																// DirectShow MP3 Stop(~DirectShow 停止)
+	void							DIRECTSHOW_CALLMETHOD		MP3GetDuration(REFTIME* pRefDuration) const;							// DirectShow MP3 GetDuration(~DirectShow 获取时间总长度)
+	void							DIRECTSHOW_CALLMETHOD		MP3GetCurrentPosition(REFTIME* pRefPosition) const;						// DirectShow MP3 GetCurrentPosition(~DirectShow 获取当前进度)
+	void							DIRECTSHOW_CALLMETHOD		MP3SetCurrentPosition(REFTIME RefPosition);								// DirectShow MP3 SetCurrentPosition(~DirectShow 设置当前进度)
 
-
-
-
-
-	//DirectShow播放MP3文件格式
-	void DIRECTSHOW_CALLMETHOD DirectShowMP3Play(void);							//DirectShow MP3 Play(DirectShow播放)
-	void DIRECTSHOW_CALLMETHOD DirectShowMP3Pause(void);						//DirectShow MP3 Pause(DirectShow暂停)
-	void DIRECTSHOW_CALLMETHOD DirectShowMP3Stop(void);							//DirectShow MP3 Stop(DirectShow停止)
-	void DIRECTSHOW_CALLMETHOD DirectShowMP3GetDuration(REFTIME* pRefDuration) const;			//DirectShow MP3 GetDuration(DirectShow获取时间总长度)
-	void DIRECTSHOW_CALLMETHOD DirectShowMP3GetCurrentPosition(REFTIME* pRefPosition) const;	//DirectShow MP3 GetCurrentPosition(DirectShow获取当前进度)
-	void DIRECTSHOW_CALLMETHOD DirectShowMP3SetCurrentPosition(REFTIME RefPosition);			//DirectShow MP3 SetCurrentPosition(DirectShow设置当前进度)
-
-	//DirectShow播放音频文件格式
-	void DIRECTSHOW_CALLMETHOD DirectShowAudioPlay(void);						//DirectShow Audio Play(DirectShow播放)
-	void DIRECTSHOW_CALLMETHOD DirectShowAudioPause(void);						//DirectShow Audio Pause(DirectShow暂停)
-	void DIRECTSHOW_CALLMETHOD DirectShowAudioStop(void);						//DirectShow Audio Stop(DirectShow停止)
-	void DIRECTSHOW_CALLMETHOD DirectShowAudioGetDuration(REFTIME* pRefDuration) const;			//DirectShow Audio GetDuration(DirectShow获取时间总长度)
-	void DIRECTSHOW_CALLMETHOD DirectShowAudioGetCurrentPosition(REFTIME* pRefPosition) const;	//DirectShow Audio GetCurrentPosition(DirectShow获取当前进度)
-	void DIRECTSHOW_CALLMETHOD DirectShowAudioSetCurrentPosition(REFTIME RefPosition);			//DirectShow Audio SetCurrentPosition(DirectShow设置当前进度)
+	void							DIRECTSHOW_CALLMETHOD		AudioPlay();															// DirectShow Audio Play(~DirectShow 播放)
+	void							DIRECTSHOW_CALLMETHOD		AudioPause();															// DirectShow Audio Pause(~DirectShow 暂停)
+	void							DIRECTSHOW_CALLMETHOD		AudioStop();															// DirectShow Audio Stop(~DirectShow 停止)
+	void							DIRECTSHOW_CALLMETHOD		AudioGetDuration(REFTIME* pRefDuration) const;							// DirectShow Audio GetDuration(~DirectShow 获取时间总长度)
+	void							DIRECTSHOW_CALLMETHOD		AudioGetCurrentPosition(REFTIME* pRefPosition) const;					// DirectShow Audio GetCurrentPosition(~DirectShow 获取当前进度)
+	void							DIRECTSHOW_CALLMETHOD		AudioSetCurrentPosition(REFTIME RefPosition);							// DirectShow Audio SetCurrentPosition(~DirectShow 设置当前进度)
 
 	//DirectShow播放视频文件格式
 	HRESULT DIRECTSHOW_CALLMETHOD DirectShowGetVideoInfo(void);									//DirectShow Get Video Information(DirectShow获取视频格式)

@@ -374,177 +374,161 @@ HRESULT DIRECTSHOW_CALLMETHOD DirectShow::LoadVideo(LPWSTR lpszFileName)
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectShowLoadMP3(LPWSTR lpszFileName)
-// @Purpose: DirectShow 加载MP3音源文件(.mp3)
-// @Since: v1.00a
-// @Para: LPWSTR lpszFileName(MP3音源文件相对地址)
-// @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
-//------------------------------------------------------------------
-HRESULT DIRECTSHOW_CALLMETHOD DirectShow::DirectShowLoadMP3(LPWSTR lpszFileName)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-
-	//加载MP3音源文件数据
-	VERIFY(m_pDirectShowGraphBuilder->RenderFile(lpszFileName, NULL));
-
-	return S_OK;//OK
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectShowAudioPlay(void)
-// @Purpose: DirectShow 播放音源文件
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTSHOW_CALLMETHOD DirectShow::DirectShowAudioPlay(void)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectShowMediaControl->Run();
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectShowAudioPause(void)
-// @Purpose: DirectShow 暂停播放音源文件
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTSHOW_CALLMETHOD DirectShow::DirectShowAudioPause(void)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectShowMediaControl->Pause();
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectShowAudioStop(void)
-// @Purpose: DirectShow 停止播放音源文件
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTSHOW_CALLMETHOD DirectShow::DirectShowAudioStop(void)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectShowMediaControl->Stop();
-}
-
-//---------------------------------------------------------------------------
-// @Function:	 DirectShowAudioGetDuration(REFTIME* pRefDuration) const
-// @Purpose: DirectShow 读取音源文件总长度
-// @Since: v1.00a
-// @Para: REFTIME* pRefDuration(文件总长度)
-// @Return: None
-//---------------------------------------------------------------------------
-void DIRECTSHOW_CALLMETHOD DirectShow::DirectShowAudioGetDuration(REFTIME* pRefDuration) const
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectShowMediaPosition->get_Duration(pRefDuration);
-}
-
-//---------------------------------------------------------------------------
-// @Function:	 DirectShowAudioGetCurrentPosition(REFTIME* pRefPosition) const
-// @Purpose: DirectShow 读取音源文件当前播放位置
-// @Since: v1.00a
-// @Para: REFTIME* pRefPosition(播放位置)
-// @Return: None
-//---------------------------------------------------------------------------
-void DIRECTSHOW_CALLMETHOD DirectShow::DirectShowAudioGetCurrentPosition(REFTIME* pRefPosition) const
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectShowMediaPosition->get_CurrentPosition(pRefPosition);
-}
-
-//---------------------------------------------------------------------------
-// @Function:	 DirectShowAudioSetCurrentPosition(REFTIME RefPosition)
-// @Purpose: DirectShow 设置音源文件当前播放位置
-// @Since: v1.00a
-// @Para: REFTIME RefPosition(播放位置)
-// @Return: None
-//---------------------------------------------------------------------------
-void DIRECTSHOW_CALLMETHOD DirectShow::DirectShowAudioSetCurrentPosition(REFTIME RefPosition)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectShowMediaPosition->put_CurrentPosition(RefPosition);
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectShowMP3Play(void)
+// @Function:	 MP3Play()
 // @Purpose: DirectShow 播放MP3音源文件(.mp3)
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTSHOW_CALLMETHOD DirectShow::DirectShowMP3Play(void)
+void DIRECTSHOW_CALLMETHOD DirectShow::MP3Play()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaControl->Run();
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectShowMP3Pause(void)
+// @Function:	 MP3Pause()
 // @Purpose: DirectShow 暂停MP3音源文件(.mp3)
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTSHOW_CALLMETHOD DirectShow::DirectShowMP3Pause(void)
+void DIRECTSHOW_CALLMETHOD DirectShow::MP3Pause()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaControl->Pause();
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectShowMP3Stop(void)
+// @Function:	 MP3Stop()
 // @Purpose: DirectShow 停止MP3音源文件(.mp3)
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTSHOW_CALLMETHOD DirectShow::DirectShowMP3Stop(void)
+void DIRECTSHOW_CALLMETHOD DirectShow::MP3Stop()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaControl->Stop();
 }
 
 //---------------------------------------------------------------------------
-// @Function:	 DirectShowMP3GetDuration(REFTIME* pRefDuration) const
+// @Function:	 MP3GetDuration(REFTIME * pRefDuration) const
 // @Purpose: DirectShow 读取MP3音源文件总长度
 // @Since: v1.00a
 // @Para: REFTIME* pRefDuration(文件总长度)
 // @Return: None
 //---------------------------------------------------------------------------
-void DIRECTSHOW_CALLMETHOD DirectShow::DirectShowMP3GetDuration(REFTIME* pRefDuration) const
+void DIRECTSHOW_CALLMETHOD DirectShow::MP3GetDuration(REFTIME * pRefDuration) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaPosition->get_Duration(pRefDuration);
 }
 
 //---------------------------------------------------------------------------
-// @Function:	 DirectShowMP3GetCurrentPosition(REFTIME* pRefPosition) const
+// @Function:	 MP3GetCurrentPosition(REFTIME * pRefPosition) const
 // @Purpose: DirectShow 读取MP3音源文件当前播放位置
 // @Since: v1.00a
 // @Para: REFTIME* pRefPosition(播放位置)
 // @Return: None
 //---------------------------------------------------------------------------
-void DIRECTSHOW_CALLMETHOD DirectShow::DirectShowMP3GetCurrentPosition(REFTIME* pRefPosition) const
+void DIRECTSHOW_CALLMETHOD DirectShow::MP3GetCurrentPosition(REFTIME * pRefPosition) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaPosition->get_CurrentPosition(pRefPosition);
 }
 
 //---------------------------------------------------------------------------
-// @Function:	 DirectShowMP3SetCurrentPosition(REFTIME RefPosition)
+// @Function:	 MP3SetCurrentPosition(REFTIME RefPosition)
 // @Purpose: DirectShow 设置MP3音源文件当前播放位置
 // @Since: v1.00a
 // @Para: REFTIME RefPosition(播放位置)
 // @Return: None
 //---------------------------------------------------------------------------
-void DIRECTSHOW_CALLMETHOD DirectShow::DirectShowMP3SetCurrentPosition(REFTIME RefPosition)
+void DIRECTSHOW_CALLMETHOD DirectShow::MP3SetCurrentPosition(REFTIME RefPosition)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaPosition->put_CurrentPosition(RefPosition);
 }
+
+//------------------------------------------------------------------
+// @Function:	 AudioPlay()
+// @Purpose: DirectShow 播放音源文件
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void DIRECTSHOW_CALLMETHOD DirectShow::AudioPlay()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectShowMediaControl->Run();
+}
+
+//------------------------------------------------------------------
+// @Function:	 AudioPause()
+// @Purpose: DirectShow 暂停MP3音源文件(.mp3)
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void DIRECTSHOW_CALLMETHOD DirectShow::AudioPause()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectShowMediaControl->Pause();
+}
+
+//------------------------------------------------------------------
+// @Function:	 AudioStop()
+// @Purpose: DirectShow 停止播放音源文件
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void DIRECTSHOW_CALLMETHOD DirectShow::AudioStop()
+{
+	return void DIRECTSHOW_CALLMETHOD();
+}
+
+//---------------------------------------------------------------------------
+// @Function:	 AudioGetDuration(REFTIME * pRefDuration) const
+// @Purpose: DirectShow 读取音源文件总长度
+// @Since: v1.00a
+// @Para: REFTIME* pRefDuration(文件总长度)
+// @Return: None
+//---------------------------------------------------------------------------
+void DIRECTSHOW_CALLMETHOD DirectShow::AudioGetDuration(REFTIME * pRefDuration) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectShowMediaPosition->get_Duration(pRefDuration);
+}
+
+//---------------------------------------------------------------------------
+// @Function:	 AudioGetCurrentPosition(REFTIME * pRefPosition) const
+// @Purpose: DirectShow 读取音源文件当前播放位置
+// @Since: v1.00a
+// @Para: REFTIME* pRefPosition(播放位置)
+// @Return: None
+//---------------------------------------------------------------------------
+void DIRECTSHOW_CALLMETHOD DirectShow::AudioGetCurrentPosition(REFTIME * pRefPosition) const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectShowMediaPosition->get_CurrentPosition(pRefPosition);
+}
+
+//---------------------------------------------------------------------------
+// @Function:	 AudioSetCurrentPosition(REFTIME RefPosition)
+// @Purpose: DirectShow 设置音源文件当前播放位置
+// @Since: v1.00a
+// @Para: REFTIME RefPosition(播放位置)
+// @Return: None
+//---------------------------------------------------------------------------
+void DIRECTSHOW_CALLMETHOD DirectShow::AudioSetCurrentPosition(REFTIME RefPosition)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	m_pDirectShowMediaPosition->put_CurrentPosition(RefPosition);
+}
+
+
 
 //------------------------------------------------------------------
 // @Function:	 DirectShowGetVideoInfo(void)

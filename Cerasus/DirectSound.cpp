@@ -83,13 +83,57 @@ DirectSound::DirectSound(bool bSafe) :
 	ZeroMemory(&m_DSPrimaryDesc, sizeof(m_DSPrimaryDesc));
 }
 
-DirectSound::DirectSound(const DirectSound&)
+//------------------------------------------------------------------
+// @Function:	 DirectSound(const DirectSound& Object)
+// @Purpose: DirectSound拷贝构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+DirectSound::DirectSound(const DirectSound& Object)
 {
+	m_bThreadSafe = Object.m_bThreadSafe;							// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);			// Initialize Critical Section
+
+	m_pDirectSound = Object.m_pDirectSound;
+	m_pDirectSoundBuffer = Object.m_pDirectSoundBuffer;
+	m_pDirectSoundPrimary = Object.m_pDirectSoundPrimary;
+	m_pDirectSound3DBuffer = Object.m_pDirectSound3DBuffer;
+	m_pDirectSound3DListener = Object.m_pDirectSound3DListener;
+
+	ZeroMemory(&m_DSBufferDesc, sizeof(m_DSBufferDesc));
+	ZeroMemory(&m_DSPrimaryDesc, sizeof(m_DSPrimaryDesc));
+	memcpy_s(&m_DSBufferDesc, sizeof(m_DSBufferDesc), &(Object.m_DSBufferDesc), sizeof(Object.m_DSBufferDesc));
+	memcpy_s(&m_DSPrimaryDesc, sizeof(m_DSPrimaryDesc), &(Object.m_DSPrimaryDesc), sizeof(Object.m_DSPrimaryDesc));
 }
 
-const DirectSound& DirectSound::operator=(const DirectSound&)
+//------------------------------------------------------------------
+// @Function:	 operator=(const DirectSound& Object)
+// @Purpose: DirectSound运算符重载
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+const DirectSound& DirectSound::operator=(const DirectSound& Object)
 {
-	// TODO: 在此处插入 return 语句
+	if (&Object != this)
+	{
+		m_bThreadSafe = Object.m_bThreadSafe;							// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+		if (m_bThreadSafe) InitializeCriticalSection(&m_cs);			// Initialize Critical Section
+
+		m_pDirectSound = Object.m_pDirectSound;
+		m_pDirectSoundBuffer = Object.m_pDirectSoundBuffer;
+		m_pDirectSoundPrimary = Object.m_pDirectSoundPrimary;
+		m_pDirectSound3DBuffer = Object.m_pDirectSound3DBuffer;
+		m_pDirectSound3DListener = Object.m_pDirectSound3DListener;
+
+		ZeroMemory(&m_DSBufferDesc, sizeof(m_DSBufferDesc));
+		ZeroMemory(&m_DSPrimaryDesc, sizeof(m_DSPrimaryDesc));
+		memcpy_s(&m_DSBufferDesc, sizeof(m_DSBufferDesc), &(Object.m_DSBufferDesc), sizeof(Object.m_DSBufferDesc));
+		memcpy_s(&m_DSPrimaryDesc, sizeof(m_DSPrimaryDesc), &(Object.m_DSPrimaryDesc), sizeof(Object.m_DSPrimaryDesc));
+	}
+
+	return *this;
 }
 
 //------------------------------------------------------------------------

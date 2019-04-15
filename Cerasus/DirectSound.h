@@ -76,15 +76,12 @@ public:
 	HRESULT							DIRECTSOUND_CALLMETHOD		Create(HWND hWnd);																// DirectSound Initialize(SoundCoopFlags:Normal)
 	HRESULT							DIRECTSOUND_CALLMETHOD		Create(HWND hWnd, DWORD dwSoundCoopFlags);										// DirectSound Initialize(Overload + 1)
 	HRESULT							DIRECTSOUND_CALLMETHOD		Create(HWND hWnd, E_DX_SOUND_COOPFLAGS_TYPE eDirectSoundCoopFlags);				// DirectSound Initialize(Overload + 2)
-
 	HRESULT							DIRECTSOUND_CALLMETHOD		Create3D(HWND hWnd);															// DirectSound3D Initialize(SoundCoopFlags:Priority)
 
+	HRESULT							DIRECTSOUND_CALLMETHOD		LoadWave(LPWSTR lpszFileName);													// DirectSound Load Wave(加载Wav)
+	HRESULT							DIRECTSOUND_CALLMETHOD		LoadWave3D(LPWSTR lpszFileName);												// DirectSound Load 3D Wave(加载Wav:3D)
 
-
-
-	//DirectSound加载
-	HRESULT DIRECTSOUND_CALLMETHOD DirectSoundLoadWave(LPWSTR lpszFileName);			//DirectSound Load Wave(加载Wav)
-	HRESULT DIRECTSOUND_CALLMETHOD DirectSoundLoad3DWave(LPWSTR lpszFileName);			//DirectSound Load 3D Wave(加载Wav:3D)
+	void							DIRECTSOUND_CALLMETHOD		Play();																			// DirectSound Play Wave(Once)(单次播放)
 
 	//DirectSound控制
 	void DIRECTSOUND_CALLMETHOD DirectSoundPlay(void);															//DirectSound Play Wave(Once)(单次播放)

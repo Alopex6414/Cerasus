@@ -305,32 +305,25 @@ HRESULT DIRECTSOUND_CALLMETHOD DirectSound::Create3D(HWND hWnd)
 	return S_OK;//OK
 }
 
-
-
-
-
-
-
-
 //------------------------------------------------------------------------
-// @Function:	DirectSoundLoadWave(LPWSTR lpszFileName)
+// @Function:	LoadWave(LPWSTR lpszFileName)
 // @Purpose: DirectSound 加载Wave音源文件(.wav)
 // @Since: v1.00a
 // @Para: LPWSTR lpszFileName(Wave音源文件相对地址)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------
-HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundLoadWave(LPWSTR lpszFileName)
+HRESULT DIRECTSOUND_CALLMETHOD DirectSound::LoadWave(LPWSTR lpszFileName)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	HMMIO hWave;
 	MMCKINFO Parent;
 	MMCKINFO Child;
 	MMRESULT result;
-	WAVEFORMATEX *pWaveFormatEx;
-	WAVEFORMATEX *pWaveFormatExDevice;
-	UCHAR *pSoundBuffer = NULL;
-	UCHAR *pAudioPtr1 = NULL;
-	UCHAR *pAudioPtr2 = NULL;
+	WAVEFORMATEX* pWaveFormatEx;
+	WAVEFORMATEX* pWaveFormatExDevice;
+	UCHAR* pSoundBuffer = NULL;
+	UCHAR* pAudioPtr1 = NULL;
+	UCHAR* pAudioPtr2 = NULL;
 	DWORD dwAudioLen1 = 0;
 	DWORD dwAudioLen2 = 0;
 
@@ -419,7 +412,7 @@ HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundLoadWave(LPWSTR lpszFileN
 	}
 
 	//写入声音缓冲区
-	m_pDirectSoundBuffer->Lock(0, Child.cksize, (void**)&pAudioPtr1, &dwAudioLen1, (void**)&pAudioPtr2, &dwAudioLen2, DSBLOCK_FROMWRITECURSOR);
+	m_pDirectSoundBuffer->Lock(0, Child.cksize, (void**)& pAudioPtr1, &dwAudioLen1, (void**)& pAudioPtr2, &dwAudioLen2, DSBLOCK_FROMWRITECURSOR);
 	memcpy(pAudioPtr1, pSoundBuffer, dwAudioLen1);
 	memcpy(pAudioPtr2, (pSoundBuffer + dwAudioLen1), dwAudioLen2);
 	m_pDirectSoundBuffer->Unlock(pAudioPtr1, dwAudioLen1, pAudioPtr2, dwAudioLen2);
@@ -432,24 +425,24 @@ HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundLoadWave(LPWSTR lpszFileN
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundLoad3DWave(LPWSTR lpszFileName)
+// @Function:	LoadWave3D(LPWSTR lpszFileName)
 // @Purpose: DirectSound 加载Wave音源文件(.wav)(3D)
 // @Since: v1.00a
 // @Para: LPWSTR lpszFileName(Wave音源文件相对地址)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------
-HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundLoad3DWave(LPWSTR lpszFileName)
+HRESULT DIRECTSOUND_CALLMETHOD DirectSound::LoadWave3D(LPWSTR lpszFileName)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	HMMIO hWave;
 	MMCKINFO Parent;
 	MMCKINFO Child;
 	MMRESULT result;
-	WAVEFORMATEX *pWaveFormatEx;
-	WAVEFORMATEX *pWaveFormatExDevice;
-	UCHAR *pSoundBuffer = NULL;
-	UCHAR *pAudioPtr1 = NULL;
-	UCHAR *pAudioPtr2 = NULL;
+	WAVEFORMATEX* pWaveFormatEx;
+	WAVEFORMATEX* pWaveFormatExDevice;
+	UCHAR* pSoundBuffer = NULL;
+	UCHAR* pAudioPtr1 = NULL;
+	UCHAR* pAudioPtr2 = NULL;
 	DWORD dwAudioLen1 = 0;
 	DWORD dwAudioLen2 = 0;
 
@@ -537,7 +530,7 @@ HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundLoad3DWave(LPWSTR lpszFil
 		return E_FAIL;//FAIL
 	}
 
-	if (m_pDirectSoundBuffer->QueryInterface(IID_IDirectSound3DBuffer, (void**)&m_pDirectSound3DBuffer) != DS_OK)
+	if (m_pDirectSoundBuffer->QueryInterface(IID_IDirectSound3DBuffer, (void**)& m_pDirectSound3DBuffer) != DS_OK)
 	{
 		SAFE_DELETE(pSoundBuffer);
 		return E_FAIL;//FAIL
@@ -550,7 +543,7 @@ HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundLoad3DWave(LPWSTR lpszFil
 	m_pDirectSound3DListener->SetOrientation(1, 0, 0, 0, 1, 0, 1);//脸朝向
 
 	//写入声音缓冲区
-	m_pDirectSoundBuffer->Lock(0, Child.cksize, (void**)&pAudioPtr1, &dwAudioLen1, (void**)&pAudioPtr2, &dwAudioLen2, DSBLOCK_FROMWRITECURSOR);
+	m_pDirectSoundBuffer->Lock(0, Child.cksize, (void**)& pAudioPtr1, &dwAudioLen1, (void**)& pAudioPtr2, &dwAudioLen2, DSBLOCK_FROMWRITECURSOR);
 	memcpy(pAudioPtr1, pSoundBuffer, dwAudioLen1);
 	memcpy(pAudioPtr2, (pSoundBuffer + dwAudioLen1), dwAudioLen2);
 	m_pDirectSoundBuffer->Unlock(pAudioPtr1, dwAudioLen1, pAudioPtr2, dwAudioLen2);

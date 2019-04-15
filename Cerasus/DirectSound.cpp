@@ -1,20 +1,21 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Sakura&Fantasy
 *     All rights reserved.
 *
 * @file		DirectSound.cpp
 * @brief	This Program is DirectSound DLL Project.
-* @author	Alopex/Helium
-* @version	v1.24a
+* @author	Alopex/Alice
+* @version	v1.25a
 * @date		2017-10-31	v1.00a	alopex	Create Project
 * @date		2017-12-03	v1.01a	alopex	Add Enum
-* @date		2017-12-8	v1.11a	alopex	Code Do Not Rely On MSVCR Library
+* @date		2017-12-08	v1.11a	alopex	Code Do Not Rely On MSVCR Library
 * @date		2018-01-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-01-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
 * @date		2018-04-12	v1.22a	alopex	Add Macro Call Mode.
 * @date		2018-06-22	v1.23a	alopex	Add Get Members Function.
 * @date		2018-11-23	v1.24a	alopex	Alter Call Method.
+* @date		2019-04-15	v1.24a	alopex	Add Notes.
 */
 #include "DirectCommon.h"
 #include "DirectSound.h"

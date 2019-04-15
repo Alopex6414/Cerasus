@@ -87,6 +87,22 @@ enum E_DX_MESH_GEOMETRY_TYPE
 	DM_TEAPOT = 5,									// Mesh Geometry(茶壶)
 };
 
+// Sound设备协作级别
+enum E_DX_SOUND_COOPFLAGS_TYPE
+{
+	DSCoopFlags_Normal = 0,							// DSSCL_NORMAL(正常)
+	DSCoopFlags_Priority = 1,						// DSSCL_PRIORITY(优先)
+	DSCoopFlags_Exclusive = 2,						// DSSCL_EXCLUSIVE(独占)
+	DSCoopFlags_WritePrimary = 3,					// DSSCL_WRITEPRIMARY(完全控制)
+};
+
+// Sound播放状态
+enum E_DX_SOUND_PLAYSTATE_TYPE
+{
+	DSPlayState_Loop = 0,							// PlayState:Loop(循环播放)
+	DSPlayState_Once = 1,							// PlayState:Once(单次播放)
+};
+
 /// Struct Definition
 // Vertex 2D Base(2D基本顶点格式)
 struct S_DX_VERTEX2D_BASE

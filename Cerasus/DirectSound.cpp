@@ -21,6 +21,8 @@
 #include "DirectSound.h"
 #include "DirectThreadSafe.h"
 
+// DirectX Sound Class(DirectX 音乐、音效输出)
+
 //------------------------------------------------------------------
 // @Function:	 DirectSound()
 // @Purpose: DirectSound构造函数
@@ -28,18 +30,18 @@
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-DirectSound::DirectSound()
+DirectSound::DirectSound() :
+	m_pDirectSound(NULL),
+	m_pDirectSoundBuffer(NULL),
+	m_pDirectSoundPrimary(NULL),
+	m_pDirectSound3DBuffer(NULL),
+	m_pDirectSound3DListener(NULL)
 {
-	m_bThreadSafe = true;//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);//初始化临界区
+	m_bThreadSafe = true;											// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);			// Initialize Critical Section
 
-	m_pDirectSound = NULL;//IDirectSound8接口对象指针初始化(NULL)
-	m_pDirectSoundBuffer = NULL;//IDirectSoundBuffer接口对象指针初始化(NULL)
-	m_pDirectSoundPrimary = NULL;//IDirectSoundBuffer接口对象指针初始化(NULL)(主缓冲区)
-	m_pDirectSound3DBuffer = NULL;//IDirectSound3DBuffer接口对象指针初始化(NULL)
-	m_pDirectSound3DListener = NULL;//IDirectSound3DListener接口对象指针初始化(NULL)
-	ZeroMemory(&m_DSBufferDesc, sizeof(m_DSBufferDesc));//清除m_DSBufferDesc内存
-	ZeroMemory(&m_DSPrimaryDesc, sizeof(m_DSPrimaryDesc));//清除m_DSPrimaryDesc内存
+	ZeroMemory(&m_DSBufferDesc, sizeof(m_DSBufferDesc));
+	ZeroMemory(&m_DSPrimaryDesc, sizeof(m_DSPrimaryDesc));
 }
 
 //------------------------------------------------------------------
@@ -51,13 +53,43 @@ DirectSound::DirectSound()
 //------------------------------------------------------------------
 DirectSound::~DirectSound()
 {
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	SAFE_RELEASE(m_pDirectSound3DListener);//IDirectSound3DListener释放
-	SAFE_RELEASE(m_pDirectSound3DBuffer);//IDirectSound3DBuffer释放
-	SAFE_RELEASE(m_pDirectSoundPrimary);//IDirectSoundBuffer释放(主缓冲区)
-	SAFE_RELEASE(m_pDirectSoundBuffer);//IDirectSoundBuffer释放
-	SAFE_RELEASE(m_pDirectSound);//IDirectSound释放
-	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);//删除临界区
+	SAFE_RELEASE(m_pDirectSound3DListener);
+	SAFE_RELEASE(m_pDirectSound3DBuffer);
+	SAFE_RELEASE(m_pDirectSoundPrimary);
+	SAFE_RELEASE(m_pDirectSoundBuffer);
+	SAFE_RELEASE(m_pDirectSound);
+
+	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);				// Delete Critical Section
+}
+
+//------------------------------------------------------------------
+// @Function:	 DirectSound(bool bSafe)
+// @Purpose: DirectSound构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+DirectSound::DirectSound(bool bSafe) :
+	m_pDirectSound(NULL),
+	m_pDirectSoundBuffer(NULL),
+	m_pDirectSoundPrimary(NULL),
+	m_pDirectSound3DBuffer(NULL),
+	m_pDirectSound3DListener(NULL)
+{
+	m_bThreadSafe = bSafe;											// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);			// Initialize Critical Section
+
+	ZeroMemory(&m_DSBufferDesc, sizeof(m_DSBufferDesc));
+	ZeroMemory(&m_DSPrimaryDesc, sizeof(m_DSPrimaryDesc));
+}
+
+DirectSound::DirectSound(const DirectSound&)
+{
+}
+
+const DirectSound& DirectSound::operator=(const DirectSound&)
+{
+	// TODO: 在此处插入 return 语句
 }
 
 //------------------------------------------------------------------------

@@ -56,8 +56,17 @@ protected:
 	bool m_bThreadSafe;											// Direct3D 9 Thread Safe Status(~D3D9线程安全状态)
 
 public:
-	DirectSound();	//DirectSound Constructor Function(构造函数)
-	~DirectSound();	//DirectSound Destructor Function(析构函数)
+	DirectSound();												// DirectSound Construction Function(~DirectSound构造函数)
+	~DirectSound();												// DirectSound Destruction Function(~DirectSound析构函数)
+
+	DirectSound(bool bSafe);									// DirectSound Construction Function(~DirectSound构造函数)(Overload + 1)
+	DirectSound(const DirectSound&);							// DirectSound Construction Function(~DirectSound拷贝构造函数)
+
+public:
+	const DirectSound& operator=(const DirectSound&);			// DirectSound Operater= Function(~DirectSound重载运算符'=')
+
+public:
+
 
 	//DirectSound访问
 	LPDIRECTSOUND8 DIRECTSOUND_CALLMETHOD DirectSoundGetSound(void) const;						//DirectSound Get Sound(DirectSound获取IDirectSound8接口指针)

@@ -66,27 +66,21 @@ public:
 	const DirectSound& operator=(const DirectSound&);			// DirectSound Operater= Function(~DirectSound重载运算符'=')
 
 public:
+	LPDIRECTSOUND8					DIRECTSOUND_CALLMETHOD		GetSound() const;							// DirectSound Get Sound(DirectSound获取IDirectSound8接口指针)
+	LPDIRECTSOUNDBUFFER				DIRECTSOUND_CALLMETHOD		GetSoundBuffer() const;						// DirectSound Get SoundBuffer(DirectSound获取IDirectSoundBuffer接口指针)
+	LPDIRECTSOUNDBUFFER				DIRECTSOUND_CALLMETHOD		GetSoundPrimary() const;					// DirectSound Get SoundBuffer(DirectSound获取IDirectSoundBuffer接口指针:主缓冲)
+	LPDIRECTSOUND3DBUFFER			DIRECTSOUND_CALLMETHOD		GetSound3DBuffer() const;					// DirectSound Get Sound3DBuffer(DirectSound获取IDirectSound3DBuffer接口指针)
+	LPDIRECTSOUND3DLISTENER			DIRECTSOUND_CALLMETHOD		GetSound3DListener() const;					// DirectSound Get Sound3DListener(DirectSound获取IDirectSound3DBuffer接口指针:收听缓冲)
+
+public:
+	HRESULT							DIRECTSOUND_CALLMETHOD		Create(HWND hWnd);																// DirectSound Initialize(SoundCoopFlags:Normal)
+	HRESULT							DIRECTSOUND_CALLMETHOD		Create(HWND hWnd, DWORD dwSoundCoopFlags);										// DirectSound Initialize(Overload + 1)
+	HRESULT							DIRECTSOUND_CALLMETHOD		Create(HWND hWnd, E_DX_SOUND_COOPFLAGS_TYPE eDirectSoundCoopFlags);				// DirectSound Initialize(Overload + 2)
+
+	HRESULT							DIRECTSOUND_CALLMETHOD		Create3D(HWND hWnd);															// DirectSound3D Initialize(SoundCoopFlags:Priority)
 
 
-	//DirectSound访问
-	LPDIRECTSOUND8 DIRECTSOUND_CALLMETHOD DirectSoundGetSound(void) const;						//DirectSound Get Sound(DirectSound获取IDirectSound8接口指针)
-	LPDIRECTSOUNDBUFFER DIRECTSOUND_CALLMETHOD DirectSoundGetSoundBuffer(void) const;			//DirectSound Get SoundBuffer(DirectSound获取IDirectSoundBuffer接口指针)
-	LPDIRECTSOUNDBUFFER DIRECTSOUND_CALLMETHOD DirectSoundGetSoundPrimary(void) const;			//DirectSound Get SoundBuffer(DirectSound获取IDirectSoundBuffer接口指针:主缓冲)
-	LPDIRECTSOUND3DBUFFER DIRECTSOUND_CALLMETHOD DirectSoundGetSound3DBuffer(void) const;		//DirectSound Get Sound3DBuffer(DirectSound获取IDirectSound3DBuffer接口指针)
-	LPDIRECTSOUND3DLISTENER DIRECTSOUND_CALLMETHOD DirectSoundGetSound3DListener(void) const;	//DirectSound Get Sound3DListener(DirectSound获取IDirectSound3DBuffer接口指针:收听缓冲)
-	
-	//DirectSound控制
-	void DIRECTSOUND_CALLMETHOD DirectSoundSetSound(LPDIRECTSOUND8 pDirectSound);									//DirectSound Set Sound(DirectSound设置IDirectSound8接口指针)
-	void DIRECTSOUND_CALLMETHOD DirectSoundSetSoundBuffer(LPDIRECTSOUNDBUFFER pDirectSoundBuffer);					//DirectSound Set SoundBuffer(DirectSound设置IDirectSoundBuffer接口指针)
-	void DIRECTSOUND_CALLMETHOD DirectSoundSetSoundPrimary(LPDIRECTSOUNDBUFFER pDirectSoundPrimary);				//DirectSound Set SoundBuffer(DirectSound设置IDirectSoundBuffer接口指针:主缓冲)
-	void DIRECTSOUND_CALLMETHOD DirectSoundSetSound3DBuffer(LPDIRECTSOUND3DBUFFER pDirectSound3DBuffer);			//DirectSound Set Sound3DBuffer(DirectSound设置IDirectSound3DBuffer接口指针)
-	void DIRECTSOUND_CALLMETHOD DirectSoundSetSound3DListener(LPDIRECTSOUND3DLISTENER pDirectSound3DListener);		//DirectSound Set Sound3DListener(DirectSound设置IDirectSound3DBuffer接口指针:收听缓冲)
 
-	//DirectSound初始化
-	HRESULT DIRECTSOUND_CALLMETHOD DirectSoundInit(HWND hWnd);													//DirectSound Initialize(SoundCoopFlags:Normal)
-	HRESULT DIRECTSOUND_CALLMETHOD DirectSoundInit(HWND hWnd, DWORD dwSoundCoopFlags);							//DirectSound Initialize(重载+1)
-	HRESULT DIRECTSOUND_CALLMETHOD DirectSoundInit(HWND hWnd, DirectSoundCoopFlags eDirectSoundCoopFlags);		//DirectSound Initialize(重载+2)
-	HRESULT DIRECTSOUND_CALLMETHOD DirectSound3DInit(HWND hWnd);												//DirectSound3D Initialize(SoundCoopFlags:Priority)
 
 	//DirectSound加载
 	HRESULT DIRECTSOUND_CALLMETHOD DirectSoundLoadWave(LPWSTR lpszFileName);			//DirectSound Load Wave(加载Wav)

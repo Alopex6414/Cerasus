@@ -137,189 +137,124 @@ const DirectSound& DirectSound::operator=(const DirectSound& Object)
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundGetSound()
+// @Function:	GetSound() const
 // @Purpose: DirectSound 获取IDirectSound8接口指针
 // @Since: v1.00a
 // @Para: None
 // @Return: LPDIRECTSOUND8
 //------------------------------------------------------------------------
-LPDIRECTSOUND8 DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundGetSound(void) const
+LPDIRECTSOUND8 DIRECTSOUND_CALLMETHOD DirectSound::GetSound() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pDirectSound;
-};
+}
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundGetSoundBuffer()
+// @Function:	GetSoundBuffer() const
 // @Purpose: DirectSound 获取IDirectSoundBuffer接口指针
 // @Since: v1.00a
 // @Para: None
 // @Return: LPDIRECTSOUNDBUFFER
 //------------------------------------------------------------------------
-LPDIRECTSOUNDBUFFER DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundGetSoundBuffer(void) const
+LPDIRECTSOUNDBUFFER DIRECTSOUND_CALLMETHOD DirectSound::GetSoundBuffer() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pDirectSoundBuffer;
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundGetSoundBuffer()
+// @Function:	GetSoundPrimary() const
 // @Purpose: DirectSound 获取IDirectSoundBuffer接口指针
 // @Since: v1.00a
 // @Para: None
 // @Return: LPDIRECTSOUNDBUFFER
 //------------------------------------------------------------------------
-LPDIRECTSOUNDBUFFER DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundGetSoundPrimary(void) const
+LPDIRECTSOUNDBUFFER DIRECTSOUND_CALLMETHOD DirectSound::GetSoundPrimary() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pDirectSoundPrimary;
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundGetSound3DBuffer()
+// @Function:	GetSound3DBuffer() const
 // @Purpose: DirectSound 获取IDirectSound3DBuffer接口指针
 // @Since: v1.00a
 // @Para: None
 // @Return: LPDIRECTSOUND3DBUFFER
 //------------------------------------------------------------------------
-LPDIRECTSOUND3DBUFFER DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundGetSound3DBuffer(void) const
+LPDIRECTSOUND3DBUFFER DIRECTSOUND_CALLMETHOD DirectSound::GetSound3DBuffer() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pDirectSound3DBuffer;
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundGetSound3DListener()
+// @Function:	GetSound3DListener() const
 // @Purpose: DirectSound 获取IDirectSound3DBuffer接口指针
 // @Since: v1.00a
 // @Para: None
 // @Return: LPDIRECTSOUND3DLISTENER
 //------------------------------------------------------------------------
-LPDIRECTSOUND3DLISTENER DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundGetSound3DListener(void) const
+LPDIRECTSOUND3DLISTENER DIRECTSOUND_CALLMETHOD DirectSound::GetSound3DListener() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pDirectSound3DListener;
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundSetSound()
-// @Purpose: DirectSound 设置IDirectSound3DBuffer接口指针
-// @Since: v1.00a
-// @Para: None
-// @Return: LPDIRECTSOUND8
-//------------------------------------------------------------------------
-void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetSound(LPDIRECTSOUND8 pDirectSound)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectSound = pDirectSound;
-}
-
-//------------------------------------------------------------------------
-// @Function:	DirectSoundSetSoundBuffer()
-// @Purpose: DirectSound 设置IDirectSoundBuffer接口指针
-// @Since: v1.00a
-// @Para: None
-// @Return: LPDIRECTSOUNDBUFFER
-//------------------------------------------------------------------------
-void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetSoundBuffer(LPDIRECTSOUNDBUFFER pDirectSoundBuffer)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectSoundBuffer = pDirectSoundBuffer;
-}
-
-//------------------------------------------------------------------------
-// @Function:	DirectSoundSetSoundBuffer()
-// @Purpose: DirectSound 设置IDirectSoundBuffer接口指针
-// @Since: v1.00a
-// @Para: None
-// @Return: LPDIRECTSOUNDBUFFER
-//------------------------------------------------------------------------
-void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetSoundPrimary(LPDIRECTSOUNDBUFFER pDirectSoundPrimary)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectSoundPrimary = pDirectSoundPrimary;
-}
-
-//------------------------------------------------------------------------
-// @Function:	DirectSoundSetSound3DBuffer()
-// @Purpose: DirectSound 设置IDirectSound3DBuffer接口指针
-// @Since: v1.00a
-// @Para: None
-// @Return: LPDIRECTSOUND3DBUFFER
-//------------------------------------------------------------------------
-void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetSound3DBuffer(LPDIRECTSOUND3DBUFFER pDirectSound3DBuffer)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectSound3DBuffer = pDirectSound3DBuffer;
-}
-
-//------------------------------------------------------------------------
-// @Function:	DirectSoundSetSound3DListener()
-// @Purpose: DirectSound 设置IDirectSound3DBuffer接口指针
-// @Since: v1.00a
-// @Para: None
-// @Return: LPDIRECTSOUND3DLISTENER
-//------------------------------------------------------------------------
-void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetSound3DListener(LPDIRECTSOUND3DLISTENER pDirectSound3DListener)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectSound3DListener = pDirectSound3DListener;
-}
-
-//------------------------------------------------------------------------
-// @Function:	DirectSoundInit(HWND hWnd)
+// @Function:	Create(HWND hWnd)
 // @Purpose: DirectSound 初始化
 // @Since: v1.00a
 // @Para: HWND hWnd(窗口句柄)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------
-HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundInit(HWND hWnd)
+HRESULT DIRECTSOUND_CALLMETHOD DirectSound::Create(HWND hWnd)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//创建IDirectSound8接口对象
-	VERIFY(DirectSoundCreate8(NULL, &m_pDirectSound, NULL));//创建IDirectSound8接口对象
-	VERIFY(m_pDirectSound->SetCooperativeLevel(hWnd, DSSCL_NORMAL));//设置DirectSound协作级别(Normal模式)
+	// 创建IDirectSound8接口对象
+	VERIFY(DirectSoundCreate8(NULL, &m_pDirectSound, NULL));					// 创建IDirectSound8接口对象
+	VERIFY(m_pDirectSound->SetCooperativeLevel(hWnd, DSSCL_NORMAL));			// 设置DirectSound协作级别(Normal模式)
 
-	return S_OK;//OK
+	return S_OK;//OK 
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundInit(HWND hWnd, DWORD dwSoundCoopFlags)
+// @Function:	Create(HWND hWnd, DWORD dwSoundCoopFlags)
 // @Purpose: DirectSound 初始化
 // @Since: v1.00a
 // @Para: HWND hWnd(窗口句柄)
 // @Para: DWORD dwSoundCoopFlags(声音协作级别)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------
-HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundInit(HWND hWnd, DWORD dwSoundCoopFlags)
+HRESULT DIRECTSOUND_CALLMETHOD DirectSound::Create(HWND hWnd, DWORD dwSoundCoopFlags)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//创建IDirectSound8接口对象
-	VERIFY(DirectSoundCreate8(NULL, &m_pDirectSound, NULL));//创建IDirectSound8接口对象
-	VERIFY(m_pDirectSound->SetCooperativeLevel(hWnd, dwSoundCoopFlags));//设置DirectSound协作级别
+	// 创建IDirectSound8接口对象
+	VERIFY(DirectSoundCreate8(NULL, &m_pDirectSound, NULL));					// 创建IDirectSound8接口对象
+	VERIFY(m_pDirectSound->SetCooperativeLevel(hWnd, dwSoundCoopFlags));		// 设置DirectSound协作级别
 
 	return S_OK;//OK
 }
 
 //------------------------------------------------------------------------------------
-// @Function:	DirectSoundInit(HWND hWnd, DirectSoundCoopFlags eDirectSoundCoopFlags)
+// @Function:	Create(HWND hWnd, E_DX_SOUND_COOPFLAGS_TYPE eDirectSoundCoopFlags)
 // @Purpose: DirectSound 初始化
 // @Since: v1.00a
 // @Para: HWND hWnd(窗口句柄)
 // @Para: DirectSoundCoopFlags eDirectSoundCoopFlags(枚举类型:声音协作级别)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------------------
-HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundInit(HWND hWnd, DirectSoundCoopFlags eDirectSoundCoopFlags)
+HRESULT DIRECTSOUND_CALLMETHOD DirectSound::Create(HWND hWnd, E_DX_SOUND_COOPFLAGS_TYPE eDirectSoundCoopFlags)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	DWORD dwSoundCoopFlags;
 
-	//创建IDirectSound8接口对象
-	VERIFY(DirectSoundCreate8(NULL, &m_pDirectSound, NULL));//创建IDirectSound8接口对象
+	// 创建IDirectSound8接口对象
+	VERIFY(DirectSoundCreate8(NULL, &m_pDirectSound, NULL));					// 创建IDirectSound8接口对象
 
-	//填充设备协作级别
+	// 填充设备协作级别
 	switch (eDirectSoundCoopFlags)
 	{
 	case DSCoopFlags_Normal:
@@ -338,37 +273,44 @@ HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundInit(HWND hWnd, DirectSou
 		break;
 	}
 
-	//设置DirectSound协作级别
-	VERIFY(m_pDirectSound->SetCooperativeLevel(hWnd, dwSoundCoopFlags));//设置DirectSound协作级别
+	// 设置DirectSound协作级别
+	VERIFY(m_pDirectSound->SetCooperativeLevel(hWnd, dwSoundCoopFlags));		// 设置DirectSound协作级别
 
 	return S_OK;//OK
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSound3DInit(HWND hWnd)
+// @Function:	Create3D(HWND hWnd)
 // @Purpose: DirectSound3D 初始化
 // @Since: v1.00a
 // @Para: HWND hWnd(窗口句柄)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------------
-HRESULT DIRECTSOUND_CALLMETHOD DirectSound::DirectSound3DInit(HWND hWnd)
+HRESULT DIRECTSOUND_CALLMETHOD DirectSound::Create3D(HWND hWnd)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	//创建IDirectSound8接口对象
-	VERIFY(DirectSoundCreate8(NULL, &m_pDirectSound, NULL));//创建IDirectSound8接口对象
-	VERIFY(m_pDirectSound->SetCooperativeLevel(hWnd, DSSCL_PRIORITY));//设置DirectSound协作级别(Priority模式)
+	// 创建IDirectSound8接口对象
+	VERIFY(DirectSoundCreate8(NULL, &m_pDirectSound, NULL));					// 创建IDirectSound8接口对象
+	VERIFY(m_pDirectSound->SetCooperativeLevel(hWnd, DSSCL_PRIORITY));			// 设置DirectSound协作级别(Priority模式)
 
-	//创建IDirectSoundBuffer接口对象(主缓冲区)
+	// 创建IDirectSoundBuffer接口对象(主缓冲区)
 	ZeroMemory(&m_DSPrimaryDesc, sizeof(m_DSPrimaryDesc));
 	m_DSPrimaryDesc.dwSize = sizeof(DSBUFFERDESC);
 	m_DSPrimaryDesc.dwFlags = DSBCAPS_CTRL3D | DSBCAPS_PRIMARYBUFFER;
 
-	VERIFY(m_pDirectSound->CreateSoundBuffer(&m_DSPrimaryDesc, &m_pDirectSoundPrimary, NULL));//创建声音主缓冲区
-	VERIFY(m_pDirectSoundPrimary->QueryInterface(IID_IDirectSound3DListener, (void**)&m_pDirectSound3DListener));//创建3D Listener
+	VERIFY(m_pDirectSound->CreateSoundBuffer(&m_DSPrimaryDesc, &m_pDirectSoundPrimary, NULL));								// 创建声音主缓冲区
+	VERIFY(m_pDirectSoundPrimary->QueryInterface(IID_IDirectSound3DListener, (void**)& m_pDirectSound3DListener));			// 创建3D Listener
 
 	return S_OK;//OK
 }
+
+
+
+
+
+
+
 
 //------------------------------------------------------------------------
 // @Function:	DirectSoundLoadWave(LPWSTR lpszFileName)

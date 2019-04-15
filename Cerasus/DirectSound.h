@@ -35,23 +35,25 @@
 
 #define DIRECTSOUND_CALLMETHOD	__stdcall
 
-#define DSVOLUME_DB(Volume)	((LONG)(-30*(100 - Volume)))	//音量(分贝)
+#define DSVOLUME_DB(V)			((LONG)(-30 * (100 - V)))
 
 // Class Definition
 class DIRECTSOUND_API DirectSound
 {
 private:
-	LPDIRECTSOUND8 m_pDirectSound;								//IDirectSound8 Interface Pointer(IDirectSound8接口指针)
-	LPDIRECTSOUNDBUFFER m_pDirectSoundBuffer;					//IDirectSoundBuffer Interface Pointer(IDirectSoundBuffer接口指针)
-	LPDIRECTSOUNDBUFFER m_pDirectSoundPrimary;					//IDirectSoundBuffer Interface Pointer(IDirectSoundBuffer接口指针:主缓冲)
-	LPDIRECTSOUND3DBUFFER m_pDirectSound3DBuffer;				//IDirectSound3DBuffer Interface Pointer(IDirectSound3DBuffer接口指针)
-	LPDIRECTSOUND3DLISTENER m_pDirectSound3DListener;			//IDirectSound3DListener Interface Pointer(IDirectSound3DBuffer接口指针:收听缓冲)
+	LPDIRECTSOUND8 m_pDirectSound;								// IDirectSound8 Interface Pointer(IDirectSound8接口指针)
+	LPDIRECTSOUNDBUFFER m_pDirectSoundBuffer;					// IDirectSoundBuffer Interface Pointer(IDirectSoundBuffer接口指针)
+	LPDIRECTSOUNDBUFFER m_pDirectSoundPrimary;					// IDirectSoundBuffer Interface Pointer(IDirectSoundBuffer接口指针:主缓冲)
+	LPDIRECTSOUND3DBUFFER m_pDirectSound3DBuffer;				// IDirectSound3DBuffer Interface Pointer(IDirectSound3DBuffer接口指针)
+	LPDIRECTSOUND3DLISTENER m_pDirectSound3DListener;			// IDirectSound3DListener Interface Pointer(IDirectSound3DBuffer接口指针:收听缓冲)
 
-	DSBUFFERDESC m_DSPrimaryDesc;	//DirectSount Wave Buffer(Main)(主缓冲)
-	DSBUFFERDESC m_DSBufferDesc;	//DirectSount Wave Buffer(副缓冲)
+private:
+	DSBUFFERDESC m_DSPrimaryDesc;								// DirectSount Wave Buffer(Main)(~DirectSound主缓冲)
+	DSBUFFERDESC m_DSBufferDesc;								// DirectSount Wave Buffer(~DirectSound副缓冲)
 
-	CRITICAL_SECTION m_cs;			//Thread Safe(CriticalSection)
-	bool m_bThreadSafe;				//Thread Safe Status
+protected:
+	CRITICAL_SECTION m_cs;										// Direct3D 9 Thread Safe(CriticalSection)(~D3D9临界区变量)
+	bool m_bThreadSafe;											// Direct3D 9 Thread Safe Status(~D3D9线程安全状态)
 
 public:
 	DirectSound();	//DirectSound Constructor Function(构造函数)

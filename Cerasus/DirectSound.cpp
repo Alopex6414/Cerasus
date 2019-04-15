@@ -556,67 +556,94 @@ HRESULT DIRECTSOUND_CALLMETHOD DirectSound::LoadWave3D(LPWSTR lpszFileName)
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundPlay(void)
+// @Function:	Play()
 // @Purpose: DirectSound 播放Wave音源文件(循环播放)
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundPlay(void)
+void DIRECTSOUND_CALLMETHOD DirectSound::Play()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectSoundBuffer->Play(NULL, NULL, NULL);//单次播放 Once
+	m_pDirectSoundBuffer->Play(NULL, NULL, NULL);
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundPlay(DirectSoundPlayState eDSPlayState_X)
+// @Function:	Play(E_DX_SOUND_PLAYSTATE_TYPE eDSPlayState_X)
 // @Purpose: DirectSound 播放Wave音源文件
 // @Since: v1.00a
 // @Para: DirectSoundPlayState eDSPlayState_X(播放状态)
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundPlay(DirectSoundPlayState eDSPlayState_X)
+void DIRECTSOUND_CALLMETHOD DirectSound::Play(E_DX_SOUND_PLAYSTATE_TYPE eDSPlayState_X)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
 	switch (eDSPlayState_X)
 	{
-	case DSPlayState_Loop://Loop
+	case DSPlayState_Loop:
 		m_pDirectSoundBuffer->Play(NULL, NULL, DSBPLAY_LOOPING);
 		break;
-	case DSPlayState_Once://Once
+	case DSPlayState_Once:
 		m_pDirectSoundBuffer->Play(NULL, NULL, NULL);
 		break;
 	default:
 		break;
 	}
+
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundPlayOnce(void)
+// @Function:	PlayOnce()
 // @Purpose: DirectSound 播放Wave音源文件(单次播放)
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundPlayOnce(void)
+void DIRECTSOUND_CALLMETHOD DirectSound::PlayOnce()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectSoundBuffer->Play(NULL, NULL, NULL);//单次播放 Once
+	m_pDirectSoundBuffer->Play(NULL, NULL, NULL);
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundPlayLoop(void)
+// @Function:	PlayLoop()
 // @Purpose: DirectSound 播放Wave音源文件(循环播放)
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundPlayLoop(void)
+void DIRECTSOUND_CALLMETHOD DirectSound::PlayLoop()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectSoundBuffer->Play(NULL, NULL, DSBPLAY_LOOPING);//循环播放 Loop
+	m_pDirectSoundBuffer->Play(NULL, NULL, DSBPLAY_LOOPING);
 }
+
+void DIRECTSOUND_CALLMETHOD DirectSound::Stop()
+{
+	return void DIRECTSOUND_CALLMETHOD();
+}
+
+void DIRECTSOUND_CALLMETHOD DirectSound::SetVolume(LONG lVolume)
+{
+	return void DIRECTSOUND_CALLMETHOD();
+}
+
+void DIRECTSOUND_CALLMETHOD DirectSound::SetFrequency(DWORD dwFrequency)
+{
+	return void DIRECTSOUND_CALLMETHOD();
+}
+
+void DIRECTSOUND_CALLMETHOD DirectSound::SoundSetPan(LONG lPan)
+{
+	return void DIRECTSOUND_CALLMETHOD();
+}
+
+void DIRECTSOUND_CALLMETHOD DirectSound::SetCurrentPosition(DWORD dwNewPositon)
+{
+	return void DIRECTSOUND_CALLMETHOD();
+}
+
 
 //------------------------------------------------------------------------
 // @Function:	DirectSoundStop(void)

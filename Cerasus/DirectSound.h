@@ -82,12 +82,17 @@ public:
 	HRESULT							DIRECTSOUND_CALLMETHOD		LoadWave3D(LPWSTR lpszFileName);												// DirectSound Load 3D Wave(加载Wav:3D)
 
 	void							DIRECTSOUND_CALLMETHOD		Play();																			// DirectSound Play Wave(Once)(单次播放)
+	void							DIRECTSOUND_CALLMETHOD		Play(E_DX_SOUND_PLAYSTATE_TYPE eDSPlayState_X);									// DirectSound Play Wave(单次播放/循环播放)(Overload + 1)
+	void							DIRECTSOUND_CALLMETHOD		PlayOnce();																		// DirectSound Play Wave(Once)(单次播放)
+	void							DIRECTSOUND_CALLMETHOD		PlayLoop();																		// DirectSound Play Wave(Loop)(循环播放)
 
-	//DirectSound控制
-	void DIRECTSOUND_CALLMETHOD DirectSoundPlay(void);															//DirectSound Play Wave(Once)(单次播放)
-	void DIRECTSOUND_CALLMETHOD DirectSoundPlay(DirectSoundPlayState eDSPlayState_X);							//DirectSound Play Wave(单次播放/循环播放)(重载+1)
-	void DIRECTSOUND_CALLMETHOD DirectSoundPlayOnce(void);														//DirectSound Play Wave(Once)(单次播放)
-	void DIRECTSOUND_CALLMETHOD DirectSoundPlayLoop(void);														//DirectSound Play Wave(Loop)(循环播放)
+	void							DIRECTSOUND_CALLMETHOD		Stop();																			// DirectSound Stop Play(停止播放)
+
+	void							DIRECTSOUND_CALLMETHOD		SetVolume(LONG lVolume);														// DirectSound SetVolume(设置音量)
+	void							DIRECTSOUND_CALLMETHOD		SetFrequency(DWORD dwFrequency);												// DirectSound SetFrequency(设置频率)
+	void							DIRECTSOUND_CALLMETHOD		SoundSetPan(LONG lPan);															// DirectSound SetPan(No 3D Voice)(设置声道平衡:不支持3D)
+	void							DIRECTSOUND_CALLMETHOD		SetCurrentPosition(DWORD dwNewPositon);											// DirectSound SetCurrentPosition(设置播放进度)
+
 	void DIRECTSOUND_CALLMETHOD DirectSoundStop(void);															//DirectSound Stop Play(停止播放)
 	void DIRECTSOUND_CALLMETHOD DirectSoundSetVolume(LONG lVolume);												//DirectSound SetVolume(设置音量)
 	void DIRECTSOUND_CALLMETHOD DirectSoundSetFrequency(DWORD dwFrequency);										//DirectSound SetFrequency(设置频率)

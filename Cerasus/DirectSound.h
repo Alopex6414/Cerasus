@@ -93,11 +93,6 @@ public:
 	void							DIRECTSOUND_CALLMETHOD		SoundSetPan(LONG lPan);															// DirectSound SetPan(No 3D Voice)(设置声道平衡:不支持3D)
 	void							DIRECTSOUND_CALLMETHOD		SetCurrentPosition(DWORD dwNewPositon);											// DirectSound SetCurrentPosition(设置播放进度)
 
-	void DIRECTSOUND_CALLMETHOD DirectSoundStop(void);															//DirectSound Stop Play(停止播放)
-	void DIRECTSOUND_CALLMETHOD DirectSoundSetVolume(LONG lVolume);												//DirectSound SetVolume(设置音量)
-	void DIRECTSOUND_CALLMETHOD DirectSoundSetFrequency(DWORD dwFrequency);										//DirectSound SetFrequency(设置频率)
-	void DIRECTSOUND_CALLMETHOD DirectSoundSetPan(LONG lPan);													//DirectSound SetPan(No 3D Voice)(设置声道平衡:不支持3D)
-	void DIRECTSOUND_CALLMETHOD DirectSoundSetCurrentPosition(DWORD dwNewPositon);								//DirectSound SetCurrentPosition(设置播放进度)
 };
 
 #endif

@@ -619,53 +619,28 @@ void DIRECTSOUND_CALLMETHOD DirectSound::PlayLoop()
 	m_pDirectSoundBuffer->Play(NULL, NULL, DSBPLAY_LOOPING);
 }
 
-void DIRECTSOUND_CALLMETHOD DirectSound::Stop()
-{
-	return void DIRECTSOUND_CALLMETHOD();
-}
-
-void DIRECTSOUND_CALLMETHOD DirectSound::SetVolume(LONG lVolume)
-{
-	return void DIRECTSOUND_CALLMETHOD();
-}
-
-void DIRECTSOUND_CALLMETHOD DirectSound::SetFrequency(DWORD dwFrequency)
-{
-	return void DIRECTSOUND_CALLMETHOD();
-}
-
-void DIRECTSOUND_CALLMETHOD DirectSound::SoundSetPan(LONG lPan)
-{
-	return void DIRECTSOUND_CALLMETHOD();
-}
-
-void DIRECTSOUND_CALLMETHOD DirectSound::SetCurrentPosition(DWORD dwNewPositon)
-{
-	return void DIRECTSOUND_CALLMETHOD();
-}
-
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundStop(void)
+// @Function:	Stop()
 // @Purpose: DirectSound 停止播放Wave音源文件
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundStop(void)
+void DIRECTSOUND_CALLMETHOD DirectSound::Stop()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectSoundBuffer->Stop();//停止播放
+	m_pDirectSoundBuffer->Stop();
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundSetVolume(LONG dwVolume)
+// @Function:	SetVolume(LONG lVolume)
 // @Purpose: DirectSound 设置Wave音源音量
 // @Since: v1.00a
 // @Para: LONG lVolume(-10000~0)
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetVolume(LONG lVolume)
+void DIRECTSOUND_CALLMETHOD DirectSound::SetVolume(LONG lVolume)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -673,6 +648,7 @@ void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetVolume(LONG lVolume)
 	{
 		lVolume = DSBVOLUME_MIN;
 	}
+
 	if (lVolume > DSBVOLUME_MAX)
 	{
 		lVolume = DSBVOLUME_MAX;
@@ -682,13 +658,13 @@ void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetVolume(LONG lVolume)
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundSetFrequency(DWORD dwFrequency)
+// @Function:	SetFrequency(DWORD dwFrequency)
 // @Purpose: DirectSound 设置Wave音源频率
 // @Since: v1.00a
 // @Para: DWORD dwFrequency(100Hz~200,000Hz)
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetFrequency(DWORD dwFrequency)
+void DIRECTSOUND_CALLMETHOD DirectSound::SetFrequency(DWORD dwFrequency)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -696,6 +672,7 @@ void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetFrequency(DWORD dwFrequen
 	{
 		dwFrequency = DSBFREQUENCY_MIN;
 	}
+
 	if (dwFrequency > DSBFREQUENCY_MAX)
 	{
 		dwFrequency = DSBFREQUENCY_MAX;
@@ -705,13 +682,13 @@ void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetFrequency(DWORD dwFrequen
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundSetPan(LONG lPan)
+// @Function:	SoundSetPan(LONG lPan)
 // @Purpose: DirectSound 设置Wave音源声道平衡
 // @Since: v1.00a
 // @Para: LONG lPan
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetPan(LONG lPan)
+void DIRECTSOUND_CALLMETHOD DirectSound::SoundSetPan(LONG lPan)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -719,22 +696,23 @@ void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetPan(LONG lPan)
 	{
 		lPan = DSBPAN_LEFT;
 	}
+
 	if (lPan > DSBPAN_RIGHT)
 	{
 		lPan = DSBPAN_RIGHT;
 	}
-	
+
 	m_pDirectSoundBuffer->SetPan(lPan);
 }
 
 //------------------------------------------------------------------------
-// @Function:	DirectSoundSetCurrentPosition(DWORD dwNewPositon)
+// @Function:	SetCurrentPosition(DWORD dwNewPositon)
 // @Purpose: DirectSound 设置Wave音源播放位置
 // @Since: v1.00a
 // @Para: DWORD dwNewPositon(播放位置)
 // @Return: None
 //------------------------------------------------------------------------
-void DIRECTSOUND_CALLMETHOD DirectSound::DirectSoundSetCurrentPosition(DWORD dwNewPositon)
+void DIRECTSOUND_CALLMETHOD DirectSound::SetCurrentPosition(DWORD dwNewPositon)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectSoundBuffer->SetCurrentPosition(dwNewPositon);

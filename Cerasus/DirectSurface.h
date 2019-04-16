@@ -70,20 +70,6 @@ public:
 
 	void								DIRECTSURFACE_CALLMETHOD		RenderYUV(UCHAR* pArrayY, UCHAR* pArrayU, UCHAR* pArrayV, UINT nWidth, UINT nHeight);										// DirectSurface Render Surface YUV(~DirectSurface渲染:YUV图形)
 
-	//初始化
-	virtual HRESULT DIRECTSURFACE_CALLMETHOD DirectSurfaceInit(void);									//DirectSurface Initialize(DirectSurface初始化)
-
-	//加载表面
-	virtual HRESULT DIRECTSURFACE_CALLMETHOD DirectSurfaceLoadSurface(LPWSTR lpszSurface, const RECT* pDestRect = NULL, const RECT* pSrcRect = NULL);										//DirectSurface Load Surface From File(DirectSurface导入纹理)(文件加载)
-	virtual HRESULT DIRECTSURFACE_CALLMETHOD DirectSurfaceLoadSurface(IDirect3DSurface9* pSurface, const RECT* pDestRect = NULL, const RECT* pSrcRect = NULL);								//DirectSurface Load Surface From File(DirectSurface导入纹理)(表面加载)
-	virtual HRESULT DIRECTSURFACE_CALLMETHOD DirectSurfaceLoadSurface(LPCVOID lpcszArray, UINT nArraySize, const RECT* pDestRect = NULL, const RECT* pSrcRect = NULL);						//DirectSurface Load Surface From File(DirectSurface导入纹理)(内存文件加载)
-	virtual HRESULT DIRECTSURFACE_CALLMETHOD DirectSurfaceLoadSurface(LPCVOID lpcszArray, D3DFORMAT Format, UINT nPitch, const RECT* pDestRect = NULL, const RECT* pSrcRect = NULL);		//DirectSurface Load Surface From File(DirectSurface导入纹理)(内存加载)
-
-	//渲染表面
-	virtual void DIRECTSURFACE_CALLMETHOD DirectSurfaceRender(const RECT* pDestRect = NULL, const RECT* pSrcRect = NULL);																	//DirectSurface Render Surface(纹理)
-	virtual void DIRECTSURFACE_CALLMETHOD DirectSurfaceRender(DWORD dwColor);																												//DirectSurface Render Surface(纯色)
-
-	virtual void DIRECTSURFACE_CALLMETHOD DirectSurfaceRenderYUV(UCHAR* pArrayY, UCHAR* pArrayU, UCHAR* pArrayV, UINT nWidth, UINT nHeight);												//DirectSUrface Render Surface YUV
 };
 
 

@@ -135,32 +135,32 @@ IDirect3DSurface9* DIRECTSURFACE_CALLMETHOD DirectSurface::GetSurface() const
 }
 
 //-----------------------------------------------------------------------
-// @Function:	 DirectSurfaceInit(void)
+// @Function:	 Create()
 // @Purpose: DirectSurface初始化
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //-----------------------------------------------------------------------
-HRESULT DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceInit(void)
+HRESULT DIRECTSURFACE_CALLMETHOD DirectSurface::Create()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DSURFACE_DESC Desc;
 
-	VERIFY(m_pD3D9Device->GetBackBuffer(NULL, NULL, D3DBACKBUFFER_TYPE_MONO, &m_pD3D9BackSurface));												//获取后台缓冲表面
-	VERIFY(m_pD3D9BackSurface->GetDesc(&Desc));																									//获取Desc
-	VERIFY(m_pD3D9Device->CreateOffscreenPlainSurface(Desc.Width, Desc.Height, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &m_pD3D9Surface, NULL));		//创建离屏表面
+	VERIFY(m_pD3D9Device->GetBackBuffer(NULL, NULL, D3DBACKBUFFER_TYPE_MONO, &m_pD3D9BackSurface));												// 获取后台缓冲表面
+	VERIFY(m_pD3D9BackSurface->GetDesc(&Desc));																									// 获取Desc
+	VERIFY(m_pD3D9Device->CreateOffscreenPlainSurface(Desc.Width, Desc.Height, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &m_pD3D9Surface, NULL));		// 创建离屏表面
 
 	return S_OK;
 }
 
-//-----------------------------------------------------------------------
-// @Function:	 DirectSurfaceLoadSurface(LPWSTR lpszSurface)
+//------------------------------------------------------------------------------------
+// @Function:	 Load(LPWSTR lpszSurface, const RECT* pDestRect, const RECT* pSrcRect)
 // @Purpose: DirectSurface导入纹理
 // @Since: v1.00a
 // @Para: LPWSTR lpszSurface	//纹理路径
 // @Return: None
-//-----------------------------------------------------------------------
-HRESULT DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceLoadSurface(LPWSTR lpszSurface, const RECT* pDestRect, const RECT* pSrcRect)
+//------------------------------------------------------------------------------------
+HRESULT DIRECTSURFACE_CALLMETHOD DirectSurface::Load(LPWSTR lpszSurface, const RECT* pDestRect, const RECT* pSrcRect)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -171,14 +171,14 @@ HRESULT DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceLoadSurface(LPWSTR 
 	return S_OK;
 }
 
-//-----------------------------------------------------------------------
-// @Function:	 DirectSurfaceLoadSurface(LPWSTR lpszSurface)
+//---------------------------------------------------------------------------------------------
+// @Function:	 Load(IDirect3DSurface9* pSurface, const RECT* pDestRect, const RECT* pSrcRect)
 // @Purpose: DirectSurface导入纹理
 // @Since: v1.00a
 // @Para: LPWSTR lpszSurface	//纹理路径
 // @Return: None
-//-----------------------------------------------------------------------
-HRESULT DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceLoadSurface(IDirect3DSurface9* pSurface, const RECT* pDestRect, const RECT* pSrcRect)
+//---------------------------------------------------------------------------------------------
+HRESULT DIRECTSURFACE_CALLMETHOD DirectSurface::Load(IDirect3DSurface9* pSurface, const RECT* pDestRect, const RECT* pSrcRect)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -189,14 +189,14 @@ HRESULT DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceLoadSurface(IDirect
 	return S_OK;
 }
 
-//-----------------------------------------------------------------------
-// @Function:	 DirectSurfaceLoadSurface(LPWSTR lpszSurface)
+//-----------------------------------------------------------------------------------------------------
+// @Function:	 Load(LPCVOID lpcszArray, UINT nArraySize, const RECT* pDestRect, const RECT* pSrcRect)
 // @Purpose: DirectSurface导入纹理
 // @Since: v1.00a
 // @Para: LPWSTR lpszSurface	//纹理路径
 // @Return: None
-//-----------------------------------------------------------------------
-HRESULT DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceLoadSurface(LPCVOID lpcszArray, UINT nArraySize, const RECT* pDestRect, const RECT* pSrcRect)
+//-----------------------------------------------------------------------------------------------------
+HRESULT DIRECTSURFACE_CALLMETHOD DirectSurface::Load(LPCVOID lpcszArray, UINT nArraySize, const RECT* pDestRect, const RECT* pSrcRect)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -207,14 +207,14 @@ HRESULT DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceLoadSurface(LPCVOID
 	return S_OK;
 }
 
-//-----------------------------------------------------------------------
-// @Function:	 DirectSurfaceLoadSurface(LPWSTR lpszSurface)
+//-------------------------------------------------------------------------------------------------------------------
+// @Function:	 Load(LPCVOID lpcszArray, D3DFORMAT Format, UINT nPitch, const RECT* pDestRect, const RECT* pSrcRect)
 // @Purpose: DirectSurface导入纹理
 // @Since: v1.00a
 // @Para: LPWSTR lpszSurface	//纹理路径
 // @Return: None
-//-----------------------------------------------------------------------
-HRESULT DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceLoadSurface(LPCVOID lpcszArray, D3DFORMAT Format, UINT nPitch, const RECT* pDestRect, const RECT* pSrcRect)
+//-------------------------------------------------------------------------------------------------------------------
+HRESULT DIRECTSURFACE_CALLMETHOD DirectSurface::Load(LPCVOID lpcszArray, D3DFORMAT Format, UINT nPitch, const RECT* pDestRect, const RECT* pSrcRect)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -226,26 +226,26 @@ HRESULT DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceLoadSurface(LPCVOID
 }
 
 //-------------------------------------------------------------------------------
-// @Function:	 DirectSurfaceRender(const RECT* pDestRect, const RECT* pSrcRect)
+// @Function:	 Render(const RECT* pDestRect, const RECT* pSrcRect)
 // @Purpose: DirectSurface渲染
 // @Since: v1.00a
 // @Para: LPWSTR lpszSurface	//纹理路径
 // @Return: None
 //-------------------------------------------------------------------------------
-void DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceRender(const RECT* pDestRect, const RECT* pSrcRect)
+void DIRECTSURFACE_CALLMETHOD DirectSurface::Render(const RECT* pDestRect, const RECT* pSrcRect)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device->StretchRect(m_pD3D9Surface, pDestRect, m_pD3D9BackSurface, pSrcRect, D3DTEXF_NONE);
 }
 
 //-----------------------------------------------------------------------
-// @Function:	 DirectSurfaceRender(DWORD dwColor)
+// @Function:	 Render(DWORD dwColor)
 // @Purpose: DirectSurface渲染
 // @Since: v1.00a
 // @Para: LPWSTR lpszSurface	//纹理路径
 // @Return: None
 //-----------------------------------------------------------------------
-void DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceRender(DWORD dwColor)
+void DIRECTSURFACE_CALLMETHOD DirectSurface::Render(DWORD dwColor)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DSURFACE_DESC Desc;
@@ -269,8 +269,8 @@ void DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceRender(DWORD dwColor)
 	m_pD3D9Device->StretchRect(m_pD3D9Surface, NULL, m_pD3D9BackSurface, NULL, D3DTEXF_NONE);
 }
 
-//----------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectSurfaceRenderYUV(UCHAR* pArrayY, UCHAR* pArrayU, UCHAR* pArrayV, UINT nWidth, UINT nHeight)
+//---------------------------------------------------------------------------------------------------
+// @Function:	 RenderYUV(UCHAR* pArrayY, UCHAR* pArrayU, UCHAR* pArrayV, UINT nWidth, UINT nHeight)
 // @Purpose: DirectSurface渲染
 // @Since: v1.00a
 // @Para: UCHAR* pArrayY		//Y数组地址
@@ -279,8 +279,8 @@ void DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceRender(DWORD dwColor)
 // @Para: UINT nWidth			//窗口宽度
 // @Para: UINT nHeight			//窗口高度
 // @Return: None
-//-----------------------------------------------------------------------------------------------------------------
-void DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceRenderYUV(UCHAR* pArrayY, UCHAR* pArrayU, UCHAR* pArrayV, UINT nWidth, UINT nHeight)
+//---------------------------------------------------------------------------------------------------
+void DIRECTSURFACE_CALLMETHOD DirectSurface::RenderYUV(UCHAR* pArrayY, UCHAR* pArrayU, UCHAR* pArrayV, UINT nWidth, UINT nHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DSURFACE_DESC Desc;

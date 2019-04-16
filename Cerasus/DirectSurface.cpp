@@ -1,25 +1,26 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017~2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Sakura&Fantasy
 *     All rights reserved.
 *
 * @file		DirectSurface.cpp
 * @brief	This File is DirectSurface DLL Project.
-* @author	Alopex/Helium
-* @version	v1.15a
-* @date		2017-12-9	v1.00a	alopex	Create This File.
+* @author	Alopex/Alice
+* @version	v1.16a
+* @date		2017-12-09	v1.00a	alopex	Create This File.
 * @date		2018-01-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-01-10	v1.11a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
 * @date		2018-04-12	v1.12a	alopex	Add Macro Call Mode.
 * @date		2018-06-22	v1.13a	alopex	Add Version Information.
 * @date		2018-06-23	v1.14a	alopex	Repair Bug.
 * @date		2018-11-23	v1.15a	alopex	Alter Call Method.
+* @date		2019-04-16	v1.16a	alopex	Add Notes.
 */
 #include "DirectCommon.h"
 #include "DirectSurface.h"
 #include "DirectThreadSafe.h"
 
-//DriectSurface主要用于2D游戏场景绘制
+// DriectSurface Class (DirectX 绘制渲染表面)
 
 //------------------------------------------------------------------
 // @Function:	 DirectSurface()
@@ -28,14 +29,13 @@
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-DirectSurface::DirectSurface()
+DirectSurface::DirectSurface() :
+	m_pD3D9Device(NULL),
+	m_pD3D9Surface(NULL),
+	m_pD3D9BackSurface(NULL)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
-
-	m_pD3D9Device = NULL;			//IDirect3DDevice9接口指针初始化(NULL)
-	m_pD3D9Surface = NULL;			//IDirect3DSurface9接口指针初始化(NULL)
-	m_pD3D9BackSurface = NULL;		//IDirect3DSurface9接口指针初始化(NULL)
+	m_bThreadSafe = true;									// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 }
 
 //------------------------------------------------------------------
@@ -47,27 +47,25 @@ DirectSurface::DirectSurface()
 //------------------------------------------------------------------
 DirectSurface::~DirectSurface()
 {
-	SAFE_RELEASE(m_pD3D9Surface);		//IDirect3DSurface9接口指针释放
-	SAFE_RELEASE(m_pD3D9BackSurface);	//IDirect3DSurface9接口指针释放
+	SAFE_RELEASE(m_pD3D9Surface);
+	SAFE_RELEASE(m_pD3D9BackSurface);
 
-	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);	//删除临界区
+	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);		// Delete Critical Section
 }
 
-//------------------------------------------------------------------
-// @Function:	 DirectSurface(IDirect3DDevice9* pD3D9Device)
-// @Purpose: DirectSurface构造函数
-// @Since: v1.00a
-// @Para: IDirect3DDevice9* pD3D9Device		//D3D9设备
-// @Return: None
-//------------------------------------------------------------------
-DirectSurface::DirectSurface(IDirect3DDevice9* pD3D9Device)
+DirectSurface::DirectSurface(IDirect3DDevice9* pD3D9Device, bool bSafe)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
-
-	m_pD3D9Device = pD3D9Device;	//IDirect3DDevice9接口指针初始化(NULL)
-	m_pD3D9Surface = NULL;			//IDirect3DSurface9接口指针初始化(NULL)
 }
+
+DirectSurface::DirectSurface(const DirectSurface&)
+{
+}
+
+const DirectSurface& DirectSurface::operator=(const DirectSurface&)
+{
+	// TODO: 在此处插入 return 语句
+}
+
 
 //------------------------------------------------------------------
 // @Function:	 DirectSurfaceGetDevice(void)

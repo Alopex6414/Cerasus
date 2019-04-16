@@ -108,57 +108,30 @@ const DirectSurface& DirectSurface::operator=(const DirectSurface& Object)
 	return *this;
 }
 
-
 //------------------------------------------------------------------
-// @Function:	 DirectSurfaceGetDevice(void)
+// @Function:	 GetDevice() const
 // @Purpose: DirectSurface获取D3D9设备
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-IDirect3DDevice9* DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceGetDevice(void) const
+IDirect3DDevice9* DIRECTSURFACE_CALLMETHOD DirectSurface::GetDevice() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Device;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectSurfaceGetSurface(void)
+// @Function:	 GetSurface() const
 // @Purpose: DirectSurface获取D3D9表面
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-IDirect3DSurface9* DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceGetSurface(void) const
+IDirect3DSurface9* DIRECTSURFACE_CALLMETHOD DirectSurface::GetSurface() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Surface;
-}
-
-//-----------------------------------------------------------------------
-// @Function:	 DirectSurfaceSetDevice(IDirect3DDevice9* pD3D9Device)
-// @Purpose: DirectSurface设置D3D9设备
-// @Since: v1.00a
-// @Para: IDirect3DDevice9* pD3D9Device		//D3D9设备
-// @Return: None
-//-----------------------------------------------------------------------
-void DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceSetDevice(IDirect3DDevice9* pD3D9Device)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3D9Device = pD3D9Device;
-}
-
-//-----------------------------------------------------------------------
-// @Function:	 DirectSurfaceSetSurface(IDirect3DSurface9* pD3D9Surface)
-// @Purpose: DirectSurface设置D3D9表面
-// @Since: v1.00a
-// @Para: IDirect3DSurface9* pD3D9Surface	//D3D9表面
-// @Return: None
-//-----------------------------------------------------------------------
-void DIRECTSURFACE_CALLMETHOD DirectSurface::DirectSurfaceSetSurface(IDirect3DSurface9* pD3D9Surface)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3D9Surface = pD3D9Surface;
 }
 
 //-----------------------------------------------------------------------

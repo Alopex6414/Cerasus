@@ -53,17 +53,59 @@ DirectSurface::~DirectSurface()
 	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);		// Delete Critical Section
 }
 
-DirectSurface::DirectSurface(IDirect3DDevice9* pD3D9Device, bool bSafe)
+//-----------------------------------------------------------------------
+// @Function:	 DirectSurface(IDirect3DDevice9* pD3D9Device, bool bSafe)
+// @Purpose: DirectSurface构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//-----------------------------------------------------------------------
+DirectSurface::DirectSurface(IDirect3DDevice9* pD3D9Device, bool bSafe) :
+	m_pD3D9Device(pD3D9Device),
+	m_pD3D9Surface(NULL),
+	m_pD3D9BackSurface(NULL)
 {
+	m_bThreadSafe = bSafe;									// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 }
 
-DirectSurface::DirectSurface(const DirectSurface&)
+//------------------------------------------------------------------
+// @Function:	 DirectSurface(const DirectSurface& Object)
+// @Purpose: DirectSurface构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+DirectSurface::DirectSurface(const DirectSurface& Object)
 {
+	m_bThreadSafe = Object.m_bThreadSafe;					// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
+
+	m_pD3D9Device = Object.m_pD3D9Device;
+	m_pD3D9Surface = Object.m_pD3D9Surface;
+	m_pD3D9BackSurface = Object.m_pD3D9BackSurface;
 }
 
-const DirectSurface& DirectSurface::operator=(const DirectSurface&)
+//------------------------------------------------------------------
+// @Function:	 operator=(const DirectSurface& Object)
+// @Purpose: DirectSurface构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+const DirectSurface& DirectSurface::operator=(const DirectSurface& Object)
 {
-	// TODO: 在此处插入 return 语句
+	if (&Object != this)
+	{
+		m_bThreadSafe = Object.m_bThreadSafe;					// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+		if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
+
+		m_pD3D9Device = Object.m_pD3D9Device;
+		m_pD3D9Surface = Object.m_pD3D9Surface;
+		m_pD3D9BackSurface = Object.m_pD3D9BackSurface;
+	}
+
+	return *this;
 }
 
 

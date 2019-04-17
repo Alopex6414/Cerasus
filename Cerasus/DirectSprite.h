@@ -76,8 +76,9 @@ public:
 	HRESULT								DIRECTSPRITE_CALLMETHOD		Begin();																		// DirectSprite Graphics Draw Begin(~DirectSprite开始绘制)
 	HRESULT								DIRECTSPRITE_CALLMETHOD		End();																			// DirectSprite Graphics Draw End(~DirectSprite结束绘制)
 
-	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteGetTransform(D3DXMATRIX* pMatrix);				//DirectSprite Get Transform
-	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteSetTransform(D3DXMATRIX* pMatrix);				//DirectSprite Set Transform
+	void								DIRECTSPRITE_CALLMETHOD		GetMatrix(D3DXMATRIX* pMatrix);													// DirectSprite Get Matrix(~DirectSprite获取变换矩阵)
+	void								DIRECTSPRITE_CALLMETHOD		SetMatrix(D3DXMATRIX* pMatrix);													// DirectSprite Set Matrix(~DirectSprite设置变换矩阵)
+
 
 	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDraw(DirectSpriteDrawPara* sSpriteDrawPara);																//DirectSprite Draw
 	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDraw(RECT* pSpriteRect, D3DXVECTOR3* pSpriteCenter, D3DXVECTOR3* pSpritePosition, D3DCOLOR SpriteColor);	//DirectSprite Draw(重载+1)

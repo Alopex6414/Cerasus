@@ -266,43 +266,42 @@ HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::End()
 	return S_OK;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 //------------------------------------------------------------------
-// @Function:	 DirectSpriteGetTransform(D3DXMATRIX* pMatrix)
+// @Function:	 GetMatrix(D3DXMATRIX* pMatrix)
 // @Purpose: DirectSprite获取当前变换矩阵
 // @Since: v1.00a
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteGetTransform(D3DXMATRIX* pMatrix)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::GetMatrix(D3DXMATRIX* pMatrix)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pSprite->GetTransform(pMatrix);
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectSpriteSetTransform(D3DXMATRIX* pMatrix)
+// @Function:	 SetMatrix(D3DXMATRIX* pMatrix)
 // @Purpose: DirectSprite设置当前变换矩阵
 // @Since: v1.00a
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteSetTransform(D3DXMATRIX* pMatrix)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::SetMatrix(D3DXMATRIX* pMatrix)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pSprite->SetTransform(pMatrix);
 }
+
+
+
+
+
+
+
+
+
+
+
 
 //----------------------------------------------------------------------
 // @Function:	 DirectSpriteDraw(DirectSpriteDrawPara* sSpriteDrawPara)

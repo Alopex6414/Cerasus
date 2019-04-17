@@ -367,21 +367,14 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawScale(S_DX_SPRITE_DRAW_PARA* sSpr
 	m_pSprite->SetTransform(&MatrixNative);
 }
 
-
-
-
-
-
-
-
 //-----------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectSpriteDrawRotate(DirectSpriteDrawPara* sSpriteDrawPara, float fRotateZ)
+// @Function:	 DrawRotate(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, float fRotateZ)
 // @Purpose: DirectSprite绘制旋转变换
 // @Since: v1.00a
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //-----------------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawRotate(DirectSpriteDrawPara* sSpriteDrawPara, float fRotateZ)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawRotate(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, float fRotateZ)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX Matrix;
@@ -398,13 +391,13 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawRotate(DirectSpriteDr
 }
 
 //-----------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectSpriteDrawRotate(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteRotate sRotatePara)
+// @Function:	 DrawRotate(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_ROTATE_PARA sRotatePara)
 // @Purpose: DirectSprite绘制旋转变换
 // @Since: v1.00a
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //-----------------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawRotate(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteRotate sRotatePara)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawRotate(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_ROTATE_PARA sRotatePara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX Matrix;
@@ -419,6 +412,14 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawRotate(DirectSpriteDr
 	m_pSprite->Draw(m_pSpriteTexture, &(sSpriteDrawPara->SpriteRect), &(sSpriteDrawPara->SpriteCenter), &(sSpriteDrawPara->SpritePosition), sSpriteDrawPara->SpriteColor);
 	m_pSprite->SetTransform(&MatrixNative);
 }
+
+
+
+
+
+
+
+
 
 //---------------------------------------------------------------------------------------------------------------------
 // @Function:	 DirectSpriteDrawTranslate(DirectSpriteDrawPara* sSpriteDrawPara, float fTranslateX, float fTranslateY)

@@ -85,13 +85,12 @@ public:
 	void								DIRECTSPRITE_CALLMETHOD		DrawScale(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, float fScaleX = 1.0f, float fScaleY = 1.0f);								// DirectSprite Graphics Draw Scale(~DirectSprite绘制)
 	void								DIRECTSPRITE_CALLMETHOD		DrawScale(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_SCALE_PARA sScalePara);										// DirectSprite Graphics Draw Scale(~DirectSprite绘制)
 
+	void								DIRECTSPRITE_CALLMETHOD		DrawRotate(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, float fRotateZ = 0.0f);													// DirectSprite Graphics Draw Rotate(~DirectSprite绘制)
+	void								DIRECTSPRITE_CALLMETHOD		DrawRotate(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_ROTATE_PARA sRotatePara);									// DirectSprite Graphics Draw Rotate(~DirectSprite绘制)
 
 
 
 
-
-	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDrawRotate(DirectSpriteDrawPara* sSpriteDrawPara, float fRotateZ = 0.0f);									//DirectSprite Draw Rotate
-	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDrawRotate(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteRotate sRotatePara);							//DirectSprite Draw Rotate(重载+1)
 	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDrawTranslate(DirectSpriteDrawPara* sSpriteDrawPara, float fTranslateX = 0.0f, float fTranslateY = 0.0f);	//DirectSprite Draw Translate
 	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDrawTranslate(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTranslate sTranslatePara);				//DirectSprite Draw Translate(重载+1)
 	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDrawTransform(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTransformPara sTransformPara);			//DirectSprite Draw Transform

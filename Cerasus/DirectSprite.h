@@ -40,38 +40,41 @@
 // Class Definition
 class DIRECTSPRITE_API DirectSprite
 {
-protected:
-	LPDIRECT3DDEVICE9 m_pD3D9Device;		//The Direct3D 9 Render Device
-	LPDIRECT3DTEXTURE9 m_pSpriteTexture;	//The Direct3D 9 Sprite Texture
-	LPD3DXSPRITE m_pSprite;					//The Direct3D 9 Sprite
-
 private:
-	CRITICAL_SECTION m_cs;					//Thread Safe(CriticalSection)
-	bool m_bThreadSafe;						//Thread Safe Status
+	LPDIRECT3DDEVICE9 m_pD3D9Device;						// Direct3D 9 Device Object(~D3D9设备对象)
+	LPDIRECT3DTEXTURE9 m_pSpriteTexture;					// Direct3D 9 Sprite Texture(~D3D9精灵纹理)
+	LPD3DXSPRITE m_pSprite;									// Direct3D 9 Sprite(~D3D9精灵)
+
+protected:
+	CRITICAL_SECTION m_cs;									// Direct3D 9 Thread Safe(CriticalSection)(~D3D9临界区变量)
+	bool m_bThreadSafe;										// Direct3D 9 Thread Safe Status(~D3D9线程安全状态)
 
 public:
-	DirectSprite();				//DirectSprite Constructor Function(~DirectSprite构造函数)
-	virtual ~DirectSprite();	//DirectSprite Destructor Function(~DirectSprite析构函数)
+	DirectSprite();																	// DirectSprite Construction Function(~DirectSprite构造函数)
+	~DirectSprite();																// DirectSprite Destruction Function(~DirectSprite析构函数)
 
-	DirectSprite(LPDIRECT3DDEVICE9 pD3D9Device);													//DirectSprite Constructor Function(Use D3D Device)(~DirectSprite构造函数)(重载+1)
+	DirectSprite(IDirect3DDevice9* pD3D9Device, bool bSafe = true);					// DirectSprite Construction Function(~DirectSprite构造函数)(Overload + 1)
+	DirectSprite(const DirectSprite&);												// DirectSprite Construction Function(~DirectSprite拷贝构造函数)
 
-	//访问
-	virtual LPDIRECT3DDEVICE9 DIRECTSPRITE_CALLMETHOD DirectSpriteGetDevice(void) const;			//DirectSprite Get Device
-	virtual LPDIRECT3DTEXTURE9 DIRECTSPRITE_CALLMETHOD DirectSpriteGetTexture(void) const;			//DirectSprite Get Texture
-	virtual LPD3DXSPRITE DIRECTSPRITE_CALLMETHOD DirectSpriteGetSprite(void) const;					//DirectSprite Get Sprite
+public:
+	const DirectSprite& operator=(const DirectSprite&);								// DirectSprite Operator= Function(~DirectSprite运算符函数)
 
-	//控制
-	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteSetDevice(LPDIRECT3DDEVICE9 pD3D9Device);		//DirectSprite Set Device
-	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteSetTexture(LPDIRECT3DTEXTURE9 pSpriteTexture);	//DirectSprite Set Texture
-	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteSetSprite(LPD3DXSPRITE pSprite);				//DirectSprite Set Sprite
+public:
+	LPDIRECT3DDEVICE9					DIRECTSPRITE_CALLMETHOD		GetDevice() const;					// DirectSprite Get Device(~DirectSprite获取D3D9设备指针)
+	LPDIRECT3DTEXTURE9					DIRECTSPRITE_CALLMETHOD		GetTexture() const;					// DirectSprite Get Texture(~DirectSprite获取D3D9纹理指针)
+	LPD3DXSPRITE						DIRECTSPRITE_CALLMETHOD		GetSprite() const;					// DirectSprite Get Sprite(~DirectSprite获取D3D9精灵指针)
 
-	virtual HRESULT DIRECTSPRITE_CALLMETHOD DirectSpriteInit(LPCWSTR lpszStr);						//DirectSprite Initialize
-	virtual HRESULT DIRECTSPRITE_CALLMETHOD DirectSpriteReload(LPCWSTR lpszStr);					//DirectSprite Reload(Texture Changed)
+public:
+	HRESULT								DIRECTSPRITE_CALLMETHOD		Create(LPCWSTR lpszStr);														// DirectSprite Initialize Sprite(~DirectSprite初始化精灵)
+	HRESULT								DIRECTSPRITE_CALLMETHOD		Create(LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight);					// DirectSprite Initialize Sprite(~DirectSprite初始化精灵)(Overload + 1)
+	
+	HRESULT								DIRECTSPRITE_CALLMETHOD		ReCreate(LPCWSTR lpszStr);														// DirectSprite Re-Create Sprite(~DirectSprite初始化精灵)
+	HRESULT								DIRECTSPRITE_CALLMETHOD		ReCreate(LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight);					// DirectSprite Re-Create Sprite(~DirectSprite初始化精灵)(Overload + 1)
 
-	virtual HRESULT DIRECTSPRITE_CALLMETHOD DirectSpriteInit(LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight);		//DirectSprite Initialize
-	virtual HRESULT DIRECTSPRITE_CALLMETHOD DirectSpriteReload(LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight);	//DirectSprite Reload(Texture Changed)
+	void								DIRECTSPRITE_CALLMETHOD		Reset();																		// DirectSprite Reset(~DirectSprite丢失设备)(需要重新初始化)
 
-	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteReset(void);									//DirectSprite Reset(D3D9丢失设备)(需要重新初始化)
+
+
 
 	virtual HRESULT DIRECTSPRITE_CALLMETHOD DirectSpriteBegin(void);								//DirectSprite Begin Draw
 	virtual HRESULT DIRECTSPRITE_CALLMETHOD DirectSpriteEnd(void);									//DirectSprite End Draw

@@ -23,7 +23,7 @@
 #include "DirectSprite.h"
 #include "DirectThreadSafe.h"
 
-//D3DXSprite精灵(一般用于2D场景渲染)
+// DirectX精灵(一般用于2D场景渲染)
 
 //------------------------------------------------------------------
 // @Function:	 DirectSprite()
@@ -32,14 +32,13 @@
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-DirectSprite::DirectSprite()
+DirectSprite::DirectSprite() :
+	m_pD3D9Device(NULL),
+	m_pSpriteTexture(NULL),
+	m_pSprite(NULL)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
-
-	m_pD3D9Device = NULL;		//IDirect3DDevice9接口指针初始化(NULL)
-	m_pSpriteTexture = NULL;	//ID3DXSprite表面纹理接口指针初始化(NULL)
-	m_pSprite = NULL;			//ID3DXSprite点精灵接口指针初始化(NULL)
+	m_bThreadSafe = true;											// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);			// Initialize Critical Section
 }
 
 //------------------------------------------------------------------
@@ -51,194 +50,205 @@ DirectSprite::DirectSprite()
 //------------------------------------------------------------------
 DirectSprite::~DirectSprite()
 {
-	SAFE_RELEASE(m_pSpriteTexture);	//释放m_pSpriteTexture
-	SAFE_RELEASE(m_pSprite);		//释放m_pSprite
+	SAFE_RELEASE(m_pSpriteTexture);
+	SAFE_RELEASE(m_pSprite);
 
-	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);	//删除临界区
+	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);				// Delete Critical Section
 }
 
-//------------------------------------------------------------------
-// @Function:	 DirectSprite(LPDIRECT3DDEVICE9 pD3D9Device)
+//----------------------------------------------------------------------
+// @Function:	 DirectSprite(IDirect3DDevice9* pD3D9Device, bool bSafe)
 // @Purpose: DirectSprite构造函数
 // @Since: v1.00a
-// @Para: LPDIRECT3DDEVICE9 pD3D9Device		//Direct3D接口指针
+// @Para: None
 // @Return: None
-//------------------------------------------------------------------
-DirectSprite::DirectSprite(LPDIRECT3DDEVICE9 pD3D9Device)
+//----------------------------------------------------------------------
+DirectSprite::DirectSprite(IDirect3DDevice9* pD3D9Device, bool bSafe) :
+	m_pD3D9Device(pD3D9Device),
+	m_pSpriteTexture(NULL),
+	m_pSprite(NULL)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
+	m_bThreadSafe = bSafe;											// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);			// Initialize Critical Section
+}
 
-	m_pD3D9Device = pD3D9Device;//IDirect3DDevice9接口指针初始化(传入D3D9设备指针)
-	m_pSpriteTexture = NULL;	//ID3DXSprite表面纹理接口指针初始化(NULL)
-	m_pSprite = NULL;			//ID3DXSprite点精灵接口指针初始化(NULL)
+//----------------------------------------------------------------------
+// @Function:	 DirectSprite(const DirectSprite& Object)
+// @Purpose: DirectSprite构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//----------------------------------------------------------------------
+DirectSprite::DirectSprite(const DirectSprite& Object)
+{
+	m_bThreadSafe = Object.m_bThreadSafe;							// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);			// Initialize Critical Section
+
+	m_pD3D9Device = Object.m_pD3D9Device;
+	m_pSpriteTexture = Object.m_pSpriteTexture;
+	m_pSprite = Object.m_pSprite;
+}
+
+//----------------------------------------------------------------------
+// @Function:	 operator=(const DirectSprite& Object)
+// @Purpose: DirectSprite构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//----------------------------------------------------------------------
+const DirectSprite& DirectSprite::operator=(const DirectSprite& Object)
+{
+	if (&Object != this)
+	{
+		m_bThreadSafe = Object.m_bThreadSafe;							// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+		if (m_bThreadSafe) InitializeCriticalSection(&m_cs);			// Initialize Critical Section
+
+		m_pD3D9Device = Object.m_pD3D9Device;
+		m_pSpriteTexture = Object.m_pSpriteTexture;
+		m_pSprite = Object.m_pSprite;
+	}
+
+	return *this;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectSpriteGetDevice()
+// @Function:	 GetDevice() const
 // @Purpose: DirectSprite获取D3D9设备
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPDIRECT3DDEVICE9 DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteGetDevice(void) const
+LPDIRECT3DDEVICE9 DIRECTSPRITE_CALLMETHOD DirectSprite::GetDevice() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Device;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectSpriteGetTexture()
+// @Function:	 GetTexture() const
 // @Purpose: DirectSprite获取纹理
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPDIRECT3DTEXTURE9 DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteGetTexture(void) const
+LPDIRECT3DTEXTURE9 DIRECTSPRITE_CALLMETHOD DirectSprite::GetTexture() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pSpriteTexture;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectSpriteGetSprite()
+// @Function:	 GetSprite() const
 // @Purpose: DirectSprite获取精灵
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPD3DXSPRITE DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteGetSprite(void) const
+LPD3DXSPRITE DIRECTSPRITE_CALLMETHOD DirectSprite::GetSprite() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pSprite;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectSpriteSetDevice()
-// @Purpose: DirectSprite设置D3D9设备
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteSetDevice(LPDIRECT3DDEVICE9 pD3D9Device)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3D9Device = pD3D9Device;
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectSpriteSetTexture()
-// @Purpose: DirectSprite设置纹理
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteSetTexture(LPDIRECT3DTEXTURE9 pSpriteTexture)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pSpriteTexture = pSpriteTexture;
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectSpriteSetSprite()
-// @Purpose: DirectSprite设置精灵
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteSetSprite(LPD3DXSPRITE pSprite)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pSprite = pSprite;
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectSpriteInit(LPCWSTR lpszStr)
+// @Function:	 Create(LPCWSTR lpszStr)
 // @Purpose: DirectSprite初始化函数
 // @Since: v1.00a
 // @Para: LPCWSTR lpszStr		//精灵纹理路径
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteInit(LPCWSTR lpszStr)
+HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::Create(LPCWSTR lpszStr)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	VERIFY(D3DXCreateTextureFromFile(m_pD3D9Device, lpszStr, &m_pSpriteTexture));//D3DXSprite精灵加载纹理
-	VERIFY(D3DXCreateSprite(m_pD3D9Device, &m_pSprite));//D3DXSprite精灵创建
+	VERIFY(D3DXCreateTextureFromFile(m_pD3D9Device, lpszStr, &m_pSpriteTexture));			// D3DXSprite精灵加载纹理
+	VERIFY(D3DXCreateSprite(m_pD3D9Device, &m_pSprite));									// D3DXSprite精灵创建
 
 	return S_OK;
 }
 
-//------------------------------------------------------------------
-// @Function:	 DirectSpriteReload(LPCWSTR lpszStr)
-// @Purpose: DirectSprite重新加载纹理
-// @Since: v1.00a
-// @Para: LPCWSTR lpszStr		//精灵纹理路径
-// @Return: None
-//------------------------------------------------------------------
-HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteReload(LPCWSTR lpszStr)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-
-	SAFE_RELEASE(m_pSpriteTexture);	//释放m_pSpriteTexture
-	SAFE_RELEASE(m_pSprite);		//释放m_pSprite
-	VERIFY(D3DXCreateTextureFromFile(m_pD3D9Device, lpszStr, &m_pSpriteTexture));//D3DXSprite精灵加载纹理
-	VERIFY(D3DXCreateSprite(m_pD3D9Device, &m_pSprite));//D3DXSprite精灵创建
-
-	return S_OK;
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectSpriteInit(LPCWSTR lpszStr)
+//---------------------------------------------------------------------------
+// @Function:	 Create(LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
 // @Purpose: DirectSprite初始化函数
 // @Since: v1.00a
 // @Para: LPCVOID pData			//精灵内存数组地址
 // @Para: UINT nSize			//精灵内存数组长度
 // @Return: None
-//------------------------------------------------------------------
-HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteInit(LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
+//---------------------------------------------------------------------------
+HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::Create(LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	VERIFY(D3DXCreateTextureFromFileInMemoryEx(m_pD3D9Device, pData, nSize, nWidth, nHeight, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f), NULL, NULL, &m_pSpriteTexture));//D3DXSprite精灵加载纹理
-	VERIFY(D3DXCreateSprite(m_pD3D9Device, &m_pSprite));//D3DXSprite精灵创建
+	VERIFY(D3DXCreateTextureFromFileInMemoryEx(m_pD3D9Device, pData, nSize, nWidth, nHeight, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f), NULL, NULL, &m_pSpriteTexture));			// D3DXSprite精灵加载纹理
+	VERIFY(D3DXCreateSprite(m_pD3D9Device, &m_pSprite));																																																// D3DXSprite精灵创建
 
 	return S_OK;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectSpriteReload(LPCWSTR lpszStr)
+// @Function:	 ReCreate(LPCWSTR lpszStr)
+// @Purpose: DirectSprite重新加载纹理
+// @Since: v1.00a
+// @Para: LPCWSTR lpszStr		//精灵纹理路径
+// @Return: None
+//------------------------------------------------------------------
+HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::ReCreate(LPCWSTR lpszStr)
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	SAFE_RELEASE(m_pSpriteTexture);															// 释放m_pSpriteTexture
+	SAFE_RELEASE(m_pSprite);																// 释放m_pSprite
+	VERIFY(D3DXCreateTextureFromFile(m_pD3D9Device, lpszStr, &m_pSpriteTexture));			// D3DXSprite精灵加载纹理
+	VERIFY(D3DXCreateSprite(m_pD3D9Device, &m_pSprite));									// D3DXSprite精灵创建
+
+	return S_OK;
+}
+
+//-----------------------------------------------------------------------------
+// @Function:	 ReCreate(LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
 // @Purpose: DirectSprite重新加载纹理
 // @Since: v1.00a
 // @Para: LPCVOID pData			//精灵内存数组地址
 // @Para: UINT nSize			//精灵内存数组长度
 // @Return: None
-//------------------------------------------------------------------
-HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteReload(LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
+//-----------------------------------------------------------------------------
+HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::ReCreate(LPCVOID pData, UINT nSize, UINT nWidth, UINT nHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
-	SAFE_RELEASE(m_pSpriteTexture);	//释放m_pSpriteTexture
-	SAFE_RELEASE(m_pSprite);		//释放m_pSprite
-	VERIFY(D3DXCreateTextureFromFileInMemoryEx(m_pD3D9Device, pData, nSize, nWidth, nHeight, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f), NULL, NULL, &m_pSpriteTexture));//D3DXSprite精灵加载纹理
-	VERIFY(D3DXCreateSprite(m_pD3D9Device, &m_pSprite));//D3DXSprite精灵创建
+	SAFE_RELEASE(m_pSpriteTexture);																																																						// 释放m_pSpriteTexture
+	SAFE_RELEASE(m_pSprite);																																																							// 释放m_pSprite
+	VERIFY(D3DXCreateTextureFromFileInMemoryEx(m_pD3D9Device, pData, nSize, nWidth, nHeight, 0, 0, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f), NULL, NULL, &m_pSpriteTexture));			// D3DXSprite精灵加载纹理
+	VERIFY(D3DXCreateSprite(m_pD3D9Device, &m_pSprite));																																																// D3DXSprite精灵创建
 
 	return S_OK;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectSpriteReset()
+// @Function:	 Reset()
 // @Purpose: DirectSprite重置
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteReset(void)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::Reset()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	SAFE_RELEASE(m_pSpriteTexture);	//释放m_pSpriteTexture
+	SAFE_RELEASE(m_pSpriteTexture);
 	m_pSprite->OnLostDevice();
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 //------------------------------------------------------------------
 // @Function:	 DirectSpriteBegin(void)

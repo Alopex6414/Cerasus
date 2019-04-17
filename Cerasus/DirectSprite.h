@@ -28,7 +28,7 @@
 #include "DirectCommon.h"
 #include "DirectTypes.h"
 
-//Macro Definition
+// Macro Definition
 #ifdef	CERASUS_EXPORTS
 #define DIRECTSPRITE_API __declspec(dllexport)
 #else
@@ -37,42 +37,7 @@
 
 #define DIRECTSPRITE_CALLMETHOD	__stdcall
 
-//Struct Definition
-typedef struct
-{
-	float fScaleX;	//Scale变换X轴比例	//拉伸
-	float fScaleY;	//Scale变换Y轴比例
-} DirectSpriteScale, *LPDirectSpriteScale;
-
-typedef struct
-{
-	float fRotateZ;	//Rotate变换Z轴比例	//旋转
-} DirectSpriteRotate, *LPDirectSpriteRotate;
-
-typedef struct
-{
-	float fTranslateX;	//Translate变换X轴比例	//平移
-	float fTranslateY;	//Translate变换Y轴比例
-} DirectSpriteTranslate, *LPDirectSpriteTranslate;
-
-//变换参数
-typedef struct
-{
-	DirectSpriteScale sScalePara;			//拉伸
-	DirectSpriteRotate sRotatePara;			//旋转
-	DirectSpriteTranslate sTranslatePara;	//平移
-} DirectSpriteTransformPara, *LPDirectSpriteTransformPara;
-
-//绘制参数
-typedef struct
-{
-	RECT SpriteRect;						//Sprite矩形区域
-	D3DXVECTOR3 SpriteCenter;				//Sprite中心向量
-	D3DXVECTOR3 SpritePosition;				//Sprite位置向量
-	D3DCOLOR SpriteColor;					//Sprite颜色
-} DirectSpriteDrawPara, *LPDirectSpriteDrawPara;
-
-//Class Definition
+// Class Definition
 class DIRECTSPRITE_API DirectSprite
 {
 protected:

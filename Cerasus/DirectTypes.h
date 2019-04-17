@@ -259,6 +259,43 @@ typedef struct
 	S_DX_VIEWPORT_TRANSFORM_PARA	sViewPortTransformPara;				// 视口变换系数
 } S_DX_COORDS_TRANSFORM_PARA, *LPS_DX_COORDS_TRANSFORM_PARA;
 
+// Scale Transform(~拉伸变换)
+typedef struct
+{
+	float fScaleX;														// Scale变换X轴比例
+	float fScaleY;														// Scale变换Y轴比例
+} S_DX_SPRITE_SCALE_PARA, *LPS_DX_SPRITE_SCALE_PARA;
+
+// Rotate Transform(~旋转变换)
+typedef struct
+{
+	float fRotateZ;														// Rotate变换Z轴比例
+} S_DX_SPRITE_ROTATE_PARA, *LPS_DX_SPRITE_ROTATE_PARA;
+
+// Translate Transform(~平移变换)
+typedef struct
+{
+	float fTranslateX;													// Translate变换X轴比例
+	float fTranslateY;													// Translate变换Y轴比例
+} S_DX_SPRITE_TRANSLATE_PARA, *LPS_DX_SPRITE_TRANSLATE_PARA;
+
+// Coords Transform(~坐标变换)
+typedef struct
+{
+	S_DX_SPRITE_SCALE_PARA		sScalePara;								// Scale拉伸变换参数
+	S_DX_SPRITE_ROTATE_PARA		sRotatePara;							// Rotate旋转变换参数
+	S_DX_SPRITE_TRANSLATE_PARA	sTranslatePara;							// Translate平移变换参数
+} S_DX_SPRITE_TRANSFORM_PARA, *LPS_DX_SPRITE_TRANSFORM_PARA;
+
+// Graphics Parameters(~绘制参数)
+typedef struct
+{
+	RECT SpriteRect;													// Sprite矩形区域
+	D3DXVECTOR3 SpriteCenter;											// Sprite中心向量
+	D3DXVECTOR3 SpritePosition;											// Sprite位置向量
+	D3DCOLOR SpriteColor;												// Sprite颜色
+} S_DX_SPRITE_DRAW_PARA, *LPS_DX_SPRITE_DRAW_PARA;
+
 /// Callback Function Definition
 typedef	void (__stdcall*LPCALLBACKKEYDOWNPROCFUNC)();
 typedef	void (__stdcall*LPCALLBACKMOUSEDOWNPROCFUNC)();

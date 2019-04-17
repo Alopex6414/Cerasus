@@ -79,9 +79,11 @@ public:
 	void								DIRECTSPRITE_CALLMETHOD		GetMatrix(D3DXMATRIX* pMatrix);													// DirectSprite Get Matrix(~DirectSprite获取变换矩阵)
 	void								DIRECTSPRITE_CALLMETHOD		SetMatrix(D3DXMATRIX* pMatrix);													// DirectSprite Set Matrix(~DirectSprite设置变换矩阵)
 
+	void								DIRECTSPRITE_CALLMETHOD		Draw(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara);									// DirectSprite Graphics Draw(~DirectSprite绘制)
+	void								DIRECTSPRITE_CALLMETHOD		Draw(RECT* pSpriteRect, D3DXVECTOR3* pSpriteCenter, D3DXVECTOR3* pSpritePosition, D3DCOLOR SpriteColor);
 
-	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDraw(DirectSpriteDrawPara* sSpriteDrawPara);																//DirectSprite Draw
-	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDraw(RECT* pSpriteRect, D3DXVECTOR3* pSpriteCenter, D3DXVECTOR3* pSpritePosition, D3DCOLOR SpriteColor);	//DirectSprite Draw(重载+1)
+	//void								DIRECTSPRITE_CALLMETHOD		
+
 	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDrawScale(DirectSpriteDrawPara* sSpriteDrawPara, float fScaleX = 1.0f, float fScaleY = 1.0f);				//DirectSprite Draw Scale
 	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDrawScale(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteScale sScalePara); 							//DirectSprite Draw Scale(重载+1)
 	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDrawRotate(DirectSpriteDrawPara* sSpriteDrawPara, float fRotateZ = 0.0f);									//DirectSprite Draw Rotate

@@ -292,32 +292,21 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::SetMatrix(D3DXMATRIX* pMatrix)
 	m_pSprite->SetTransform(pMatrix);
 }
 
-
-
-
-
-
-
-
-
-
-
-
 //----------------------------------------------------------------------
-// @Function:	 DirectSpriteDraw(DirectSpriteDrawPara* sSpriteDrawPara)
+// @Function:	 Draw(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara)
 // @Purpose: DirectSprite设置当前变换矩阵
 // @Since: v1.00a
 // @Para: DirectSpriteDrawPara* sSpriteDrawPara
 // @Return: None
 //----------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDraw(DirectSpriteDrawPara* sSpriteDrawPara)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::Draw(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pSprite->Draw(m_pSpriteTexture, &(sSpriteDrawPara->SpriteRect), &(sSpriteDrawPara->SpriteCenter), &(sSpriteDrawPara->SpritePosition), sSpriteDrawPara->SpriteColor);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectSpriteDraw(RECT* pSpriteRect, D3DXVECTOR3* pSpriteCenter, D3DXVECTOR3* pSpritePosition, D3DCOLOR SpriteColor)
+// @Function:	 Draw(RECT* pSpriteRect, D3DXVECTOR3* pSpriteCenter, D3DXVECTOR3* pSpritePosition, D3DCOLOR SpriteColor)
 // @Purpose: DirectSprite绘制精灵
 // @Since: v1.00a
 // @Para: RECT* pSpriteRect				//绘制矩形区域
@@ -326,11 +315,23 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDraw(DirectSpriteDrawPara
 // @Para: D3DCOLOR SpriteColor			//绘制颜色
 // @Return: None
 //----------------------------------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDraw(RECT* pSpriteRect, D3DXVECTOR3* pSpriteCenter, D3DXVECTOR3* pSpritePosition, D3DCOLOR SpriteColor)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::Draw(RECT* pSpriteRect, D3DXVECTOR3* pSpriteCenter, D3DXVECTOR3* pSpritePosition, D3DCOLOR SpriteColor)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pSprite->Draw(m_pSpriteTexture, pSpriteRect, pSpriteCenter, pSpritePosition, SpriteColor);
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 //---------------------------------------------------------------------------------------------------------
 // @Function:	 DirectSpriteDrawScale(DirectSpriteDrawPara* sSpriteDrawPara, float fScaleX, float fScaleY)

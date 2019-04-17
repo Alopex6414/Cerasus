@@ -463,33 +463,14 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawTranslate(S_DX_SPRITE_DRAW_PARA* 
 	m_pSprite->SetTransform(&MatrixNative);
 }
 
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawTransform(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_TRANSFORM_PARA sTransformPara)
-{
-	return void DIRECTSPRITE_CALLMETHOD();
-}
-
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawTransform(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_TRANSFORM_PARA sTransformPara, int nNowY, int nPosY)
-{
-	return void DIRECTSPRITE_CALLMETHOD();
-}
-
-
-
-
-
-
-
-
-
-
 //-------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectSpriteDrawTransform(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTransformPara sTransformPara)
+// @Function:	 DrawTransform(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_TRANSFORM_PARA sTransformPara)
 // @Purpose: DirectSpriteªÊ÷∆±‰ªªæÿ’Û
 // @Since: v1.00a
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //-------------------------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawTransform(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTransformPara sTransformPara)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawTransform(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_TRANSFORM_PARA sTransformPara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX Matrix;
@@ -511,14 +492,14 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawTransform(DirectSprit
 	m_pSprite->SetTransform(&MatrixNative);
 }
 
-//-------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectSpriteDrawTransform(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTransformPara sTransformPara)
+//-------------------------------------------------------------------------------------------------------------------------------------
+// @Function:	 DrawTransform(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_TRANSFORM_PARA sTransformPara, int nNowY, int nPosY)
 // @Purpose: DirectSpriteªÊ÷∆±‰ªªæÿ’Û
 // @Since: v1.00a
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
-//-------------------------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawTransform(DirectSpriteDrawPara * sSpriteDrawPara, DirectSpriteTransformPara sTransformPara, int nNowY, int nPosY)
+//-------------------------------------------------------------------------------------------------------------------------------------
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawTransform(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_TRANSFORM_PARA sTransformPara, int nNowY, int nPosY)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX Matrix;

@@ -321,26 +321,14 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::Draw(RECT* pSpriteRect, D3DXVECTOR3* 
 	m_pSprite->Draw(m_pSpriteTexture, pSpriteRect, pSpriteCenter, pSpritePosition, SpriteColor);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 //---------------------------------------------------------------------------------------------------------
-// @Function:	 DirectSpriteDrawScale(DirectSpriteDrawPara* sSpriteDrawPara, float fScaleX, float fScaleY)
+// @Function:	 DrawScale(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, float fScaleX, float fScaleY)
 // @Purpose: DirectSprite绘制拉伸变换
 // @Since: v1.00a
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //---------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawScale(DirectSpriteDrawPara* sSpriteDrawPara, float fScaleX, float fScaleY)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawScale(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, float fScaleX, float fScaleY)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX Matrix;
@@ -357,13 +345,13 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawScale(DirectSpriteDra
 }
 
 //-----------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectSpriteDrawScale(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTransformPara sScalePara)
+// @Function:	 DrawScale(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_SCALE_PARA sScalePara)
 // @Purpose: DirectSprite绘制拉伸变换
 // @Since: v1.00a
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //-----------------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawScale(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteScale sScalePara)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawScale(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_SCALE_PARA sScalePara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX Matrix;
@@ -378,6 +366,13 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawScale(DirectSpriteDra
 	m_pSprite->Draw(m_pSpriteTexture, &(sSpriteDrawPara->SpriteRect), &(sSpriteDrawPara->SpriteCenter), &(sSpriteDrawPara->SpritePosition), sSpriteDrawPara->SpriteColor);
 	m_pSprite->SetTransform(&MatrixNative);
 }
+
+
+
+
+
+
+
 
 //-----------------------------------------------------------------------------------------------------------------
 // @Function:	 DirectSpriteDrawRotate(DirectSpriteDrawPara* sSpriteDrawPara, float fRotateZ)

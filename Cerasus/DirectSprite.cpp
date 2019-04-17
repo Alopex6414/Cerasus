@@ -413,22 +413,14 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawRotate(S_DX_SPRITE_DRAW_PARA* sSp
 	m_pSprite->SetTransform(&MatrixNative);
 }
 
-
-
-
-
-
-
-
-
 //---------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectSpriteDrawTranslate(DirectSpriteDrawPara* sSpriteDrawPara, float fTranslateX, float fTranslateY)
+// @Function:	 DrawTranslate(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, float fTranslateX, float fTranslateY)
 // @Purpose: DirectSprite绘制平移变换
 // @Since: v1.00a
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawTranslate(DirectSpriteDrawPara* sSpriteDrawPara, float fTranslateX, float fTranslateY)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawTranslate(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, float fTranslateX, float fTranslateY)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX Matrix;
@@ -447,13 +439,13 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawTranslate(DirectSprit
 }
 
 //-------------------------------------------------------------------------------------------------------------------------
-// @Function:	 DirectSpriteDrawTranslate(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTransformPara sTransformPara)
+// @Function:	 DrawTranslate(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_TRANSLATE_PARA sTranslatePara)
 // @Purpose: DirectSprite绘制平移变换
 // @Since: v1.00a
 // @Para: D3DXMATRIX* pMatrix
 // @Return: None
 //-------------------------------------------------------------------------------------------------------------------------
-void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawTranslate(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTranslate sTranslatePara)
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawTranslate(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_TRANSLATE_PARA sTranslatePara)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	D3DXMATRIX Matrix;
@@ -470,6 +462,15 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteDrawTranslate(DirectSprit
 	m_pSprite->Draw(m_pSpriteTexture, &(sSpriteDrawPara->SpriteRect), &(sSpriteDrawPara->SpriteCenter), &(sSpriteDrawPara->SpritePosition), sSpriteDrawPara->SpriteColor);
 	m_pSprite->SetTransform(&MatrixNative);
 }
+
+
+
+
+
+
+
+
+
 
 //-------------------------------------------------------------------------------------------------------------------------
 // @Function:	 DirectSpriteDrawTransform(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTransformPara sTransformPara)

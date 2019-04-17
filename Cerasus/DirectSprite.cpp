@@ -238,26 +238,14 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::Reset()
 	m_pSprite->OnLostDevice();
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 //------------------------------------------------------------------
-// @Function:	 DirectSpriteBegin(void)
+// @Function:	 Begin()
 // @Purpose: DirectSprite¿ªÊ¼äÖÈ¾
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteBegin(void)
+HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::Begin()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	VERIFY(m_pSprite->Begin(D3DXSPRITE_ALPHABLEND));
@@ -265,18 +253,30 @@ HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteBegin(void)
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectSpriteEnd(void)
+// @Function:	 End()
 // @Purpose: DirectSprite½áÊøäÖÈ¾
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::DirectSpriteEnd(void)
+HRESULT DIRECTSPRITE_CALLMETHOD DirectSprite::End()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	VERIFY(m_pSprite->End());
 	return S_OK;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 //------------------------------------------------------------------
 // @Function:	 DirectSpriteGetTransform(D3DXMATRIX* pMatrix)

@@ -73,11 +73,8 @@ public:
 
 	void								DIRECTSPRITE_CALLMETHOD		Reset();																		// DirectSprite Reset(~DirectSprite丢失设备)(需要重新初始化)
 
-
-
-
-	virtual HRESULT DIRECTSPRITE_CALLMETHOD DirectSpriteBegin(void);								//DirectSprite Begin Draw
-	virtual HRESULT DIRECTSPRITE_CALLMETHOD DirectSpriteEnd(void);									//DirectSprite End Draw
+	HRESULT								DIRECTSPRITE_CALLMETHOD		Begin();																		// DirectSprite Graphics Draw Begin(~DirectSprite开始绘制)
+	HRESULT								DIRECTSPRITE_CALLMETHOD		End();																			// DirectSprite Graphics Draw End(~DirectSprite结束绘制)
 
 	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteGetTransform(D3DXMATRIX* pMatrix);				//DirectSprite Get Transform
 	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteSetTransform(D3DXMATRIX* pMatrix);				//DirectSprite Set Transform

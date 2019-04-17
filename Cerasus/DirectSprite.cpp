@@ -463,6 +463,16 @@ void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawTranslate(S_DX_SPRITE_DRAW_PARA* 
 	m_pSprite->SetTransform(&MatrixNative);
 }
 
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawTransform(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_TRANSFORM_PARA sTransformPara)
+{
+	return void DIRECTSPRITE_CALLMETHOD();
+}
+
+void DIRECTSPRITE_CALLMETHOD DirectSprite::DrawTransform(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_TRANSFORM_PARA sTransformPara, int nNowY, int nPosY)
+{
+	return void DIRECTSPRITE_CALLMETHOD();
+}
+
 
 
 

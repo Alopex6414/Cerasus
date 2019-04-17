@@ -94,8 +94,6 @@ public:
 	void								DIRECTSPRITE_CALLMETHOD		DrawTransform(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_TRANSFORM_PARA sTransformPara);							// DirectSprite Graphics Draw Transform(~DirectSpriteªÊ÷∆)
 	void								DIRECTSPRITE_CALLMETHOD		DrawTransform(S_DX_SPRITE_DRAW_PARA* sSpriteDrawPara, S_DX_SPRITE_TRANSFORM_PARA sTransformPara, int nNowY, int nPosY);		// DirectSprite Graphics Draw Transform(~DirectSpriteªÊ÷∆)
 
-	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDrawTransform(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTransformPara sTransformPara);			//DirectSprite Draw Transform
-	virtual void DIRECTSPRITE_CALLMETHOD DirectSpriteDrawTransform(DirectSpriteDrawPara* sSpriteDrawPara, DirectSpriteTransformPara sTransformPara, int nNowY, int nPosY);//DirectSprite Draw Transform
 };
 
 #endif

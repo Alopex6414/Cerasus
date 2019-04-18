@@ -1,6 +1,6 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017~2019, Sakura&Fantasy
+*     Copyright(c) 2017~2019, Team Gorgeous Bubble
 *     All rights reserved.
 *
 * @file		DirectGraphics11.h

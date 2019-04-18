@@ -55,27 +55,24 @@ public:
 public:
 	const DirectTexture& operator=(const DirectTexture&);								// DirectTexture Operator= Function(~DirectTexture运算符重载)
 
-	//访问
-	virtual IDirect3DDevice9* DIRECTTEXTURE_CALLMETHOD DirectTextureGetDevice(void) const;				//DirectTexture Get D3D9 Device(获取D3D9设备)
-	virtual IDirect3DTexture9* DIRECTTEXTURE_CALLMETHOD DirectTextureGetTexture(void) const;			//DirectTexture Get D3D9 Texture(获取D3D9纹理)
+public:
+	IDirect3DDevice9*					DIRECTTEXTURE_CALLMETHOD		GetDevice() const;					// DirectTexture Get D3D9 Device(~DirectTexture获取D3D9设备)
+	IDirect3DTexture9*					DIRECTTEXTURE_CALLMETHOD		GetTexture() const;					// DirectTexture Get D3D9 Texture(~DirectTexture获取D3D9纹理)
 
-	//控制
-	virtual void DIRECTTEXTURE_CALLMETHOD DirectTextureSetDevice(IDirect3DDevice9* pD3D9Device);		//DirectTexture Set D3D9 Device(设置D3D9设备)
-	virtual void DIRECTTEXTURE_CALLMETHOD DirectTextureSetTexture(IDirect3DTexture9* pD3D9Texture);		//DirectTexture Set D3D9 Device(设置D3D9纹理)
+public:
+	HRESULT								DIRECTTEXTURE_CALLMETHOD		Create(LPWSTR lpszTexture);																	// DirectTexture Create and Load D3D9 Texture(~DirectTexture加载纹理)(文件)
+	HRESULT								DIRECTTEXTURE_CALLMETHOD		Create(LPCVOID lpSrcData, UINT nSrcDataSize);												// DirectTexture Create and Load D3D9 Texture(~DirectTexture加载纹理)(内存)
 
-	//重置
-	virtual void DIRECTTEXTURE_CALLMETHOD DirectTextureReset(void);										//DirectTexture Reset(重置D3D9纹理)
+	HRESULT								DIRECTTEXTURE_CALLMETHOD		CreateEx(LPWSTR lpszTexture, UINT nWidth, UINT nHeight);									// DirectTexture Create and Load D3D9 Texture Ex(~DirectTexture加载纹理)(文件)
+	HRESULT								DIRECTTEXTURE_CALLMETHOD		CreateEx(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight);					// DirectTexture Create and Load D3D9 Texture Ex(~DirectTexture加载纹理)(内存)
 
-	//加载纹理
-	virtual HRESULT DIRECTTEXTURE_CALLMETHOD DirectTextureLoadTexture(LPWSTR lpszTexture);														//DirectTexture Load Texture(加载纹理)(文件)
-	virtual HRESULT DIRECTTEXTURE_CALLMETHOD DirectTextureLoadTexture(LPCVOID lpSrcData, UINT nSrcDataSize);									//DirectTexture Load Texture(加载纹理)(内存)
-	virtual HRESULT DIRECTTEXTURE_CALLMETHOD DirectTextureLoadTextureEx(LPWSTR lpszTexture, UINT nWidth, UINT nHeight);							//DirectTexture Load Texture Ex(加载纹理)(文件)
-	virtual HRESULT DIRECTTEXTURE_CALLMETHOD DirectTextureLoadTextureEx(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight);		//DirectTexture Load Texture Ex(加载纹理)(内存)
-	virtual HRESULT DIRECTTEXTURE_CALLMETHOD DirectTextureLoadTextureEx32(LPWSTR lpszTexture, UINT nWidth, UINT nHeight);						//DirectTexture Load Texture Ex(加载纹理)(文件)(Alpha通道)
-	virtual HRESULT DIRECTTEXTURE_CALLMETHOD DirectTextureLoadTextureEx32(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight);		//DirectTexture Load Texture Ex(加载纹理)(内存)(Alpha通道)
+	HRESULT								DIRECTTEXTURE_CALLMETHOD		CreateEx32(LPWSTR lpszTexture, UINT nWidth, UINT nHeight);									// DirectTexture Create and Load D3D9 Texture Ex(~DirectTexture加载纹理)(文件)(Alpha)
+	HRESULT								DIRECTTEXTURE_CALLMETHOD		CreateEx32(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight);				// DirectTexture Create and Load D3D9 Texture Ex(~DirectTexture加载纹理)(内存)(Alpha)
 
-	//渲染纹理
-	virtual void DIRECTTEXTURE_CALLMETHOD DirectTextureSelectTexture(void);								//DirectTexture Select Texture(D3D9设备选中纹理)
+	void								DIRECTTEXTURE_CALLMETHOD		Reset();																					// DirectTexture Reset(~DirectTexture重置D3D9纹理)
+
+	void								DIRECTTEXTURE_CALLMETHOD		Select();																					// DirectTexture Select(~DirectTexture选中D3D9纹理)
+
 };
 
 

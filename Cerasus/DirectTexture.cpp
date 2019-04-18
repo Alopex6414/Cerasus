@@ -105,78 +105,39 @@ const DirectTexture& DirectTexture::operator=(const DirectTexture& Object)
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectTextureGetDevice(void)
+// @Function:	 GetDevice() const
 // @Purpose: DirectTexture获取D3D9绘制设备
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-IDirect3DDevice9* DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureGetDevice(void) const
+IDirect3DDevice9* DIRECTTEXTURE_CALLMETHOD DirectTexture::GetDevice() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Device;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectTextureGetTexture(void)
+// @Function:	 GetTexture() const
 // @Purpose: DirectTexture获取D3D9绘制纹理
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-IDirect3DTexture9* DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureGetTexture(void) const
+IDirect3DTexture9* DIRECTTEXTURE_CALLMETHOD DirectTexture::GetTexture() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Texture;
 }
 
 //------------------------------------------------------------------
-// @Function:	 DirectTextureSetDevice(IDirect3DDevice9* pD3D9Device)
-// @Purpose: DirectTexture设置D3D9绘制设备
-// @Since: v1.00a
-// @Para: IDirect3DDevice9* pD3D9Device	//D3D9绘制设备
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureSetDevice(IDirect3DDevice9* pD3D9Device)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3D9Device = pD3D9Device;
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectTextureSetTexture(IDirect3DTexture9* pD3D9Texture)
-// @Purpose: DirectTexture设置D3D9绘制纹理
-// @Since: v1.00a
-// @Para: IDirect3DTexture9* pD3D9Texture	//D3D9绘制纹理
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureSetTexture(IDirect3DTexture9* pD3D9Texture)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pD3D9Texture = m_pD3D9Texture;
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectTextureReset(void)
-// @Purpose: DirectTexture重置D3D9绘制纹理
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureReset(void)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	SAFE_RELEASE(m_pD3D9Texture);
-}
-
-//------------------------------------------------------------------
-// @Function:	 DirectTextureLoadTexture(LPWSTR lpszTexture)
+// @Function:	 Create(LPWSTR lpszTexture)
 // @Purpose: DirectTexture加载纹理
 // @Since: v1.00a
 // @Para: LPWSTR lpszTexture	//D3D9纹理路径
 // @Return: None
 //------------------------------------------------------------------
-HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureLoadTexture(LPWSTR lpszTexture)
+HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::Create(LPWSTR lpszTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -186,14 +147,14 @@ HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureLoadTexture(LPWSTR 
 }
 
 //-----------------------------------------------------------------------------
-// @Function:	 DirectTextureLoadTexture(LPCVOID lpSrcData, UINT nSrcDataSize)
+// @Function:	 Create(LPCVOID lpSrcData, UINT nSrcDataSize)
 // @Purpose: DirectTexture加载纹理
 // @Since: v1.00a
 // @Para: LPCVOID lpSrcData			//纹理内存数组地址
 // @Para: UINT nSrcDataSize			//纹理内存数组大小
 // @Return: None
 //-----------------------------------------------------------------------------
-HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureLoadTexture(LPCVOID lpSrcData, UINT nSrcDataSize)
+HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::Create(LPCVOID lpSrcData, UINT nSrcDataSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -203,7 +164,7 @@ HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureLoadTexture(LPCVOID
 }
 
 //----------------------------------------------------------------------------------------
-// @Function:	 DirectTextureLoadTextureEx(LPWSTR lpszTexture, UINT nWidth, UINT nHeight)
+// @Function:	 CreateEx(LPWSTR lpszTexture, UINT nWidth, UINT nHeight)
 // @Purpose: DirectTexture加载纹理
 // @Since: v1.00a
 // @Para: LPWSTR lpszTexture	//D3D9纹理路径
@@ -211,7 +172,7 @@ HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureLoadTexture(LPCVOID
 // @Para: UINT nHeight			//纹理高度(2^n)
 // @Return: None
 //----------------------------------------------------------------------------------------
-HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureLoadTextureEx(LPWSTR lpszTexture, UINT nWidth, UINT nHeight)
+HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::CreateEx(LPWSTR lpszTexture, UINT nWidth, UINT nHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -221,7 +182,7 @@ HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureLoadTextureEx(LPWST
 }
 
 //----------------------------------------------------------------------------------------------------------
-// @Function:	 DirectTextureLoadTextureEx(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight)
+// @Function:	 CreateEx(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight)
 // @Purpose: DirectTexture加载纹理
 // @Since: v1.00a
 // @Para: LPWSTR lpszTexture	//D3D9纹理路径
@@ -229,17 +190,17 @@ HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureLoadTextureEx(LPWST
 // @Para: UINT nHeight			//纹理高度(2^n)
 // @Return: None
 //----------------------------------------------------------------------------------------------------------
-HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureLoadTextureEx(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight)
+HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::CreateEx(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
 	VERIFY(D3DXCreateTextureFromFileInMemoryEx(m_pD3D9Device, lpSrcData, nSrcDataSize, nWidth, nHeight, 0, 0, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, D3DX_FILTER_NONE, D3DX_FILTER_NONE, D3DCOLOR_XRGB(0, 0, 0), NULL, NULL, &m_pD3D9Texture));
-	
+
 	return	S_OK;
 }
 
 //----------------------------------------------------------------------------------------
-// @Function:	 DirectTextureLoadTextureEx32(LPWSTR lpszTexture, UINT nWidth, UINT nHeight)
+// @Function:	 CreateEx32(LPWSTR lpszTexture, UINT nWidth, UINT nHeight)
 // @Purpose: DirectTexture加载纹理
 // @Since: v1.00a
 // @Para: LPWSTR lpszTexture	//D3D9纹理路径
@@ -247,7 +208,7 @@ HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureLoadTextureEx(LPCVO
 // @Para: UINT nHeight			//纹理高度(2^n)
 // @Return: None
 //----------------------------------------------------------------------------------------
-HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureLoadTextureEx32(LPWSTR lpszTexture, UINT nWidth, UINT nHeight)
+HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::CreateEx32(LPWSTR lpszTexture, UINT nWidth, UINT nHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -257,7 +218,7 @@ HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureLoadTextureEx32(LPW
 }
 
 //----------------------------------------------------------------------------------------------------------
-// @Function:	 DirectTextureLoadTextureEx32(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight)
+// @Function:	 CreateEx32(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight)
 // @Purpose: DirectTexture加载纹理
 // @Since: v1.00a
 // @Para: LPWSTR lpszTexture	//D3D9纹理路径
@@ -265,7 +226,7 @@ HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureLoadTextureEx32(LPW
 // @Para: UINT nHeight			//纹理高度(2^n)
 // @Return: None
 //----------------------------------------------------------------------------------------------------------
-HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureLoadTextureEx32(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight)
+HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::CreateEx32(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -274,14 +235,27 @@ HRESULT DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureLoadTextureEx32(LPC
 	return	S_OK;
 }
 
-//----------------------------------------------------------------------------------------------------------
-// @Function:	 DirectTextureSelectTexture()
-// @Purpose: DirectTexture渲染纹理
+//------------------------------------------------------------------
+// @Function:	 Reset()
+// @Purpose: DirectTexture重置D3D9绘制纹理
 // @Since: v1.00a
 // @Para: None
 // @Return: None
-//----------------------------------------------------------------------------------------------------------
-void DIRECTTEXTURE_CALLMETHOD DirectTexture::DirectTextureSelectTexture(void)
+//------------------------------------------------------------------
+void DIRECTTEXTURE_CALLMETHOD DirectTexture::Reset()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	SAFE_RELEASE(m_pD3D9Texture);
+}
+
+//------------------------------------------------------------------
+// @Function:	 Select()
+// @Purpose: DirectTexture重置D3D9绘制纹理
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+void DIRECTTEXTURE_CALLMETHOD DirectTexture::Select()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device->SetTexture(0, m_pD3D9Texture);

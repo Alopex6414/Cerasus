@@ -1,24 +1,25 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Team Gorgeous Bubble
 *     All rights reserved.
 *
 * @file		CerasusAlgorithm.h
 * @brief	This File is CerasusAlgorithm Dynamic Link Library Project.
 * @author	alopex
-* @version	v1.00a
+* @version	v1.01a
 * @date		2018-11-06	v1.00a	alopex	Create This File.
+* @date		2019-04-18	v1.01a	alopex	Add Notes.
 */
 #pragma once
 
 #ifndef __CERASUSALGORITHM_H_
 #define __CERASUSALGORITHM_H_
 
-//Include DirectX Common Header File
+// Include DirectX Common Header File
 #include "DirectCommon.h"
 #include "DirectThreadSafe.h"
 
-//Macro Definition
+// Macro Definition
 #ifdef	CERASUS_EXPORTS
 #define CERASUSALGORITHM_API	__declspec(dllexport)
 #else
@@ -27,7 +28,7 @@
 
 #define	CERASUSALGORITHM_CALLMETHOD	__stdcall
 
-//Class Definition
+// Class Definition
 class CERASUSALGORITHM_API CCerasusAlgorithm
 {
 public:

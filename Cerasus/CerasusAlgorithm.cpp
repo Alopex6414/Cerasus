@@ -1,13 +1,14 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Team Gorgeous Bubble
 *     All rights reserved.
 *
 * @file		CerasusAlgorithm.cpp
 * @brief	This File is CerasusAlgorithm Dynamic Link Library Project.
 * @author	alopex
-* @version	v1.00a
+* @version	v1.01a
 * @date		2018-11-06	v1.00a	alopex	Create This File.
+* @date		2019-04-18	v1.01a	alopex	Add Notes.
 */
 #include "CerasusAlgorithm.h"
 

@@ -21,12 +21,15 @@
 #ifndef __CERASUSUNIT_H_
 #define __CERASUSUNIT_H_
 
-//Include Direct Common Header File
+// Include DirectX Common Header File
 #include "DirectCommon.h"
+#include "DirectTypes.h"
 #include "DirectGraphics3D.h"
 #include "DirectThreadSafe.h"
 
-//Macro Definition
+#include "CerasusTypes.h"
+
+// Macro Definition
 #ifdef	CERASUS_EXPORTS
 #define CERASUSUNIT_API	__declspec(dllexport)
 #else
@@ -35,43 +38,15 @@
 
 #define CERASUSUNIT_CALLMETHOD	__stdcall
 
-//Struct Definition
-typedef struct
-{
-	UINT nScreenWidth;			//窗口宽度
-	UINT nScreenHeight;			//窗口高度
-	LPWSTR pTextureStr;			//纹理路径
-	UINT nTextureWidth;			//纹理宽度
-	UINT nTextureHeight;		//纹理高度
-	RECT rcUnit;				//图元矩形
-	RECT rcUnitTex;				//纹理矩形
-	float fUnitAlpha;			//Alpha值
-	DG3D_CoordsTransformPara sCoordsTransformPara;	//坐标变换
-} CUUint, *LPCUUint;
-
-typedef struct
-{
-	UINT nScreenWidth;			//窗口宽度
-	UINT nScreenHeight;			//窗口高度
-	LPVOID pTextureArr;			//纹理数组地址
-	UINT nTextureArrSize;		//纹理数组长度
-	UINT nTextureWidth;			//纹理宽度
-	UINT nTextureHeight;		//纹理高度
-	RECT rcUnit;				//图元矩形
-	RECT rcUnitTex;				//纹理矩形
-	float fUnitAlpha;			//Alpha值
-	DG3D_CoordsTransformPara sCoordsTransformPara;	//坐标变换
-} CUUintEx, *LPCUUintEx;
-
-//Class Definition
+// Class Definition
 class CERASUSUNIT_API CCerasusUnit
 {
-protected:
-	DirectGraphics3D* m_pDirectGraphics3D;					//The DirectGraphics3D Class Interface(~CCerasusUnit 3D绘制单元)
-
 private:
-	CRITICAL_SECTION m_cs;									//Thread Safe(CriticalSection)
-	bool m_bThreadSafe;										//Thread Safe Status
+	DirectGraphics3D* m_pDirectGraphics3D;					// DirectGraphics3D Class Interface(~CCerasusUnit DirectGraphics3D绘制单元)
+
+protected:
+	CRITICAL_SECTION m_cs;									// Direct3D 9 Thread Safe(CriticalSection)
+	bool m_bThreadSafe;										// Direct3D 9 Thread Safe Status
 
 public:
 	UINT m_nScreenWidth;									//CCerasusUnit Window Screen Width(~CCerasusUnit 窗口宽度)

@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="CerasusAlgorithm.h" />
     <ClInclude Include="Cerasusfps.h" />
+    <ClInclude Include="CerasusTypes.h" />
     <ClInclude Include="CerasusUnit.h" />
     <ClInclude Include="DirectCommon.h" />
     <ClInclude Include="DirectFont.h" />

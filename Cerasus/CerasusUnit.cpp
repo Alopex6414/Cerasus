@@ -1,12 +1,12 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Team Gorgeous Bubble
 *     All rights reserved.
 *
 * @file		CreasusUnit.cpp
 * @brief	This File is CreasusUnit DLL Project.
 * @author	Alopex/Helium
-* @version	v1.07a
+* @version	v1.08a
 * @date		2018-07-04	v1.00a	alopex	Create Project.
 * @date		2018-07-05	v1.01a	alopex	Add Get&Set Function.
 * @date		2018-07-05	v1.02a	alopex	Add Translate Function.
@@ -15,8 +15,11 @@
 * @date		2018-07-14	v1.05a	alopex	Add Texture Create In Memory Function.
 * @date		2018-11-04	v1.06a	alopex	Add LostDevice ReCreate Method.
 * @date		2018-11-23	v1.07a	alopex	Alter Call Method.
+* @date		2019-04-19	v1.08a	alopex	Add Notes.
 */
 #include "CerasusUnit.h"
+
+// Cerasus Class(DirectX绘制3D图元)
 
 //------------------------------------------------------------------
 // @Function:	 CCerasusUnit()
@@ -25,23 +28,23 @@
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-CCerasusUnit::CCerasusUnit()
+CCerasusUnit::CCerasusUnit() :
+	m_pDirectGraphics3D(NULL),
+	m_nScreenWidth(0),
+	m_nScreenHeight(0),
+	m_pTextureStr(NULL),
+	m_pTextureArr(NULL),
+	m_nTextureArrSize(0),
+	m_nTextureWidth(0),
+	m_nTextureHeight(0),
+	m_fUnitAlpha(0.0)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
+	m_bThreadSafe = true;									// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 
-	m_pDirectGraphics3D = NULL;
-	m_nScreenWidth = 0;
-	m_nScreenHeight = 0;
-	m_pTextureStr = NULL;
-	m_pTextureArr = NULL;
-	m_nTextureArrSize = 0;
-	m_nTextureWidth = 0;
-	m_nTextureHeight = 0;
-	m_fUnitAlpha = 0.0f;
 	ZeroMemory(&m_rcUnit, sizeof(RECT));
 	ZeroMemory(&m_rcUnitTex, sizeof(RECT));
-	ZeroMemory(&m_sCoordsTransformPara, sizeof(DG3D_CoordsTransformPara));
+	ZeroMemory(&m_sCoordsTransformPara, sizeof(S_DX_COORDS_TRANSFORM_PARA));
 }
 
 //------------------------------------------------------------------
@@ -55,11 +58,38 @@ CCerasusUnit::~CCerasusUnit()
 {
 	SAFE_DELETE(m_pDirectGraphics3D);
 
-	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);	//删除临界区
+	if (m_bThreadSafe) DeleteCriticalSection(&m_cs);		// Delete Critical Section
+}
+
+//----------------------------------------------------------------------
+// @Function:	 CCerasusUnit(IDirect3DDevice9* pD3D9Device, bool bSafe)
+// @Purpose: CCerasusUnit构造函数
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//----------------------------------------------------------------------
+CCerasusUnit::CCerasusUnit(IDirect3DDevice9* pD3D9Device, bool bSafe) :
+	m_nScreenWidth(0),
+	m_nScreenHeight(0),
+	m_pTextureStr(NULL),
+	m_pTextureArr(NULL),
+	m_nTextureArrSize(0),
+	m_nTextureWidth(0),
+	m_nTextureHeight(0),
+	m_fUnitAlpha(0.0)
+{
+	m_bThreadSafe = bSafe;									// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
+
+	m_pDirectGraphics3D = new DirectGraphics3D(pD3D9Device);
+
+	ZeroMemory(&m_rcUnit, sizeof(RECT));
+	ZeroMemory(&m_rcUnitTex, sizeof(RECT));
+	ZeroMemory(&m_sCoordsTransformPara, sizeof(S_DX_COORDS_TRANSFORM_PARA));
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnit()
+// @Function:	 CCerasusUnit(const CCerasusUnit & Object)
 // @Purpose: CCerasusUnit拷贝构造函数
 // @Since: v1.00a
 // @Para: None
@@ -67,8 +97,8 @@ CCerasusUnit::~CCerasusUnit()
 //------------------------------------------------------------------
 CCerasusUnit::CCerasusUnit(const CCerasusUnit & Object)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
+	m_bThreadSafe = Object.m_bThreadSafe;					// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 
 	m_pDirectGraphics3D = Object.m_pDirectGraphics3D;
 	m_nScreenWidth = Object.m_nScreenWidth;
@@ -82,34 +112,103 @@ CCerasusUnit::CCerasusUnit(const CCerasusUnit & Object)
 	m_rcUnitTex = Object.m_rcUnitTex;
 	m_fUnitAlpha = Object.m_fUnitAlpha;
 
+	memset(&m_sCoordsTransformPara, 0, sizeof(m_sCoordsTransformPara));
 	memcpy_s(&m_sCoordsTransformPara, sizeof(m_sCoordsTransformPara), &(Object.m_sCoordsTransformPara), sizeof(Object.m_sCoordsTransformPara));
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnit()
-// @Purpose: CCerasusUnit构造函数
+// @Function:	 operator=(const CCerasusUnit& Object)
+// @Purpose: CCerasusUnit重载运算符
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-CCerasusUnit::CCerasusUnit(IDirect3DDevice9 * pD3D9Device)
+const CCerasusUnit& CCerasusUnit::operator=(const CCerasusUnit& Object)
 {
-	m_bThreadSafe = true;									//线程安全
-	if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	//初始化临界区
+	if (&Object != this)
+	{
+		m_bThreadSafe = Object.m_bThreadSafe;					// Thread Safety flag. When m_bThreadSafe = true, Start Thread Safe Mechanism.
+		if (m_bThreadSafe) InitializeCriticalSection(&m_cs);	// Initialize Critical Section
 
-	m_pDirectGraphics3D = new DirectGraphics3D(pD3D9Device);
-	m_nScreenWidth = 0;
-	m_nScreenHeight = 0;
-	m_pTextureStr = NULL;
-	m_pTextureArr = NULL;
-	m_nTextureArrSize = 0;
-	m_nTextureWidth = 0;
-	m_nTextureHeight = 0;
-	m_fUnitAlpha = 0.0f;
-	ZeroMemory(&m_rcUnit, sizeof(RECT));
-	ZeroMemory(&m_rcUnitTex, sizeof(RECT));
-	ZeroMemory(&m_sCoordsTransformPara, sizeof(DG3D_CoordsTransformPara));
+		m_pDirectGraphics3D = Object.m_pDirectGraphics3D;
+		m_nScreenWidth = Object.m_nScreenWidth;
+		m_nScreenHeight = Object.m_nScreenHeight;
+		m_pTextureStr = Object.m_pTextureStr;
+		m_pTextureArr = Object.m_pTextureArr;
+		m_nTextureArrSize = Object.m_nTextureArrSize;
+		m_nTextureWidth = Object.m_nTextureWidth;
+		m_nTextureHeight = Object.m_nTextureHeight;
+		m_rcUnit = Object.m_rcUnit;
+		m_rcUnitTex = Object.m_rcUnitTex;
+		m_fUnitAlpha = Object.m_fUnitAlpha;
+
+		memset(&m_sCoordsTransformPara, 0, sizeof(m_sCoordsTransformPara));
+		memcpy_s(&m_sCoordsTransformPara, sizeof(m_sCoordsTransformPara), &(Object.m_sCoordsTransformPara), sizeof(Object.m_sCoordsTransformPara));
+	}
+
+	return *this;
 }
+
+DirectGraphics3D* CERASUSUNIT_CALLMETHOD CCerasusUnit::GetGraphics3D() const
+{
+	return DirectGraphics3D * CERASUSUNIT_CALLMETHOD();
+}
+
+UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetScreenWidth() const
+{
+	return 0;
+}
+
+UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetScreenHeight() const
+{
+	return 0;
+}
+
+LPWSTR CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTextureStr() const
+{
+	return LPWSTR CERASUSUNIT_CALLMETHOD();
+}
+
+LPVOID CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTextureArr() const
+{
+	return LPVOID CERASUSUNIT_CALLMETHOD();
+}
+
+UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTextureArrSize() const
+{
+	return 0;
+}
+
+UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTextureWidth() const
+{
+	return 0;
+}
+
+UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTextureHeight() const
+{
+	return 0;
+}
+
+RECT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetUnitRect() const
+{
+	return RECT CERASUSUNIT_CALLMETHOD();
+}
+
+RECT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetUnitTextureRect() const
+{
+	return RECT CERASUSUNIT_CALLMETHOD();
+}
+
+float CERASUSUNIT_CALLMETHOD CCerasusUnit::GetUnitAlpha() const
+{
+	return 0.0f;
+}
+
+S_DX_COORDS_TRANSFORM_PARA CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTransformPara() const
+{
+	return S_DX_COORDS_TRANSFORM_PARA CERASUSUNIT_CALLMETHOD();
+}
+
 
 //------------------------------------------------------------------
 // @Function:	 CCerasusUnitGetDirectGraphics3D()

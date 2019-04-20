@@ -66,11 +66,11 @@ public:
 	CCerasusUnit* m_Current;							// CSakuraBlendTexture 当前控件状态纹理
 
 public:
-	CSakuraBlendTexture();								// CSakuraBlendTexture 构造函数
-	~CSakuraBlendTexture();								// CSakuraBlendTexture 析构函数
+	CSakuraBlendTexture();													// CSakuraBlendTexture 构造函数
+	~CSakuraBlendTexture();													// CSakuraBlendTexture 析构函数
 
-	CSakuraBlendTexture(const CSakuraBlendTexture& Object);	// CSakuraBlendTexture 拷贝构造函数(重载+1)
-	CSakuraBlendTexture(LPDIRECT3DDEVICE9 pD3D9Device);		// CSakuraBlendTexture 构造函数(重载+2)
+	CSakuraBlendTexture(const CSakuraBlendTexture& Object);					// CSakuraBlendTexture 拷贝构造函数(重载+1)
+	CSakuraBlendTexture(LPDIRECT3DDEVICE9 pD3D9Device);						// CSakuraBlendTexture 构造函数(重载+2)
 
 	CSakuraBlendTexture& operator=(const CSakuraBlendTexture& Object);		// CSakuraBlendTexture 赋值运算符重载
 
@@ -79,7 +79,7 @@ public:
 
 	void	SAKURABLEND_CALLMETHOD	OnCreate(LPDIRECT3DDEVICE9 pD3D9Device);										// CSakuraBlendTexture 初始化
 	void	SAKURABLEND_CALLMETHOD	OnLostDevice();																	// CSakuraBlendTexture 丢失设备
-	void	SAKURABLEND_CALLMETHOD	OnResetDevice();																// CSakuraBlendTexture	重置设备
+	void	SAKURABLEND_CALLMETHOD	OnResetDevice();																// CSakuraBlendTexture 重置设备
 	int		SAKURABLEND_CALLMETHOD	AddTexture(SAKURA_CONTROL_STATE eType, S_CS_UNIT_PARA sUnit);					// CSakuraBlendTexture 添加纹理(文件导入)
 	int		SAKURABLEND_CALLMETHOD	AddTexture(SAKURA_CONTROL_STATE eType, S_CS_UNIT_EX_PARA sUnit);				// CSakuraBlendTexture 添加纹理(内存导入)
 	void	SAKURABLEND_CALLMETHOD	Blend(SAKURA_CONTROL_STATE eType);												// CSakuraBlendTexture 渲染纹理

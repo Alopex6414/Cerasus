@@ -37,11 +37,11 @@ public:
 	DirectFont* m_Current;								// CSakuraBlendFont 当前控件状态字体
 
 public:
-	CSakuraBlendFont();									// CSakuraBlendFont 构造函数
-	~CSakuraBlendFont();								// CSakuraBlendFont 析构函数
+	CSakuraBlendFont();													// CSakuraBlendFont 构造函数
+	~CSakuraBlendFont();												// CSakuraBlendFont 析构函数
 
-	CSakuraBlendFont(const CSakuraBlendFont& Object);	// CSakuraBlendFont 拷贝构造函数(重载+1)
-	CSakuraBlendFont(LPDIRECT3DDEVICE9 pD3D9Device);	// CSakuraBlendFont 构造函数(重载+2)
+	CSakuraBlendFont(const CSakuraBlendFont& Object);					// CSakuraBlendFont 拷贝构造函数(重载+1)
+	CSakuraBlendFont(LPDIRECT3DDEVICE9 pD3D9Device);					// CSakuraBlendFont 构造函数(重载+2)
 
 	CSakuraBlendFont& operator=(const CSakuraBlendFont& Object);		// CSakuraBlendFont 赋值运算符重载
 

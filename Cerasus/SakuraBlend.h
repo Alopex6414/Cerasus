@@ -8,7 +8,7 @@
 * @author	Alopex/Alice
 * @version	v1.01a
 * @date		2018-10-16	v1.00a	alopex	Create Project.
-* @date		2018-04-20	v1.01a	alopex	Add Notes.
+* @date		2019-04-20	v1.01a	alopex	Add Notes.
 */
 #pragma once
 

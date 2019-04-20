@@ -150,7 +150,7 @@ CUFont *SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::GetFontNode(int
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-CUUint *SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::GetTextureNode(int nIndex)
+S_CS_UNIT_PARA*SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::GetTextureNode(int nIndex)
 {
 	if (nIndex >= m_pTextureCaches.size())
 	{
@@ -167,7 +167,7 @@ CUUint *SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::GetTextureNode(
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-CUUintEx *SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::GetTextureNodeEx(int nIndex)
+S_CS_UNIT_EX_PARA*SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::GetTextureNodeEx(int nIndex)
 {
 	if (nIndex >= m_pTextureExCaches.size())
 	{
@@ -219,9 +219,9 @@ int SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::AddFont(CUFont * pF
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-int SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::AddTexture(CUUint * pTexture)
+int SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::AddTexture(S_CS_UNIT_PARA* pTexture)
 {
-	CUUint* pNewTexture = new CUUint();
+	S_CS_UNIT_PARA* pNewTexture = new S_CS_UNIT_PARA();
 	if (pNewTexture == NULL)
 	{
 		return -1;
@@ -255,9 +255,9 @@ int SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::AddTexture(CUUint *
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-int SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::AddTexture(CUUintEx * pTexture)
+int SAKURARESOURCEMANAGER_CALLMETHOD CSakuraResourceManager::AddTexture(S_CS_UNIT_EX_PARA* pTexture)
 {
-	CUUintEx* pNewTexture = new CUUintEx();
+	S_CS_UNIT_EX_PARA* pNewTexture = new S_CS_UNIT_EX_PARA();
 	if (pNewTexture == NULL)
 	{
 		return -1;

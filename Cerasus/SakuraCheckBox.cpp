@@ -71,12 +71,12 @@ void SAKURACHECKBOX_CALLMETHOD CSakuraCheckBox::Render()
 			else if (m_bMouseOver == true)
 			{
 				iState = SAKURA_STATE_NORMAL;
-				CCerasusAlgorithm::Increase(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->CCerasusUnitGetAlpha(), 1.0f, 0.02f);
+				CCerasusAlgorithm::Increase(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->GetAlpha(), 1.0f, 0.02f);
 			}
 			else
 			{
 				iState = SAKURA_STATE_NORMAL;
-				CCerasusAlgorithm::Decrease(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->CCerasusUnitGetAlpha(), 0.6f, 0.02f);
+				CCerasusAlgorithm::Decrease(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_NORMAL]->GetAlpha(), 0.6f, 0.02f);
 			}
 		}
 		else
@@ -88,12 +88,12 @@ void SAKURACHECKBOX_CALLMETHOD CSakuraCheckBox::Render()
 			else if (m_bMouseOver == true)
 			{
 				iState = SAKURA_STATE_PRESSED;
-				CCerasusAlgorithm::Increase(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_PRESSED]->CCerasusUnitGetAlpha(), 1.0f, 0.02f);
+				CCerasusAlgorithm::Increase(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_PRESSED]->GetAlpha(), 1.0f, 0.02f);
 			}
 			else
 			{
 				iState = SAKURA_STATE_PRESSED;
-				CCerasusAlgorithm::Decrease(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_PRESSED]->CCerasusUnitGetAlpha(), 0.6f, 0.02f);
+				CCerasusAlgorithm::Decrease(m_vecElements.at(0)->GetTextureBlend().m_States[SAKURA_STATE_PRESSED]->GetAlpha(), 0.6f, 0.02f);
 			}
 		}
 	}

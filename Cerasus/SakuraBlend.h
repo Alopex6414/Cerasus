@@ -14,10 +14,10 @@
 #ifndef __SAKURABLEND_H_
 #define __SAKURABLEND_H_
 
-//Include SakuraGUI Common Header File
+// Include SakuraGUI Common Header File
 #include "SakuraUICommon.h"
 
-//Macro Definition
+// Macro Definition
 #ifdef	CERASUS_EXPORTS
 #define SAKURABLEND_API	__declspec(dllexport)
 #else
@@ -26,7 +26,7 @@
 
 #define	SAKURABLEND_CALLMETHOD	__stdcall
 
-//Class Definition
+// Class Definition
 class SAKURABLEND_API CSakuraBlendFont
 {
 protected:
@@ -80,8 +80,8 @@ public:
 	void	SAKURABLEND_CALLMETHOD	OnCreate(LPDIRECT3DDEVICE9 pD3D9Device);										// CSakuraBlendTexture 初始化
 	void	SAKURABLEND_CALLMETHOD	OnLostDevice();																	// CSakuraBlendTexture 丢失设备
 	void	SAKURABLEND_CALLMETHOD	OnResetDevice();																// CSakuraBlendTexture	重置设备
-	int		SAKURABLEND_CALLMETHOD	AddTexture(SAKURA_CONTROL_STATE eType, CUUint sUnit);							// CSakuraBlendTexture 添加纹理(文件导入)
-	int		SAKURABLEND_CALLMETHOD	AddTexture(SAKURA_CONTROL_STATE eType, CUUintEx sUnit);							// CSakuraBlendTexture 添加纹理(内存导入)
+	int		SAKURABLEND_CALLMETHOD	AddTexture(SAKURA_CONTROL_STATE eType, S_CS_UNIT_PARA sUnit);					// CSakuraBlendTexture 添加纹理(文件导入)
+	int		SAKURABLEND_CALLMETHOD	AddTexture(SAKURA_CONTROL_STATE eType, S_CS_UNIT_EX_PARA sUnit);				// CSakuraBlendTexture 添加纹理(内存导入)
 	void	SAKURABLEND_CALLMETHOD	Blend(SAKURA_CONTROL_STATE eType);												// CSakuraBlendTexture 渲染纹理
 
 };

@@ -170,7 +170,7 @@ void SAKURABLEND_CALLMETHOD CSakuraBlendFont::OnLostDevice()
 	{
 		if (m_States[i] != NULL)
 		{
-			m_States[i]->DirectFontGetFont()->OnLostDevice();
+			m_States[i]->GetFont()->OnLostDevice();
 		}
 	}
 
@@ -189,7 +189,7 @@ void SAKURABLEND_CALLMETHOD CSakuraBlendFont::OnResetDevice()
 	{
 		if (m_States[i] != NULL)
 		{
-			m_States[i]->DirectFontGetFont()->OnResetDevice();
+			m_States[i]->GetFont()->OnResetDevice();
 		}
 	}
 
@@ -216,7 +216,7 @@ int SAKURABLEND_CALLMETHOD CSakuraBlendFont::AddFont(SAKURA_CONTROL_STATE eType,
 		return -1;
 	}
 
-	HRESULT hr = m_States[eType]->DirectFontInit(nFontSize, strFontName);
+	HRESULT hr = m_States[eType]->Create(nFontSize, strFontName);
 	if (FAILED(hr))
 	{
 		return -2;
@@ -241,7 +241,7 @@ void SAKURABLEND_CALLMETHOD CSakuraBlendFont::Blend(SAKURA_CONTROL_STATE eType, 
 		return;
 	}
 
-	m_States[eType]->DirectFontGetFont()->DrawTextW(NULL, pString, -1, pRect, Format, Color);
+	m_States[eType]->GetFont()->DrawTextW(NULL, pString, -1, pRect, Format, Color);
 	m_Current = m_States[eType];
 }
 
@@ -402,7 +402,7 @@ void SAKURABLEND_CALLMETHOD CSakuraBlendTexture::OnLostDevice()
 	{
 		if (m_States[i] != NULL)
 		{
-			m_States[i]->CCerasusUnitReset();
+			m_States[i]->Reset();
 		}
 	}
 }
@@ -420,7 +420,7 @@ void SAKURABLEND_CALLMETHOD CSakuraBlendTexture::OnResetDevice()
 	{
 		if (m_States[i] != NULL)
 		{
-			m_States[i]->CCerasusUnitReCreate();
+			m_States[i]->ReCreate();
 		}
 	}
 }
@@ -432,7 +432,7 @@ void SAKURABLEND_CALLMETHOD CSakuraBlendTexture::OnResetDevice()
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-int SAKURABLEND_CALLMETHOD CSakuraBlendTexture::AddTexture(SAKURA_CONTROL_STATE eType, CUUint sUnit)
+int SAKURABLEND_CALLMETHOD CSakuraBlendTexture::AddTexture(SAKURA_CONTROL_STATE eType, S_CS_UNIT_PARA sUnit)
 {
 	if (m_States[eType] != NULL)
 	{
@@ -446,7 +446,7 @@ int SAKURABLEND_CALLMETHOD CSakuraBlendTexture::AddTexture(SAKURA_CONTROL_STATE 
 		return -1;
 	}
 
-	HRESULT hr = m_States[eType]->CCerasusUnitInit(sUnit);
+	HRESULT hr = m_States[eType]->Create(sUnit);
 	if (FAILED(hr))
 	{
 		return -2;
@@ -464,7 +464,7 @@ int SAKURABLEND_CALLMETHOD CSakuraBlendTexture::AddTexture(SAKURA_CONTROL_STATE 
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-int SAKURABLEND_CALLMETHOD CSakuraBlendTexture::AddTexture(SAKURA_CONTROL_STATE eType, CUUintEx sUnit)
+int SAKURABLEND_CALLMETHOD CSakuraBlendTexture::AddTexture(SAKURA_CONTROL_STATE eType, S_CS_UNIT_EX_PARA sUnit)
 {
 	if (m_States[eType] != NULL)
 	{
@@ -478,7 +478,7 @@ int SAKURABLEND_CALLMETHOD CSakuraBlendTexture::AddTexture(SAKURA_CONTROL_STATE 
 		return -1;
 	}
 
-	HRESULT hr = m_States[eType]->CCerasusUnitInit(sUnit);
+	HRESULT hr = m_States[eType]->Create(sUnit);
 	if (FAILED(hr))
 	{
 		return -2;
@@ -503,10 +503,10 @@ void SAKURABLEND_CALLMETHOD CSakuraBlendTexture::Blend(SAKURA_CONTROL_STATE eTyp
 		return;
 	}
 
-	m_States[eType]->CCerasusUnitMatrixTransform();
-	m_States[eType]->CCerasusUnitPaddingVertexAndIndex();
-	m_States[eType]->CCerasusUnitSetAlphaBlendEnable();
-	m_States[eType]->CCerasusUnitSetRenderState();
-	m_States[eType]->CCerasusUnitRender();
-	m_States[eType]->CCerasusUnitSetAlphaBlendDisable();
+	m_States[eType]->MatrixTransform();
+	m_States[eType]->PaddingVertexAndIndex();
+	m_States[eType]->SetAlphaEnable();
+	m_States[eType]->SetRenderState();
+	m_States[eType]->Render();
+	m_States[eType]->SetAlphaDisable();
 }

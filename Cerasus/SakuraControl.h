@@ -1,24 +1,25 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Team Gorgeous Bubble
 *     All rights reserved.
 *
 * @file		SakuraControl.h
 * @brief	This File is SakuraGUI DLL Project.
-* @author	Alopex/Helium
-* @version	v1.00a
+* @author	Alopex/Alice
+* @version	v1.01a
 * @date		2018-10-16	v1.00a	alopex	Create Project.
+* @date		2019-04-20	v1.01a	alopex	Add Notes.
 */
 #pragma once
 
 #ifndef __SAKURACONTROL_H_
 #define __SAKURACONTROL_H_
 
-//Include SakuraGUI Common Header File
+// Include SakuraGUI Common Header File
 #include "SakuraUICommon.h"
 #include "SakuraElement.h"
 
-//Macro Definition
+// Macro Definition
 #ifdef	CERASUS_EXPORTS
 #define SAKURACONTROL_API	__declspec(dllexport)
 #else
@@ -27,7 +28,7 @@
 
 #define	SAKURACONTROL_CALLMETHOD	__stdcall
 
-//Class Definition
+// Class Definition
 class SAKURACONTROL_API CSakuraControl
 {
 public:

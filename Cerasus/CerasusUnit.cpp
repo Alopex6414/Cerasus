@@ -149,494 +149,294 @@ const CCerasusUnit& CCerasusUnit::operator=(const CCerasusUnit& Object)
 	return *this;
 }
 
-DirectGraphics3D* CERASUSUNIT_CALLMETHOD CCerasusUnit::GetGraphics3D() const
-{
-	return DirectGraphics3D * CERASUSUNIT_CALLMETHOD();
-}
-
-UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetScreenWidth() const
-{
-	return 0;
-}
-
-UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetScreenHeight() const
-{
-	return 0;
-}
-
-LPWSTR CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTextureStr() const
-{
-	return LPWSTR CERASUSUNIT_CALLMETHOD();
-}
-
-LPVOID CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTextureArr() const
-{
-	return LPVOID CERASUSUNIT_CALLMETHOD();
-}
-
-UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTextureArrSize() const
-{
-	return 0;
-}
-
-UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTextureWidth() const
-{
-	return 0;
-}
-
-UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTextureHeight() const
-{
-	return 0;
-}
-
-RECT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetUnitRect() const
-{
-	return RECT CERASUSUNIT_CALLMETHOD();
-}
-
-RECT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetUnitTextureRect() const
-{
-	return RECT CERASUSUNIT_CALLMETHOD();
-}
-
-float CERASUSUNIT_CALLMETHOD CCerasusUnit::GetUnitAlpha() const
-{
-	return 0.0f;
-}
-
-S_DX_COORDS_TRANSFORM_PARA CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTransformPara() const
-{
-	return S_DX_COORDS_TRANSFORM_PARA CERASUSUNIT_CALLMETHOD();
-}
-
-
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetDirectGraphics3D()
+// @Function:	 GetGraphics3D() const
 // @Purpose: CCerasusUnit获取DirectGraphics3D接口指针
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-DirectGraphics3D *CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetDirectGraphics3D() const
+DirectGraphics3D* CERASUSUNIT_CALLMETHOD CCerasusUnit::GetGraphics3D() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pDirectGraphics3D;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetScreenWidth()
+// @Function:	 GetScreenWidth() const
 // @Purpose: CCerasusUnit获取屏幕宽度
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetScreenWidth() const
+UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetScreenWidth() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_nScreenWidth;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetScreenHeight()
+// @Function:	 GetScreenHeight() const
 // @Purpose: CCerasusUnit获取屏幕高度
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetScreenHeight() const
+UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetScreenHeight() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_nScreenHeight;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetTextureStr()
+// @Function:	 GetTextureStr() const
 // @Purpose: CCerasusUnit获取纹理路径
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-LPWSTR CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetTextureStr() const
+LPWSTR CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTextureStr() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pTextureStr;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetTextureWidth()
+// @Function:	 GetTextureArr() const
+// @Purpose: CCerasusUnit获取纹理路径
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+LPVOID CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTextureArr() const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pTextureArr;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetTextureArrSize() const
+// @Purpose: CCerasusUnit获取纹理路径数组长度
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTextureArrSize() const
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_nTextureArrSize;
+}
+
+//------------------------------------------------------------------
+// @Function:	 GetTextureWidth() const
 // @Purpose: CCerasusUnit获取纹理宽度
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetTextureWidth() const
+UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTextureWidth() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_nTextureWidth;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetTextureHeight()
+// @Function:	 GetTextureHeight() const
 // @Purpose: CCerasusUnit获取纹理高度
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetTextureHeight() const
+UINT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTextureHeight() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_nTextureHeight;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetUnitRect()
+// @Function:	 GetUnitRect() const
 // @Purpose: CCerasusUnit获取图元形状
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-RECT CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetUnitRect() const
+RECT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetUnitRect() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_rcUnit;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetUnitTextureRect()
+// @Function:	 GetUnitTextureRect() const
 // @Purpose: CCerasusUnit获取纹理形状
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-RECT CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetUnitTextureRect() const
+RECT CERASUSUNIT_CALLMETHOD CCerasusUnit::GetUnitTextureRect() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_rcUnitTex;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetUnitAlpha()
+// @Function:	 GetUnitAlpha() const
 // @Purpose: CCerasusUnit获取图元Alpha
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-float CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetUnitAlpha() const
+float CERASUSUNIT_CALLMETHOD CCerasusUnit::GetUnitAlpha() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_fUnitAlpha;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetTransform()
+// @Function:	 GetTransformPara() const
 // @Purpose: CCerasusUnit坐标变换矩阵
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-DG3D_CoordsTransformPara CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetTransform() const
+S_DX_COORDS_TRANSFORM_PARA CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTransformPara() const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_sCoordsTransformPara;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitSetDirectGraphics3D()
-// @Purpose: CCerasusUnit设置DirectGraphics3D接口指针
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-void CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitSetDirectGraphics3D(DirectGraphics3D * pDirectGraphics3D)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectGraphics3D = pDirectGraphics3D;
-}
-
-//------------------------------------------------------------------
-// @Function:	 CCerasusUnitSetScreenWidth()
-// @Purpose: CCerasusUnit设置屏幕宽度
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-VOID CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitSetScreenWidth(UINT nScreenWidth)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_nScreenWidth = nScreenWidth;
-}
-
-//------------------------------------------------------------------
-// @Function:	 CCerasusUnitSetScreenHeight()
-// @Purpose: CCerasusUnit设置屏幕高度
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-VOID CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitSetScreenHeight(UINT nScreenHeight)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_nScreenHeight = nScreenHeight;
-}
-
-//------------------------------------------------------------------
-// @Function:	 CCerasusUnitSetTextureStr()
-// @Purpose: CCerasusUnit设置纹理路径
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-VOID CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitSetTextureStr(LPWSTR pTextureStr)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pTextureStr = pTextureStr;
-}
-
-//------------------------------------------------------------------
-// @Function:	 CCerasusUnitSetTextureWidth()
-// @Purpose: CCerasusUnit设置纹理宽度
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-VOID CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitSetTextureWidth(UINT nTextureWidth)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_nTextureWidth = nTextureWidth;
-}
-
-//------------------------------------------------------------------
-// @Function:	 CCerasusUnitSetTextureHeight()
-// @Purpose: CCerasusUnit设置纹理宽度
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-VOID CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitSetTextureHeight(UINT nTextureHeight)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_nTextureHeight = nTextureHeight;
-}
-
-//------------------------------------------------------------------
-// @Function:	 CCerasusUnitSetUnitRect()
-// @Purpose: CCerasusUnit设置图元形状
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-VOID CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitSetUnitRect(RECT rcUnit)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_rcUnit = rcUnit;
-}
-
-//------------------------------------------------------------------
-// @Function:	 CCerasusUnitSetUnitTextureRect()
-// @Purpose: CCerasusUnit设置纹理形状
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-VOID CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitSetUnitTextureRect(RECT rcUnitTex)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_rcUnitTex = rcUnitTex;
-}
-
-//------------------------------------------------------------------
-// @Function:	 CCerasusUnitSetUnitAlpha()
-// @Purpose: CCerasusUnit设置图元Alpha
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-VOID CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitSetUnitAlpha(float fUnitAlpha)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_fUnitAlpha = fUnitAlpha;
-}
-
-//------------------------------------------------------------------
-// @Function:	 CCerasusUnitSetTransform()
-// @Purpose: CCerasusUnit坐标变换矩阵
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-VOID CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitSetTransform(DG3D_CoordsTransformPara sCoordsTransformPara)
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	memcpy_s(&m_sCoordsTransformPara, sizeof(m_sCoordsTransformPara), &sCoordsTransformPara, sizeof(sCoordsTransformPara));
-}
-
-//------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetScaleX()
+// @Function:	 GetScaleX()
 // @Purpose: CCerasusUnit比例变换X
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-float &CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetScaleX()
+float& CERASUSUNIT_CALLMETHOD CCerasusUnit::GetScaleX()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleX;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetScaleY()
+// @Function:	 GetScaleY()
 // @Purpose: CCerasusUnit比例变换Y
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-float &CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetScaleY()
+float& CERASUSUNIT_CALLMETHOD CCerasusUnit::GetScaleY()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleY;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetScaleZ()
+// @Function:	 GetScaleZ()
 // @Purpose: CCerasusUnit比例变换Z
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-float &CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetScaleZ()
+float& CERASUSUNIT_CALLMETHOD CCerasusUnit::GetScaleZ()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleZ;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetRotateX()
+// @Function:	 GetRotateX()
 // @Purpose: CCerasusUnit旋转变换X
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-float &CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetRotateX()
+float& CERASUSUNIT_CALLMETHOD CCerasusUnit::GetRotateX()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateX;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetRotateY()
+// @Function:	 GetRotateY()
 // @Purpose: CCerasusUnit旋转变换Y
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-float &CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetRotateY()
+float& CERASUSUNIT_CALLMETHOD CCerasusUnit::GetRotateY()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateY;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetRotateZ()
+// @Function:	 GetRotateZ()
 // @Purpose: CCerasusUnit旋转变换Z
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-float &CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetRotateZ()
+float& CERASUSUNIT_CALLMETHOD CCerasusUnit::GetRotateZ()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_sCoordsTransformPara.sWorldTransformPara.sRotatePara.fRotateZ;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetTranslateX()
+// @Function:	 GetTranslateX()
 // @Purpose: CCerasusUnit位移变换X
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-float &CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetTranslateX()
+float& CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTranslateX()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateX;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetTranslateY()
+// @Function:	 GetTranslateY()
 // @Purpose: CCerasusUnit位移变换Y
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-float &CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetTranslateY()
+float& CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTranslateY()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateY;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetTranslateZ()
+// @Function:	 GetTranslateZ()
 // @Purpose: CCerasusUnit位移变换Z
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-float &CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetTranslateZ()
+float& CERASUSUNIT_CALLMETHOD CCerasusUnit::GetTranslateZ()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_sCoordsTransformPara.sWorldTransformPara.sTranslatePara.fTranslateZ;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitGetAlpha()
+// @Function:	 GetAlpha()
 // @Purpose: CCerasusUnit Alpha
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-float &CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitGetAlpha()
+float& CERASUSUNIT_CALLMETHOD CCerasusUnit::GetAlpha()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_fUnitAlpha;
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitReset()
-// @Purpose: CCerasusUnit重置
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-HRESULT CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitReset()
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	return m_pDirectGraphics3D->DirectGraphics3DReset();
-}
-
-//------------------------------------------------------------------
-// @Function:	 CCerasusUnitReCreate()
-// @Purpose: CCerasusUnit重新初始化
-// @Since: v1.00a
-// @Para: None
-// @Return: None
-//------------------------------------------------------------------
-HRESULT CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitReCreate()
-{
-	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-
-	if (m_pTextureStr)
-	{
-		return m_pDirectGraphics3D->DirectGraphics3DInitVertex3DTexture(1, m_pTextureStr, m_nTextureWidth, m_nTextureHeight);
-	}
-	else
-	{
-		return m_pDirectGraphics3D->DirectGraphics3DInitVertex3DTexture(1, m_pTextureArr, m_nTextureArrSize, m_nTextureWidth, m_nTextureHeight);
-	}
-
-}
-
-//------------------------------------------------------------------
-// @Function:	 CCerasusUnitInit()
+// @Function:	 Create(S_CS_UNIT_PARA sUnit)
 // @Purpose: CCerasusUnit初始化图形单元(纹理)
 // @Since: v1.00a
 // @Para: LPCWSTR pStr		//纹理绝对路径
@@ -644,7 +444,7 @@ HRESULT CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitReCreate()
 // @Para: UINT nHeight		//纹理高度
 // @Return: None
 //------------------------------------------------------------------
-HRESULT CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitInit(CUUint sUnit)
+HRESULT CERASUSUNIT_CALLMETHOD CCerasusUnit::Create(S_CS_UNIT_PARA sUnit)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -658,10 +458,19 @@ HRESULT CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitInit(CUUint sUnit)
 	memcpy_s(&m_rcUnitTex, sizeof(m_rcUnitTex), &(sUnit.rcUnitTex), sizeof(sUnit.rcUnitTex));
 	memcpy_s(&m_sCoordsTransformPara, sizeof(m_sCoordsTransformPara), &(sUnit.sCoordsTransformPara), sizeof(sUnit.sCoordsTransformPara));
 
-	return m_pDirectGraphics3D->DirectGraphics3DInitVertex3DTexture(1, m_pTextureStr, m_nTextureWidth, m_nTextureHeight);
+	return m_pDirectGraphics3D->CreateTexture(1, m_pTextureStr, m_nTextureWidth, m_nTextureHeight);
 }
 
-HRESULT CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitInit(CUUintEx sUnit)
+//------------------------------------------------------------------
+// @Function:	 Create(S_CS_UNIT_EX_PARA sUnit)
+// @Purpose: CCerasusUnit初始化图形单元(纹理)
+// @Since: v1.00a
+// @Para: LPCWSTR pStr		//纹理绝对路径
+// @Para: UINT nWidth		//纹理宽度
+// @Para: UINT nHeight		//纹理高度
+// @Return: None
+//------------------------------------------------------------------
+HRESULT CERASUSUNIT_CALLMETHOD CCerasusUnit::Create(S_CS_UNIT_EX_PARA sUnit)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -676,17 +485,52 @@ HRESULT CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitInit(CUUintEx sUnit)
 	memcpy_s(&m_rcUnitTex, sizeof(m_rcUnitTex), &(sUnit.rcUnitTex), sizeof(sUnit.rcUnitTex));
 	memcpy_s(&m_sCoordsTransformPara, sizeof(m_sCoordsTransformPara), &(sUnit.sCoordsTransformPara), sizeof(sUnit.sCoordsTransformPara));
 
-	return m_pDirectGraphics3D->DirectGraphics3DInitVertex3DTexture(1, m_pTextureArr, m_nTextureArrSize, m_nTextureWidth, m_nTextureHeight);
+	return m_pDirectGraphics3D->CreateTexture(1, m_pTextureArr, m_nTextureArrSize, m_nTextureWidth, m_nTextureHeight);
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitPaddingVertexAndIndex()
+// @Function:	 Reset()
+// @Purpose: CCerasusUnit重置
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT CERASUSUNIT_CALLMETHOD CCerasusUnit::Reset()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+	return m_pDirectGraphics3D->Reset();
+}
+
+//------------------------------------------------------------------
+// @Function:	 ReCreate()
+// @Purpose: CCerasusUnit重新初始化
+// @Since: v1.00a
+// @Para: None
+// @Return: None
+//------------------------------------------------------------------
+HRESULT CERASUSUNIT_CALLMETHOD CCerasusUnit::ReCreate()
+{
+	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
+
+	if (m_pTextureStr)
+	{
+		return m_pDirectGraphics3D->CreateTexture(1, m_pTextureStr, m_nTextureWidth, m_nTextureHeight);
+	}
+	else
+	{
+		return m_pDirectGraphics3D->CreateTexture(1, m_pTextureArr, m_nTextureArrSize, m_nTextureWidth, m_nTextureHeight);
+	}
+
+}
+
+//------------------------------------------------------------------
+// @Function:	 PaddingVertexAndIndex()
 // @Purpose: CCerasusUnit填充顶点索引
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitPaddingVertexAndIndex()
+void CERASUSUNIT_CALLMETHOD CCerasusUnit::PaddingVertexAndIndex()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -726,7 +570,7 @@ void CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitPaddingVertexAndIndex()
 	fVertex4U = (float)(m_rcUnitTex.left * 1.0f / m_nTextureWidth);
 	fVertex4V = (float)(m_rcUnitTex.bottom * 1.0f / m_nTextureHeight);
 
-	Vertex3DTexture pVertices[] = 
+	S_DX_VERTEX3D_TEXTURE pVertices[] =
 	{
 		{ fVertex1X, fVertex1Y, -1.0f, D3DXCOLOR(1.0f, 1.0f, 1.0f, m_fUnitAlpha), fVertex1U, fVertex1V },
 		{ fVertex2X, fVertex2Y, -1.0f, D3DXCOLOR(1.0f, 1.0f, 1.0f, m_fUnitAlpha), fVertex2U, fVertex2V },
@@ -734,20 +578,20 @@ void CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitPaddingVertexAndIndex()
 		{ fVertex4X, fVertex4Y, -1.0f, D3DXCOLOR(1.0f, 1.0f, 1.0f, m_fUnitAlpha), fVertex4U, fVertex4V },
 	};
 
-	m_pDirectGraphics3D->DirectGraphics3DPaddingVertexAndIndex(pVertices, 1);
+	m_pDirectGraphics3D->PaddingVertexAndIndex(pVertices, 1);
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitMatrixTransform()
+// @Function:	 MatrixTransform()
 // @Purpose: CCerasusUnit矩阵变换
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitMatrixTransform()
+void CERASUSUNIT_CALLMETHOD CCerasusUnit::MatrixTransform()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	DG3D_CoordsTransformPara sCoordsTransformPara = { 0 };
+	S_DX_COORDS_TRANSFORM_PARA sCoordsTransformPara = { 0 };
 
 	//世界变换
 	sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleX = m_sCoordsTransformPara.sWorldTransformPara.sScalePara.fScaleX;
@@ -775,66 +619,66 @@ void CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitMatrixTransform()
 	sCoordsTransformPara.sViewPortTransformPara.nUserWidth = m_nScreenWidth;
 	sCoordsTransformPara.sViewPortTransformPara.nUserHeight = m_nScreenHeight;
 
-	m_pDirectGraphics3D->DirectGraphics3DMatrixTransform(sCoordsTransformPara);
+	m_pDirectGraphics3D->MatrixTransform(sCoordsTransformPara);
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitSetAlphaBlendEnable()
+// @Function:	 SetAlphaEnable()
 // @Purpose: CCerasusUnit设置Alpha渲染开启
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitSetAlphaBlendEnable()
+void CERASUSUNIT_CALLMETHOD CCerasusUnit::SetAlphaEnable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectGraphics3D->DirectGraphics3DRenderStateAlphaEnable();
+	m_pDirectGraphics3D->AlphaEnable();
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitSetAlphaBlendDisable()
+// @Function:	 SetAlphaDisable()
 // @Purpose: CCerasusUnit设置Alpha渲染关闭
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitSetAlphaBlendDisable()
+void CERASUSUNIT_CALLMETHOD CCerasusUnit::SetAlphaDisable()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectGraphics3D->DirectGraphics3DRenderStateAlphaDisable();
+	m_pDirectGraphics3D->AlphaDisable();
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitSetRenderState()
+// @Function:	 SetRenderState()
 // @Purpose: CCerasusUnit设置渲染状态
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitSetRenderState()
+void CERASUSUNIT_CALLMETHOD CCerasusUnit::SetRenderState()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);					//Alpha混合模式:ADD
-	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	m_pDirectGraphics3D->GetDevice()->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);					// Alpha混合模式:ADD
+	m_pDirectGraphics3D->GetDevice()->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	m_pDirectGraphics3D->GetDevice()->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
-	//渲染模式:纹理混合设置
-	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);//D3DTA_DIFFUSE//D3DTA_TEXTURE
-	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
-	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
-	m_pDirectGraphics3D->DirectGraphics3DGetDevice()->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+	// 渲染模式:纹理混合设置
+	m_pDirectGraphics3D->GetDevice()->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	m_pDirectGraphics3D->GetDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE);			// D3DTA_DIFFUSE//D3DTA_TEXTURE
+	m_pDirectGraphics3D->GetDevice()->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TEXTURE);
+	m_pDirectGraphics3D->GetDevice()->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+	m_pDirectGraphics3D->GetDevice()->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 }
 
 //------------------------------------------------------------------
-// @Function:	 CCerasusUnitRender()
+// @Function:	 Render()
 // @Purpose: CCerasusUnit渲染
 // @Since: v1.00a
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void CERASUSUNIT_CALLMETHOD CCerasusUnit::CCerasusUnitRender()
+void CERASUSUNIT_CALLMETHOD CCerasusUnit::Render()
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
-	m_pDirectGraphics3D->DirectGraphics3DRender(Vertex3D_Type_Texture, 1, true);
+	m_pDirectGraphics3D->Render(Vertex3D_Type_Texture, 1, true);
 }

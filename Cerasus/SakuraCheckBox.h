@@ -1,24 +1,25 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Team Gorgeous Bubble
 *     All rights reserved.
 *
 * @file		SakuraCheckBox.h
 * @brief	This File is SakuraGUI DLL Project.
-* @author	Alopex/Helium
-* @version	v1.00a
+* @author	Alopex/Alice
+* @version	v1.01a
 * @date		2018-11-10	v1.00a	alopex	Create Project.
+* @date		2019-04-20	v1.01a	alopex	Add Notes.
 */
 #pragma once
 
 #ifndef __SAKURACHECKBOX_H_
 #define __SAKURACHECKBOX_H_
 
-//Include SakuraGUI Common Header File
+// Include SakuraGUI Common Header File
 #include "SakuraUICommon.h"
 #include "SakuraButton.h"
 
-//Macro Definition
+// Macro Definition
 #ifdef	CERASUS_EXPORTS
 #define SAKURACHECKBOX_API	__declspec(dllexport)
 #else
@@ -27,7 +28,7 @@
 
 #define	SAKURACHECKBOX_CALLMETHOD	__stdcall
 
-//Class Definition
+// Class Definition
 class SAKURACHECKBOX_API CSakuraCheckBox : public CSakuraButton
 {
 protected:
@@ -39,7 +40,7 @@ protected:
 	virtual	void	SAKURACHECKBOX_CALLMETHOD	SetCheckedInternal(bool bChecked, bool bFromInput);			// CSakuraCheckBox 设置内部复选
 
 public:
-	CSakuraCheckBox(CSakuraDialog* pDialog = NULL);			// CSakuraCheckBox 构造函数
+	CSakuraCheckBox(CSakuraDialog* pDialog = NULL);							// CSakuraCheckBox 构造函数
 
 	virtual void	SAKURACHECKBOX_CALLMETHOD	Render();					// CSakuraCheckBox 渲染控件
 

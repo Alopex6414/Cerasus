@@ -1,13 +1,14 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Team Gorgeous Bubble
 *     All rights reserved.
 *
 * @file		SakuraListBox.cpp
 * @brief	This File is SakuraGUI DLL Project.
-* @author	Alopex/Helium
-* @version	v1.00a
+* @author	Alopex/Alice
+* @version	v1.01a
 * @date		2018-12-04	v1.00a	alopex	Create Project.
+* @date		2019-04-20	v1.01a	alopex	Add Notes.
 */
 #include "SakuraDialog.h"
 #include "SakuraListBox.h"

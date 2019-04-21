@@ -1,25 +1,26 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Team Gorgeous Bubble
 *     All rights reserved.
 *
 * @file		SakuraListBox.h
 * @brief	This File is SakuraGUI DLL Project.
-* @author	Alopex/Helium
-* @version	v1.00a
+* @author	Alopex/Alice
+* @version	v1.01a
 * @date		2018-12-04	v1.00a	alopex	Create Project.
+* @date		2019-04-20	v1.01a	alopex	Add Notes.
 */
 #pragma once
 
 #ifndef __SAKURALISTBOX_H_
 #define __SAKURALISTBOX_H_
 
-//Include SakuraGUI Common Header File
+// Include SakuraGUI Common Header File
 #include "SakuraUICommon.h"
 #include "SakuraControl.h"
 #include "SakuraScrollBar.h"
 
-//Macro Definition
+// Macro Definition
 #ifdef	CERASUS_EXPORTS
 #define SAKURALISTBOX_API	__declspec(dllexport)
 #else
@@ -28,7 +29,7 @@
 
 #define	SAKURALISTBOX_CALLMETHOD	__stdcall
 
-//Struct Definition
+// Struct Definition
 typedef struct
 {
 	WCHAR strText[256];
@@ -37,7 +38,7 @@ typedef struct
 	bool bSelected;
 } CSakuraListBoxItem, *LPCSakuraListBoxItem;
 
-//Class Definition
+// Class Definition
 class SAKURALISTBOX_API CSakuraListBox : public CSakuraControl
 {
 protected:

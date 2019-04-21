@@ -1,24 +1,25 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Team Gorgeous Bubble
 *     All rights reserved.
 *
 * @file		SakuraRadioButton.h
 * @brief	This File is SakuraGUI DLL Project.
-* @author	Alopex/Helium
-* @version	v1.00a
+* @author	Alopex/Alice
+* @version	v1.01a
 * @date		2018-11-13	v1.00a	alopex	Create Project.
+* @date		2019-04-20	v1.01a	alopex	Add Notes.
 */
 #pragma once
 
 #ifndef __SAKURARADIOBUTTON_H_
 #define __SAKURARADIOBUTTON_H_
 
-//Include SakuraGUI Common Header File
+// Include SakuraGUI Common Header File
 #include "SakuraUICommon.h"
 #include "SakuraCheckBox.h"
 
-//Macro Definition
+// Macro Definition
 #ifdef	CERASUS_EXPORTS
 #define SAKURARADIOBUTTON_API	__declspec(dllexport)
 #else
@@ -27,7 +28,7 @@
 
 #define	SAKURARADIOBUTTON_CALLMETHOD	__stdcall
 
-//Class Definition
+// Class Definition
 class SAKURARADIOBUTTON_API CSakuraRadioButton : public CSakuraCheckBox
 {
 protected:

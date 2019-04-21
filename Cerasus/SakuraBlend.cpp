@@ -47,7 +47,7 @@ CSakuraBlendFont::~CSakuraBlendFont()
 		SAFE_DELETE(m_States[i]);
 	}
 
-	SAFE_DELETE(m_Current);
+	//SAFE_DELETE(m_Current);
 }
 
 //------------------------------------------------------------------
@@ -279,7 +279,7 @@ CSakuraBlendTexture::~CSakuraBlendTexture()
 		SAFE_DELETE(m_States[i]);
 	}
 
-	SAFE_DELETE(m_Current);
+	//SAFE_DELETE(m_Current);
 }
 
 //------------------------------------------------------------------

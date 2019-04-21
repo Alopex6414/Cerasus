@@ -1,24 +1,25 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2018, Team Shanghai Dream Equinox
+*     Copyright(c) 2017~2019, Team Gorgeous Bubble
 *     All rights reserved.
 *
 * @file		SakuraScrollBar.h
 * @brief	This File is SakuraGUI DLL Project.
-* @author	Alopex/Helium
-* @version	v1.00a
+* @author	Alopex/Alice
+* @version	v1.01a
 * @date		2018-11-28	v1.00a	alopex	Create Project.
+* @date		2019-04-20	v1.01a	alopex	Add Notes.
 */
 #pragma once
 
 #ifndef __SAKURASCROLLBAR_H_
 #define __SAKURASCROLLBAR_H_
 
-//Include SakuraGUI Common Header File
+// Include SakuraGUI Common Header File
 #include "SakuraUICommon.h"
 #include "SakuraControl.h"
 
-//Macro Definition
+// Macro Definition
 #ifdef	CERASUS_EXPORTS
 #define SAKURASCROLLBAR_API	__declspec(dllexport)
 #else
@@ -29,7 +30,7 @@
 
 #define SCROLLBAR_MINTHUMBSIZE	8
 
-//Class Definition
+// Class Definition
 class SAKURASCROLLBAR_API CSakuraScrollBar : public CSakuraControl
 {
 protected:

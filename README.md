@@ -1,9 +1,9 @@
 # 樱花🌸
-This Program is a Cerasus DirectX Render Dynamic Link Library Project.
-本程序是采用C++ DirectX开发渲染动态链接库项目。
-このプログラムは、ダイナミックリンクライブラリプロジェクトをレンダリングするC ++ DirectX開発です。
-Ce programme est un projet de bibliothèque de liens dynamiques de rendu de développement C ++ DirectX.
-Эта программа представляет собой проект библиотеки динамических ссылок для визуализации разработки на C ++.
+This Program is a Cerasus DirectX Render Dynamic Link Library Project.  
+本程序是采用C++ DirectX开发渲染动态链接库项目。  
+このプログラムは、ダイナミックリンクライブラリプロジェクトをレンダリングするC ++ DirectX開発です。  
+Ce programme est un projet de bibliothèque de liens dynamiques de rendu de développement C ++ DirectX.  
+Эта программа представляет собой проект библиотеки динамических ссылок для визуализации разработки на C ++.  
 
 ## Abstruct
 This project is mainly about DX9 playing games, video, wallpaper rendering, music, sound effect, speaker playing, keyboard, mouse, joystick control, and some game related programming. The library is designed for quick and easy development, debugging, testing, and deployment of games, applications, and graphics. The name Cerasus is adopted because it stands for cherry blossom in Latin and is as colorful as our game.

@@ -17,26 +17,23 @@ Ce projet concerne principalement DX9 pour le jeu, la vidéo, le rendu de papier
 Этот проект в основном DX9 для игр, видео, рендеринга обоев, музыки, звуковых эффектов, воспроизведения динамиков, клавиатуры, мыши, управления джойстиком и некоторых игр, связанных с программированием. Цель этой библиотеки - быстро и легко разрабатывать, отлаживать, тестировать и развертывать игры, приложения и графику. Название Cerasus используется потому, что его латинский язык означает «сакура» и такой же красочный, как и наша игра.
 
 ## Constitute
-  * ## DirectX
-    * ### DirectCommon
-    * ### DirectTypes
-    * ### DirectTemplate
-    * ### DirectGraphics
-    * ### DirectGraphics3D
-    * ### DirectGraphics2D
-    * ### DirectGraphics11
-    * ### DirectInput
-    * ### DirectSound
-    * ### DirectShow
-    * ### DirectSurface
-    * ### DirectTexture
-    * ### DirectSprite
-    * ### DirectSafe
-    * ### DirectMesh
-    * ### DirectFont
-    * ### DirectThreadSafe
-    
- * ## Cerasus
-    * ### Cerasufps
-    * ### CerasuUnit
-    * ### CerasusAlgorithm
+  * ### DirectCommon
+  * ### DirectTypes
+  * ### DirectTemplate
+  * ### DirectGraphics
+  * ### DirectGraphics3D
+  * ### DirectGraphics2D
+  * ### DirectGraphics11
+  * ### DirectInput
+  * ### DirectSound
+  * ### DirectShow
+  * ### DirectSurface
+  * ### DirectTexture
+  * ### DirectSprite
+  * ### DirectSafe
+  * ### DirectMesh
+  * ### DirectFont
+  * ### DirectThreadSafe
+  * ### Cerasufps
+  * ### CerasuUnit
+  * ### CerasusAlgorithm

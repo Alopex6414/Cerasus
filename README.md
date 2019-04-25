@@ -38,3 +38,5 @@ Ce projet concerne principalement DX9 pour le jeu, la vidéo, le rendu de papier
   * ### CerasuUnit
   * ### CerasusAlgorithm
   * ### CerasusTypes
+  * ### SakuraBlend
+  * ### SakuraButton

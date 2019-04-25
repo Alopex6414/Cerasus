@@ -18,9 +18,13 @@ Ce projet concerne principalement DX9 pour le jeu, la vidéo, le rendu de papier
 
 ## Constitute
   * ## DirectX
+    * ### DirectCommon
+    * ### DirectTypes
+    * ### DirectTemplate
     * ### DirectGraphics
     * ### DirectGraphics3D
     * ### DirectGraphics2D
+    * ### DirectGraphics11
     * ### DirectInput
     * ### DirectSound
     * ### DirectShow

@@ -30,6 +30,8 @@ Ce projet concerne principalement DX9 pour le jeu, la vidéo, le rendu de papier
   
   * ### DirectTemplate
     * #### *`DirectTemplate` defines some commonly used function templates, such as the release of pointer objects and COM interfaces.*
+    
+    DirectTemplate定义了一些常用的函数模板，例如指针对象和COM接口的释放。
   
   * ### DirectGraphics
   * ### DirectGraphics3D

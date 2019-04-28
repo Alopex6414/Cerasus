@@ -19,7 +19,8 @@ Ce projet concerne principalement DX9 pour le jeu, la vidéo, le rendu de papier
 ## Constitute
   * ### DirectCommon
     * #### *`DirectCommon` is a DirectX public header file that contains DirectX9 and DirectX11 header files, library files, and some common macros.*
-  
+    DirectCommon 是 DirectX公共头文件，包含了DirectX9和DirectX11头文件、库文件以及一些常用宏。
+    
   * ### DirectTypes
   * ### DirectTemplate
   * ### DirectGraphics

@@ -18,6 +18,8 @@ Ce projet concerne principalement DX9 pour le jeu, la vidéo, le rendu de papier
 
 ## Constitute
   * ### DirectCommon
+    * #### *`DirectCommon` is a DirectX public header file that contains DirectX9 and DirectX11 header files, library files, and some common macros.*
+  
   * ### DirectTypes
   * ### DirectTemplate
   * ### DirectGraphics

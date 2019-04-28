@@ -22,6 +22,7 @@ Ce projet concerne principalement DX9 pour le jeu, la vidéo, le rendu de papier
     * #### *`DirectCommon` also includes functions in the `D3DX` library, including DirectInput, DirectSound, DirectShow, etc.*
     
     DirectCommon是一个DirectX公共头文件，包含DirectX9和DirectX11头文件，库文件和一些常见的宏。
+    DirectCommon还包括D3DX库中的函数，包括DirectInput，DirectSound，DirectShow等。
     
   * ### DirectTypes
     * #### *`DirectTypes` mainly defines the enumeration and structure of DirectX.*

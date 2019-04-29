@@ -38,6 +38,7 @@ Ce projet concerne principalement DX9 pour le jeu, la vidéo, le rendu de papier
     * #### *DX9 render object initialization.*
     * #### *DX9 rendering parameter drawing initialization.*
     * #### *DX9 rendering process control (start drawing, clearing, flipping, ending drawing).*
+    * #### *DX9 Common interface functions device objects (offscreen surface, test collaboration level, reset device).*
 
   * ### DirectGraphics3D
   * ### DirectGraphics2D

@@ -35,6 +35,7 @@ Ce projet concerne principalement DX9 pour le jeu, la vidéo, le rendu de papier
   
   * ### DirectGraphics
     * #### *`DirectGraphics` class is mainly about DX9 device status, device objects, device parameters, graphics card model, rendering format, buffer format, template depth, resolution and other initialization, rendering parameter display rendering, rendering flow control and related rendering object interface.*
+    * #### *DX9 render object initialization.*
 
   * ### DirectGraphics3D
   * ### DirectGraphics2D

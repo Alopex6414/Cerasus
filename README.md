@@ -29,11 +29,13 @@ Ce projet concerne principalement DX9 pour le jeu, la vidéo, le rendu de papier
     DirectTypes主要定义DirectX的枚举和结构。
   
   * ### DirectTemplate
-    * #### *`DirectTemplate` defines some commonly used function templates, such as the release of pointer objects and COM interfaces.*
+    * #### *`DirectTemplate` mainly defines some commonly used function templates, such as the release of pointer objects and COM interfaces.*
     
-    DirectTemplate定义了一些常用的函数模板，例如指针对象和COM接口的释放。
+    DirectTemplate主要定义了一些常用的函数模板，例如指针对象和COM接口的释放。
   
   * ### DirectGraphics
+    * #### *`DirectTemplate` defines some commonly used function templates, such as the release of pointer objects and COM interfaces.*
+
   * ### DirectGraphics3D
   * ### DirectGraphics2D
   * ### DirectGraphics11

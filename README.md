@@ -21,14 +21,6 @@ Ce projet concerne principalement DX9 pour le jeu, la vidéo, le rendu de papier
     * #### *`DirectCommon` is a DirectX public header file that contains `DirectX9` and `DirectX11` header files, library files, and some common macros.*
     * #### *`DirectCommon` also includes functions in the `D3DX` library, including DirectInput, DirectSound, DirectShow, etc.*
     
-    DirectCommon是一个DirectX公共头文件，包含DirectX9和DirectX11头文件，库文件和一些常见的宏。DirectCommon还包括D3DX库中的函数，包括DirectInput，DirectSound，DirectShow等。
-    
-    DirectCommonは、DirectX 9とDirectX 11のヘッダファイル、ライブラリファイル、およびいくつかの一般的なマクロを含むDirectXのパブリックヘッダファイルです。 DirectCommonには、DirectInput、DirectSound、DirectShowなどのD3DXライブラリの関数も含まれています。
-    
-    DirectCommon est un fichier d'en-tête public DirectX qui contient les fichiers d'en-tête DirectX9 et DirectX11, les fichiers de bibliothèque et certaines macros courantes. DirectCommon inclut également des fonctions dans la bibliothèque D3DX, notamment DirectInput, DirectSound, DirectShow, etc.
-    
-    DirectCommon - это открытый заголовочный файл DirectX, который содержит заголовочные файлы DirectX9 и DirectX11, библиотечные файлы и некоторые распространенные макросы. DirectCommon также включает функции в библиотеке D3DX, в том числе DirectInput, DirectSound, DirectShow и другие.
-    
   * ### DirectTypes
     * #### *`DirectTypes` mainly defines the enumeration and structure of DirectX.*
     

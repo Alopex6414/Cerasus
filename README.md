@@ -4,7 +4,9 @@ This Program is a Cerasus DirectX Render Dynamic Link Library Project.
 ## Abstruct
 This project is mainly about DX9 playing games, video, wallpaper rendering, music, sound effect, speaker playing, keyboard, mouse, joystick control, and some game related programming. The library is designed for quick and easy development, debugging, testing, and deployment of games, applications, and graphics. The name Cerasus is adopted because it stands for cherry blossom in Latin and is as colorful as our game.
 
-## Constitute
+## Constitutions
+
+## Features
   * ### DirectCommon
     * #### *`DirectCommon` is a DirectX public header file that contains `DirectX9` and `DirectX11` header files, library files, and some common macros.*
     * #### *`DirectCommon` also includes functions in the `D3DX` library, including DirectInput, DirectSound, DirectShow, etc.*

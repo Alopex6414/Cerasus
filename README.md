@@ -18,6 +18,7 @@ This project is mainly about DX9 playing games, video, wallpaper rendering, musi
   
   * ### DirectTemplate
     * #### *`DirectTemplate` mainly defines some commonly used function templates, such as the release of pointer objects and COM interfaces.*
+    &nbsp;
   
   * ### DirectGraphics
     * #### *`DirectGraphics` class is mainly about DX9 device status, device objects, device parameters, graphics card model, rendering format, buffer format, template depth, resolution and other initialization, rendering parameter display rendering, rendering flow control and related rendering object interface.*
@@ -25,6 +26,7 @@ This project is mainly about DX9 playing games, video, wallpaper rendering, musi
     * #### *DX9 rendering parameter drawing initialization.*
     * #### *DX9 rendering process control (start drawing, clearing, flipping, ending drawing).*
     * #### *DX9 Common interface functions device objects (offscreen surface, test collaboration level, reset device).*
+    &nbsp;
 
   * ### DirectGraphics3D
   * ### DirectGraphics2D

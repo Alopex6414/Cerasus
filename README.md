@@ -14,6 +14,7 @@ This project is mainly about DX9 playing games, video, wallpaper rendering, musi
     
   * ### DirectTypes
     * #### *`DirectTypes` mainly defines the enumeration and structure of DirectX.*
+    &nbsp;
   
   * ### DirectTemplate
     * #### *`DirectTemplate` mainly defines some commonly used function templates, such as the release of pointer objects and COM interfaces.*

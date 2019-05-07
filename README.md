@@ -17,6 +17,7 @@ Cerasus now consists of 4 parts, the **Direct** class responsible for DirectX un
     * #### *`DirectTypes` mainly defines the enumeration and structure of DirectX.*
     * #### *`DirectTemplate` mainly defines some commonly used function templates, such as the release of pointer objects and COM interfaces.*
     * #### *`DirectGraphics` class is mainly about DX9 device status, device objects, device parameters, graphics card model, rendering format, buffer format, template depth, resolution and other initialization, rendering parameter display rendering, rendering flow control and related rendering object interface.*
+     * #### *`DirectGraphics3D` class is mainly about the rendering of 3D graphics. It needs to fill the vertex buffer and index buffer of 3D graphics, and matrix transform the graphics (stretch, rotate, pan, etc.), rendering settings (light, material, texture, alpha blend), the final output is rendered to the device.*
     &nbsp;
   * ### CerasusClass
     &nbsp;

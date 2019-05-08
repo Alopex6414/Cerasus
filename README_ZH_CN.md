@@ -1,5 +1,5 @@
 # 樱花🌸
-This Program is a Cerasus DirectX Render Dynamic Link Library Project.
+本程序是基于DirectX樱花动态链接库项目。
 
 ## Language
   * [English](https://github.com/Alopex6414/Cerasus/blob/master/README.md)

@@ -1,12 +1,12 @@
 # 樱花🌸
 本程序是基于DirectX樱花动态链接库项目。
 
-## Language
+## 语言
   * [English](https://github.com/Alopex6414/Cerasus/blob/master/README.md)
   * [简体中文](https://github.com/Alopex6414/Cerasus/blob/master/README_ZH_CN.md)
 
-## Abstract
-This project is mainly about DX9 playing games, video, wallpaper rendering, music, sound effect, speaker playing, keyboard, mouse, joystick control, and some game related programming. The library is designed for quick and easy development, debugging, testing, and deployment of games, applications, and graphics. The name Cerasus is adopted because it stands for cherry blossom in Latin and is as colorful as our game.
+## 摘要
+这个项目主要是关于DX9游戏，视频，壁纸渲染，音乐，音效，扬声器播放，键盘，鼠标，操纵杆控制，以及一些游戏相关的编程。 该库旨在快速轻松地开发，调试，测试和部署游戏，应用程序和图形。 Cerasus这个名字被采用是因为它代表拉丁语中的樱花，并且与我们的游戏一样丰富多彩。
 
 ## Constitutions
 Cerasus now consists of 4 parts, the **Direct** class responsible for DirectX underlying graphics rendering, the **Cerasus** class for game physics algorithms, the **Sakura** class for GUI interaction interfaces, and the **DXUI** class for rendering management.

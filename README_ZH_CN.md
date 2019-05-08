@@ -8,8 +8,8 @@
 ## 摘要
 这个项目主要是关于DX9游戏，视频，壁纸渲染，音乐，音效，扬声器播放，键盘，鼠标，操纵杆控制，以及一些游戏相关的编程。 该库旨在快速轻松地开发，调试，测试和部署游戏，应用程序和图形。 Cerasus这个名字被采用是因为它代表拉丁语中的樱花，并且与我们的游戏一样丰富多彩。
 
-## Constitutions
-Cerasus now consists of 4 parts, the **Direct** class responsible for DirectX underlying graphics rendering, the **Cerasus** class for game physics algorithms, the **Sakura** class for GUI interaction interfaces, and the **DXUI** class for rendering management.
+## 组成
+Cerasus现在由4部分组成，**Direct**类负责DirectX底层图形渲染，**Cerasus**类用于游戏物理算法，**Sakura**类用于GUI交互界面，以及**DXUI**用于渲染管理的类。
 * **Direct class s primarily responsible for the underlying part of DirectX, such as graphics rendering, music effects, game interaction, video decoding, particle systems, etc.**
 * **Cerasus class is mainly responsible for the core and auxiliary parts of the game, including physical algorithms, basic primitives, fps refresh display, etc.**
 * **Sakura class is primarily responsible for game interactions, such as scenes, dialogs, buttons, etc.**

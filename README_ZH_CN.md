@@ -10,10 +10,10 @@
 
 ## 组成
 Cerasus现在由4部分组成，**Direct**类负责DirectX底层图形渲染，**Cerasus**类用于游戏物理算法，**Sakura**类用于GUI交互界面，以及**DXUI**用于渲染管理的类。
-* **Direct class s primarily responsible for the underlying part of DirectX, such as graphics rendering, music effects, game interaction, video decoding, particle systems, etc.**
-* **Cerasus class is mainly responsible for the core and auxiliary parts of the game, including physical algorithms, basic primitives, fps refresh display, etc.**
-* **Sakura class is primarily responsible for game interactions, such as scenes, dialogs, buttons, etc.**
-* **DXUI class is mainly responsible for game management, including game scripts, resource decoding, and schedule management, which are currently not completed...**
+* **Direct class主要负责DirectX的基础部分，如图形渲染，音乐效果，游戏交互，视频解码，粒子系统等。**
+* **Cerasus类主要负责游戏的核心和辅助部分，包括物理算法，基本原语，fps刷新显示等。**
+* **Sakura课程主要负责游戏交互，例如场景，对话框，按钮等。**
+* **DXUI类主要负责游戏管理，包括游戏脚本，资源解码和日程管理，目前尚未完成...... **
 
 ## Features
   * ### DirectClass

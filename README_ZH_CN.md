@@ -15,19 +15,19 @@ Cerasus现在由4部分组成，**Direct**类负责DirectX底层图形渲染，*
 * **Sakura课程主要负责游戏交互，例如场景，对话框，按钮等。**
 * **DXUI类主要负责游戏管理，包括游戏脚本，资源解码和日程管理，目前尚未完成......**
 
-## Features
+## 特征
   * ### DirectClass
-    * #### *`DirectCommon` is a DirectX public header file that contains `DirectX9` and `DirectX11` header files, library files, and some common macros, and also includes functions in the `D3DX` library, including DirectInput, DirectSound, DirectShow, etc.*
-    * #### *`DirectTypes` mainly defines the enumeration and structure of DirectX.*
-    * #### *`DirectTemplate` mainly defines some commonly used function templates, such as the release of pointer objects and COM interfaces.*
-    * #### *`DirectGraphics` class is mainly about `DX9` device status, device objects, device parameters, graphics card model, rendering format, buffer format, template depth, resolution and other initialization, rendering parameter display rendering, rendering flow control and related rendering object interface.*
-    * #### *`DirectGraphics11` class is a `DX11` version of the `DirectGraphics` class. It is mainly used to boot and initialize DX11 rendering. Compared with the `DX9` initialization process, the difference is relatively large.*
-     * #### *`DirectGraphics3D` class is mainly about the rendering of 3D graphics. It needs to fill the vertex buffer and index buffer of 3D graphics, and matrix transform the graphics (stretch, rotate, pan, etc.), rendering settings (light, material, texture, alpha blend), the final output is rendered to the device.*
-     * #### *`DirectGraphics2D` class is mainly about the rendering of 2D graphics, which needs to fill the vertex buffer and index buffer of 2D graphics. Relative to 3D rendering, it is easy to do complex matrix transformations due to their unique vertex format. After setting the rendering mode, you can finally render the output to the device.*
-     * #### *`DirectInput` class is primarily used for interactive input devices such as keyboards, mice, and joysticks. Provides the ability to interact with the driver layer, including initialization, detection, feedback, and processing.*
-     * #### *`DirectSound` class is mainly used for game music effects, and supports Wav and PCM file decoding. Provides the ability to interact with the driver layer, including initialization, detection, feedback, and processing.*
-     * #### *`DirectShow` class is mainly used for game animation music playback. The number of decoders supported by itself is not much. The common COM interface is provided, and the corresponding decoding program needs to be written for the development file.*
-     * #### *`DirectMesh` is mainly used to draw some collections of D3DX itself, including cubes, spheres, cylinders, torus, polygons and teapots.*
+    * #### *`DirectCommon`是一个DirectX公共头文件，包含`DirectX9`和`DirectX11`头文件，库文件和一些常用宏，还包括`D3DX`库中的函数，包括DirectInput，DirectSound ，DirectShow等*
+    * #### *`DirectTypes`主要定义DirectX的枚举和结构。*
+    * #### *`DirectTemplate`主要定义一些常用的函数模板，例如指针对象和COM接口的发布。*
+    * #### *`DirectGraphics`类主要讲述`DX9`设备状态，设备对象，设备参数，显卡模型，渲染格式，缓冲格式，模板深度，分辨率等初始化，渲染参数显示渲染，渲染流程控件和相关的渲染对象接口。*
+    * #### *`DirectGraphics11`类是`DirectGraphics`类的`DX11`版本。它主要用于启动和初始化DX11渲染。与'DX9`初始化过程相比，差异相对较大。*
+     * #### *`DirectGraphics3D`类主要是关于3D图形的渲染。它需要填充3D图形的顶点缓冲区和索引缓冲区，并对矩阵变换图形（拉伸，旋转，平移等），渲染设置（光线，材质，纹理，alpha混合），最终输出渲染到设备。*
+     * #### *`DirectGraphics2D`类主要是关于2D图形的渲染，它需要填充2D图形的顶点缓冲区和索引缓冲区。相对于3D渲染，由于其独特的顶点格式，很容易进行复杂的矩阵变换。设置渲染模式后，您最终可以将输出渲染到设备。*
+     * #### *`DirectInput`类主要用于交互式输入设备，如键盘，鼠标和操纵杆。提供与驱动程序层交互的功能，包括初始化，检测，反馈和处理。*
+     * #### *`DirectSound`类主要用于游戏音乐效果，并支持Wav和PCM文件解码。提供与驱动程序层交互的功能，包括初始化，检测，反馈和处理。*
+     * #### *`DirectShow`类主要用于游戏动画音乐播放。自身支持的解码器数量不多。提供了通用的COM接口，需要为开发文件编写相应的解码程序。*
+     * #### *`DirectMesh`主要用于绘制D3DX本身的一些集合，包括立方体，球体，圆柱体，圆环面，多边形和茶壶。*
     &nbsp;
   * ### CerasusClass
     &nbsp;

@@ -38,8 +38,8 @@ Cerasusは、DirectXの基礎となるグラフィックスレンダリングを
     * #### *`DirectSafe`クラスはスレッド間のリソースセキュリティに使用されます。 DirectThreadと同様に、DirectSafeクラスの終了後にCriticalSectionを削除する必要はなく、複数回使用することができます。*
     &nbsp;
   * ### CerasusClass
-    ＆nbsp;
-  * ###サクラクラス
+    &nbsp;
+  * ### SakuraClass
     &nbsp;
   * ### DXUIClass
     &nbsp;

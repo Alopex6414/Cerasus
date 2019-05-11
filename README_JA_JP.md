@@ -1,5 +1,5 @@
 # 桜花🌸
-本程序是基於DirectX櫻花動態鏈接庫項目。
+このプログラムはDirectXの桜ダイナミックリンクライブラリプロジェクトに基づいています。
 
 ## 語言
   * [English](https://github.com/Alopex6414/Cerasus/blob/master/README.md)

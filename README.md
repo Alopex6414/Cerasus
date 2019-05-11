@@ -30,6 +30,7 @@ Cerasus now consists of 4 parts, the **Direct** class responsible for DirectX un
      * #### *`DirectMesh` is mainly used to draw some collections of D3DX itself, including cubes, spheres, cylinders, torus, polygons and teapots.*
      * #### *`DirectSprite` is mainly used for particle swarm rendering ❄, such as snowflake deciduous particles rendering 🍂.It can perform particle rendering of simple 2D graphics, such as creation, matrix transformation, and rendering.*
      * #### *`DirectSurface` class is used for simple screen rendering, screen capture, and high efficiency, which can be used to create video players.*
+     * #### *`DirectTexture class is mainly used to draw texture graphics. Texture images can be loaded from file or memory for 3D graphics or 2D graphics vertex index rendering, which is more powerful than the DirectSurface class.*
     &nbsp;
   * ### CerasusClass
     &nbsp;

@@ -28,6 +28,12 @@ Cerasus现在由4部分组成，**Direct**类负责DirectX底层图形渲染，*
     * #### *`DirectSound`类主要用于游戏音乐效果，并支持Wav和PCM文件解码。提供与驱动程序层交互的功能，包括初始化，检测，反馈和处理。*
     * #### *`DirectShow`类主要用于游戏动画音乐播放。自身支持的解码器数量不多。提供了通用的COM接口，需要为开发文件编写相应的解码程序。*
     * #### *`DirectMesh`主要用于绘制D3DX本身的一些集合，包括立方体，球体，圆柱体，圆环面，多边形和茶壶。*
+    * #### *`DirectFont`类用于字体渲染，这部分不是由Direct3D使用，而是由GDI使用，因此渲染效率不是很高。*
+    * #### *`DirectSprite`主要用于粒子群渲染❄，例如雪花落叶粒子渲染🍂。它可以执行简单2D图形的粒子渲染，如创建，矩阵变换和渲染。*
+    * #### *`DirectSurface`类用于简单的屏幕渲染，屏幕捕获和高效率，可用于创建视频播放器。*
+    * #### *`DirectTexture`类主要用于绘制纹理图形。纹理图像可以从文件或内存加载，用于3D图形或2D图形顶点索引渲染，这比DirectSurface类更强大。*
+    * #### *`DirectThreadSafe`类用于线程之间的资源安全性。使用CriticalSection，它主要保护课堂内的资源并防止资源竞争。*
+    * #### *`DirectSafe`类用于线程之间的资源安全性。与DirectThread相同，在DirectSafe类退出后没有必要删除CriticalSection，可以多次使用。*
     &nbsp;
   * ### CerasusClass
     &nbsp;

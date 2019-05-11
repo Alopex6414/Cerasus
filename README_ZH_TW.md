@@ -1,5 +1,5 @@
 # 櫻花🌸
-本程序是基于DirectX樱花动态链接库项目。
+本程序是基於DirectX櫻花動態鏈接庫項目。
 
 ## 语言
   * [English](https://github.com/Alopex6414/Cerasus/blob/master/README.md)

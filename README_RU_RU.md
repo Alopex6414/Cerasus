@@ -39,10 +39,10 @@ Cerasus теперь состоит из 4 частей: класс **Direct**, 
     * #### *`DirectSafe` используется для защиты ресурсов между потоками. Так же, как DirectThread, нет необходимости удалять CriticalSection после выхода из класса DirectSafe, его можно использовать несколько раз.*
     &nbsp;
   * ### CerasusClass
-     * #### *`Cerasusfps` class is mainly used to calculate the frame rate of D3DX rendering, and is drawn on the window to detect whether the game has dropped frames.*
-     * #### *`CerasusUnit` class is mainly used to draw 2D primitives in 3D coordinate system, usually rectangular primitives. Textures can be loaded from files or unwrapped through resources. CerasusUnit also has coordinate transformations, materials, lighting, and rendering properties for 3D primitives.*
-     * #### *`CerasusAlgorithm` class mainly defines some common algorithms for graphics. These algorithms are generally given in the form of static member functions and can be called in the program.*
-     * #### *`CerasusType` class is mainly used to define the type of Cerasus class.*
+    * #### *`Cerasusfps` в основном используется для вычисления частоты кадров рендеринга D3DX и рисуется в окне, чтобы определить, пропускает ли игра кадры.*
+    * #### *`CerasusUnit` в основном используется для рисования 2D-примитивов в 3D-системе координат, обычно это прямоугольные примитивы. Текстуры могут быть загружены из файлов или развернуты через ресурсы. CerasusUnit также имеет преобразования координат, материалы, освещение и свойства рендеринга для 3D-примитивов.*
+    * #### *`CerasusAlgorithm` в основном определяет некоторые распространенные алгоритмы для графики. Эти алгоритмы обычно задаются в виде статических функций-членов и могут вызываться в программе.*
+    * #### *`CerasusType` в основном используется для определения типа класса Cerasus.*
     &nbsp;
   * ### SakuraClass
     &nbsp;

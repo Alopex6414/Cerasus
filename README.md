@@ -38,6 +38,7 @@ Cerasus now consists of 4 parts, the **Direct** class responsible for DirectX un
      * #### *`DirectSafe` class is used for resource security between threads. The same as DirectThread, it is not necessary to delete the CriticalSection after the DirectSafe class exits, can be used multiple times.*
     &nbsp;
   * ### CerasusClass
+     * #### *`Cerasusfps` class is mainly used to calculate the frame rate of D3DX rendering, and is drawn on the window to detect whether the game has dropped frames.*
     &nbsp;
   * ### SakuraClass
     &nbsp;

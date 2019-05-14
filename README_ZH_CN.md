@@ -38,6 +38,10 @@ Cerasus现在由4部分组成，**Direct**类负责DirectX底层图形渲染，*
     * #### *`DirectSafe`类用于线程之间的资源安全性。与DirectThread相同，在DirectSafe类退出后没有必要删除CriticalSection，可以多次使用。*
     &nbsp;
   * ### CerasusClass
+    * #### *`Cerasusfps`类主要用于计算D3DX渲染的帧速率，并在窗口上绘制以检测游戏是否丢帧。*
+    * #### *`CerasusUnit`类主要用于在3D坐标系中绘制2D图元，通常是矩形图元。 纹理可以从文件加载或通过资源解包。 CerasusUnit还具有3D基元的坐标转换，材质，光照和渲染属性。*
+    * #### *`CerasusAlgorithm`类主要定义一些常用的图形算法。 这些算法通常以静态成员函数的形式给出，可以在程序中调用。*
+    * #### *`CerasusType`类主要用于定义Cerasus类的类型。*
     &nbsp;
   * ### SakuraClass
     &nbsp;

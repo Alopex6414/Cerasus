@@ -9,7 +9,7 @@
   * [русский](https://github.com/Alopex6414/Cerasus/blob/master/README_RU_RU.md)
 
 ## Аннотация
-This project is mainly about DX9 playing games, video, wallpaper rendering, music, sound effect, speaker playing, keyboard, mouse, joystick control, and some game related programming. The library is designed for quick and easy development, debugging, testing, and deployment of games, applications, and graphics. The name Cerasus is adopted because it stands for cherry blossom in Latin and is as colorful as our game.
+Этот проект в основном о DX9, играющих в игры, видео, рендеринг обоев, музыку, звуковые эффекты, игру динамиков, клавиатуру, мышь, управление джойстиком и некоторые игры, связанные с программированием. Библиотека предназначена для быстрой и простой разработки, отладки, тестирования и развертывания игр, приложений и графики. Название Cerasus принято потому, что оно обозначает вишневый цвет на латыни и такое же красочное, как и наша игра.
 
 ## Constitutions
 Cerasus now consists of 4 parts, the **Direct** class responsible for DirectX underlying graphics rendering, the **Cerasus** class for game physics algorithms, the **Sakura** class for GUI interaction interfaces, and the **DXUI** class for rendering management.

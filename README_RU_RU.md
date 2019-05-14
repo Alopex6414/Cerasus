@@ -1,5 +1,5 @@
-# Cerasus🌸
-This Program is a Cerasus DirectX Render Dynamic Link Library Project.
+# Вишневый цвет🌸
+Эта программа представляет собой проект библиотеки динамических ссылок Cerasus DirectX Render.
 
 ## Language
   * [English](https://github.com/Alopex6414/Cerasus/blob/master/README.md)

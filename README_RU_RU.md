@@ -12,11 +12,11 @@
 Этот проект в основном о DX9, играющих в игры, видео, рендеринг обоев, музыку, звуковые эффекты, игру динамиков, клавиатуру, мышь, управление джойстиком и некоторые игры, связанные с программированием. Библиотека предназначена для быстрой и простой разработки, отладки, тестирования и развертывания игр, приложений и графики. Название Cerasus принято потому, что оно обозначает вишневый цвет на латыни и такое же красочное, как и наша игра.
 
 ## конституции
-Cerasus now consists of 4 parts, the **Direct** class responsible for DirectX underlying graphics rendering, the **Cerasus** class for game physics algorithms, the **Sakura** class for GUI interaction interfaces, and the **DXUI** class for rendering management.
-* **Direct class s primarily responsible for the underlying part of DirectX, such as graphics rendering, music effects, game interaction, video decoding, particle systems, etc.**
-* **Cerasus class is mainly responsible for the core and auxiliary parts of the game, including physical algorithms, basic primitives, fps refresh display, etc.**
-* **Sakura class is primarily responsible for game interactions, such as scenes, dialogs, buttons, etc.**
-* **DXUI class is mainly responsible for game management, including game scripts, resource decoding, and schedule management, which are currently not completed...**
+Cerasus теперь состоит из 4 частей: класс **Direct**, отвечающий за рендеринг основной графики DirectX, класс **Cerasus** для алгоритмов игровой физики, класс **Sakura** для интерфейсов взаимодействия с GUI и **DXUI** класс для управления рендерингом.
+* **Классы Direct отвечают главным образом за основную часть DirectX, такую как рендеринг графики, музыкальные эффекты, игровое взаимодействие, декодирование видео, системы частиц и т. Д.**
+* **Класс Cerasus в основном отвечает за ядро и вспомогательные части игры, включая физические алгоритмы, базовые примитивы, отображение обновления fps и т. Д.**
+* **Класс Sakura отвечает главным образом за игровые взаимодействия, такие как сцены, диалоги, кнопки и т. Д. **
+* **Класс DXUI в основном отвечает за управление игрой, включая игровые сценарии, декодирование ресурсов и управление расписанием, которые в настоящее время не завершены ... **
 
 ## Features
   * ### DirectClass

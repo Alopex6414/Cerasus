@@ -39,13 +39,13 @@ Cerasus se compose désormais de 4 parties: la classe **Direct** responsable du 
     * #### *`DirectThreadSafe` est utilisée pour la sécurité des ressources entre les threads. Avec CriticalSection, il protège principalement les ressources de la classe et empêche la concurrence des ressources.*
     * #### *`DirectSafe` est utilisée pour la sécurité des ressources entre les threads. Comme pour DirectThread, il n'est pas nécessaire de supprimer la CriticalSection après la sortie de la classe DirectSafe, elle peut être utilisée plusieurs fois.*
     &nbsp;
-  * ### CerasusClass
+  * ### CerasusClass
     * #### *`Cerasusfps` est principalement utilisée pour calculer la cadence du rendu D3DX et est dessinée dans la fenêtre pour détecter si le jeu a perdu des images.*
     * #### *`CerasusUnit` est principalement utilisée pour dessiner des primitives 2D dans un système de coordonnées 3D, généralement des primitives rectangulaires. Les textures peuvent être chargées à partir de fichiers ou déplacées dans des ressources. CerasusUnit possède également des propriétés de transformations de coordonnées, de matériaux, d'éclairage et de rendu pour les primitives 3D.*
     * #### *`CerasusAlgorithm` définit principalement certains algorithmes courants pour les graphiques. Ces algorithmes sont généralement donnés sous la forme de fonctions membres statiques et peuvent être appelés dans le programme.*
     * #### *`CerasusType` est principalement utilisée pour définir le type de classe Cerasus.*
     &nbsp;
-  * ### SakuraClass
+  * ### SakuraClass
     &nbsp;
-  * ### DXUIClass
+  * ### DXUIClass
     &nbsp;

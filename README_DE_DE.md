@@ -7,6 +7,7 @@ Dieses Programm ist ein Cerasus DirectX Render Dynamic Link Library-Projekt.
   * [繁體中文](https://github.com/Alopex6414/Cerasus/blob/master/README_ZH_TW.md)
   * [日本語](https://github.com/Alopex6414/Cerasus/blob/master/README_JA_JP.md)
   * [русский](https://github.com/Alopex6414/Cerasus/blob/master/README_RU_RU.md)
+  * [Français](https://github.com/Alopex6414/Cerasus/blob/master/README_FR_FR.md)
   * [Deutsch](https://github.com/Alopex6414/Cerasus/blob/master/README_DE_DE.md)
 
 ## Abstract

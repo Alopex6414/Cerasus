@@ -10,15 +10,15 @@ Dieses Programm ist ein Cerasus DirectX Render Dynamic Link Library-Projekt.
   * [Français](https://github.com/Alopex6414/Cerasus/blob/master/README_FR_FR.md)
   * [Deutsch](https://github.com/Alopex6414/Cerasus/blob/master/README_DE_DE.md)
 
-## Abstract
-This project is mainly about DX9 playing games, video, wallpaper rendering, music, sound effect, speaker playing, keyboard, mouse, joystick control, and some game related programming. The library is designed for quick and easy development, debugging, testing, and deployment of games, applications, and graphics. The name Cerasus is adopted because it stands for cherry blossom in Latin and is as colorful as our game.
+## Abstrakt
+In diesem Projekt geht es hauptsächlich um DX9-Spiele, Video, Wallpaper-Rendering, Musik, Soundeffekte, Lautsprecherspiele, Tastatur, Maus, Joystick-Steuerung und einige spielbezogene Programme. Die Bibliothek ist für das schnelle und einfache Entwickeln, Debuggen, Testen und Bereitstellen von Spielen, Anwendungen und Grafiken konzipiert. Der Name Cerasus wird angenommen, weil er auf Latein für Kirschblüte steht und so farbenfroh ist wie unser Spiel.
 
-## Constitutions
-Cerasus now consists of 4 parts, the **Direct** class responsible for DirectX underlying graphics rendering, the **Cerasus** class for game physics algorithms, the **Sakura** class for GUI interaction interfaces, and the **DXUI** class for rendering management.
-* **Direct class s primarily responsible for the underlying part of DirectX, such as graphics rendering, music effects, game interaction, video decoding, particle systems, etc.**
-* **Cerasus class is mainly responsible for the core and auxiliary parts of the game, including physical algorithms, basic primitives, fps refresh display, etc.**
-* **Sakura class is primarily responsible for game interactions, such as scenes, dialogs, buttons, etc.**
-* **DXUI class is mainly responsible for game management, including game scripts, resource decoding, and schedule management, which are currently not completed...**
+Verfassungen
+Cerasus besteht jetzt aus 4 Teilen, der **Direct** -Klasse, die für das Rendering von DirectX-Grafiken verantwortlich ist, der **Cerasus** -Klasse für spielphysikalische Algorithmen, der **Sakura** -Klasse für GUI-Interaktionsschnittstellen und der **DXUI** Klasse für das Rendering-Management.
+* **Direct-Klassen, die in erster Linie für den zugrunde liegenden Teil von DirectX verantwortlich sind, z. B. Grafikwiedergabe, Musikeffekte, Spielinteraktion, Videodekodierung, Partikelsysteme usw.**
+* **Die Cerasus - Klasse ist hauptsächlich für den Kern und die Hilfsteile des Spiels verantwortlich, einschließlich physikalischer Algorithmen, grundlegender Grundelemente, der Anzeige von Bildwiederholungen bei Bildwiederholungen usw.**
+* **Die Sakura-Klasse ist hauptsächlich für Spielinteraktionen wie Szenen, Dialoge, Schaltflächen usw. Verantwortlich.**
+* **Die DXUI-Klasse ist hauptsächlich für das Game-Management verantwortlich, einschließlich der Game-Skripte, der Ressourcendekodierung und des Schedule-Managements, die derzeit noch nicht abgeschlossen sind ...**
 
 ## Features
   * ### DirectClass

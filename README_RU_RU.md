@@ -8,6 +8,7 @@
   * [日本語](https://github.com/Alopex6414/Cerasus/blob/master/README_JA_JP.md)
   * [русский](https://github.com/Alopex6414/Cerasus/blob/master/README_RU_RU.md)
   * [Français](https://github.com/Alopex6414/Cerasus/blob/master/README_FR_FR.md)
+  * [Deutsch](https://github.com/Alopex6414/Cerasus/blob/master/README_DE_DE.md)
 
 ## Аннотация
 Этот проект в основном о DX9, играющих в игры, видео, рендеринг обоев, музыку, звуковые эффекты, игру динамиков, клавиатуру, мышь, управление джойстиком и некоторые игры, связанные с программированием. Библиотека предназначена для быстрой и простой разработки, отладки, тестирования и развертывания игр, приложений и графики. Название Cerasus принято потому, что оно обозначает вишневый цвет на латыни и такое же красочное, как и наша игра.

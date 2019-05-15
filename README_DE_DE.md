@@ -1,12 +1,13 @@
 # Cerasus🌸
-This Program is a Cerasus DirectX Render Dynamic Link Library Project.
+Dieses Programm ist ein Cerasus DirectX Render Dynamic Link Library-Projekt.
 
-## Language
+## Sprache
   * [English](https://github.com/Alopex6414/Cerasus/blob/master/README.md)
   * [简体中文](https://github.com/Alopex6414/Cerasus/blob/master/README_ZH_CN.md)
   * [繁體中文](https://github.com/Alopex6414/Cerasus/blob/master/README_ZH_TW.md)
   * [日本語](https://github.com/Alopex6414/Cerasus/blob/master/README_JA_JP.md)
   * [русский](https://github.com/Alopex6414/Cerasus/blob/master/README_RU_RU.md)
+  * [Deutsch](https://github.com/Alopex6414/Cerasus/blob/master/README_DE_DE.md)
 
 ## Abstract
 This project is mainly about DX9 playing games, video, wallpaper rendering, music, sound effect, speaker playing, keyboard, mouse, joystick control, and some game related programming. The library is designed for quick and easy development, debugging, testing, and deployment of games, applications, and graphics. The name Cerasus is adopted because it stands for cherry blossom in Latin and is as colorful as our game.

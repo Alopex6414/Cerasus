@@ -8,6 +8,7 @@
   * [日本語](https://github.com/Alopex6414/Cerasus/blob/master/README_JA_JP.md)
   * [русский](https://github.com/Alopex6414/Cerasus/blob/master/README_RU_RU.md)
   * [Français](https://github.com/Alopex6414/Cerasus/blob/master/README_FR_FR.md)
+  * [Deutsch](https://github.com/Alopex6414/Cerasus/blob/master/README_DE_DE.md)
 
 ## 摘要
 这个项目主要是关于DX9游戏，视频，壁纸渲染，音乐，音效，扬声器播放，键盘，鼠标，操纵杆控制，以及一些游戏相关的编程。 该库旨在快速轻松地开发，调试，测试和部署游戏，应用程序和图形。 Cerasus这个名字被采用是因为它代表拉丁语中的樱花，并且与我们的游戏一样丰富多彩。

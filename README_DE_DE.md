@@ -20,32 +20,32 @@ Cerasus besteht jetzt aus 4 Teilen, der **Direct** -Klasse, die für das Renderi
 * **Die Sakura-Klasse ist hauptsächlich für Spielinteraktionen wie Szenen, Dialoge, Schaltflächen usw. Verantwortlich.**
 * **Die DXUI-Klasse ist hauptsächlich für das Game-Management verantwortlich, einschließlich der Game-Skripte, der Ressourcendekodierung und des Schedule-Managements, die derzeit noch nicht abgeschlossen sind ...**
 
-## Features
+## Eigenschaften
   * ### DirectClass
-    * #### *`DirectCommon` is a DirectX public header file that contains `DirectX9` and `DirectX11` header files, library files, and some common macros, and also includes functions in the `D3DX` library, including DirectInput, DirectSound, DirectShow, etc.*
-    * #### *`DirectTypes` mainly defines the enumeration and structure of DirectX.*
-    * #### *`DirectTemplate` mainly defines some commonly used function templates, such as the release of pointer objects and COM interfaces.*
-    * #### *`DirectGraphics` class is mainly about `DX9` device status, device objects, device parameters, graphics card model, rendering format, buffer format, template depth, resolution and other initialization, rendering parameter display rendering, rendering flow control and related rendering object interface.*
-    * #### *`DirectGraphics11` class is a `DX11` version of the `DirectGraphics` class. It is mainly used to boot and initialize DX11 rendering. Compared with the `DX9` initialization process, the difference is relatively large.*
-     * #### *`DirectGraphics3D` class is mainly about the rendering of 3D graphics. It needs to fill the vertex buffer and index buffer of 3D graphics, and matrix transform the graphics (stretch, rotate, pan, etc.), rendering settings (light, material, texture, alpha blend), the final output is rendered to the device.*
-     * #### *`DirectGraphics2D` class is mainly about the rendering of 2D graphics, which needs to fill the vertex buffer and index buffer of 2D graphics. Relative to 3D rendering, it is easy to do complex matrix transformations due to their unique vertex format. After setting the rendering mode, you can finally render the output to the device.*
-     * #### *`DirectInput` class is primarily used for interactive input devices such as keyboards, mice, and joysticks. Provides the ability to interact with the driver layer, including initialization, detection, feedback, and processing.*
-     * #### *`DirectSound` class is mainly used for game music effects, and supports Wav and PCM file decoding. Provides the ability to interact with the driver layer, including initialization, detection, feedback, and processing.*
-     * #### *`DirectShow` class is mainly used for game animation music playback. The number of decoders supported by itself is not much. The common COM interface is provided, and the corresponding decoding program needs to be written for the development file.*
-     * #### *`DirectMesh` is mainly used to draw some collections of D3DX itself, including cubes, spheres, cylinders, torus, polygons and teapots.*
-     * #### *`DirectFont` class is used for font rendering, this part is not used by Direct3D, but by GDI, so the rendering efficiency is not very high.*
-     * #### *`DirectSprite` is mainly used for particle swarm rendering ❄, such as snowflake deciduous particles rendering 🍂.It can perform particle rendering of simple 2D graphics, such as creation, matrix transformation, and rendering.*
-     * #### *`DirectSurface` class is used for simple screen rendering, screen capture, and high efficiency, which can be used to create video players.*
-     * #### *`DirectTexture` class is mainly used to draw texture graphics. Texture images can be loaded from file or memory for 3D graphics or 2D graphics vertex index rendering, which is more powerful than the DirectSurface class.*
-     * #### *`DirectThreadSafe` class is used for resource security between threads. With CriticalSection, it mainly protects resources within the class and prevents resource competition.*
-     * #### *`DirectSafe` class is used for resource security between threads. The same as DirectThread, it is not necessary to delete the CriticalSection after the DirectSafe class exits, can be used multiple times.*
-    &nbsp;
+    * #### *`DirectCommon` ist eine öffentliche DirectX-Header-Datei, die` DirectX9`- und `DirectX11`-Header-Dateien, Bibliotheksdateien und einige gängige Makros enthält sowie Funktionen in der` D3DX`-Bibliothek, einschließlich DirectInput, DirectSound , DirectShow usw. *
+    * #### *`DirectTypes` definiert hauptsächlich die Aufzählung und Struktur von DirectX.*
+    * #### *`DirectTemplate` definiert hauptsächlich einige häufig verwendete Funktionsvorlagen, z. B. die Freigabe von Zeigerobjekten und COM-Schnittstellen.*
+    * #### *`DirectGraphics` geht es hauptsächlich um` DX9`-Gerätestatus, Geräteobjekte, Geräteparameter, Grafikkartenmodell, Renderingformat, Pufferformat, Vorlagentiefe, Auflösung und andere Initialisierung, Rendering von Renderingparametern, Renderingfluss Steuerelement und zugehörige Rendering-Objekt-Schnittstelle.*
+    * #### *`DirectGraphics11`-Klasse ist eine` DX11`-Version der `DirectGraphics`-Klasse. Es wird hauptsächlich zum Booten und Initialisieren des DX11-Renderings verwendet. Verglichen mit dem Initialisierungsprozess von `DX9` ist der Unterschied relativ groß.*
+    * #### *`DirectGraphics3D` geht es hauptsächlich um das Rendern von 3D-Grafiken. Es muss den Scheitelpunktpuffer und den Indexpuffer von 3D-Grafiken füllen und die Grafiken (Strecken, Drehen, Schwenken usw.) sowie die Rendereinstellungen (Licht, Material, Textur, Alpha-Mischung) in eine Matrix umwandeln Gerät.*
+    * #### *`DirectGraphics2D` geht es hauptsächlich um das Rendern von 2D-Grafiken, die den Scheitelpunktpuffer und den Indexpuffer von 2D-Grafiken füllen müssen. Im Vergleich zum 3D-Rendering ist es aufgrund des einzigartigen Vertex-Formats einfach, komplexe Matrixtransformationen durchzuführen. Nachdem Sie den Rendermodus eingestellt haben, können Sie die Ausgabe endgültig auf dem Gerät rendern.*
+    * #### *`DirectInput` wird hauptsächlich für interaktive Eingabegeräte wie Tastaturen, Mäuse und Joysticks verwendet. Bietet die Möglichkeit, mit der Treiberschicht zu interagieren, einschließlich Initialisierung, Erkennung, Rückmeldung und Verarbeitung. *
+    * #### *`DirectSound` wird hauptsächlich für Spielemusik-Effekte verwendet und unterstützt die Dekodierung von Wav- und PCM-Dateien. Bietet die Möglichkeit, mit der Treiberschicht zu interagieren, einschließlich Initialisierung, Erkennung, Rückmeldung und Verarbeitung.*
+    * #### *`DirectShow` -Klasse wird hauptsächlich für die Wiedergabe von Spielanimationsmusik verwendet. Die Anzahl der Decoder, die von sich aus unterstützt werden, ist nicht groß. Die gemeinsame COM-Schnittstelle wird bereitgestellt, und das entsprechende Dekodierungsprogramm muss für die Entwicklungsdatei geschrieben werden.*
+    * #### *`DirectMesh` wird hauptsächlich zum Zeichnen einiger Sammlungen von D3DX selbst verwendet, einschließlich Würfel, Kugeln, Zylinder, Torus, Polygone und Teekannen.*
+    * #### *`DirectFont` wird für das Rendern von Schriftarten verwendet. Dieser Teil wird nicht von Direct3D, sondern von GDI verwendet, sodass die Rendereffizienz nicht sehr hoch ist.*
+    * #### *`DirectSprite` wird hauptsächlich für das Rendern von Partikelschwärmen verwendet (z. B. das Rendern von Schneeflocken-Laubpartikeln). Es kann das Rendern von Partikeln einfacher 2D-Grafiken (z. B. Erstellen, Matrixtransformation und Rendern) durchführen.*
+    * #### *`DirectSurface` -Klasse wird für einfaches Bildschirmrendering, Bildschirmaufzeichnung und hohe Effizienz verwendet, die zum Erstellen von Video-Playern verwendet werden können.*
+    * #### *`DirectTexture` wird hauptsächlich zum Zeichnen von Texturgrafiken verwendet. Texturbilder können aus einer Datei oder aus dem Speicher geladen werden, um 3D-Grafiken oder 2D-Grafik-Vertex-Indizes zu rendern. Dies ist leistungsfähiger als die DirectSurface-Klasse.*
+    * #### *`DirectThreadSafe` wird für die Ressourcensicherheit zwischen Threads verwendet. Mit CriticalSection werden hauptsächlich Ressourcen innerhalb der Klasse geschützt und Ressourcenwettbewerbe verhindert.*
+    * #### *`DirectSafe` wird für die Ressourcensicherheit zwischen Threads verwendet. Genau wie bei DirectThread muss CriticalSection nach dem Beenden der DirectSafe-Klasse nicht gelöscht werden. Es kann mehrmals verwendet werden.*
+    &nbsp;
   * ### CerasusClass
-     * #### *`Cerasusfps` class is mainly used to calculate the frame rate of D3DX rendering, and is drawn on the window to detect whether the game has dropped frames.*
-     * #### *`CerasusUnit` class is mainly used to draw 2D primitives in 3D coordinate system, usually rectangular primitives. Textures can be loaded from files or unwrapped through resources. CerasusUnit also has coordinate transformations, materials, lighting, and rendering properties for 3D primitives.*
-     * #### *`CerasusAlgorithm` class mainly defines some common algorithms for graphics. These algorithms are generally given in the form of static member functions and can be called in the program.*
-     * #### *`CerasusType` class is mainly used to define the type of Cerasus class.*
-    &nbsp;
+    * #### *`Cerasusfps` -Klasse wird hauptsächlich zur Berechnung der Framerate des D3DX-Renderings verwendet und im Fenster angezeigt, um festzustellen, ob das Spiel Frames verloren hat.*
+    * #### *`CerasusUnit` wird hauptsächlich zum Zeichnen von 2D-Grundelementen im 3D-Koordinatensystem verwendet, normalerweise rechteckigen Grundelementen. Texturen können aus Dateien geladen oder über Ressourcen entpackt werden. CerasusUnit verfügt auch über Koordinatentransformationen, Materialien, Beleuchtungs- und Rendereigenschaften für 3D-Grundelemente.*
+    * #### *`CerasusAlgorithm` definiert hauptsächlich einige gängige Algorithmen für Grafiken. Diese Algorithmen werden in der Regel in Form von statischen Elementfunktionen angegeben und können im Programm aufgerufen werden.*
+    * #### *`CerasusType` wird hauptsächlich verwendet, um den Typ der Cerasus-Klasse zu definieren.*
+    &nbsp;
   * ### SakuraClass
     &nbsp;
   * ### DXUIClass

@@ -8,6 +8,7 @@ Ce programme est un projet de bibliothèque de liens dynamiques Render Cerasus D
   * [日本語](https://github.com/Alopex6414/Cerasus/blob/master/README_JA_JP.md)
   * [русский](https://github.com/Alopex6414/Cerasus/blob/master/README_RU_RU.md)
   * [Français](https://github.com/Alopex6414/Cerasus/blob/master/README_FR_FR.md)
+  * [Deutsch](https://github.com/Alopex6414/Cerasus/blob/master/README_DE_DE.md)
 
 ## Abstrait
 Ce projet concerne principalement les jeux DX9, la vidéo, le rendu du papier peint, la musique, les effets sonores, le jeu des enceintes, le clavier, la souris, le contrôle par joystick et certaines programmations liées au jeu. La bibliothèque est conçue pour le développement, le débogage, les tests et le déploiement rapides et faciles de jeux, d'applications et de graphiques. Le nom de Cerasus a été adopté car il signifie «fleur de cerisier» en latin et est aussi coloré que notre jeu.

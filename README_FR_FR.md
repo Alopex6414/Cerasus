@@ -1,7 +1,7 @@
 # Cerasus🌸
 Ce programme est un projet de bibliothèque de liens dynamiques Render Cerasus DirectX.
 
-## Language
+## La langue
   * [English](https://github.com/Alopex6414/Cerasus/blob/master/README.md)
   * [简体中文](https://github.com/Alopex6414/Cerasus/blob/master/README_ZH_CN.md)
   * [繁體中文](https://github.com/Alopex6414/Cerasus/blob/master/README_ZH_TW.md)

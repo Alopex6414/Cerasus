@@ -48,6 +48,7 @@ Cerasus now consists of 4 parts, the **Direct** class responsible for DirectX un
     &nbsp;
   * ### SakuraClass
      * #### *`SakuraBlend` class is mainly used for primitive texture and text rendering.*
+     * #### *`SakuraButton` class is mainly used for Button controls.*
     &nbsp;
   * ### DXUIClass
     &nbsp;

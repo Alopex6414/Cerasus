@@ -51,6 +51,7 @@ Cerasus now consists of 4 parts, the **Direct** class responsible for DirectX un
      * #### *`SakuraButton` class is mainly used for Button controls.*
      * #### *`SakuraCheckBox` class is mainly used for the CheckBox control.*
      * #### *`SakuraComboBox` class is mainly used for the ComboBox control.*
+     * #### *`SakuraControl` class is used for the base class of the control class, providing other control class derived interfaces.*
     &nbsp;
   * ### DXUIClass
     &nbsp;

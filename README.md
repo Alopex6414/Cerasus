@@ -68,3 +68,6 @@ Cerasus now consists of 4 parts, the **Direct** class responsible for DirectX un
   * ### DXUIClass
      The DXUI class is temporarily not completed, to be updated...
     &nbsp;
+    
+## License
+  Copyright (C) 2017~2019, Team Gorgeous Bubble, All Rights Reserved.

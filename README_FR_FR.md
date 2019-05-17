@@ -47,6 +47,23 @@ Cerasus se compose désormais de 4 parties: la classe **Direct** responsable du 
     * #### *`CerasusType` est principalement utilisée pour définir le type de classe Cerasus.*
     &nbsp;
   * ### SakuraClass
+    * #### *`SakuraUICommon` est un fichier d’en-tête partagé pour la classe Sakura.*
+    * #### *`SakuraBlend` est principalement utilisée pour le rendu de texture et de texte primitif.*
+    * #### *`SakuraButton` est principalement utilisée pour les contrôles Button.*
+    * #### *`SakuraCheckBox` est principalement utilisée pour le contrôle CheckBox.*
+    * #### *`SakuraComboBox` est principalement utilisée pour le contrôle ComboBox.*
+    * #### *`SakuraControl` est utilisée pour la classe de base de la classe de contrôle, fournissant d'autres interfaces dérivées de la classe de contrôle.*
+    * #### *`SakuraDialog` est principalement utilisée pour construire des fenêtres. En tant que conteneur pour les contrôles, vous pouvez ajouter différents types de contrôles et de réponses.*
+    * #### *`SakuraEidtBox` est principalement utilisée pour le contrôle EditBox.*
+    * #### *`SakuraElement` est principalement utilisée pour les primitives de rendu de contrôle.*
+    * #### *`SakuraListBox` est principalement utilisée pour le contrôle ListBox.*
+    * #### *`SakuraRadioButton` est principalement utilisée pour le contrôle de RadioButton.*
+    * #### *`SakuraResource` est principalement utilisée pour la gestion des ressources de la classe Sakura.*
+    * #### *`SakuraResourceManager` est principalement utilisée pour la classe de gestion des ressources de classe Sakura.*
+    * #### *`SakuraScrollBar` est principalement utilisée pour le contrôle ScrollBar.*
+    * #### *`SakuraSlider` est principalement utilisée pour le contrôle Slider.*
+    * #### *`SakuraStatic` principalement pour les contrôles de dessin de polices.*
+    * #### *`SakuraUint` dessine principalement des primitives.*
     &nbsp;
   * ### DXUIClass
     &nbsp;

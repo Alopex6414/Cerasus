@@ -59,7 +59,7 @@ Cerasus besteht jetzt aus 4 Teilen, der **Direct** -Klasse, die für das Renderi
     * #### *`SakuraListBox`-Klasse wird hauptsächlich für das ListBox-Steuerelement verwendet.*
     * #### *`SakuraRadioButton` -Klasse wird hauptsächlich für die RadioButton-Steuerung verwendet.*
     * #### *`SakuraResource` wird hauptsächlich für die Verwaltung von Sakura-Klassenressourcen verwendet.*
-    * #### *`SakuraResourceManager`-Klasse wird hauptsächlich für die Sakura-Klassen-Ressourcenverwaltungsklasse verwendet. *
+    * #### *`SakuraResourceManager`-Klasse wird hauptsächlich für die Sakura-Klassen-Ressourcenverwaltungsklasse verwendet.*
     * #### *`SakuraScrollBar` -Klasse wird hauptsächlich für das ScrollBar-Steuerelement verwendet.*
     * #### *`SakuraSlider`-Klasse wird hauptsächlich für das Slider-Steuerelement verwendet.*
     * #### *`SakuraStatic` -Klasse hauptsächlich für Steuerelemente zum Zeichnen von Schriftarten.*

@@ -60,6 +60,7 @@ Cerasus now consists of 4 parts, the **Direct** class responsible for DirectX un
      * #### *`SakuraResource` class is mainly used for Sakura class resource management.*
      * #### *`SakuraResourceManager` class is mainly used for Sakura class resource management class.*
      * #### *`SakuraScrollBar` class is mainly used for the ScrollBar control.*
+     * #### *`SakuraSlider` class is mainly used for the Slider control.*
     &nbsp;
   * ### DXUIClass
     &nbsp;

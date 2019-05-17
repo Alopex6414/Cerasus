@@ -66,4 +66,8 @@ Cerasus se compose désormais de 4 parties: la classe **Direct** responsable du 
     * #### *`SakuraUint` dessine principalement des primitives.*
     &nbsp;
   * ### DXUIClass
-    &nbsp;
+      La classe DXUI est temporairement non terminée, à mettre à jour ...
+     & nbsp;
+    
+## Licence
+   Copyright (C) 2017 ~ 2019, Team Gorgeous Bubble, Tous droits réservés.

@@ -66,4 +66,8 @@ Cerasus besteht jetzt aus 4 Teilen, der **Direct** -Klasse, die für das Renderi
     * #### *`SakuraUint`-Klasse zeichnet hauptsächlich Primitive.*
     &nbsp;
   * ### DXUIClass
-    &nbsp;
+      Die DXUI-Klasse ist vorübergehend nicht fertiggestellt, um aktualisiert zu werden ...
+    &nbsp;
+    
+## Lizenz
+   Copyright (C) 2017 ~ 2019, Team wunderschöne Blase, alle Rechte vorbehalten.

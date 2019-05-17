@@ -47,23 +47,23 @@ Cerasusは、DirectXの基礎となるグラフィックスレンダリングを
     * #### *`CerasusType`は主にCerasusクラスの型を定義するために使われます。*
     &nbsp;
   * ### SakuraClass
-    * #### * `SakuraUICommon`はSakuraクラス用の共有ヘッダファイルです。*
-    * #### * `SakuraBlend`クラスは主にプリミティブテクスチャーとテキストレンダリングに使われます。*
-    * #### * SakuraButtonクラスは主にButtonコントロールに使われます。*
-    * #### * `SakuraCheckBox`クラスは主にCheckBoxコントロールに使用されます。*
-    * #### * `SakuraComboBox`クラスは主にComboBoxコントロールに使用されます。*
-    * #### * `SakuraControl`クラスはコントロールクラスの基底クラスとして使われ、他のコントロールクラス派生インターフェースを提供します。*
-    * #### * `SakuraDialog`クラスは主にウィンドウを構築するために使用されます。コントロールのコンテナとして、さまざまな種類のコントロールとレスポンスを追加できます。*
-    * #### * `SakuraEidtBox`クラスは主にEditBoxコントロールに使用されます。*
-    * #### * `SakuraElement`クラスは主にコントロールレンダリングプリミティブのために使われます。*
-    * #### * `SakuraListBox`クラスは主にListBoxコントロールのために使われます。*
-    * #### * `SakuraRadioButton`クラスは主にRadioButtonコントロールに使用されます。*
-    * #### * `SakuraResource`クラスは主にSakuraクラスのリソース管理に使用されます。*
-    * #### * `SakuraResourceManager`クラスは主にSakuraクラスのリソース管理クラスに使用されます。*
-    * #### * `SakuraScrollBar`クラスは主にScrollBarコントロールに使用されます。*
-    * #### * `SakuraSlider`クラスは主にSliderコントロールに使用されます。*
+    * #### *`SakuraUICommon`はSakuraクラス用の共有ヘッダファイルです。*
+    * #### *`SakuraBlend`クラスは主にプリミティブテクスチャーとテキストレンダリングに使われます。*
+    * #### *`SakuraButton`クラスは主にButtonコントロールに使われます。*
+    * #### *`SakuraCheckBox`クラスは主にCheckBoxコントロールに使用されます。*
+    * #### *`SakuraComboBox`クラスは主にComboBoxコントロールに使用されます。*
+    * #### *`SakuraControl`クラスはコントロールクラスの基底クラスとして使われ、他のコントロールクラス派生インターフェースを提供します。*
+    * #### *`SakuraDialog`クラスは主にウィンドウを構築するために使用されます。コントロールのコンテナとして、さまざまな種類のコントロールとレスポンスを追加できます。*
+    * #### *`SakuraEidtBox`クラスは主にEditBoxコントロールに使用されます。*
+    * #### *`SakuraElement`クラスは主にコントロールレンダリングプリミティブのために使われます。*
+    * #### *`SakuraListBox`クラスは主にListBoxコントロールのために使われます。*
+    * #### *`SakuraRadioButton`クラスは主にRadioButtonコントロールに使用されます。*
+    * #### *`SakuraResource`クラスは主にSakuraクラスのリソース管理に使用されます。*
+    * #### *`SakuraResourceManager`クラスは主にSakuraクラスのリソース管理クラスに使用されます。*
+    * #### *`SakuraScrollBar`クラスは主にScrollBarコントロールに使用されます。*
+    * #### *`SakuraSlider`クラスは主にSliderコントロールに使用されます。*
     * #### *主にフォント描画制御のための `SakuraStatic`クラス*
-    * #### * `SakuraUint`クラスは主にプリミティブを描画します*
+    * #### *`SakuraUint`クラスは主にプリミティブを描画します*
     &nbsp;
   * ### DXUIClass
     &nbsp;

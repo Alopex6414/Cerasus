@@ -55,6 +55,7 @@ Cerasus now consists of 4 parts, the **Direct** class responsible for DirectX un
      * #### *`SakuraDialog` class is mainly used to build windows. As a container for controls, you can add various types of controls and responses.*
      * #### *`SakuraEidtBox` class is mainly used for EditBox control.*
      * #### *`SakuraElement` class is mainly used for control rendering primitives.*
+     * #### *`SakuraListBox` class is mainly used for ListBox control.*
     &nbsp;
   * ### DXUIClass
     &nbsp;

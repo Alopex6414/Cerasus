@@ -66,4 +66,8 @@ Cerasus現在由4部分組成，**Direct**類負責DirectX底層圖形渲染，*
     * #### *`SakuraUint`類主要繪製基元。*
     &nbsp;
   * ### DXUIClass
-    &nbsp;
+      DXUI類暫時沒有完成，需要更新......
+    &nbsp;
+    
+## 許可
+   版權所有（C）2017~2011，Team Gorgeous Bubble，保留所有權利。

@@ -67,7 +67,7 @@ Cerasus se compose désormais de 4 parties: la classe **Direct** responsable du 
     &nbsp;
   * ### DXUIClass
       La classe DXUI est temporairement non terminée, à mettre à jour ...
-     & nbsp;
+    &nbsp;
     
 ## Licence
    Copyright (C) 2017 ~ 2019, Team Gorgeous Bubble, Tous droits réservés.

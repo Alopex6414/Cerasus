@@ -47,6 +47,23 @@ Cerasus现在由4部分组成，**Direct**类负责DirectX底层图形渲染，*
     * #### *`CerasusType`类主要用于定义Cerasus类的类型。*
     &nbsp;
   * ### SakuraClass
+    * #### *`SakuraUICommon`是Sakura类的共享头文件*
+    * #### *`SakuraBlend`类主要用于原始纹理和文本渲染。*
+    * #### *`SakuraButton`类主要用于Button控件。*
+    * #### *`SakuraCheckBox`类主要用于CheckBox控件。*
+    * #### *`SakuraComboBox`类主要用于ComboBox控件。*
+    * #### *`SakuraControl`类用于控件类的基类，提供其他控件类派生接口。*
+    * #### *`SakuraDialog`类主要用于构建windows。作为控件的容器，您可以添加各种类型的控件和响应。*
+    * #### *`SakuraEidtBox`类主要用于EditBox控件。*
+    * #### *`SakuraElement`类主要用于控制渲染原语。*
+    * #### *`SakuraListBox`类主要用于ListBox控件。*
+    * #### *`SakuraRadioButton`类主要用于RadioButton控件。*
+    * #### *`SakuraResource`类主要用于Sakura类资源管理。*
+    * #### *`SakuraResourceManager`类主要用于Sakura类资源管理类。*
+    * #### *`SakuraScrollBar`类主要用于ScrollBar控件。*
+    * #### *`SakuraSlider`类主要用于Slider控件。*
+    * #### *`SakuraStatic`类主要用于字体绘图控件。*
+    * #### *`SakuraUint`类主要绘制基元。*
     &nbsp;
   * ### DXUIClass
     &nbsp;

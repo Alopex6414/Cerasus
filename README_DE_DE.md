@@ -47,6 +47,23 @@ Cerasus besteht jetzt aus 4 Teilen, der **Direct** -Klasse, die für das Renderi
     * #### *`CerasusType` wird hauptsächlich verwendet, um den Typ der Cerasus-Klasse zu definieren.*
     &nbsp;
   * ### SakuraClass
+    * #### *`SakuraUICommon` ist eine gemeinsame Header-Datei für die Sakura-Klasse.*
+    * #### *`SakuraBlend` -Klasse wird hauptsächlich für die Wiedergabe von primitiven Texturen und Text verwendet.*
+    * #### *`SakuraButton` -Klasse wird hauptsächlich für Button-Steuerelemente verwendet.*
+    * #### *`SakuraCheckBox` -Klasse wird hauptsächlich für das CheckBox-Steuerelement verwendet.*
+    * #### *`SakuraComboBox` -Klasse wird hauptsächlich für das ComboBox-Steuerelement verwendet.*
+    * #### *`SakuraControl` -Klasse wird für die Basisklasse der Kontrollklasse verwendet und stellt andere von Kontrollklassen abgeleitete Schnittstellen bereit.*
+    * #### *`SakuraDialog` -Klasse wird hauptsächlich zum Erstellen von Fenstern verwendet. Als Container für Steuerelemente können Sie verschiedene Arten von Steuerelementen und Antworten hinzufügen.*
+    * #### *`SakuraEidtBox` -Klasse wird hauptsächlich für das EditBox-Steuerelement verwendet.*
+    * #### *`SakuraElement` -Klasse wird hauptsächlich für das Rendern von Steuerelementen verwendet.*
+    * #### *`SakuraListBox`-Klasse wird hauptsächlich für das ListBox-Steuerelement verwendet.*
+    * #### *`SakuraRadioButton` -Klasse wird hauptsächlich für die RadioButton-Steuerung verwendet.*
+    * #### *`SakuraResource` wird hauptsächlich für die Verwaltung von Sakura-Klassenressourcen verwendet.*
+    * #### *`SakuraResourceManager`-Klasse wird hauptsächlich für die Sakura-Klassen-Ressourcenverwaltungsklasse verwendet. *
+    * #### *`SakuraScrollBar` -Klasse wird hauptsächlich für das ScrollBar-Steuerelement verwendet.*
+    * #### *`SakuraSlider`-Klasse wird hauptsächlich für das Slider-Steuerelement verwendet.*
+    * #### *`SakuraStatic` -Klasse hauptsächlich für Steuerelemente zum Zeichnen von Schriftarten.*
+    * #### *`SakuraUint`-Klasse zeichnet hauptsächlich Primitive.*
     &nbsp;
   * ### DXUIClass
     &nbsp;

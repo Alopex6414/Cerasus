@@ -66,4 +66,5 @@ Cerasus now consists of 4 parts, the **Direct** class responsible for DirectX un
      * #### *`SakuraUint` class mainly draws primitives.*
     &nbsp;
   * ### DXUIClass
+     The DXUI class is temporarily not completed, to be updated...
     &nbsp;

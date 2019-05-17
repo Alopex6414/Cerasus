@@ -66,4 +66,8 @@ Cerasus现在由4部分组成，**Direct**类负责DirectX底层图形渲染，*
     * #### *`SakuraUint`类主要绘制基元。*
     &nbsp;
   * ### DXUIClass
+    DXUI类暂时没有完成，需要更新......
     &nbsp;
+    
+## 许可
+   版权所有（C）2017~2019，Team Gorgeous Bubble，保留所有权利。

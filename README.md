@@ -47,6 +47,7 @@ Cerasus now consists of 4 parts, the **Direct** class responsible for DirectX un
      * #### *`CerasusType` class is mainly used to define the type of Cerasus class.*
     &nbsp;
   * ### SakuraClass
+     * #### *`SakuraUICommon` is a shared header file for the Sakura class.*
      * #### *`SakuraBlend` class is mainly used for primitive texture and text rendering.*
      * #### *`SakuraButton` class is mainly used for Button controls.*
      * #### *`SakuraCheckBox` class is mainly used for the CheckBox control.*
